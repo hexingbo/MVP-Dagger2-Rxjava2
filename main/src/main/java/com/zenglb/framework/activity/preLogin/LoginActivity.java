@@ -84,9 +84,9 @@ public class LoginActivity extends BaseActivity {
         HttpCall.cleanToken();
 
         LoginParams loginParams = new LoginParams();
-        loginParams.setClient_id("5e96eac06151d0ce2dd9554d7ee167ce");
-        loginParams.setClient_secret("aCE34n89Y277n3829S7PcMN8qANF8Fh");
-        loginParams.setGrant_type("password");
+//        loginParams.setClient_id("5e96eac06151d0ce2dd9554d7ee167ce");
+//        loginParams.setClient_secret("aCE34n89Y277n3829S7PcMN8qANF8Fh");
+//        loginParams.setGrant_type("password");
         loginParams.setUsername(userName);
         loginParams.setPassword(password);
 

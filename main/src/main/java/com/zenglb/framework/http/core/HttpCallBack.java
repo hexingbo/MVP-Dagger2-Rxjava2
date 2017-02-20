@@ -95,10 +95,16 @@ public abstract class HttpCallBack<T extends HttpResponse> implements Callback<T
                 onFailure(responseCode, response.body().getError());
             }
         } else {
-            //================ http default error 401,404=================
+            //================ handle http default error 400,=================
             int code = response.raw().code();
             String message = response.raw().message();
-            //================ http default error 401,404=================
+            Log.e("http-error","code:"+code+"   message:"+message);
+
+            if(code!=404){  //我们的项目返回404 的时候有可能是翻页到没有数据了
+                onFailure(code,message);
+                return;
+            }
+            //================ handle http default error 400=================
 
             String errorBodyStr = "";
             try {
@@ -193,7 +199,7 @@ public abstract class HttpCallBack<T extends HttpResponse> implements Callback<T
                     break;
             }
 
-            Toast.makeText(mContext, message, Toast.LENGTH_SHORT).show();
+            Toast.makeText(mContext, message+" - "+code, Toast.LENGTH_SHORT).show();
         }
     }
 

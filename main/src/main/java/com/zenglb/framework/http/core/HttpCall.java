@@ -40,11 +40,9 @@ import retrofit2.http.Query;
  */
 public class HttpCall {
     private static final String TAG = HttpCall.class.getSimpleName();
-//    private static final String baseUrl = "http://test.4009515151.com/";
-    private static final String baseUrl = "https://api.4009515151.com/";
+    private static final String baseUrl = "http://test.4009515151.com/";
     private static String TOKEN;
     private static ApiService apiService;
-//    private static ProgressResponseBody.ProgressListener progressListener;
 
     public static void cleanToken(){
         TOKEN="";

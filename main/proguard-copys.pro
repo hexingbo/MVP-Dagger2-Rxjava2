@@ -21,24 +21,25 @@
 # 对于一些基本指令的添加
 #
 #############################################
-# 代码混淆压缩比，在0~7之间，默认为5，一般不做修改
--optimizationpasses 5
-# 混合时不使用大小写混合，混合后的类名为小写
--dontskipnonpubliclibraryclassmembers
+## 代码混淆压缩比，在0~7之间，默认为5，一般不做修改
+#-optimizationpasses 5
+#-optimizations !code/simplification/cast,!field/*,!class/merging/*
+#
+## 这句话能够使我们的项目混淆后产生映射文件
+## 包含有类名->混淆后类名的映射关系
+#-verbose
+#
+#
+## 混合时不使用大小写混合，混合后的类名为小写
+#-dontskipnonpubliclibraryclassmembers
 
-# 这句话能够使我们的项目混淆后产生映射文件
-# 包含有类名->混淆后类名的映射关系
--verbose
-
-
--printmapping proguardMapping.txt
--optimizations !code/simplification/cast,!field/*,!class/merging/*
--keepattributes *Annotation*,InnerClasses
--keepattributes Signature
--keepattributes SourceFile,LineNumberTable
+#-printmapping proguardMapping.txt
+#-keepattributes Signature
+#-keepattributes SourceFile,LineNumberTable
 #----------------------------------------------------------------------------
 
-
+-keepattributes Signature
+-keepattributes *Annotation*
 
 #------------------------------ 项目只和业务有关的实体类--------------------------------
 -keep class com.zenglb.framework.http.bean.** { *; }
@@ -47,8 +48,9 @@
 -keep class com.zenglb.framework.config.** { *; }
 -keep class com.zenglb.framework.http.core.HttpResponse{*;}
 
-
-
+-keep public class com.zenglb.framework.R$*{
+    public static final int *;
+}
 
 #---------------------------------默认保留区---------------------------------
 #继承activity,application,service,broadcastReceiver,contentprovider....不进行混淆
@@ -113,6 +115,9 @@
   public static final android.os.Parcelable$Creator *;
 }
 
+-keepattributes *Annotation*,InnerClasses
+
+
 #---------------------------------webview------------------------------------
 -keepclassmembers class fqcn.of.javascript.interface.for.Webview {
    public *;
@@ -133,8 +138,6 @@
 
 
 #---------------------------------自定义View的类------------------------
-
-
 
 
 
@@ -187,11 +190,6 @@
 -keep public class android.webkit.**
 
 
-
-
--keep public class com.zenglb.framework.R$*{
-    public static final int *;
-}
 -keepclassmembers class * {
    public <init> (org.json.JSONObject);
 }
@@ -217,8 +215,6 @@
     java.lang.Object readResolve();
 }
 -keep public class * implements java.io.Serializable {*;}
-
-
 
 
 ### greenDAO 3

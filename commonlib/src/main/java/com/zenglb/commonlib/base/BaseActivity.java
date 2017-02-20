@@ -29,7 +29,33 @@ public abstract class BaseActivity extends AppCompatActivity implements View.OnC
             setSupportActionBar(mToolbar);
         }
         initViews();
+
     }
+
+
+    /**
+     * 检查网络
+     *
+     */
+    private void getNetState(){
+//        //用于网络监测
+//        if(!NetUtils.isConnected(BaseActivity.this)){
+//            AlertDialog.Builder builder = new AlertDialog.Builder(BaseActivity.this);
+//            builder.setIcon(R.mipmap.ic_launcher);
+//            builder.setTitle("提示");
+//            builder.setMessage("当前没有可用网络，是否进入网络设置界面");
+//            builder.setNegativeButton("确定", new DialogInterface.OnClickListener() {
+//                @Override
+//                public void onClick(DialogInterface dialog, int which) {
+//                    dialog.dismiss();
+//                    NetUtils.openSetting(BaseActivity.this);
+//                }
+//            });
+//            builder.setPositiveButton("取消",null);
+//            builder.create().show();
+//        }
+    }
+
 
 
     protected abstract int setLayoutId();
