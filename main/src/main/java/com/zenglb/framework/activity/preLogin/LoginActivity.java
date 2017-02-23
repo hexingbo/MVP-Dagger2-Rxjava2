@@ -1,11 +1,17 @@
 package com.zenglb.framework.activity.preLogin;
 
 import android.app.ActivityOptions;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.PowerManager;
+import android.provider.Settings;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.ActivityOptionsCompat;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.CardView;
 import android.text.TextUtils;
 import android.transition.Explode;
@@ -68,6 +74,7 @@ public class LoginActivity extends BaseActivity {
 
         etUsername.setText("18826562075");
         etPassword.setText("zxcv1234");
+
     }
 
 
@@ -84,9 +91,9 @@ public class LoginActivity extends BaseActivity {
         HttpCall.cleanToken();
 
         LoginParams loginParams = new LoginParams();
-//        loginParams.setClient_id("5e96eac06151d0ce2dd9554d7ee167ce");
-//        loginParams.setClient_secret("aCE34n89Y277n3829S7PcMN8qANF8Fh");
-//        loginParams.setGrant_type("password");
+        loginParams.setClient_id("5e96eac06151d0ce2dd9554d7ee167ce");
+        loginParams.setClient_secret("aCE34n89Y277n3829S7PcMN8qANF8Fh");
+        loginParams.setGrant_type("password");
         loginParams.setUsername(userName);
         loginParams.setPassword(password);
 
@@ -98,6 +105,7 @@ public class LoginActivity extends BaseActivity {
                 SharedPreferencesDao.getInstance().saveData(SPKey.KEY_ACCESS_TOKEN, "Bearer " + loginResultHttpResponse.getResult().getAccessToken());
                 SharedPreferencesDao.getInstance().saveData(SPKey.KEY_REFRESH_TOKEN, loginResultHttpResponse.getResult().getRefreshToken());
                 SharedPreferencesDao.getInstance().saveData(SPKey.KEY_LAST_ACCOUNT, etUsername.getText().toString().trim());
+
 
                 Intent i2 = new Intent(LoginActivity.this, MainActivityTab.class);
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
@@ -137,7 +145,33 @@ public class LoginActivity extends BaseActivity {
                 break;
             case R.id.bt_go:
                 login();
+//                giveTipsToOpti();
                 break;
+        }
+    }
+
+
+    /**
+     * 给出提示要求用户去选择优化电池
+     */
+    private void giveTiipsToOpti() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            PowerManager pm = (PowerManager) getSystemService(Context.POWER_SERVICE);
+            if (!pm.isIgnoringBatteryOptimizations(mContext.getPackageName())) {
+                new AlertDialog.Builder(mContext)
+                        .setTitle("Tips")
+                        .setMessage("请在接下来的电池优化中选择[是]，虽然会消耗多一些的电量，但能让手机更好接收推送")
+                        .setCancelable(false)
+                        .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                Intent intent = new Intent(Settings.ACTION_REQUEST_IGNORE_BATTERY_OPTIMIZATIONS);
+                                intent.setData(Uri.parse("package:" + mContext.getPackageName()));
+                                startActivity(intent);  //请求电池不优化
+                            }
+                        })
+                        .show();
+            }
         }
     }
 

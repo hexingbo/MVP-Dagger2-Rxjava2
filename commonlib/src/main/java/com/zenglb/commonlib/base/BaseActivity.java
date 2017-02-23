@@ -1,5 +1,6 @@
 package com.zenglb.commonlib.base;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -18,12 +19,13 @@ import com.zenglb.commonlib.R;
 public abstract class BaseActivity extends AppCompatActivity implements View.OnClickListener{
     private static final String TAG = BaseActivity.class.getSimpleName();
     private Toolbar mToolbar;
+    public Context mContext;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(setLayoutId());
-
+        mContext=BaseActivity.this;
         mToolbar = (Toolbar) findViewById(R.id.toolbar);
         if (mToolbar != null) {
             setSupportActionBar(mToolbar);

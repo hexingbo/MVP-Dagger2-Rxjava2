@@ -29,12 +29,14 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 
 /**
+ * 这里的封装处理方式和api 协议结构有关
+ * <p>
  * 一般的Success 的处理各不相同，但是fail会有很多相同的处理方式
  * 一定要处理好各种异常情况。
- *
+ * <p>
  * Communicates responses from a server or offline requests. One and only one method will be
  * invoked in response to a given request.
- *
+ * <p>
  * Callback methods are executed using the {@link Retrofit} callback executor. When none is
  * specified, the following defaults are used:
  * <ul>
@@ -47,6 +49,7 @@ import retrofit2.Retrofit;
 
 public abstract class HttpCallBack<T extends HttpResponse> implements Callback<T> {
     private final String TAG = HttpCallBack.class.getSimpleName();
+    private final int RESPONSE_CODE_OK = 0;  //自定义的业务逻辑，成功返回积极数据
     private static Gson gson = new Gson();
     private Context mContext;
     //是否需要显示Http 请求的进度，默认的是需要，但是Service 和 预取数据不需要
@@ -65,6 +68,7 @@ public abstract class HttpCallBack<T extends HttpResponse> implements Callback<T
     }
 
     /**
+     *
      * @param mContext
      * @param showProgress 默认需要显示进程，不要的话请传 false
      */
@@ -89,22 +93,21 @@ public abstract class HttpCallBack<T extends HttpResponse> implements Callback<T
         dismissDialog();
         if (response.isSuccessful()) {
             int responseCode = response.body().getCode();           //responseCode是api 里面定义的,进行进一步的数据和事件分发!
-            if (responseCode == 0) {
+            if (responseCode == RESPONSE_CODE_OK) {
                 onSuccess(response.body());
             } else {
                 onFailure(responseCode, response.body().getError());
             }
         } else {
-            //================ handle http default error 400,=================
+            //================ handle http default error 4xx,5xx=================
             int code = response.raw().code();
             String message = response.raw().message();
-            Log.e("http-error","code:"+code+"   message:"+message);
-
-            if(code!=404){  //我们的项目返回404 的时候有可能是翻页到没有数据了
-                onFailure(code,message);
+            Log.e("http-error", "code:" + code + "   message:" + message);
+            if (code != 404) {  //我们的项目返回404 的时候有可能是翻页到没有数据了
+                onFailure(code, message);
                 return;
             }
-            //================ handle http default error 400=================
+            //================ handle http default error 4xx,5xx=================
 
             String errorBodyStr = "";
             try {
@@ -175,11 +178,13 @@ public abstract class HttpCallBack<T extends HttpResponse> implements Callback<T
                 public void onClick(DialogInterface dialog, int which) {
                 }
             });
-            builder.setNegativeButton("取消", new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                }
-            });
+
+//            builder.setNegativeButton("取消", new DialogInterface.OnClickListener() {
+//                @Override
+//                public void onClick(DialogInterface dialog, int which) {
+//                }
+//            });
+
             AlertDialog dlg = builder.create();
             dlg.show();
             dlg.setCanceledOnTouchOutside(false);
@@ -187,8 +192,8 @@ public abstract class HttpCallBack<T extends HttpResponse> implements Callback<T
             dlg.getButton(DialogInterface.BUTTON_NEGATIVE).setTextColor(Color.WHITE);
             dlg.getButton(DialogInterface.BUTTON_POSITIVE).setTextColor(ContextCompat.getColor(mContext, R.color.colorPrimary));
         } else {
-            //错误的统一处理
-            switch (code){
+            //错误的统一处理，code
+            switch (code) {
                 case 101:
                 case 112:
                 case 123:
@@ -198,8 +203,7 @@ public abstract class HttpCallBack<T extends HttpResponse> implements Callback<T
                     mContext.startActivity(intent);
                     break;
             }
-
-            Toast.makeText(mContext, message+" - "+code, Toast.LENGTH_SHORT).show();
+            Toast.makeText(mContext, message + " # " + code, Toast.LENGTH_SHORT).show();
         }
     }
 

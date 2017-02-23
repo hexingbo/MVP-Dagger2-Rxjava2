@@ -44,8 +44,8 @@ public class HttpCall {
     private static String TOKEN;
     private static ApiService apiService;
 
-    public static void cleanToken(){
-        TOKEN="";
+    public static void cleanToken() {
+        TOKEN = "";
     }
 
     public static ApiService getApiService() {
@@ -106,13 +106,12 @@ public class HttpCall {
             loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
 
             OkHttpClient okHttpClient = new OkHttpClient.Builder()
-                    .retryOnConnectionFailure(true)                 //??
+                    .retryOnConnectionFailure(true)
                     .connectTimeout(2, TimeUnit.SECONDS)
                     .addNetworkInterceptor(mRequestInterceptor)
                     .addInterceptor(loggingInterceptor)
                     .authenticator(mAuthenticator2)
                     .build();
-
 
             Retrofit client = new Retrofit.Builder()
                     .baseUrl(baseUrl)
@@ -129,31 +128,31 @@ public class HttpCall {
      * uese refresh token to Refresh an Access Token
      */
     private static void refreshToken() {
-		LoginParams loginParams = new LoginParams();
-		loginParams.setClient_id("5e96eac06151d0ce2dd9554d7ee167ce");
-		loginParams.setClient_secret("aCE34n89Y277n3829S7PcMN8qANF8Fh");
-		loginParams.setGrant_type("refresh_token");
-		loginParams.setRefresh_token(SharedPreferencesDao.getInstance().getData(SPKey.KEY_REFRESH_TOKEN,"",String.class));
-		Call<HttpResponse<LoginResult>> refreshTokenCall = HttpCall.getApiService().refreshToken(loginParams);
-		try {
-			retrofit2.Response<HttpResponse<LoginResult>> response = refreshTokenCall.execute();
-			if (response.isSuccessful()) {
-				int responseCode = response.body().getCode();
-				if (responseCode == 0) {
-					HttpResponse<LoginResult> httpResponse = response.body();
+        LoginParams loginParams = new LoginParams();
+        loginParams.setClient_id("5e96eac06151d0ce2dd9554d7ee167ce");
+        loginParams.setClient_secret("aCE34n89Y277n3829S7PcMN8qANF8Fh");
+        loginParams.setGrant_type("refresh_token");
+        loginParams.setRefresh_token(SharedPreferencesDao.getInstance().getData(SPKey.KEY_REFRESH_TOKEN, "", String.class));
+        Call<HttpResponse<LoginResult>> refreshTokenCall = HttpCall.getApiService().refreshToken(loginParams);
+        try {
+            retrofit2.Response<HttpResponse<LoginResult>> response = refreshTokenCall.execute();
+            if (response.isSuccessful()) {
+                int responseCode = response.body().getCode();
+                if (responseCode == 0) {
+                    HttpResponse<LoginResult> httpResponse = response.body();
                     SharedPreferencesDao.getInstance().saveData(SPKey.KEY_ACCESS_TOKEN, "Bearer " + httpResponse.getResult().getAccessToken());
                     SharedPreferencesDao.getInstance().saveData(SPKey.KEY_REFRESH_TOKEN, httpResponse.getResult().getRefreshToken());
-				}else{
+                } else {
 //                    //退回到登录页面
 //                    Intent intent = new Intent();
 //                    intent.setAction("com.itheima.intent.open02");
 //                    intent.addCategory("android.intent.category.DEFAULT");
 //                    startActivity(intent);
                 }
-			}
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     /**
