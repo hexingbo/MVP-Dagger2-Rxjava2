@@ -79,8 +79,6 @@ android {
                 }
             }
         }//applicationVariants.all  is over
-
-
     }
 
     greendao {
@@ -120,4 +118,5 @@ dependencies {
     compile 'com.google.code.gson:gson:2.4'
     //5.百分比布局控件
     compile 'com.zhy:percent-support-extends:1.1.1'
+
 }

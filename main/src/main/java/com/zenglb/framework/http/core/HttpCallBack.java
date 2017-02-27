@@ -197,7 +197,8 @@ public abstract class HttpCallBack<T extends HttpResponse> implements Callback<T
                 case 101:
                 case 112:
                 case 123:
-                    //退回到登录页面
+                case 401 :
+                    //退回到登录页面，
                     Intent intent = new Intent();
                     intent.setClass(mContext, LoginActivity.class);
                     mContext.startActivity(intent);
