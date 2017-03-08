@@ -10,5 +10,14 @@ iOS 是否也可以使用这种方法呢？待确定！不行就进行URL拦截 
 Native 和JS 之间的通信协议还是可以通用的
 
 #JS 与 Native 的通信协议    
-http://host:port/path?param=value  我们可以参考http 的通信协议，然后结合我们的业务逻辑指定JsBridge 通信协议。
-jsbridge://className:port/methodName?jsonObj
+http://host:port/path?param=value  我们可以参考http 的通信协议，然后结合我们的业务逻辑制定JsBridge 通信协议。
+jsbridge://className:callbackAddr（port）/methodName?jsonObj
+
+jsbridge:
+className:
+callbackAddr(port):
+methodName:
+jsonObj:
+
+#JS 调用Native然后Native返回数据给JS工作流程
+这里Native 返回数据给JS 都是指的异步，下面用图解释一下这个处理流程的闭环
