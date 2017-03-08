@@ -21,7 +21,6 @@ import com.zenglb.commonlib.base.BaseFragment;
 import com.zenglb.framework.R;
 import com.zenglb.framework.activity.WebActivity.WebActivity;
 import com.zenglb.framework.activity.preLogin.LoginActivity;
-import com.zenglb.framework.jsbridge.BaseWebViewActivity;
 
 import java.util.ArrayList;
 import java.util.List;

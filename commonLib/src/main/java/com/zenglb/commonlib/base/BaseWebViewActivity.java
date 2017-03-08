@@ -1,4 +1,4 @@
-package com.zenglb.framework.jsbridge;
+package com.zenglb.commonlib.base;
 
 import android.content.DialogInterface;
 import android.net.http.SslError;
@@ -13,13 +13,14 @@ import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.ProgressBar;
-import com.zenglb.commonlib.base.BaseActivity;
-import com.zenglb.framework.R;
+
+import com.zenglb.commonlib.R;
+import com.zenglb.commonlib.jsbridge.BridgeImpl;
+import com.zenglb.commonlib.jsbridge.JSBridge;
 
 
 /**
  * 包含JSBridge 的WebView
- *
  */
 public abstract class BaseWebViewActivity extends BaseActivity {
     private WebView mWebView;
@@ -50,14 +51,13 @@ public abstract class BaseWebViewActivity extends BaseActivity {
     }
 
     /**
-     *
      * @param url
      */
-    public void setURL(String url){
+    public void setURL(String url) {
         mWebView.loadUrl(url);
     }
 
-    private void setWebViewClient(){
+    private void setWebViewClient() {
         mWebView.setWebViewClient(new WebViewClient() {
             @Override
             public void onReceivedSslError(WebView view, final SslErrorHandler handler, SslError error) {
@@ -106,7 +106,7 @@ public abstract class BaseWebViewActivity extends BaseActivity {
 
     }
 
-    private void  setWebChromeClient(){
+    private void setWebChromeClient() {
         //顶部进度条
         mWebView.setWebChromeClient(new WebChromeClient() {
 

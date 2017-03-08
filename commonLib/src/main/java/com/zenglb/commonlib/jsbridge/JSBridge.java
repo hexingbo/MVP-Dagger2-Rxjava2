@@ -1,4 +1,4 @@
-package com.zenglb.framework.jsbridge;
+package com.zenglb.commonlib.jsbridge;
 
 import android.net.Uri;
 import android.text.TextUtils;

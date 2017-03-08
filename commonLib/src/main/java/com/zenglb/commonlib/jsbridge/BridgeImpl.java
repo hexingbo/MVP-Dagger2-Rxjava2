@@ -1,4 +1,4 @@
-package com.zenglb.framework.jsbridge;
+package com.zenglb.commonlib.jsbridge;
 
 import android.webkit.WebView;
 import android.widget.Toast;

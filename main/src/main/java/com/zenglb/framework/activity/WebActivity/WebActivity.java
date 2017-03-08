@@ -2,7 +2,7 @@ package com.zenglb.framework.activity.WebActivity;
 
 import android.os.Bundle;
 import android.view.View;
-import com.zenglb.framework.jsbridge.BaseWebViewActivity;
+import com.zenglb.commonlib.base.BaseWebViewActivity;
 
 /**
  * 业务逻辑相关的写在这里处理

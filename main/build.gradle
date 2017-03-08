@@ -97,8 +97,6 @@ dependencies {
     testCompile 'junit:junit:4.12'
     compile project(':commonLib')
     compile project(':settingViewLib')
-    compile project(':jsBridgeLib')
-
 
     compile 'com.android.support:appcompat-v7:25.2.0'
     compile 'com.android.support:design:25.2.0'
