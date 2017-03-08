@@ -19,8 +19,9 @@ import com.dtr.settingview.lib.item.BasicItemViewH;
 import com.dtr.settingview.lib.item.SwitchItemView;
 import com.zenglb.commonlib.base.BaseFragment;
 import com.zenglb.framework.R;
+import com.zenglb.framework.activity.WebActivity.WebActivity;
 import com.zenglb.framework.activity.preLogin.LoginActivity;
-import com.zenglb.framework.jsbridge.JsBridgeWebViewActivity;
+import com.zenglb.framework.jsbridge.BaseWebViewActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -154,7 +155,7 @@ public class MeProfileFragment extends BaseFragment {
             public void onItemClick(int index) {
                 // TODO Auto-generated method stub
 //                startActivity(new Intent(mActivity, SetHeadImgActivity.class));
-                startActivity(new Intent(mActivity, JsBridgeWebViewActivity.class));
+                startActivity(new Intent(mActivity, WebActivity.class));
 
                 Toast.makeText(mActivity, "第" + index + "项被点击", Toast.LENGTH_SHORT).show();
                 if (index == 4) {

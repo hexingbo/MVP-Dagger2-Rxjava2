@@ -64,7 +64,7 @@
 
         <activity
             android:launchMode="singleTask"
-            android:name=".jsbridge.JsBridgeWebViewActivity" />
+            android:name=".jsbridge.BaseWebViewActivity" />
 
         <activity
             android:launchMode="singleTask"

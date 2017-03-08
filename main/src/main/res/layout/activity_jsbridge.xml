@@ -5,15 +5,28 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".jsbridge.JsBridgeWebViewActivity">
+    tools:context=".jsbridge.BaseWebViewActivity">
 
     <include
         layout="@layout/basic_toolbar_layout"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize" />
 
-    <WebView
-        android:id="@+id/webview"
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"></WebView>
+        android:layout_height="match_parent">
+
+        <WebView
+            android:id="@+id/webview"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+        <ProgressBar
+            android:id="@+id/progress_bar"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="-7dp" />
+    </FrameLayout>
+
 </LinearLayout>
