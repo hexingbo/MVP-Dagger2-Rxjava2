@@ -9,7 +9,7 @@ import com.zenglb.framework.database.daomaster.MessagesDao;
 
 
 /**
- * 重新的考虑升级策略
+ * 数据库的升级策略，一般的只会增加一些字段和添加表，字段名 是很少修改的
  *
  * Created by zenglb on 2017/1/3.
  */

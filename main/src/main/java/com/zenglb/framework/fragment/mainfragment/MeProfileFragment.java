@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -18,13 +17,10 @@ import com.dtr.settingview.lib.entity.SettingData;
 import com.dtr.settingview.lib.entity.SettingViewItemData;
 import com.dtr.settingview.lib.item.BasicItemViewH;
 import com.dtr.settingview.lib.item.SwitchItemView;
-import com.liaoinstan.springview.container.DefaultHeader;
-import com.liaoinstan.springview.widget.SpringView;
 import com.zenglb.commonlib.base.BaseFragment;
 import com.zenglb.framework.R;
 import com.zenglb.framework.activity.preLogin.LoginActivity;
-import com.zenglb.framework.activity.preLogin.RegisterActivity;
-import com.zenglb.framework.activity.setHeadImg.SetHeadImgActivity;
+import com.zenglb.framework.jsbridge.JsBridgeWebViewActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -157,7 +153,8 @@ public class MeProfileFragment extends BaseFragment {
             @Override
             public void onItemClick(int index) {
                 // TODO Auto-generated method stub
-                startActivity(new Intent(mActivity, SetHeadImgActivity.class));
+//                startActivity(new Intent(mActivity, SetHeadImgActivity.class));
+                startActivity(new Intent(mActivity, JsBridgeWebViewActivity.class));
 
                 Toast.makeText(mActivity, "第" + index + "项被点击", Toast.LENGTH_SHORT).show();
                 if (index == 4) {
@@ -182,7 +179,6 @@ public class MeProfileFragment extends BaseFragment {
             }
         });
 
-
         //=======================    FBI WARMMING !=================
         super.initViews(rootView);  //一定放在最后面来调用
     }
@@ -204,14 +200,12 @@ public class MeProfileFragment extends BaseFragment {
         mSettingView1.removeAllViews();
         mListData.clear();
 
-
         mItemViewData = new SettingViewItemData();
         mItemData = new SettingData();
         mItemData.setTitle("飞行模式");
         mItemViewData.setData(mItemData);
         mItemViewData.setItemView(new SwitchItemView(mActivity));
         mListData.add(mItemViewData);
-
 
         mItemViewData = new SettingViewItemData();
         mItemData = new SettingData();
@@ -220,14 +214,12 @@ public class MeProfileFragment extends BaseFragment {
         mItemViewData.setItemView(new SwitchItemView(mActivity));
         mListData.add(mItemViewData);
 
-
         mItemViewData = new SettingViewItemData();
         mItemData = new SettingData();
         mItemData.setTitle("飞行模式3");
         mItemViewData.setData(mItemData);
         mItemViewData.setItemView(new SwitchItemView(mActivity));
         mListData.add(mItemViewData);
-
 
         mItemViewData = new SettingViewItemData();
         mItemData = new SettingData();

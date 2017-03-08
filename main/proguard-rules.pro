@@ -18,7 +18,6 @@
 # -------------------------上面是proguard-android-optimize.txt已经有的配置----------------------------------------
 
 
-
 # 指定不去忽略非公共库的类成员？？？
 -dontskipnonpubliclibraryclassmembers
 
@@ -52,9 +51,7 @@
 #-----------处理反射类---------------
 
 
-
 #-----------处理js交互---------------
-
 
 
 #-----------处理实体类---------------
@@ -74,7 +71,6 @@
 -keep class com.zenglb.framework.http.bean.** { *; }
 -keep class com.zenglb.framework.http.result.** { *; }
 -keep class com.zenglb.framework.http.core.HttpResponse{*;}
-
 
 #############################################
 #
@@ -171,7 +167,6 @@
 
 
 
-
 #-----------处理第三方依赖库---------
 
 ### greenDAO 3
@@ -238,7 +233,6 @@ public static java.lang.String TABLENAME;
 -keepclassmembers class rx.internal.util.unsafe.BaseLinkedQueueConsumerNodeRef {
     rx.internal.util.atomic.LinkedQueueNode consumerNode;
 }
-
 
 
 # ＝＝＝＝＝＝＝＝＝＝＝＝＝＝　　是否需要？疑问区域

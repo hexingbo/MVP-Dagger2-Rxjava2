@@ -12,10 +12,12 @@ import android.os.Bundle;
 import android.provider.DocumentsContract;
 import android.provider.MediaStore;
 import android.support.v4.content.FileProvider;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
+
 import com.zenglb.commonlib.base.BaseActivity;
 import com.zenglb.commonlib.utils.FileCachePathConfig;
 import com.zenglb.commonlib.utils.FileStorage;
@@ -198,6 +200,10 @@ public class SetHeadImgActivity extends BaseActivity implements View.OnClickList
                 }
                 break;
             case REQUEST_PICTURE_CUT://裁剪完成
+                if (cropImgUri == null) {
+                    Toast.makeText(mContext, "cropImgUri == null", Toast.LENGTH_SHORT).show();
+                }
+
                 Bitmap bitmap = null;
                 try {
                     bitmap = BitmapFactory.decodeStream(getContentResolver().openInputStream(cropImgUri));
@@ -208,4 +214,12 @@ public class SetHeadImgActivity extends BaseActivity implements View.OnClickList
                 break;
         }
     }
+
+    /**
+     *
+     */
+    protected void onDestroy() {
+        super.onDestroy();
+    }
+
 }

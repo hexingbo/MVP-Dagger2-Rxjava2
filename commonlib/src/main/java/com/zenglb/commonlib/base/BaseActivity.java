@@ -31,7 +31,6 @@ public abstract class BaseActivity extends AppCompatActivity implements View.OnC
             setSupportActionBar(mToolbar);
         }
         initViews();
-
     }
 
 
@@ -129,7 +128,7 @@ public abstract class BaseActivity extends AppCompatActivity implements View.OnC
      * 版本号小于21的后退按钮图片
      */
     private void showBack() {
-        getToolbar().setNavigationIcon(R.drawable.ic_back);
+        getToolbar().setNavigationIcon(R.drawable.ic_back_copy);
         getToolbar().setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

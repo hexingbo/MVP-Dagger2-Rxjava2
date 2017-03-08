@@ -27,7 +27,6 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
-import retrofit2.http.Header;
 import retrofit2.http.Headers;
 import retrofit2.http.POST;
 import retrofit2.http.Path;
@@ -43,6 +42,7 @@ public class HttpCall {
     private static final String baseUrl = "http://test.4009515151.com/";
     private static String TOKEN;
     private static ApiService apiService;
+
 
     public static void cleanToken() {
         TOKEN = "";

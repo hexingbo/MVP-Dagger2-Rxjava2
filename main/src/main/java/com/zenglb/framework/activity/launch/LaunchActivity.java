@@ -9,8 +9,6 @@ import android.text.TextUtils;
 import com.zenglb.commonlib.base.BaseActivity;
 import com.zenglb.commonlib.sharedpreferences.SharedPreferencesDao;
 import com.zenglb.framework.R;
-import com.zenglb.framework.activity.demo.DemoActivity;
-import com.zenglb.framework.activity.main.AreUSleepListActivity;
 import com.zenglb.framework.activity.preLogin.LoginActivity;
 import com.zenglb.framework.activity.wechat.MainActivityTab;
 import com.zenglb.framework.config.SPKey;
@@ -33,8 +31,7 @@ public class LaunchActivity extends BaseActivity {
                         LaunchActivity.this.finish();
                     } else {
                         Intent i1 = new Intent();
-//                        i1.setClass(LaunchActivity.this, DemoActivity.class);
-						i1.setClass(LaunchActivity.this, MainActivityTab.class);
+                        i1.setClass(LaunchActivity.this, MainActivityTab.class);
                         startActivity(i1);
                         LaunchActivity.this.finish();
                     }

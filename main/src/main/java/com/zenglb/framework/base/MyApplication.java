@@ -10,6 +10,7 @@ import com.zenglb.framework.database.daomaster.DaoMaster;
 import com.zenglb.commonlib.base.BaseApplication;
 import com.zenglb.framework.database.daomaster.DaoSession;
 import com.zenglb.framework.database.update.MySQLiteOpenHelper;
+import com.zenglb.framework.http.core.HttpCall;
 
 import org.greenrobot.greendao.database.Database;
 

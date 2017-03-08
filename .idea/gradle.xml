@@ -8,9 +8,10 @@
         <option name="modules">
           <set>
             <option value="$PROJECT_DIR$" />
-            <option value="$PROJECT_DIR$/commonlib" />
+            <option value="$PROJECT_DIR$/commonLib" />
+            <option value="$PROJECT_DIR$/jsBridgeLib" />
             <option value="$PROJECT_DIR$/main" />
-            <option value="$PROJECT_DIR$/settingViewLibrary" />
+            <option value="$PROJECT_DIR$/settingViewLib" />
           </set>
         </option>
         <option name="resolveModulePerSourceSet" value="false" />
