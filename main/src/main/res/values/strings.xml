@@ -1,5 +1,12 @@
 <resources>
+    //1.这里的是正式会使用的
     <string name="app_name">AppFrameWork</string>
+
+
+
+
+
+    //暂时
     <string name="title_activity_base">BaseActivity</string>
     <string name="title_activity_login">Sign in</string>
 

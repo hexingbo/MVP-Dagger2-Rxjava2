@@ -30,6 +30,7 @@
             android:gravity="center"
             android:text="点击屏幕，重新加载"
             android:textSize="15sp"
+            android:textColor="@color/common_gray"
             android:visibility="invisible"/>
 
 </FrameLayout>

@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -17,6 +18,7 @@ import com.dtr.settingview.lib.entity.SettingData;
 import com.dtr.settingview.lib.entity.SettingViewItemData;
 import com.dtr.settingview.lib.item.BasicItemViewH;
 import com.dtr.settingview.lib.item.SwitchItemView;
+import com.zenglb.commonlib.base.BaseActivity;
 import com.zenglb.commonlib.base.BaseFragment;
 import com.zenglb.framework.R;
 import com.zenglb.framework.activity.WebActivity.WebActivity;
@@ -138,6 +140,15 @@ public class MeProfileFragment extends BaseFragment {
      */
     protected void initViews(View rootView) {
 
+        LinearLayout linearLayout=(LinearLayout) rootView.findViewById(R.id.me_layout);
+        linearLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                BaseActivity baseActivity = (BaseActivity ) getActivity();
+                baseActivity.goWebView("file:///android_asset/index.html");
+            }
+        });
+
         logout = (TextView) rootView.findViewById(R.id.logout);
         logout.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -153,15 +164,14 @@ public class MeProfileFragment extends BaseFragment {
             @Override
             public void onItemClick(int index) {
                 // TODO Auto-generated method stub
-//                startActivity(new Intent(mActivity, SetHeadImgActivity.class));
-                startActivity(new Intent(mActivity, WebActivity.class));
+////              startActivity(new Intent(mActivity, SetHeadImgActivity.class));
+//                startActivity(new Intent(mActivity, WebActivity.class));
 
                 Toast.makeText(mActivity, "第" + index + "项被点击", Toast.LENGTH_SHORT).show();
                 if (index == 4) {
                     mSettingView1.modifySubTitle("中国联通", index);
                 } else if (index == 2) {
                     mSettingView1.modifySubTitle("关闭", index);
-
                 }
             }
         });
@@ -179,7 +189,7 @@ public class MeProfileFragment extends BaseFragment {
             }
         });
 
-        //=======================    FBI WARMMING !=================
+        //=======================    FBI WARMMING !    这样子是很差劲的，说明没有写好=================
         super.initViews(rootView);  //一定放在最后面来调用
     }
 

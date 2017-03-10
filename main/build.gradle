@@ -25,15 +25,15 @@ android {
     Properties properties = new Properties()
     properties.load(project.rootProject.file('local.properties').newDataInputStream())
 
-    signingConfigs {
-        MyConfig {
-            storeFile file('E:/Android/Code/AnyLife_Zlb_Keystore')
-
-            keyAlias properties.getProperty("MyConfig.user")
-            keyPassword properties.getProperty("MyConfig.password")
-            storePassword properties.getProperty("MyConfig.password")
-        }
-    }
+//    signingConfigs {
+//        MyConfig {
+//            storeFile file('E:/Android/Code/AnyLife_Zlb_Keystore')
+//
+//            keyAlias properties.getProperty("MyConfig.user")
+//            keyPassword properties.getProperty("MyConfig.password")
+//            storePassword properties.getProperty("MyConfig.password")
+//        }
+//    }
 
     buildTypes {
         release {
@@ -42,7 +42,7 @@ android {
             shrinkResources true  // 移除无用的resource文件,必须和minifyEnabled 一起使用
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
             debuggable false
-            signingConfig signingConfigs.MyConfig
+//            signingConfig signingConfigs.MyConfig
             manifestPlaceholders = [APP_DEBUG: false, APP_NAME: "@string/app_name", API_VERSION: getDate()]
         }
 
@@ -52,7 +52,7 @@ android {
             shrinkResources true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
             debuggable true
-            signingConfig signingConfigs.MyConfig
+//            signingConfig signingConfigs.MyConfig
             manifestPlaceholders = [APP_DEBUG: true, APP_NAME: "@string/app_name", API_VERSION: getDate()]
         }
 

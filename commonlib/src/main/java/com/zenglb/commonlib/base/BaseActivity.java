@@ -85,7 +85,18 @@ public abstract class BaseActivity extends AppCompatActivity implements View.OnC
 //        overridePendingTransition(R.anim.in_from_right, R.anim.out_to_left);
 //    }
 
-
+    /**
+     * Activity -> webview Activity的跳转-带参数
+     *
+     * @param link
+     */
+    public void goWebView(String link) {
+        Intent intent = new Intent();
+        intent.setAction(BaseWebViewActivity.WEB_ACTION);
+        intent.addCategory(BaseWebViewActivity.WEB_CATEGORY);
+        intent.putExtra(BaseWebViewActivity.URL, link);
+        startActivity(intent);
+    }
 
     /**
      * Activity -> webview Activity的跳转-带参数
@@ -94,12 +105,13 @@ public abstract class BaseActivity extends AppCompatActivity implements View.OnC
      * @param title
      * @param link
      */
-    public void setIntentWebView(String title, String link) {
-//        Intent intent = new Intent();
-//        intent.setClass(this, WebviewActivity.class);
-//        intent.putExtra(INTENTTAG, title);
-//        intent.putExtra(INTENTTAG2, link);
-//        startActivity(intent);
+    public void goWebView(String link,String title) {
+        Intent intent = new Intent();
+        intent.setAction(BaseWebViewActivity.WEB_ACTION);
+        intent.addCategory(BaseWebViewActivity.WEB_CATEGORY);
+        intent.putExtra(BaseWebViewActivity.TITLE, title);
+        intent.putExtra(BaseWebViewActivity.URL, link);
+        startActivity(intent);
 //        overridePendingTransition(R.anim.in_from_right, R.anim.out_to_left);
     }
 

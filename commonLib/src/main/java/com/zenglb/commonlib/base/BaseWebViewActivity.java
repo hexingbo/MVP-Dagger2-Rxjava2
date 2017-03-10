@@ -18,17 +18,22 @@ import com.zenglb.commonlib.R;
 import com.zenglb.commonlib.jsbridge.BridgeImpl;
 import com.zenglb.commonlib.jsbridge.JSBridge;
 
-
 /**
  * 包含JSBridge 的WebView
  */
 public abstract class BaseWebViewActivity extends BaseActivity {
     private WebView mWebView;
     private ProgressBar topLoadingBar;
+    public static final String WEB_ACTION="my.intent.action.GOTOWEB";
+    public static final String WEB_CATEGORY="my.intent.category.WEB";
+    public static final String URL = "url";//网页url
+    public static final String TITLE = "title";//标题内容
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setTitle(R.string.web_base_title);
         JSBridge.register(JSBridge.exposeClassName, BridgeImpl.class);
     }
 
@@ -78,7 +83,6 @@ public abstract class BaseWebViewActivity extends BaseActivity {
                         break;
                 }
                 message += " 你想要继续吗？";
-
                 builder.setTitle("SSL证书错误");
                 builder.setMessage(message);
                 builder.setPositiveButton("continue", new DialogInterface.OnClickListener() {
@@ -100,7 +104,6 @@ public abstract class BaseWebViewActivity extends BaseActivity {
             @Override
             public void onPageFinished(WebView view, String url) {
                 super.onPageFinished(view, url);
-
             }
         });
 
@@ -135,7 +138,6 @@ public abstract class BaseWebViewActivity extends BaseActivity {
                 }
                 super.onProgressChanged(view, newProgress);
             }
-
         });
     }
 

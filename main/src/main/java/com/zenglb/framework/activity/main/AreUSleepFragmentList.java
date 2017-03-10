@@ -13,6 +13,7 @@ import android.widget.TextView;
 import com.liaoinstan.springview.container.DefaultFooter;
 import com.liaoinstan.springview.container.DefaultHeader;
 import com.liaoinstan.springview.widget.SpringView;
+import com.zenglb.commonlib.base.BaseActivity;
 import com.zenglb.framework.R;
 import com.zenglb.framework.http.core.HttpCall;
 import com.zenglb.framework.http.core.HttpCallBack;
@@ -112,6 +113,9 @@ public class AreUSleepFragmentList extends Fragment {
         areUSleepListAdapter.setOnItemClickListener(new AreUSleepListAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(View view, int position) {
+                BaseActivity baseActivity = (BaseActivity ) getActivity();
+                baseActivity.goWebView("http://www.baidu.com","");
+
 //                Intent intent = new Intent(getActivity(), QuestionDetailActivity.class);
 //                intent.putExtra("id", resultBeen.get(position).getId());
 //                intent.putExtra(LogIntentService.FROM_TYPE, LogConstant.ARE_U_SLEEP);
