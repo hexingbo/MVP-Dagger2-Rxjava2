@@ -102,6 +102,9 @@ public class LoginActivity extends BaseActivity {
         loginCall.enqueue(new HttpCallBack<HttpResponse<LoginResult>>(this) {
             @Override
             public void onSuccess(HttpResponse<LoginResult> loginResultHttpResponse) {
+
+
+
                 SharedPreferencesDao.getInstance().saveData(SPKey.KEY_ACCESS_TOKEN, "Bearer " + loginResultHttpResponse.getResult().getAccessToken());
                 SharedPreferencesDao.getInstance().saveData(SPKey.KEY_REFRESH_TOKEN, loginResultHttpResponse.getResult().getRefreshToken());
                 SharedPreferencesDao.getInstance().saveData(SPKey.KEY_LAST_ACCOUNT, etUsername.getText().toString().trim());

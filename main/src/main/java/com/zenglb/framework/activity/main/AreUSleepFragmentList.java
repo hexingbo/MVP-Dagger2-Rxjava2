@@ -1,6 +1,7 @@
 package com.zenglb.framework.activity.main;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
@@ -10,11 +11,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+
 import com.liaoinstan.springview.container.DefaultFooter;
 import com.liaoinstan.springview.container.DefaultHeader;
 import com.liaoinstan.springview.widget.SpringView;
 import com.zenglb.commonlib.base.BaseActivity;
 import com.zenglb.framework.R;
+import com.zenglb.framework.activity.zxing.ZxingActivity;
 import com.zenglb.framework.http.core.HttpCall;
 import com.zenglb.framework.http.core.HttpCallBack;
 import com.zenglb.framework.http.core.HttpResponse;
@@ -113,13 +116,10 @@ public class AreUSleepFragmentList extends Fragment {
         areUSleepListAdapter.setOnItemClickListener(new AreUSleepListAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(View view, int position) {
-                BaseActivity baseActivity = (BaseActivity ) getActivity();
-                baseActivity.goWebView("http://www.baidu.com","");
+                BaseActivity baseActivity = (BaseActivity) getActivity();
+                baseActivity.goWebView("http://www.baidu.com", "");
 
-//                Intent intent = new Intent(getActivity(), QuestionDetailActivity.class);
-//                intent.putExtra("id", resultBeen.get(position).getId());
-//                intent.putExtra(LogIntentService.FROM_TYPE, LogConstant.ARE_U_SLEEP);
-//                intent.putExtra(LogIntentService.FROM_ID, resultBeen.get(position).getId());
+//                Intent intent = new Intent(getActivity(), ZxingActivity.class);
 //                startActivity(intent);
             }
 
@@ -131,14 +131,13 @@ public class AreUSleepFragmentList extends Fragment {
 
     /**
      * 请求答题列表
-     *
      */
     private void getHttpData(String mParam1, int page) {
         Call<HttpResponse<List<AreuSleepResult>>> getAreuSleepCall = HttpCall.getApiService().getAreuSleep(mParam1, page);
-        getAreuSleepCall.enqueue(new HttpCallBack<HttpResponse<List<AreuSleepResult>>>(getActivity(),false) {
+        getAreuSleepCall.enqueue(new HttpCallBack<HttpResponse<List<AreuSleepResult>>>(getActivity(), false) {
             @Override
             public void onSuccess(HttpResponse<List<AreuSleepResult>> listHttpResponse) {
-                Log.e("dfd",listHttpResponse.getResult().toString());
+                Log.e("dfd", listHttpResponse.getResult().toString());
                 disposeHttpResult(listHttpResponse.getResult());
             }
 
@@ -149,7 +148,6 @@ public class AreUSleepFragmentList extends Fragment {
 
         });
     }
-
 
 
     /**

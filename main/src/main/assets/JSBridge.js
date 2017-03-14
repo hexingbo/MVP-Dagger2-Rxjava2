@@ -23,7 +23,6 @@
             var uri=Util.getUri(obj,method,params,port);
             console.log("uri:  "+uri);
 
-//            window.alert(uri);
             window.prompt(uri, "111111111111111111");  //window.prompt 会调用Webview 重写的onJsPrompt(...)方法
         },
 

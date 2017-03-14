@@ -4,6 +4,7 @@ import android.text.TextUtils;
 import android.util.Log;
 
 import com.zenglb.commonlib.sharedpreferences.SharedPreferencesDao;
+import com.zenglb.framework.base.MyApplication;
 import com.zenglb.framework.http.result.AreuSleepResult;
 import com.zenglb.framework.config.SPKey;
 import com.zenglb.framework.entity.Messages;
@@ -49,6 +50,7 @@ public class HttpCall {
     }
 
     public static ApiService getApiService() {
+
         if (apiService == null) {
             //http 401 Not Authorised
             Authenticator mAuthenticator2 = new Authenticator() {

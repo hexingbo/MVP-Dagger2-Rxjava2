@@ -18,6 +18,34 @@
 <div>
     <h3>JSBridge Demo</h3>
 </div>
+
+
+
+<ul class="list">
+    <li>
+        <div>
+            <button onclick="JSBridge.call('NativeBridgeClsName','scanQRCode',{},function(res){alert(JSON.stringify(res))})">
+                扫描二维码
+            </button>
+        </div>
+    </li>
+    <br/>
+</ul>
+
+
+<ul class="list">
+    <li>
+        <div>
+            <button onclick="JSBridge.call('NativeBridgeClsName','scanQRCode',{},function(res){alert(JSON.stringify(res))})">
+                文件处理
+            </button>
+        </div>
+    </li>
+    <br/>
+</ul>
+
+
+
 <ul class="list">
     <li>
         <div>
@@ -34,13 +62,24 @@
     <li>
         <div>
             <button onclick="JSBridge.call('NativeBridgeClsName','testThread',{},function(res){alert(JSON.stringify(res))})">
-                子线程回调
+                获取硬件参数，子线程回调
             </button>
         </div>
     </li>
     <br/>
 </ul>
 
+
+<ul class="list">
+    <li>
+        <div>
+            <button onclick="JSBridge.call('NativeBridgeClsName','testThread',{},function(res){alert(JSON.stringify(res))})">
+                获取系统权限
+            </button>
+        </div>
+    </li>
+    <br/>
+</ul>
 
 <p>
     <a href="http://zhstatic.zhihu.com/pkg/store/zhihu/futureve-mobile-update-release-4.15.0(461).apk/">

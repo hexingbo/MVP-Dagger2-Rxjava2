@@ -1,6 +1,9 @@
 # 这里是草稿区域
 
 ##
+目前没有添加权限申请，很繁琐的。请手动的授权所有申请的权限吧！
+
+##
 有一个很重要的问题，MyLibrary工程有它自己的依赖。例如，MyApplication和MyLibrary使用support libraries，这有可能会发生冲突。
 我们可以在gradle中通过transitive配置依赖避免这个问题。
 我们可以修改这行
@@ -54,4 +57,4 @@ compile(project(':my-library')){
 - 通用的BaseActivity 和BaseFragment的封装
 - 通用的Lib module 的封装
 - Http 的闭环处理
--
+- Proguard

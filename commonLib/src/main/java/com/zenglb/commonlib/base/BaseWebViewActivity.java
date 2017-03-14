@@ -26,6 +26,10 @@ public abstract class BaseWebViewActivity extends BaseActivity {
     private ProgressBar topLoadingBar;
     public static final String WEB_ACTION="my.intent.action.GOTOWEB";
     public static final String WEB_CATEGORY="my.intent.category.WEB";
+    public static final String SCANQR_ACTION="my.intent.action.GOSCANQR";
+    public static final String SCANQR_CATEGORY="my.intent.category.SCANQR";
+    public final static int ZXING_REQUEST_CODE = 4;    //扫码
+
     public static final String URL = "url";//网页url
     public static final String TITLE = "title";//标题内容
 
@@ -110,9 +114,7 @@ public abstract class BaseWebViewActivity extends BaseActivity {
     }
 
     private void setWebChromeClient() {
-        //顶部进度条
         mWebView.setWebChromeClient(new WebChromeClient() {
-
             @Override
             public boolean onJsPrompt(WebView view, String url, String message, String defaultValue, JsPromptResult result) {
                 String callBackData = JSBridge.callJava(view, message);
