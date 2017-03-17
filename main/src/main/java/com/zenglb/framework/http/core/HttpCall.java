@@ -49,7 +49,6 @@ public class HttpCall {
     }
 
     public static ApiService getApiService() {
-
         if (apiService == null) {
             //处理没有认证  http 401 Not Authorised
             Authenticator mAuthenticator2 = new Authenticator() {
@@ -126,6 +125,8 @@ public class HttpCall {
 
 
     /**
+     * 不是必须这样
+     *
      * uese refresh token to Refresh an Access Token
      */
     private static void refreshToken() {

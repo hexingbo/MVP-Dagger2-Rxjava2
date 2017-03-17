@@ -13,6 +13,5 @@ param.content = "data:image/jpg;base64," + Base64.encodeToString(baos.toByteArra
 系统会把这个 app 当前最上层的 Activity 销毁回收（测试的是M3 Note，但是onDestroy 并没有回调），不知道大家有
 没有好的方法，我是简单的启动了一个前台service，提高App进程的优先级，让系统不会清理发起相机调用的Activity。
 
-
 # _)(*&^%$#@^$#%^$#%$#
 
