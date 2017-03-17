@@ -9,7 +9,6 @@
           <set>
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/commonLib" />
-            <option value="$PROJECT_DIR$/jsBridgeLib" />
             <option value="$PROJECT_DIR$/main" />
             <option value="$PROJECT_DIR$/settingViewLib" />
           </set>

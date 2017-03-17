@@ -1,3 +1,3 @@
-include ':main', ':commonLib', ':jsBridgeLib'
+include ':main', ':commonLib'
 include ':settingViewLib'
 

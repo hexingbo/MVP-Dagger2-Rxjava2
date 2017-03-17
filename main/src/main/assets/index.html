@@ -36,8 +36,32 @@
 <ul class="list">
     <li>
         <div>
-            <button onclick="JSBridge.call('NativeBridgeClsName','scanQRCode',{},function(res){alert(JSON.stringify(res))})">
-                文件处理
+            <button onclick="JSBridge.call('NativeBridgeClsName','getWifiMsg',{},function(res){alert(JSON.stringify(res))})">
+                JS 调用Android Service 静默获取WiFi 信息
+            </button>
+        </div>
+    </li>
+    <br/>
+</ul>
+
+
+<ul class="list">
+    <li>
+        <div>
+            <button onclick="JSBridge.call('NativeBridgeClsName','scanQRCode12345',{},function(res){alert(JSON.stringify(res))})">
+                文件处理，上传身份证正反面
+            </button>
+        </div>
+    </li>
+    <br/>
+</ul>
+
+
+<ul class="list">
+    <li>
+        <div>
+            <button onclick="JSBridge.call('NativeBridgeClsName','testThread11111',{},function(res){alert(JSON.stringify(res))})">
+                模拟WebView JS漏洞修改文件
             </button>
         </div>
     </li>

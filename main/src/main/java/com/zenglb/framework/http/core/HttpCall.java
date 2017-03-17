@@ -34,16 +34,15 @@ import retrofit2.http.Path;
 import retrofit2.http.Query;
 
 /**
- * Http 请求
- * <p>
- * Created by Anylife.zlb@gmail.com on 2016/7/11.
+ * Http 请求配置和流程处理，部分Return 配置可以更加的简洁，为了试验，不简洁了
+ *
+ * Created by Anylife.zlb@gmail.com on 2017/3/16.
  */
 public class HttpCall {
     private static final String TAG = HttpCall.class.getSimpleName();
     private static final String baseUrl = "http://test.4009515151.com/";
     private static String TOKEN;
     private static ApiService apiService;
-
 
     public static void cleanToken() {
         TOKEN = "";
@@ -52,7 +51,7 @@ public class HttpCall {
     public static ApiService getApiService() {
 
         if (apiService == null) {
-            //http 401 Not Authorised
+            //处理没有认证  http 401 Not Authorised
             Authenticator mAuthenticator2 = new Authenticator() {
                 @Override
                 public Request authenticate(Route route, Response response) throws IOException {
@@ -197,46 +196,6 @@ public class HttpCall {
             return true;
         }
         return false;
-    }
-
-    /**
-     *
-     */
-    public interface ApiService {
-        /**
-         * login/oauth2
-         */
-        @Headers("NoNeedAuthFlag: NoNeedAuthFlag")
-        @POST("api/lebang/oauth/access_token")
-        Call<HttpResponse<LoginResult>> goLogin(@Body LoginParams loginParams);
-
-        /**
-         * this request after login/oauth before logout
-         * but no need oauth,so do not add auth header
-         *
-         * @param loginParams
-         */
-        @POST("api/lebang/oauth/access_token")
-        @Headers("NoNeedAuthFlag: NoNeedAuthFlag")
-        Call<HttpResponse<LoginResult>> refreshToken(@Body LoginParams loginParams);
-
-        /**
-         * get Message List();
-         */
-        @GET("api/lebang/messages")
-        Call<HttpResponse<List<Messages>>> getMessages(@Query("max_id") long maxId, @Query("limit") int limit);
-
-        /**
-         * test get something
-         */
-        @GET("api/lebang/staffs/me/modules")
-        Call<HttpResponse<Modules>> getModules();
-
-
-        @GET("api/lebang/night_school/{type}")
-        Call<HttpResponse<List<AreuSleepResult>>> getAreuSleep(@Path("type") String type, @Query("page") int page);
-
-
     }
 
 }

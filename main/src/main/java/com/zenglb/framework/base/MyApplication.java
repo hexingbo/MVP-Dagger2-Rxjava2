@@ -9,13 +9,12 @@ import com.zenglb.commonlib.sharedpreferences.SharedPreferencesDao;
 import com.zenglb.framework.database.daomaster.DaoMaster;
 import com.zenglb.commonlib.base.BaseApplication;
 import com.zenglb.framework.database.daomaster.DaoSession;
-import com.zenglb.framework.database.update.MySQLiteOpenHelper;
-import com.zenglb.framework.http.core.HttpCall;
+import com.zenglb.framework.database.dbupdate.MySQLiteOpenHelper;
 
 import org.greenrobot.greendao.database.Database;
 
 /**
- *
+ * Created by zenglb on 2017/3/15.
  */
 public class MyApplication extends BaseApplication {
     public static final String TAG = MyApplication.class.getSimpleName();

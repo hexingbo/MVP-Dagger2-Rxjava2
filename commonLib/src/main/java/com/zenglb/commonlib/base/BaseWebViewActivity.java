@@ -14,25 +14,29 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.ProgressBar;
 
+import com.liaoinstan.springview.widget.SpringView;
 import com.zenglb.commonlib.R;
 import com.zenglb.commonlib.jsbridge.BridgeImpl;
 import com.zenglb.commonlib.jsbridge.JSBridge;
 
 /**
- * 包含JSBridge 的WebView
+ * 包含JSBridge 的WebView,不要写没有通用性的业务代码在这里
  */
 public abstract class BaseWebViewActivity extends BaseActivity {
-    private WebView mWebView;
-    private ProgressBar topLoadingBar;
-    public static final String WEB_ACTION="my.intent.action.GOTOWEB";
-    public static final String WEB_CATEGORY="my.intent.category.WEB";
-    public static final String SCANQR_ACTION="my.intent.action.GOSCANQR";
-    public static final String SCANQR_CATEGORY="my.intent.category.SCANQR";
+    public static final String WEB_ACTION = "my.intent.action.GOTOWEB";
+    public static final String WEB_CATEGORY = "my.intent.category.WEB";
+    public static final String SCANQR_ACTION = "my.intent.action.GOSCANQR";
+    public static final String SCANQR_CATEGORY = "my.intent.category.SCANQR";
+
     public final static int ZXING_REQUEST_CODE = 4;    //扫码
 
     public static final String URL = "url";//网页url
     public static final String TITLE = "title";//标题内容
 
+    private WebView mWebView;
+    private ProgressBar topLoadingBar;
+    private SpringView springView;
+    protected String url;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,10 +55,24 @@ public abstract class BaseWebViewActivity extends BaseActivity {
     protected void initViews() {
         topLoadingBar = (ProgressBar) findViewById(R.id.progress_bar);
         mWebView = (WebView) findViewById(R.id.webview);
+
+        springView = (SpringView) findViewById(R.id.springview);
+        springView.setType(SpringView.Type.OVERLAP);
+        // TODO: 2017/3/17  还有冲突,滑动不行啊
+        springView.setListener(new SpringView.OnFreshListener() {
+            @Override
+            public void onRefresh() {
+                mWebView.loadUrl(url);
+            }
+
+            @Override
+            public void onLoadmore() {
+            }
+        });
         WebSettings settings = mWebView.getSettings();
         settings.setJavaScriptEnabled(true);
         //手动设置UA,让运营商劫持DNS的浏览器广告不生效 http://my.oschina.net/zxcholmes/blog/596192
-        settings.setUserAgentString("suijishu" + "-" + settings.getUserAgentString() + "0123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657585960616263646566676869707172737475767778798081828384858687888990919293949596979899100101102103104105106107108109110111112113114115116117118119120121122123124125126127128129130131132133134135136137138139140141142143144145146147148149150");
+        settings.setUserAgentString("suijishu" + "#" + settings.getUserAgentString() + "0123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657585960616263646566676869707172737475767778798081828384858687888990919293949596979899100101102103104105106107108109110111112113114115116117118119120121122123124125126127128129130131132133134135136137138139140141142143144145146147148149150");
         setWebViewClient();
         setWebChromeClient();
     }
@@ -117,7 +135,7 @@ public abstract class BaseWebViewActivity extends BaseActivity {
         mWebView.setWebChromeClient(new WebChromeClient() {
             @Override
             public boolean onJsPrompt(WebView view, String url, String message, String defaultValue, JsPromptResult result) {
-                String callBackData = JSBridge.callJava(view, message);
+                String callBackData = JSBridge.callJavaNative(view, message);
                 result.confirm(callBackData);
                 return true;
             }
@@ -167,6 +185,5 @@ public abstract class BaseWebViewActivity extends BaseActivity {
         }
         return super.onKeyDown(keyCode, event);
     }
-
 
 }

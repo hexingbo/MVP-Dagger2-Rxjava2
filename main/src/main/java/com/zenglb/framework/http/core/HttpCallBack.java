@@ -56,7 +56,6 @@ public abstract class HttpCallBack<T extends HttpResponse> implements Callback<T
     private boolean showProgress = true;
 
     /**
-     *
      * @param mContext
      */
     public HttpCallBack(Context mContext) {
@@ -68,7 +67,6 @@ public abstract class HttpCallBack<T extends HttpResponse> implements Callback<T
     }
 
     /**
-     *
      * @param mContext
      * @param showProgress 默认需要显示进程，不要的话请传 false
      */
@@ -170,6 +168,7 @@ public abstract class HttpCallBack<T extends HttpResponse> implements Callback<T
     @CallSuper  //if overwrite,you should let it run.
     public void onFailure(int code, String message) {
         if (code == -1 && mContext != null) {
+            //// TODO: 2017/3/14 这里的提示框需要做成单例的
             AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
             builder.setTitle("获取数据失败");
             builder.setMessage(message);
@@ -178,12 +177,6 @@ public abstract class HttpCallBack<T extends HttpResponse> implements Callback<T
                 public void onClick(DialogInterface dialog, int which) {
                 }
             });
-
-//            builder.setNegativeButton("取消", new DialogInterface.OnClickListener() {
-//                @Override
-//                public void onClick(DialogInterface dialog, int which) {
-//                }
-//            });
 
             AlertDialog dlg = builder.create();
             dlg.show();
@@ -197,7 +190,7 @@ public abstract class HttpCallBack<T extends HttpResponse> implements Callback<T
                 case 101:
                 case 112:
                 case 123:
-                case 401 :
+                case 401:
                     //退回到登录页面，
                     Intent intent = new Intent();
                     intent.setClass(mContext, LoginActivity.class);
@@ -230,7 +223,7 @@ public abstract class HttpCallBack<T extends HttpResponse> implements Callback<T
      */
     public void dismissDialog() {
         if ((Activity) mContext == null || ((Activity) mContext).isFinishing())
-            return;                      //maybe not good !
+            return;             //maybe not good !
         if (mContext != null) {
             ((Activity) mContext).runOnUiThread(new Runnable() {
                 @Override

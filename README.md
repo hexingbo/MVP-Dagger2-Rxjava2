@@ -1,32 +1,11 @@
-# 这里是草稿区域
 
-##
-目前没有添加权限申请，很繁琐的。请手动的授权所有申请的权限吧！
+#目前没有添加权限申请，很繁琐的。Android 6.0 以上的手机请手动的在设置里面授权所有申请的权限吧！
 
-##
-有一个很重要的问题，MyLibrary工程有它自己的依赖。例如，MyApplication和MyLibrary使用support libraries，这有可能会发生冲突。
-我们可以在gradle中通过transitive配置依赖避免这个问题。
-我们可以修改这行
-compile project(':my-library')
-为
-compile(project(':my-library')){
-    transitive=false;
-}
-
-
-
-## 规范临时文件的保存路径，保证所有的同一种类型的临时文件只有一个
-
-
-
-#这里是答疑区域
-- 为什么启动页面的bg图片放在不同的页面中会有导致占用的内存大小不一样
-
-
-这个问题就可以避免。Done!
 -------------------------------------------------------------------------------------------
 # 为什么还要封装App 应用框架
-  首先，我要反对过度封装；封装的目的是为了减少重复代码，精简清晰化项目结构。
+  首先，我要反对过度封装；封装的目的是为了减少重复代码，精简清晰化项目结构，方便分工开发维护，Demo里面
+只有基本的处理，不含LOG,各种Utils 等等
+- Http（retrofit） 模块单独看 https://github.com/AnyLifeZLB/Retrofit2.0_Demo
 
 
 # 应用中使用的lib
@@ -36,25 +15,28 @@ compile(project(':my-library')){
   - 数据库 GreenDao3(如果有需要使用数据库，建议使用，配置很简洁了)
   - 过度动画 Material-Animations
   - Http请求 retrofit2
-  - 列表数据展示 springview
-  - 图片展示 universalimageloader不再维护了，可选用
-  - 权限管理
+  - 列表数据上拉下拉 官方/springview
+  - 图片展示 universalimageloader不再维护了，可选用glide,pissico等
+  - 权限管理 XXXXXXXXXXXXXXX
   - 二维码 com.journeyapps:zxing-android-embedded
 
   ## 可选
   - 视图绑定和监听 butterknife/databing
-  - rxjava,rxAndroid
-  -
+  - rxjava,rxAndroid,Eventbus 。  Square 的东西都很好用，但是
+  - Bugly - Umeng(太庞大了)
+  - leakcanary
+  - +_)(*&^%$E#W@@!@^%%#$@#$!%&!
 
 
 
 # 项目中包含的基本的通用模块
 - 混淆压缩打包优化 Proguard　proguard-android-optimize　和 proguard-android 区别 ？
   https://github.com/D-clock/Doc/blob/master/Android/Gradle/4_AndroidStudio%E4%B8%8BProGuard%E6%B7%B7%E6%B7%86%E6%89%93%E5%8C%85.md
-- 权限管理
 - Toolbar 的处理
 - Fragment 的懒加载
 - 通用的BaseActivity 和BaseFragment的封装
 - 通用的Lib module 的封装
 - Http 的闭环处理
-- Proguard
+- Proguard 混淆 打包优化
+- BaseWebView 的处理（未完善，Android 的坑很多）
+-

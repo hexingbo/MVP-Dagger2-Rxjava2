@@ -6,7 +6,7 @@ import android.os.Environment;
 import java.io.File;
 
 /**
- * Created by zenglb on 2017/2/15.
+ * Created by zenglb on 2017/3/15.
  */
 public class FileCacheConfig {
     public static final String CACHE_HOME = Environment.getExternalStorageDirectory() + "/lebang/";

@@ -10,12 +10,12 @@ import java.io.FileOutputStream;
 import java.nio.channels.FileChannel;
 
 /**
- *
+ * 导出DB 文件到getExternalStorageDirectory 目录去！
  * Created by zenglb on 2016/12/27.
  */
-public class FileUtils {
+public class CopyDBUtils {
 	/**
-	 * 导出DB 文件到getExternalStorageDirectory 目录去！
+	 *
 	 *
 	 * @param databaseName
 	 * @param mContext

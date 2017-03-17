@@ -11,11 +11,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.liaoinstan.springview.container.DefaultFooter;
 import com.liaoinstan.springview.container.DefaultHeader;
 import com.liaoinstan.springview.widget.SpringView;
 import com.zenglb.commonlib.base.BaseActivity;
+import com.zenglb.framework.MainActivityBottomNavi;
 import com.zenglb.framework.R;
 import com.zenglb.framework.activity.zxing.ZxingActivity;
 import com.zenglb.framework.http.core.HttpCall;
@@ -116,11 +118,11 @@ public class AreUSleepFragmentList extends Fragment {
         areUSleepListAdapter.setOnItemClickListener(new AreUSleepListAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(View view, int position) {
-                BaseActivity baseActivity = (BaseActivity) getActivity();
-                baseActivity.goWebView("http://www.baidu.com", "");
+//                BaseActivity baseActivity = (BaseActivity) getActivity();
+//                baseActivity.goWebView("http://www.baidu.com", "");
 
-//                Intent intent = new Intent(getActivity(), ZxingActivity.class);
-//                startActivity(intent);
+                Intent intent = new Intent(getActivity(), MainActivityBottomNavi.class);
+                startActivity(intent);
             }
 
             @Override
@@ -165,7 +167,7 @@ public class AreUSleepFragmentList extends Fragment {
                 page++;
                 areUSleepListAdapter.notifyDataSetChanged();
             } else {
-//				ToastUtil.toast(getActivity(), "暂无数据，请稍后再试！", Toast.LENGTH_SHORT);
+				Toast.makeText(getActivity(), "暂无数据，请稍后再试！", Toast.LENGTH_SHORT).show();
             }
         }
 
@@ -190,6 +192,11 @@ public class AreUSleepFragmentList extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
+    }
+
+    @Override
+    public void onStart(){
+        super.onStart();
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {

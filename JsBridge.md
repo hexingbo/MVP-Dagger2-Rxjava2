@@ -21,3 +21,10 @@ jsonObj:
 
 #JS 调用Native然后Native返回数据给JS工作流程
 这里Native 返回数据给JS 都是指的异步，下面用图解释一下这个处理流程的闭环
+
+
+
+
+
+
+#关于Android api>15 的Webview拍照问题

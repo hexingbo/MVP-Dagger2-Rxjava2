@@ -14,7 +14,7 @@
     <!-- 在SD卡中创建与删除文件权限 -->
     <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS" />
 
-    <!-- 申请应用不要进行电池优化，以保证手机在锁屏状态下能够有网络活动，推送啊，推送-->
+    <!-- 申请应用不要进行电池优化，以保证手机在锁屏状态下能够有网络活动，推送啊，推送 -->
     <uses-permission android:name="android.permission.REQUEST_IGNORE_BATTERY_OPTIMIZATIONS" />
 
     <application
@@ -24,7 +24,6 @@
         android:label="${APP_NAME}"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-
         <meta-data
             android:name="APP_DEBUG"
             android:value="${APP_DEBUG}" />
@@ -37,14 +36,11 @@
             android:theme="@style/FullscreenTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-        <activity android:name=".activity.demo.DemoActivity">
-
-        </activity>
-
+        <activity android:name=".activity.demo.DemoActivity"></activity>
         <activity
             android:name=".activity.preLogin.LoginActivity"
             android:launchMode="singleTop"
@@ -53,38 +49,35 @@
                 <action android:name="app.intent.action.LOGIN" />
             </intent-filter>
         </activity>
-
         <activity
             android:name=".activity.preLogin.RegisterActivity"
             android:theme="@style/Translucent" />
-
         <activity
             android:name=".activity.main.AreUSleepListActivity"
             android:launchMode="singleTask" />
         <activity
             android:name=".activity.wechat.MainActivityTab"
             android:launchMode="singleTask" />
-
         //充分的发挥意图
         <activity
             android:name=".activity.web.WebActivity"
             android:launchMode="singleTask">
             <intent-filter>
                 <action android:name="my.intent.action.GOTOWEB" />
+
                 <category android:name="my.intent.category.WEB" />
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
-
         <activity
             android:name=".activity.setHeadImg.SetHeadImgActivity"
             android:launchMode="singleTask" />
-
         <activity
             android:name=".activity.zxing.ZxingActivity"
-            android:launchMode="singleTask" >
+            android:launchMode="singleTask">
             <intent-filter>
                 <action android:name="my.intent.action.GOSCANQR" />
+
                 <category android:name="my.intent.category.SCANQR" />
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
@@ -100,6 +93,9 @@
                 android:resource="@xml/file_paths" />
         </provider>
 
+        <activity
+            android:name=".MainActivityBottomNavi"
+            android:label="@string/title_activity_main_bottom_navi"></activity>
     </application>
 
 </manifest>

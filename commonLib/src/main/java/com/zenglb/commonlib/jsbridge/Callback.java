@@ -13,6 +13,7 @@ import java.lang.ref.WeakReference;
  */
 public class Callback {
     private static Handler mHandler = new Handler(Looper.getMainLooper());
+    //格式化一下
     private static final String CALLBACK_JS_FORMAT = "javascript:JSBridge.onFinish('%s', %s);";
     private String mPort;
     private WeakReference<WebView> mWebViewRef;
@@ -21,7 +22,6 @@ public class Callback {
         mWebViewRef = new WeakReference<>(view);
         mPort = port;
     }
-
 
     public void apply(JSONObject jsonObject) {
         final String execJs = String.format(CALLBACK_JS_FORMAT, mPort, String.valueOf(jsonObject));
@@ -33,8 +33,6 @@ public class Callback {
                     mWebViewRef.get().loadUrl(execJs);
                 }
             });
-
         }
-
     }
 }

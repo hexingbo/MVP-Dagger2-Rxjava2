@@ -31,10 +31,7 @@ public class BridgeImpl implements IBridge {
     }
 
     /**
-     * 扫码回传给JS
-     * <p>
-     * 怎样处理从其他Activity 中返回的数据呢?
-     * 需要再绕一层才能回调，感觉很繁琐的样子！
+     * 扫码回传给JS，这个处理和其他的有些不一样，需要新启动一个Activity 来获取数据
      *
      * @param webView
      * @param param
@@ -56,7 +53,6 @@ public class BridgeImpl implements IBridge {
             try {
                 JSONObject object = new JSONObject();
                 object.put("key", "value");
-                object.put("key1", "value1");
                 callback.apply(getJSONObject(0, "ok", object));  //这里回调js 没有任何的意义呀！
             } catch (Exception e) {
                 e.printStackTrace();
@@ -83,7 +79,6 @@ public class BridgeImpl implements IBridge {
     }
 
     /**
-     *
      *
      * @param code
      * @param msg

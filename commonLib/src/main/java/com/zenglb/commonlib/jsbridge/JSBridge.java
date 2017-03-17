@@ -16,7 +16,7 @@ import java.util.Map;
  * @since 2016-02-27 22:08
  */
 public class JSBridge {
-    public static String exposeClassName="NativeBridgeClsName";
+    public static String exposeClassName = "NativeBridgeClsName";
 
     //所有JS能调用的native 的方法都需要注册，防止反编译后重新注入native方法
     private static Map<String, HashMap<String, Method>> exposedMethods = new HashMap<>();
@@ -62,8 +62,13 @@ public class JSBridge {
         return mMethodsMap;
     }
 
-
-    public static String callJava(WebView webView, String uriString) {
+    /**
+     *
+     * @param webView
+     * @param uriString
+     * @return
+     */
+    public static String callJavaNative(WebView webView, String uriString) {
         String methodName = "";
         String className = "";
         String param = "{}";

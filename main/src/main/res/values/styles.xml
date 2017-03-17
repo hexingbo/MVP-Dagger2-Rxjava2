@@ -3,7 +3,7 @@
     <!-- Base application theme. -->
     <style name="AppTheme" parent="AppTheme.Base"></style>
 
-    <style name="AppTheme.Base" parent="Theme.AppCompat">
+    <style name="AppTheme.Base" parent="Theme.AppCompat.Light.DarkActionBar">
         <item name="windowActionBar">false</item>
         <!-- 使用 API Level 22 編譯的話，要拿掉前綴字 -->
         <item name="windowNoTitle">true</item>
@@ -13,8 +13,12 @@
         <!--Status bar color-->
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <!--Window color-->
-        <item name="android:windowBackground">@color/dim_foreground_material_dark</item>
+        <item name="android:windowBackground">@color/bg_common</item>
         <item name="android:windowIsTranslucent">true</item>
+
+        <item name="actionMenuTextColor">@color/white</item> <!--  敲定颜色-->
+        <item name="android:textSize">14sp</item> <!--  搞掂字体大小-->
+
     </style>
 
 

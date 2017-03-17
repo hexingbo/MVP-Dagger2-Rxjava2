@@ -6,7 +6,6 @@ package com.zenglb.framework.http.result;
  * Created by anylife.zlb@gmail.com on 2016/7/11.
  */
 public class LoginResult {
-
         private String access_token;
         private String token_type;
         private String refresh_token;
