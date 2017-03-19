@@ -15,3 +15,9 @@ param.content = "data:image/jpg;base64," + Base64.encodeToString(baos.toByteArra
 
 # _)(*&^%$#@^$#%^$#%$#
 
+
+绝对的防止被杀死是不可能的。 可以用下面的方法尽量避免。
+1. 调用startForegound，让你的Service所在的进程成为前台进程
+2. Service的onStartCommond返回START_STICKY或START_REDELIVER_INTENT
+3. Service的onDestory里面重新启动自己
+
