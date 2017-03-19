@@ -1,5 +1,5 @@
 
-#目前没有添加权限申请，很繁琐的。Android 6.0 以上的手机请手动的在设置里面授权所有申请的权限吧！
+#目前没有添加权限申请，Android 6.0 以上的手机请手动的在设置里面授权所有申请的权限吧！
 
 # 关于Retrofit 2 （结合Rxjava 会更好，但是rxjava 不好hold）
   中文资料：http://www.jianshu.com/p/308f3c54abdd
@@ -12,10 +12,9 @@
 
 ![image](https://github.com/AnyLifeZLB/AndroidAppFrameWork/raw/master/4.png)
 
-# 为什么还要封装App 应用框架
-  首先，我要反对过度封装；封装的目的是为了减少重复代码，精简清晰化项目结构，方便分工开发维护，Demo里面
-只有基本的处理，不含LOG,各种Utils 等等
-- Http（retrofit） 模块单独看 https://github.com/AnyLifeZLB/Retrofit2.0_Demo
+# 封装干什么
+  首先，我反对过度封装；封装的目的是为了减少重复代码，精简清晰化项目结构，方便分工开发维护，Demo里面
+只有基本的处理，不含LOG,各种Utils 等等，抽象出基类，控制流程。
 
 # 应用中使用的lib
   其实大部分的App 最难以做好的模块是Http，http 模块封装的好，做起业务来很方便。
@@ -43,7 +42,7 @@
   https://github.com/D-clock/Doc/blob/master/Android/Gradle/4_AndroidStudio%E4%B8%8BProGuard%E6%B7%B7%E6%B7%86%E6%89%93%E5%8C%85.md
 - Toolbar 的处理
 - Fragment 的懒加载
-- 通用的BaseActivity 和BaseFragment的封装
+- 通用的BaseActivity 和BaseFragment的封装（跳转PV打点，事件打点）
 - 通用的Lib module 的封装
 - Http 的闭环处理
 - Proguard 混淆 打包优化
