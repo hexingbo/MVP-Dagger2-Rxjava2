@@ -125,9 +125,8 @@ public class HttpCall {
 
 
     /**
-     * 不是必须这样
-     *
      * uese refresh token to Refresh an Access Token
+     * 不是必须这样
      */
     private static void refreshToken() {
         LoginParams loginParams = new LoginParams();

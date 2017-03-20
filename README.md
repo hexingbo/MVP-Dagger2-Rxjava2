@@ -2,6 +2,9 @@
 #目前没有添加权限申请，Android 6.0 以上的手机请手动的在设置里面授权所有申请的权限吧！
 
 # 关于Retrofit 2 （结合Rxjava 会更好，但是rxjava 不好hold）
+
+  本项目使用的api 不像Github 那样的Restful,所以在Retrofit的基础上再次封装了一下！
+
   中文资料：http://www.jianshu.com/p/308f3c54abdd
   官方网站：http://square.github.io/retrofit/
   再次封装：https://github.com/AnyLifeZLB/Retrofit2.0_Demo/blob/master/package.md

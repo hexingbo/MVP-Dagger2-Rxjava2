@@ -93,22 +93,20 @@ public class LoginActivity extends BaseActivity {
         LoginParams loginParams = new LoginParams();
         loginParams.setClient_id("5e96eac06151d0ce2dd9554d7ee167ce");
         loginParams.setClient_secret("aCE34n89Y277n3829S7PcMN8qANF8Fh");
-        loginParams.setGrant_type("password");
+        loginParams.setGrant_type("password1");
         loginParams.setUsername(userName);
         loginParams.setPassword(password);
 
         //2.Generic Programming Techniques is the basis of Android develop
         Call<HttpResponse<LoginResult>> loginCall = HttpCall.getApiService().goLogin(loginParams);
+
         loginCall.enqueue(new HttpCallBack<HttpResponse<LoginResult>>(this) {
             @Override
             public void onSuccess(HttpResponse<LoginResult> loginResultHttpResponse) {
 
-
-
                 SharedPreferencesDao.getInstance().saveData(SPKey.KEY_ACCESS_TOKEN, "Bearer " + loginResultHttpResponse.getResult().getAccessToken());
                 SharedPreferencesDao.getInstance().saveData(SPKey.KEY_REFRESH_TOKEN, loginResultHttpResponse.getResult().getRefreshToken());
                 SharedPreferencesDao.getInstance().saveData(SPKey.KEY_LAST_ACCOUNT, etUsername.getText().toString().trim());
-
 
                 Intent i2 = new Intent(LoginActivity.this, MainActivityTab.class);
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
@@ -129,7 +127,6 @@ public class LoginActivity extends BaseActivity {
             @Override
             public void onFailure(int code, String messageStr) {
                 super.onFailure(code, messageStr);
-//                message.setText(code + "  !loginCall!  " + messageStr);
             }
         });
     }
