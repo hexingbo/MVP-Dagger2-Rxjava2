@@ -192,17 +192,19 @@ public class AreUSleepFragmentList extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-    }
 
-    @Override
-    public void onStart(){
-        super.onStart();
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
                 springView.callFresh();
             }
         }, 500);
+
+    }
+
+    @Override
+    public void onStart(){
+        super.onStart();
     }
 
 }

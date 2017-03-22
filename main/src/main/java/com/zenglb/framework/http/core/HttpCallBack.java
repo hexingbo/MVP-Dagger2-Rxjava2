@@ -14,7 +14,7 @@ import android.widget.Toast;
 import com.google.gson.Gson;
 import com.zenglb.commonlib.utils.TextUtils;
 import com.zenglb.framework.R;
-import com.zenglb.framework.activity.preLogin.LoginActivity;
+import com.zenglb.framework.activity.access.LoginActivity;
 import com.zenglb.framework.http.utils.HttpDialogUtils;
 
 import java.io.IOException;
@@ -26,7 +26,6 @@ import java.net.UnknownServiceException;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import retrofit2.Retrofit;
 
 /**
  * 这里的封装处理方式和api 协议结构有关。因为我们的Api 不是那么的restful-需要再处理一下
@@ -176,7 +175,7 @@ public abstract class HttpCallBack<T extends HttpResponse> implements Callback<T
             case 112:
             case 123:
             case 401:
-                //退回到登录页面，
+                //退回到登录页面
                 Intent intent = new Intent();
                 intent.setClass(mContext, LoginActivity.class);
                 mContext.startActivity(intent);

@@ -12,12 +12,11 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * @author lizhangqu
- * @since 2016-02-27 22:08
+ *
+ *
  */
 public class JSBridge {
     public static String exposeClassName = "NativeBridgeClsName";
-
     //所有JS能调用的native 的方法都需要注册，防止反编译后重新注入native方法
     private static Map<String, HashMap<String, Method>> exposedMethods = new HashMap<>();
 

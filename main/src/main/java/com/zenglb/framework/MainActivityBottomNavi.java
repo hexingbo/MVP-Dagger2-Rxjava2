@@ -5,6 +5,7 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.TextView;
 
 import com.zenglb.commonlib.base.BaseActivity;
@@ -55,7 +56,15 @@ public class MainActivityBottomNavi extends BaseActivity {
     }
 
     public void initViews() {
+
         mTextMessage = (TextView) findViewById(R.id.message);
+        mTextMessage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                MainActivityBottomNavi.this.goWebView("file:///android_asset/index.html");
+            }
+        });
+
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
         navigation.setAccessibilityLiveRegion(BottomNavigationView.ACCESSIBILITY_LIVE_REGION_ASSERTIVE);

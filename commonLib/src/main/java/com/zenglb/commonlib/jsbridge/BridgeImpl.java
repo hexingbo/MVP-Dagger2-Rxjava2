@@ -1,16 +1,11 @@
 package com.zenglb.commonlib.jsbridge;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.webkit.WebView;
 import android.widget.Toast;
-
-import com.zenglb.commonlib.base.BaseActivity;
 import com.zenglb.commonlib.base.BaseWebViewActivity;
-
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import java.util.HashMap;
 import java.util.Map;
 
@@ -20,6 +15,7 @@ import java.util.Map;
  */
 public class BridgeImpl implements IBridge {
     private static Map<Integer,Callback> callbackCache=new HashMap();
+    public static String fliterTAG="MY.intent.action.XXXXXXXXXX";
 
     /**
      * 从缓存的CallBack cache 中移除某个callback!
@@ -31,6 +27,31 @@ public class BridgeImpl implements IBridge {
     }
 
     /**
+     * 调用新的Activity处理需要的数据结果，需要在Activity接收数据
+     * @param webView
+     * @param tag
+     */
+    private static void callNewActForResult(WebView webView,int tag){
+        Intent intent=new Intent();
+        intent.setAction(fliterTAG);
+        intent.putExtra("code",tag);
+        webView.getContext().sendBroadcast(intent);
+    }
+
+    /**
+     *
+     *
+     * @param webView
+     * @param param
+     * @param callback
+     */
+    public static void getImage(WebView webView, JSONObject param, final Callback callback) {
+        callbackCache.put(BaseWebViewActivity.GET_IMG_REQUEST_CODE,callback);
+        callNewActForResult(webView,BaseWebViewActivity.GET_IMG_REQUEST_CODE);
+    }
+
+
+    /**
      * 扫码回传给JS，这个处理和其他的有些不一样，需要新启动一个Activity 来获取数据
      *
      * @param webView
@@ -39,10 +60,7 @@ public class BridgeImpl implements IBridge {
      */
     public static void scanQRCode(WebView webView, JSONObject param, final Callback callback) {
         callbackCache.put(BaseWebViewActivity.ZXING_REQUEST_CODE,callback);
-        Intent intent = new Intent();
-        intent.setAction(BaseWebViewActivity.SCANQR_ACTION);
-        intent.addCategory(BaseWebViewActivity.SCANQR_CATEGORY);
-        ((Activity) webView.getContext()).startActivityForResult(intent, BaseWebViewActivity.ZXING_REQUEST_CODE);
+        callNewActForResult(webView,BaseWebViewActivity.ZXING_REQUEST_CODE);
     }
 
 
@@ -52,8 +70,8 @@ public class BridgeImpl implements IBridge {
         if (null != callback) {
             try {
                 JSONObject object = new JSONObject();
-                object.put("key", "value");
-                callback.apply(getJSONObject(0, "ok", object));  //这里回调js 没有任何的意义呀！
+                object.put("key", "value11111111");
+                callback.apply(returnJSONObject(0, "ok", object));  //这里回调js 没有任何的意义呀！
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -68,7 +86,7 @@ public class BridgeImpl implements IBridge {
                     Thread.sleep(3000);
                     JSONObject object = new JSONObject();
                     object.put("key", "value");
-                    callback.apply(getJSONObject(0, "ok", object));
+                    callback.apply(returnJSONObject(0, "ok", object));
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 } catch (JSONException e) {
@@ -85,7 +103,7 @@ public class BridgeImpl implements IBridge {
      * @param result
      * @return
      */
-    public static JSONObject getJSONObject(int code, String msg, JSONObject result) {
+    public static JSONObject returnJSONObject(int code, String msg, JSONObject result) {
         JSONObject object = new JSONObject();
         try {
             object.put("code", code);

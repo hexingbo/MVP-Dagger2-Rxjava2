@@ -7,6 +7,7 @@ import android.os.Vibrator;
 import android.text.TextUtils;
 import android.view.KeyEvent;
 import com.google.zxing.ResultPoint;
+import com.google.zxing.client.android.BeepManager;
 import com.journeyapps.barcodescanner.BarcodeCallback;
 import com.journeyapps.barcodescanner.BarcodeResult;
 import com.journeyapps.barcodescanner.DecoratedBarcodeView;
@@ -21,21 +22,23 @@ import java.util.List;
  */
 public class ZxingActivity extends BaseActivity {
     private DecoratedBarcodeView barcodeView;
-    private boolean hasSuccess;
+    private BeepManager beepManager;
+    private String lastText;
 
     private BarcodeCallback callback = new BarcodeCallback() {
         @Override
         public void barcodeResult(BarcodeResult result) {
-            if (!TextUtils.isEmpty(result.getText()) && !hasSuccess) {
-                hasSuccess = true;
-                barcodeView.setStatusText(result.getText());
-                Vibrator vibrator = (Vibrator) ZxingActivity.this.getSystemService(Context.VIBRATOR_SERVICE);
-                vibrator.vibrate(200); //
-                Intent data = new Intent();
-                data.putExtra("qrcode", result.getText());             //把数据返回给发起的Activity
-                setResult(RESULT_OK, data);
-                ZxingActivity.this.finish();
+            if(result.getText() == null || result.getText().equals(lastText)) {
+                // Prevent duplicate scans
+                return;
             }
+            lastText = result.getText();
+            beepManager.playBeepSoundAndVibrate();
+
+            Intent data = new Intent();
+            data.putExtra("qrcode", result.getText());             //把数据返回给发起的Activity
+            setResult(RESULT_OK, data);
+            ZxingActivity.this.finish();
         }
 
         @Override
@@ -60,6 +63,7 @@ public class ZxingActivity extends BaseActivity {
         barcodeView = (DecoratedBarcodeView) findViewById(R.id.barcode_scanner);
         barcodeView.decodeContinuous(callback);
         barcodeView.setStatusText("音量加减按键可以控制手电筒开关");
+        beepManager = new BeepManager(this);
     }
 
 

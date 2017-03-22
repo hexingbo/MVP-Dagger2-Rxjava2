@@ -86,6 +86,13 @@ public class MainActivityTab extends BaseActivity {
         body.setOffscreenPageLimit(3); //123456789--97534567
     }
 
+
+    @Override
+    public void onStart(){
+        super.onStart();
+    }
+
+
     public class MyAdapter extends FragmentPagerAdapter {
         ArrayList<Fragment> list;
         public MyAdapter(FragmentManager fm, ArrayList<Fragment> list) {

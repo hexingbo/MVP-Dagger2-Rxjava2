@@ -4,7 +4,6 @@ import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
-import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
@@ -13,7 +12,6 @@ import android.transition.Explode;
 
 import com.zenglb.commonlib.base.BaseActivity;
 import com.zenglb.framework.R;
-import com.zenglb.framework.activity.preLogin.LoginActivity;
 
 import java.util.ArrayList;
 import java.util.List;

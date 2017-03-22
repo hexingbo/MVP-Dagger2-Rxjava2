@@ -1,4 +1,4 @@
-package com.zenglb.framework.activity.preLogin;
+package com.zenglb.framework.activity.access;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;

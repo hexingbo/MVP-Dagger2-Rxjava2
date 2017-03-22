@@ -1,4 +1,4 @@
-package com.zenglb.framework.activity.preLogin;
+package com.zenglb.framework.activity.access;
 
 import android.app.ActivityOptions;
 import android.content.Context;
@@ -24,8 +24,6 @@ import android.widget.Toast;
 import com.zenglb.commonlib.base.BaseActivity;
 import com.zenglb.commonlib.sharedpreferences.SharedPreferencesDao;
 import com.zenglb.framework.R;
-import com.zenglb.framework.activity.demo.DemoActivity;
-import com.zenglb.framework.activity.main.AreUSleepListActivity;
 import com.zenglb.framework.activity.wechat.MainActivityTab;
 import com.zenglb.framework.config.SPKey;
 import com.zenglb.framework.http.bean.LoginParams;
@@ -82,8 +80,12 @@ public class LoginActivity extends BaseActivity {
      * Login
      */
     private void login() {
+//        this.goWebView("file:///android_asset/index.html");
+
         String userName = etUsername.getText().toString().trim();
         String password = etPassword.getText().toString().trim();
+
+
         if (TextUtils.isEmpty(userName) || TextUtils.isEmpty(password)) {
             Toast.makeText(this, "请完整输入用户名和密码", Toast.LENGTH_SHORT).show();
             return;
@@ -93,7 +95,7 @@ public class LoginActivity extends BaseActivity {
         LoginParams loginParams = new LoginParams();
         loginParams.setClient_id("5e96eac06151d0ce2dd9554d7ee167ce");
         loginParams.setClient_secret("aCE34n89Y277n3829S7PcMN8qANF8Fh");
-        loginParams.setGrant_type("password1");
+        loginParams.setGrant_type("password");
         loginParams.setUsername(userName);
         loginParams.setPassword(password);
 

@@ -9,18 +9,14 @@ import android.telephony.TelephonyManager;
 import android.telephony.cdma.CdmaCellLocation;
 import android.telephony.gsm.GsmCellLocation;
 import android.text.TextUtils;
-import android.util.Log;
 import android.widget.Toast;
 
 import com.zenglb.commonlib.base.BaseActivity;
 import com.zenglb.commonlib.sharedpreferences.SharedPreferencesDao;
 import com.zenglb.framework.R;
-import com.zenglb.framework.activity.preLogin.LoginActivity;
+import com.zenglb.framework.activity.access.LoginActivity;
 import com.zenglb.framework.activity.wechat.MainActivityTab;
 import com.zenglb.framework.config.SPKey;
-
-import org.json.JSONException;
-import org.json.JSONObject;
 
 /**
  * 启动页面的背景图放在不同的目录还会导致内存的占用大小不一样啊

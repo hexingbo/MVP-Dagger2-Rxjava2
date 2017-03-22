@@ -1,23 +1,17 @@
+#FBI WARMIMNG:api 仅供交流，不要外传！
+
 
 #目前没有添加权限申请，Android 6.0 以上的手机请手动的在设置里面授权所有申请的权限吧！
-
-# 关于Retrofit 2 （结合Rxjava 会更好，但是rxjava 不好hold）
-
-  本项目使用的api 不像Github 那样的Restful,所以在Retrofit的基础上再次封装了一下！
-
-  中文资料：http://www.jianshu.com/p/308f3c54abdd
-  官方网站：http://square.github.io/retrofit/
-  再次封装：https://github.com/AnyLifeZLB/Retrofit2.0_Demo/blob/master/package.md
-
-  api 仅供交流，不要外传！
-
--------------------------------------------------------------------------------------------
 
 ![image](https://github.com/AnyLifeZLB/AndroidAppFrameWork/raw/master/4.png)
 
 # 封装干什么
   首先，我反对过度封装；封装的目的是为了减少重复代码，精简清晰化项目结构，方便分工开发维护，Demo里面
 只有基本的处理，不含LOG,各种Utils 等等，抽象出基类，控制流程。
+
+# 关于Proguard
+# 关于JSBridge
+# 关于Webview 拍照等问题
 
 # 应用中使用的lib
   其实大部分的App 最难以做好的模块是Http，http 模块封装的好，做起业务来很方便。
@@ -50,4 +44,7 @@
 - Http 的闭环处理
 - Proguard 混淆 打包优化
 - BaseWebView 的处理（未完善，Android 的坑很多）
--
+
+
+
+

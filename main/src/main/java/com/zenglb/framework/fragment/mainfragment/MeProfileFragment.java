@@ -21,7 +21,7 @@ import com.dtr.settingview.lib.item.SwitchItemView;
 import com.zenglb.commonlib.base.BaseActivity;
 import com.zenglb.commonlib.base.BaseFragment;
 import com.zenglb.framework.R;
-import com.zenglb.framework.activity.preLogin.LoginActivity;
+import com.zenglb.framework.activity.access.LoginActivity;
 
 import java.util.ArrayList;
 import java.util.List;

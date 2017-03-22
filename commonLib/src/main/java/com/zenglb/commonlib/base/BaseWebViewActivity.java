@@ -3,6 +3,8 @@ package com.zenglb.commonlib.base;
 import android.content.DialogInterface;
 import android.net.http.SslError;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.v7.app.AlertDialog;
 import android.view.KeyEvent;
 import android.view.View;
@@ -28,9 +30,10 @@ public abstract class BaseWebViewActivity extends BaseActivity {
     public static final String SCANQR_ACTION = "my.intent.action.GOSCANQR";
     public static final String SCANQR_CATEGORY = "my.intent.category.SCANQR";
 
-    public final static int ZXING_REQUEST_CODE = 4;    //扫码
+    public final static int ZXING_REQUEST_CODE   = 101;    //扫码
+    public final static int GET_IMG_REQUEST_CODE = 102;    //读取照片
 
-    public static final String URL = "url";//网页url
+    public static final String URL   = "url";//网页url
     public static final String TITLE = "title";//标题内容
 
     private WebView mWebView;
@@ -45,7 +48,6 @@ public abstract class BaseWebViewActivity extends BaseActivity {
         JSBridge.register(JSBridge.exposeClassName, BridgeImpl.class);
     }
 
-
     @Override
     protected int setLayoutId() {
         return R.layout.activity_jsbridge;
@@ -55,6 +57,7 @@ public abstract class BaseWebViewActivity extends BaseActivity {
     protected void initViews() {
         topLoadingBar = (ProgressBar) findViewById(R.id.progress_bar);
         mWebView = (WebView) findViewById(R.id.webview);
+        mWebView.setScrollBarStyle(WebView.SCROLLBARS_OUTSIDE_OVERLAY);
 
         springView = (SpringView) findViewById(R.id.springview);
         springView.setType(SpringView.Type.OVERLAP);
@@ -70,6 +73,8 @@ public abstract class BaseWebViewActivity extends BaseActivity {
             }
         });
         WebSettings settings = mWebView.getSettings();
+
+
         settings.setJavaScriptEnabled(true);
         //手动设置UA,让运营商劫持DNS的浏览器广告不生效 http://my.oschina.net/zxcholmes/blog/596192
         settings.setUserAgentString("suijishu" + "#" + settings.getUserAgentString() + "0123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657585960616263646566676869707172737475767778798081828384858687888990919293949596979899100101102103104105106107108109110111112113114115116117118119120121122123124125126127128129130131132133134135136137138139140141142143144145146147148149150");
@@ -136,6 +141,7 @@ public abstract class BaseWebViewActivity extends BaseActivity {
             @Override
             public boolean onJsPrompt(WebView view, String url, String message, String defaultValue, JsPromptResult result) {
                 String callBackData = JSBridge.callJavaNative(view, message);
+
                 result.confirm(callBackData);
                 return true;
             }

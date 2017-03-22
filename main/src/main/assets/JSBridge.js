@@ -4,7 +4,6 @@
     var JSBRIDGE_PROTOCOL = 'JSBridge';  //定义协议类型,
     var Inner = {
 
-        //??????????????
         callbacks: {},
 
         call: function (obj, method, params, callback) {
@@ -23,11 +22,11 @@
             var uri=Util.getUri(obj,method,params,port);
             console.log("uri:  "+uri);
 
-            window.prompt(uri, "111111111111111111");  //window.prompt 会调用Webview 重写的onJsPrompt(...)方法
+            window.prompt(uri, "123456");  //window.prompt 会调用Webview 重写的onJsPrompt(...)方法
         },
 
 
-        //????????? 整个都看不懂
+        // 整个都看不懂
         onFinish: function (port, jsonObj){
             var callback = this.callbacks[port];
             callback && callback(jsonObj);
