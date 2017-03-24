@@ -1,0 +1,130 @@
+package com.zenglb.framework.bottomnavi;
+
+import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.design.widget.BottomNavigationView;
+import android.support.v4.view.ViewPager;
+import android.util.Log;
+import android.view.MenuItem;
+import android.view.View;
+import android.widget.TextView;
+
+import com.zenglb.commonlib.base.BaseActivity;
+import com.zenglb.framework.R;
+import com.zenglb.framework.activity.main.AreUSleepFragmentList;
+import com.zenglb.framework.fragment.mainfragment.MeProfileFragment;
+import com.zenglb.framework.fragment.others.DemoFragment;
+
+/**
+ * 本来挺好的，但是4/5 个bottom navi 的时候 不能定制样式啊，反射XX
+ * Sadly, there isn't any way to force enable or disable this behaviour which may not work with every design.
+ * It also doesn't allow populating the Bottom Navigation View with more than five items - as per the design spec
+ * (it throws an IllegalArgumentException if you try to).
+ */
+public class MainActivityBottomNavi extends BaseActivity {
+    private ViewPager viewPager;
+    private MenuItem menuItem;
+
+    private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
+            = new BottomNavigationView.OnNavigationItemSelectedListener() {
+
+        @Override
+        public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+            switch (item.getItemId()) {
+                case R.id.navigation_home:
+                    viewPager.setCurrentItem(0);
+                    setTitle("主页*");
+                    return true;
+                case R.id.navigation_dashboard:
+                    viewPager.setCurrentItem(1);
+                    setTitle("Webview");
+
+                    return true;
+                case R.id.navigation_notifications:
+                    viewPager.setCurrentItem(2);
+                    setTitle("消息");
+
+                    return true;
+                case R.id.navigation_set:
+                    viewPager.setCurrentItem(3);
+                    setTitle("设置");
+
+                    return true;
+            }
+            return false;
+        }
+
+    };
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setTitle("Main");
+    }
+
+
+    @Override
+    protected int setLayoutId() {
+        return R.layout.activity_main_bottom_navi;
+    }
+
+    public void initViews() {
+        getToolbar().setNavigationIcon(null);
+
+        final BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
+//        BottomNavigationViewHelper.disableShiftMode(navigation);
+
+        navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
+        navigation.setAccessibilityLiveRegion(BottomNavigationView.ACCESSIBILITY_LIVE_REGION_ASSERTIVE);
+
+        viewPager = (ViewPager) findViewById(R.id.viewpager);
+        viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+                Log.e("sss",position+"            =");
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+                //setTitle(position)
+                if (menuItem != null) {
+                    menuItem.setChecked(false);
+                } else {
+                    navigation.getMenu().getItem(0).setChecked(false);
+                }
+                menuItem = navigation.getMenu().getItem(position);
+                menuItem.setChecked(true);
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+            }
+        });
+
+        //禁止ViewPager滑动
+//        viewPager.setOnTouchListener(new View.OnTouchListener() {
+//            @Override
+//            public boolean onTouch(View v, MotionEvent event) {
+//                return true;
+//            }
+//        });
+
+        setupViewPager(viewPager);
+        viewPager.setOffscreenPageLimit(3); //123456789--97534567
+    }
+
+
+    private void setupViewPager(ViewPager viewPager) {
+        ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
+        adapter.addFragment(DemoFragment.newInstance("demo"));
+        adapter.addFragment(AreUSleepFragmentList.newInstance("expired"));
+        adapter.addFragment(AreUSleepFragmentList.newInstance("done"));
+        adapter.addFragment(MeProfileFragment.newInstance("MeProfile", "333"));
+        viewPager.setAdapter(adapter);
+    }
+
+    protected boolean isShowBacking() {
+        return false;
+    }
+
+}

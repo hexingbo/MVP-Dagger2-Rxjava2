@@ -17,15 +17,7 @@
     <string name="next">NEXT</string>
     <string name="register">REGISTER</string>
 
-
     <string name="action_settings">setting</string>
-
-    <string-array name="main_function_name_array">
-        <item>测试</item>
-        <item>测试</item>
-        <item>测试</item>
-        <item>测试</item>
-    </string-array>
 
 
     <!-- Strings related to login -->

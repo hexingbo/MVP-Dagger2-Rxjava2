@@ -24,7 +24,7 @@ import android.widget.Toast;
 import com.zenglb.commonlib.base.BaseActivity;
 import com.zenglb.commonlib.sharedpreferences.SharedPreferencesDao;
 import com.zenglb.framework.R;
-import com.zenglb.framework.activity.wechat.MainActivityTab;
+import com.zenglb.framework.bottomnavi.MainActivityBottomNavi;
 import com.zenglb.framework.config.SPKey;
 import com.zenglb.framework.http.bean.LoginParams;
 import com.zenglb.framework.http.core.HttpCall;
@@ -85,7 +85,6 @@ public class LoginActivity extends BaseActivity {
         String userName = etUsername.getText().toString().trim();
         String password = etPassword.getText().toString().trim();
 
-
         if (TextUtils.isEmpty(userName) || TextUtils.isEmpty(password)) {
             Toast.makeText(this, "请完整输入用户名和密码", Toast.LENGTH_SHORT).show();
             return;
@@ -110,7 +109,7 @@ public class LoginActivity extends BaseActivity {
                 SharedPreferencesDao.getInstance().saveData(SPKey.KEY_REFRESH_TOKEN, loginResultHttpResponse.getResult().getRefreshToken());
                 SharedPreferencesDao.getInstance().saveData(SPKey.KEY_LAST_ACCOUNT, etUsername.getText().toString().trim());
 
-                Intent i2 = new Intent(LoginActivity.this, MainActivityTab.class);
+                Intent i2 = new Intent(LoginActivity.this, MainActivityBottomNavi.class);
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                     //Android 5.0 以下不能使用啊
                     Explode explode = new Explode();

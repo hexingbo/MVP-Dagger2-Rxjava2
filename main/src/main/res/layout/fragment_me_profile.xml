@@ -30,7 +30,7 @@
                     android:layout_width="80dp"
                     android:layout_height="80dp"
                     android:gravity="center"
-                    android:src="@drawable/main_footer_message_selected" />
+                    android:src="@drawable/ic_back_copy" />
 
                 <TextView
                     android:layout_width="wrap_content"

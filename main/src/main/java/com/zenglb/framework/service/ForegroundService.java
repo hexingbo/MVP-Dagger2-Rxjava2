@@ -14,7 +14,7 @@ import android.util.Log;
 import android.widget.RemoteViews;
 
 import com.zenglb.framework.R;
-import com.zenglb.framework.activity.wechat.MainActivityTab;
+import com.zenglb.framework.bottomnavi.MainActivityBottomNavi;
 
 
 /**
@@ -39,7 +39,7 @@ public class ForegroundService extends Service {
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         if (intent.getAction().equals(START_FOREGROUND_ACTION)) {
-            Intent notificationIntent = new Intent(this, MainActivityTab.class);
+            Intent notificationIntent = new Intent(this, MainActivityBottomNavi.class);
             notificationIntent.setAction(MAIN_ACTION);
             notificationIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
             PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, notificationIntent, 0);

@@ -2,14 +2,16 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:background="@drawable/bg"
-
     android:id="@+id/activity_launch"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".activity.launch.LaunchActivity">
 
     <ImageView
-        android:background="@drawable/bg"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:paddingTop="55dp"
+        android:layout_marginTop="55dp"
+        android:background="@drawable/logo"
+        android:layout_centerInParent="true"
+        android:layout_width="77dp"
+        android:layout_height="72dp"/>
 </RelativeLayout>

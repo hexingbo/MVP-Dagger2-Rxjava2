@@ -4,6 +4,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.res.Configuration;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Build;
@@ -12,6 +13,7 @@ import android.provider.MediaStore;
 import android.support.v4.content.FileProvider;
 import android.util.Base64;
 import android.view.View;
+
 import com.zenglb.commonlib.base.BaseWebViewActivity;
 import com.zenglb.commonlib.jsbridge.BridgeImpl;
 import com.zenglb.commonlib.jsbridge.Callback;
@@ -20,19 +22,21 @@ import com.zenglb.commonlib.utils.BitMapUtil;
 import com.zenglb.commonlib.utils.FileCachePathConfig;
 import com.zenglb.commonlib.utils.FileStorage;
 import com.zenglb.framework.service.ForegroundService;
+
 import org.json.JSONObject;
+
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 
 /**
  * WIP :work in Process
- *
- *
+ * <p>
+ * <p>
  * 业务逻辑相关的写在这里处理,拍照因为部分4.4 无法响应<type-file>的问题，全部使用native,同时启动一个前台Service
  */
 public class WebActivity extends BaseWebViewActivity implements View.OnClickListener {
     private final static int REQUEST_CAPTURE_IMG = 1001;   //相册选取
-    private final static int REQUEST_PICK_IMAGE  = 1002;   //拍照问题见issue
+    private final static int REQUEST_PICK_IMAGE = 1002;   //拍照问题见issue
     private final static int REQUEST_PICTURE_CUT = 1003;   //剪裁图片
     private Uri imageUri;
     private CallNewActForResultReceiver callNewActForResultReceiver = null;
@@ -141,7 +145,7 @@ public class WebActivity extends BaseWebViewActivity implements View.OnClickList
     }
 
     /**
-     * 打开系统相机拍照，为什么在登录的页面调用在拍完照片后回来不会闪一下？为什么？？？
+     * 打开系统相机拍照，为什么在登录的页面调用在拍完照片后回来不会闪一下？为什么？
      */
     private void openCamera() {
         File file = new FileStorage(FileCachePathConfig.CACHE_IMAGE_CHILD).createTempFile("tempTake.jpg");
@@ -150,6 +154,7 @@ public class WebActivity extends BaseWebViewActivity implements View.OnClickList
         } else {
             imageUri = Uri.fromFile(file);
         }
+
         Intent intent = new Intent();
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
             intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
@@ -159,7 +164,6 @@ public class WebActivity extends BaseWebViewActivity implements View.OnClickList
         intent.putExtra(MediaStore.EXTRA_OUTPUT, imageUri);         //将拍取的照片保存到指定URI
         startActivityForResult(intent, REQUEST_CAPTURE_IMG);
     }
-
 
     @Override
     protected void onDestroy() {
@@ -179,5 +183,11 @@ public class WebActivity extends BaseWebViewActivity implements View.OnClickList
         startIntent.setAction(ForegroundService.START_FOREGROUND_ACTION);
         startService(startIntent);
     }
+
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+    }
+
 
 }

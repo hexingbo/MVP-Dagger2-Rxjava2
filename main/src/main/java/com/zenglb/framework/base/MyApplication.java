@@ -14,6 +14,7 @@ import com.zenglb.framework.database.dbupdate.MySQLiteOpenHelper;
 import org.greenrobot.greendao.database.Database;
 
 /**
+ *
  * Created by zenglb on 2017/3/15.
  */
 public class MyApplication extends BaseApplication {

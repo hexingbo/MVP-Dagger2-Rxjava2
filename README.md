@@ -10,8 +10,11 @@
 只有基本的处理，不含LOG,各种Utils 等等，抽象出基类，控制流程。
 
 # 关于Proguard
-# 关于JSBridge
-# 关于Webview 拍照等问题
+
+
+# 关于JSBridge 和 Webview 中的拍照问题
+  演示Demo中assets 目录内置了index.html 和JSbridge.js 来演示，this.goWebView("file:///android_asset/index.html");
+
 
 # 应用中使用的lib
   其实大部分的App 最难以做好的模块是Http，http 模块封装的好，做起业务来很方便。

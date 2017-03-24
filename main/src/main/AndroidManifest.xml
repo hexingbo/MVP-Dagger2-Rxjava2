@@ -42,6 +42,7 @@
         </activity>
 
         <activity android:name=".activity.demo.DemoActivity"></activity>
+
         <activity
             android:name=".activity.access.LoginActivity"
             android:launchMode="singleTop"
@@ -50,20 +51,18 @@
                 <action android:name="app.intent.action.LOGIN" />
             </intent-filter>
         </activity>
+
         <activity
             android:name=".activity.access.RegisterActivity"
             android:theme="@style/Translucent" />
+
         <activity
             android:name=".activity.main.AreUSleepListActivity"
             android:launchMode="singleTask" />
 
-
-        <activity
-            android:name=".activity.wechat.MainActivityTab"
-            android:launchMode="singleTask" />
-
         <activity
             android:name=".activity.web.WebActivity"
+            android:configChanges="orientation|keyboard|keyboardHidden|screenSize"
             android:launchMode="singleTop">
             <intent-filter>
                 <action android:name="my.intent.action.GOTOWEB" />
@@ -71,9 +70,6 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
-
-
-
 
         <activity
             android:name=".activity.setHeadImg.SetHeadImgActivity"
@@ -84,16 +80,16 @@
             android:launchMode="singleTask">
             <intent-filter>
                 <action android:name="my.intent.action.GOSCANQR" />
+
                 <category android:name="my.intent.category.SCANQR" />
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
 
-
         <activity
-            android:name=".MainActivityBottomNavi"
-            android:launchMode="singleTop"
-            android:label="@string/title_activity_main_bottom_navi"></activity>
+            android:name=".bottomnavi.MainActivityBottomNavi"
+            android:label="@string/title_activity_main_bottom_navi"
+            android:launchMode="singleTop"></activity>
 
         <provider
             android:name="android.support.v4.content.FileProvider"
@@ -104,9 +100,8 @@
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/file_paths" />
         </provider>
+
         <service android:name=".service.ForegroundService" />
-
-
 
     </application>
 
