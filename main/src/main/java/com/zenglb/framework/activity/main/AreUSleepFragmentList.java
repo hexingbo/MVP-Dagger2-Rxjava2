@@ -16,7 +16,7 @@ import android.widget.Toast;
 import com.liaoinstan.springview.container.DefaultFooter;
 import com.liaoinstan.springview.container.DefaultHeader;
 import com.liaoinstan.springview.widget.SpringView;
-import com.zenglb.framework.bottomnavi.MainActivityBottomNavi;
+import com.zenglb.framework.navigation.MainActivityBottomNavi;
 import com.zenglb.framework.R;
 import com.zenglb.framework.http.core.HttpCall;
 import com.zenglb.framework.http.core.HttpCallBack;

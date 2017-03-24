@@ -1,4 +1,4 @@
-package com.zenglb.framework.bottomnavi;
+package com.zenglb.framework.navigation;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -6,8 +6,6 @@ import android.support.design.widget.BottomNavigationView;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.TextView;
 
 import com.zenglb.commonlib.base.BaseActivity;
 import com.zenglb.framework.R;
@@ -48,7 +46,6 @@ public class MainActivityBottomNavi extends BaseActivity {
                 case R.id.navigation_set:
                     viewPager.setCurrentItem(3);
                     setTitle("设置");
-
                     return true;
             }
             return false;
@@ -62,7 +59,6 @@ public class MainActivityBottomNavi extends BaseActivity {
         setTitle("Main");
     }
 
-
     @Override
     protected int setLayoutId() {
         return R.layout.activity_main_bottom_navi;
@@ -72,7 +68,7 @@ public class MainActivityBottomNavi extends BaseActivity {
         getToolbar().setNavigationIcon(null);
 
         final BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
-//        BottomNavigationViewHelper.disableShiftMode(navigation);
+        BottomNavigationViewHelper.disableShiftMode(navigation);
 
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
         navigation.setAccessibilityLiveRegion(BottomNavigationView.ACCESSIBILITY_LIVE_REGION_ASSERTIVE);
@@ -81,12 +77,12 @@ public class MainActivityBottomNavi extends BaseActivity {
         viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-                Log.e("sss",position+"            =");
+                Log.e("sss",position+" =");
             }
 
             @Override
             public void onPageSelected(int position) {
-                //setTitle(position)
+                //setTitle(position),
                 if (menuItem != null) {
                     menuItem.setChecked(false);
                 } else {
@@ -98,6 +94,7 @@ public class MainActivityBottomNavi extends BaseActivity {
 
             @Override
             public void onPageScrollStateChanged(int state) {
+
             }
         });
 
@@ -113,13 +110,13 @@ public class MainActivityBottomNavi extends BaseActivity {
         viewPager.setOffscreenPageLimit(3); //123456789--97534567
     }
 
-
     private void setupViewPager(ViewPager viewPager) {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
         adapter.addFragment(DemoFragment.newInstance("demo"));
         adapter.addFragment(AreUSleepFragmentList.newInstance("expired"));
         adapter.addFragment(AreUSleepFragmentList.newInstance("done"));
         adapter.addFragment(MeProfileFragment.newInstance("MeProfile", "333"));
+
         viewPager.setAdapter(adapter);
     }
 

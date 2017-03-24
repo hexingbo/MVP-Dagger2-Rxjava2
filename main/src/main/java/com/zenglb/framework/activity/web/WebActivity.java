@@ -36,7 +36,7 @@ import java.io.File;
  */
 public class WebActivity extends BaseWebViewActivity implements View.OnClickListener {
     private final static int REQUEST_CAPTURE_IMG = 1001;   //相册选取
-    private final static int REQUEST_PICK_IMAGE = 1002;   //拍照问题见issue
+    private final static int REQUEST_PICK_IMAGE  = 1002;   //拍照问题见issue
     private final static int REQUEST_PICTURE_CUT = 1003;   //剪裁图片
     private Uri imageUri;
     private CallNewActForResultReceiver callNewActForResultReceiver = null;
@@ -145,7 +145,8 @@ public class WebActivity extends BaseWebViewActivity implements View.OnClickList
     }
 
     /**
-     * 打开系统相机拍照，为什么在登录的页面调用在拍完照片后回来不会闪一下？为什么？
+     * 这不是最好的拍照方案
+     *
      */
     private void openCamera() {
         File file = new FileStorage(FileCachePathConfig.CACHE_IMAGE_CHILD).createTempFile("tempTake.jpg");

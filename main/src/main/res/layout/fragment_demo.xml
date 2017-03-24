@@ -1,48 +1,44 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".bottomnavi.MainActivityBottomNavi">
+    android:orientation="vertical"
+    android:padding="22dp"
+    tools:context=".navigation.MainActivityBottomNavi">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:layout_margin="22dp">
+    <TextView
+        android:id="@+id/jsbridge"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="goJsBridge"
+        android:text="JsBridge"
+        android:textColor="@color/colorPrimary"
+        android:textSize="18sp" />
 
-        <TextView
-            android:id="@+id/jsbridge"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="JsBridge"
-            android:onClick="goJsBridge"
-            android:textColor="@color/colorPrimary"
-            android:textSize="18sp" />
+    <TextView
+        android:id="@+id/animation"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingTop="22dp"
+        android:text="Material-Animations"
+        android:textColor="@color/colorPrimary"
+        android:textSize="18sp" />
 
-        <TextView
-            android:id="@+id/animation"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Material-Animations"
-            android:paddingTop="22dp"
-            android:textColor="@color/colorPrimary"
-            android:textSize="18sp" />
+    <TextView
+        android:id="@+id/baidu"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingTop="22dp"
+        android:text="Webview"
+        android:textColor="@color/colorPrimary"
+        android:textSize="18sp" />
 
-        <TextView
-            android:id="@+id/baidu"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Webview"
-            android:paddingTop="22dp"
-            android:textColor="@color/colorPrimary"
-            android:textSize="18sp" />
+    //1234567890p-
+    <ImageView
+        android:layout_width="88dp"
+        android:layout_height="88dp"
+        android:layout_marginTop="55dp"
+        android:layout_gravity="center"
+        android:src="@drawable/logok" />
 
-        <ImageView
-            android:layout_marginTop="55dp"
-            android:background="@drawable/logo"
-            android:layout_width="55dp"
-            android:layout_height="55dp"/>
-
-    </LinearLayout>
-
-</FrameLayout>
+</LinearLayout>

@@ -69,13 +69,13 @@
 
 -keep class com.zenglb.framework.entity.** { *; }
 -keep class com.zenglb.framework.config.** { *; }
--keep class com.zenglb.framework.http.bean.** { *; }
+-keep class com.zenglb.framework.http.param1111.** { *; }
 -keep class com.zenglb.framework.http.result.** { *; }
 -keep class com.zenglb.framework.http.core.HttpResponse{*;}
 
 #############################################
 #
-# Android开发中一些需要保留的公共部分
+# APK中一些需要保留的公共部分
 #
 #############################################
 

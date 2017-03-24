@@ -1,7 +1,7 @@
 package com.zenglb.framework.http.core;
 
 import com.zenglb.framework.entity.Messages;
-import com.zenglb.framework.http.bean.LoginParams;
+import com.zenglb.framework.http.param.LoginParams;
 import com.zenglb.framework.http.result.AreuSleepResult;
 import com.zenglb.framework.http.result.LoginResult;
 import com.zenglb.framework.http.result.Modules;

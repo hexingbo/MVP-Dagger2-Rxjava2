@@ -1,4 +1,4 @@
-package com.zenglb.framework.bottomnavi;
+package com.zenglb.framework.navigation;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -11,9 +11,7 @@ import java.util.List;
  * Created by bruce on 2016/11/1.
  * ViewPagerAdapter
  */
-
 public class ViewPagerAdapter extends FragmentPagerAdapter {
-
     private final List<Fragment> mFragmentList = new ArrayList<>();
 
     public ViewPagerAdapter(FragmentManager manager) {

@@ -1,4 +1,4 @@
-package com.zenglb.framework.bottomnavi;
+package com.zenglb.framework.navigation;
 
 import android.support.design.internal.BottomNavigationItemView;
 import android.support.design.internal.BottomNavigationMenuView;

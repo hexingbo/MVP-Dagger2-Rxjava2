@@ -14,7 +14,7 @@ import android.util.Log;
 import android.widget.RemoteViews;
 
 import com.zenglb.framework.R;
-import com.zenglb.framework.bottomnavi.MainActivityBottomNavi;
+import com.zenglb.framework.navigation.MainActivityBottomNavi;
 
 
 /**

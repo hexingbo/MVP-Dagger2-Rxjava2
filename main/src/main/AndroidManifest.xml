@@ -87,7 +87,7 @@
         </activity>
 
         <activity
-            android:name=".bottomnavi.MainActivityBottomNavi"
+            android:name=".navigation.MainActivityBottomNavi"
             android:label="@string/title_activity_main_bottom_navi"
             android:launchMode="singleTop"></activity>
 

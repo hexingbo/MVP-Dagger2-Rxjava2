@@ -1,28 +1,18 @@
 package com.zenglb.framework.http.core;
 
-import android.app.Activity;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.Color;
 import android.support.annotation.CallSuper;
-import android.support.v4.content.ContextCompat;
-import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.widget.Toast;
-
 import com.google.gson.Gson;
 import com.zenglb.commonlib.utils.TextUtils;
-import com.zenglb.framework.R;
 import com.zenglb.framework.activity.access.LoginActivity;
-import com.zenglb.framework.http.utils.HttpDialogUtils;
-
 import java.io.IOException;
 import java.net.ConnectException;
 import java.net.SocketTimeoutException;
 import java.net.UnknownHostException;
 import java.net.UnknownServiceException;
-
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -33,7 +23,6 @@ import retrofit2.Response;
  * 一般的Success 的处理各不相同，但是fail会有很多相同的处理方式
  * 一定要处理好各种异常情况。
  */
-
 public abstract class HttpCallBack<T extends HttpResponse> implements Callback<T> {
     private final String TAG = HttpCallBack.class.getSimpleName();
     private static Gson gson = new Gson();
@@ -45,13 +34,20 @@ public abstract class HttpCallBack<T extends HttpResponse> implements Callback<T
     private boolean showProgress = true;
 
     /**
+     * 根据具体的Api 业务逻辑去重写 onSuccess 方法！
+     * @param t
+     */
+    public abstract void onSuccess(T t);
+
+
+    /**
      * @param mContext
      */
     public HttpCallBack(Context mContext) {
         this.mContext = mContext;
         if (showProgress) {
             //show your progress bar
-            showDialog(true, "loading...");
+            HttpUiTips.showDialog(mContext,true, "loading...");
         }
     }
 
@@ -63,12 +59,10 @@ public abstract class HttpCallBack<T extends HttpResponse> implements Callback<T
         this.showProgress = showProgress;
         this.mContext = mContext;
         if (showProgress) {
-            showDialog(true, null);
+            HttpUiTips.showDialog(mContext,true, null);
         }
     }
 
-
-    public abstract void onSuccess(T t);
 
     /**
      * Default error dispose!
@@ -80,12 +74,11 @@ public abstract class HttpCallBack<T extends HttpResponse> implements Callback<T
     @CallSuper  //if overwrite,you should let it run.
     public void onFailure(int code, String message) {
         if (code == RESPONSE_CODE_FAILED && mContext != null) {
-            alertTip(message, code);
+            HttpUiTips.alertTip(mContext,message, code);
         } else {
             disposeEorCode(message, code);
         }
     }
-
 
     /**
      * Invoked for a received HTTP response.
@@ -95,7 +88,7 @@ public abstract class HttpCallBack<T extends HttpResponse> implements Callback<T
      */
     @Override
     public final void onResponse(Call<T> call, Response<T> response) {
-        dismissDialog();
+        HttpUiTips.dismissDialog(mContext);
         if (response.isSuccessful()) {  //mean that   code >= 200 && code < 300
             int responseCode = response.body().getCode();
             //responseCode是业务api 里面定义的,根据responseCode进行进一步的数据和事件分发!
@@ -145,7 +138,7 @@ public abstract class HttpCallBack<T extends HttpResponse> implements Callback<T
      */
     @Override
     public final void onFailure(Call<T> call, Throwable t) {
-        dismissDialog();
+        HttpUiTips.dismissDialog(mContext);
         String temp = t.getMessage().toString();
 
         String errorMessage = "获取数据失败[def-error]" + temp;
@@ -185,55 +178,5 @@ public abstract class HttpCallBack<T extends HttpResponse> implements Callback<T
     }
 
 
-    /**
-     * http 请求遇阻提示，比如没有网络不提示，再重试也无用
-     */
-    private void alertTip(String message, int code) {
-        //// TODO: 2017/3/14 这里的提示框需要做成单例的,连续弹出来烦死了
-        AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
-        builder.setTitle("获取数据失败");
-        builder.setMessage(message);
-        builder.setPositiveButton("知道了", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-            }
-        });
-
-        AlertDialog dlg = builder.create();
-        dlg.show();
-        dlg.setCanceledOnTouchOutside(false);
-
-        dlg.getButton(DialogInterface.BUTTON_NEGATIVE).setTextColor(Color.WHITE);
-        dlg.getButton(DialogInterface.BUTTON_POSITIVE).setTextColor(ContextCompat.getColor(mContext, R.color.colorPrimary));
-    }
-
-
-    /**
-     * showDialog & dismissDialog 在http 请求开始的时候显示，结束的时候消失
-     * 当然不是必须需要显示的 !
-     */
-    private final void showDialog(final boolean canceledOnTouchOutside, final String messageText) {
-        if (mContext == null || mContext == null || ((Activity) mContext).isFinishing())
-            return;
-        ((Activity) mContext).runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                HttpDialogUtils.showDialog(mContext, canceledOnTouchOutside, messageText);
-            }
-        });
-    }
-
-    private final void dismissDialog() {
-        if (mContext == null || ((Activity) mContext).isFinishing())
-            return;             //maybe not good !
-        if (mContext != null) {
-            ((Activity) mContext).runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
-                    HttpDialogUtils.dismissDialog();
-                }
-            });
-        }
-    }
 
 }

@@ -4,16 +4,11 @@ import android.text.TextUtils;
 import android.util.Log;
 
 import com.zenglb.commonlib.sharedpreferences.SharedPreferencesDao;
-import com.zenglb.framework.base.MyApplication;
-import com.zenglb.framework.http.result.AreuSleepResult;
 import com.zenglb.framework.config.SPKey;
-import com.zenglb.framework.entity.Messages;
-import com.zenglb.framework.http.bean.LoginParams;
+import com.zenglb.framework.http.param.LoginParams;
 import com.zenglb.framework.http.result.LoginResult;
-import com.zenglb.framework.http.result.Modules;
 
 import java.io.IOException;
-import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import okhttp3.Authenticator;
@@ -26,12 +21,6 @@ import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Call;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
-import retrofit2.http.Body;
-import retrofit2.http.GET;
-import retrofit2.http.Headers;
-import retrofit2.http.POST;
-import retrofit2.http.Path;
-import retrofit2.http.Query;
 
 /**
  * Http 请求配置和流程处理，部分Return 配置可以更加的简洁，为了试验，不简洁了

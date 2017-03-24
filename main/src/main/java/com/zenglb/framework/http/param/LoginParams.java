@@ -1,4 +1,4 @@
-package com.zenglb.framework.http.bean;
+package com.zenglb.framework.http.param;
 
 /**
  * 登录需要提交的参数
