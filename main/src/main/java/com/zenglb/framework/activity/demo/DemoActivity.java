@@ -3,20 +3,17 @@ package com.zenglb.framework.activity.demo;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
-import com.zenglb.commonlib.base.BaseActivity;
+import com.zenglb.baselib.base.BaseActivity;
 import com.zenglb.framework.R;
 import com.zenglb.framework.entity.Messages;
 import com.zenglb.framework.http.core.HttpCall;
 import com.zenglb.framework.http.core.HttpCallBack;
 import com.zenglb.framework.http.core.HttpResponse;
-import com.zenglb.framework.http.result.Modules;
+import com.zenglb.framework.http.result.ModulesResult;
 import java.util.List;
 import retrofit2.Call;
 
@@ -72,10 +69,10 @@ public class DemoActivity extends BaseActivity {
      * test get http
      */
     private void requestModules() {
-        Call<HttpResponse<Modules>> getModulesCall = HttpCall.getApiService().getModules();
-        getModulesCall.enqueue(new HttpCallBack<HttpResponse<Modules>>(this) {
+        Call<HttpResponse<ModulesResult>> getModulesCall = HttpCall.getApiService().getModules();
+        getModulesCall.enqueue(new HttpCallBack<HttpResponse<ModulesResult>>(this) {
             @Override
-            public void onSuccess(HttpResponse<Modules> getModulesCallResponse) {
+            public void onSuccess(HttpResponse<ModulesResult> getModulesCallResponse) {
                 ((TextView) findViewById(R.id.message_txt)).setText(getModulesCallResponse.getResult().toString());
             }
 

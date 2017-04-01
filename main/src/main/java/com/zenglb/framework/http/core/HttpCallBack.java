@@ -6,7 +6,7 @@ import android.support.annotation.CallSuper;
 import android.util.Log;
 import android.widget.Toast;
 import com.google.gson.Gson;
-import com.zenglb.commonlib.utils.TextUtils;
+import com.zenglb.baselib.utils.TextUtils;
 import com.zenglb.framework.activity.access.LoginActivity;
 import java.io.IOException;
 import java.net.ConnectException;
@@ -26,19 +26,18 @@ import retrofit2.Response;
 public abstract class HttpCallBack<T extends HttpResponse> implements Callback<T> {
     private final String TAG = HttpCallBack.class.getSimpleName();
     private static Gson gson = new Gson();
-    private Context mContext;
     private final int RESPONSE_CODE_OK = 0;      //自定义的业务逻辑，成功返回积极数据
     private final int RESPONSE_CODE_FAILED = -1; //返回数据失败
 
     //是否需要显示Http 请求的进度，默认的是需要，但是Service 和 预取数据不需要
     private boolean showProgress = true;
+    private Context mContext;
 
     /**
      * 根据具体的Api 业务逻辑去重写 onSuccess 方法！
      * @param t
      */
     public abstract void onSuccess(T t);
-
 
     /**
      * @param mContext

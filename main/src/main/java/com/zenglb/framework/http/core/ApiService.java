@@ -4,7 +4,7 @@ import com.zenglb.framework.entity.Messages;
 import com.zenglb.framework.http.param.LoginParams;
 import com.zenglb.framework.http.result.AreuSleepResult;
 import com.zenglb.framework.http.result.LoginResult;
-import com.zenglb.framework.http.result.Modules;
+import com.zenglb.framework.http.result.ModulesResult;
 
 import java.util.List;
 
@@ -49,7 +49,7 @@ public interface ApiService {
      * test get something
      */
     @GET("api/lebang/staffs/me/modules")
-    Call<HttpResponse<Modules>> getModules();
+    Call<HttpResponse<ModulesResult>> getModules();
 
 
     @GET("api/lebang/night_school/{type}")

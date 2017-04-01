@@ -12,15 +12,14 @@ import android.os.Bundle;
 import android.provider.DocumentsContract;
 import android.provider.MediaStore;
 import android.support.v4.content.FileProvider;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
 
-import com.zenglb.commonlib.base.BaseActivity;
-import com.zenglb.commonlib.utils.FileCachePathConfig;
-import com.zenglb.commonlib.utils.FileStorage;
+import com.zenglb.baselib.base.BaseActivity;
+import com.zenglb.baselib.utils.FileCachePathConfig;
+import com.zenglb.baselib.utils.FileStorage;
 import com.zenglb.framework.R;
 
 import java.io.File;

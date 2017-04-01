@@ -5,9 +5,9 @@ import android.content.pm.PackageManager;
 import android.text.TextUtils;
 import android.util.Log;
 
-import com.zenglb.commonlib.sharedpreferences.SharedPreferencesDao;
+import com.zenglb.baselib.sharedpreferences.SharedPreferencesDao;
 import com.zenglb.framework.database.daomaster.DaoMaster;
-import com.zenglb.commonlib.base.BaseApplication;
+import com.zenglb.baselib.base.BaseApplication;
 import com.zenglb.framework.database.daomaster.DaoSession;
 import com.zenglb.framework.database.dbupdate.MySQLiteOpenHelper;
 

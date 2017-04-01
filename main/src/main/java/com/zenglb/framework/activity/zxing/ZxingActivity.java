@@ -1,17 +1,14 @@
 package com.zenglb.framework.activity.zxing;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Vibrator;
-import android.text.TextUtils;
 import android.view.KeyEvent;
 import com.google.zxing.ResultPoint;
 import com.google.zxing.client.android.BeepManager;
 import com.journeyapps.barcodescanner.BarcodeCallback;
 import com.journeyapps.barcodescanner.BarcodeResult;
 import com.journeyapps.barcodescanner.DecoratedBarcodeView;
-import com.zenglb.commonlib.base.BaseActivity;
+import com.zenglb.baselib.base.BaseActivity;
 import com.zenglb.framework.R;
 import java.util.List;
 

@@ -52,7 +52,7 @@
 
 
 #-----------处理js交互,否则js无法调用 Native  ---------------
--keep class com.zenglb.commonlib.jsbridge.BridgeImpl { *; }
+-keep class com.zenglb.baselib.jsbridge.BridgeImpl { *; }
 
 
 #-----------处理实体类---------------
@@ -65,11 +65,11 @@
 
 
 # 使用Gson时需要配置Gson的解析对象及变量都不混淆。不然Gson会找不到变量。
-# 将下面替换成自己的实体类
+# 将下面替换成自己的实体类http.param 去查马上就可以生效
 
 -keep class com.zenglb.framework.entity.** { *; }
 -keep class com.zenglb.framework.config.** { *; }
--keep class com.zenglb.framework.http.param1111.** { *; }
+-keep class com.zenglb.framework.http.param.** { *; }
 -keep class com.zenglb.framework.http.result.** { *; }
 -keep class com.zenglb.framework.http.core.HttpResponse{*;}
 

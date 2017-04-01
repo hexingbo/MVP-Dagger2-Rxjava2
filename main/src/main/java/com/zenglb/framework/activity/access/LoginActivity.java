@@ -21,8 +21,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.zenglb.commonlib.base.BaseActivity;
-import com.zenglb.commonlib.sharedpreferences.SharedPreferencesDao;
+import com.zenglb.baselib.base.BaseActivity;
+import com.zenglb.baselib.sharedpreferences.SharedPreferencesDao;
 import com.zenglb.framework.R;
 import com.zenglb.framework.navigation.MainActivityBottomNavi;
 import com.zenglb.framework.config.SPKey;

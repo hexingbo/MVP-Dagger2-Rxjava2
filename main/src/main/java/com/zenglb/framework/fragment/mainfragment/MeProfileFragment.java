@@ -18,8 +18,8 @@ import com.dtr.settingview.lib.entity.SettingData;
 import com.dtr.settingview.lib.entity.SettingViewItemData;
 import com.dtr.settingview.lib.item.BasicItemViewH;
 import com.dtr.settingview.lib.item.SwitchItemView;
-import com.zenglb.commonlib.base.BaseActivity;
-import com.zenglb.commonlib.base.BaseFragment;
+import com.zenglb.baselib.base.BaseActivity;
+import com.zenglb.baselib.base.BaseFragment;
 import com.zenglb.framework.R;
 import com.zenglb.framework.activity.access.LoginActivity;
 

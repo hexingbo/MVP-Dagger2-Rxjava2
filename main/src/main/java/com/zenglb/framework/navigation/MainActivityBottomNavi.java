@@ -7,7 +7,7 @@ import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.view.MenuItem;
 
-import com.zenglb.commonlib.base.BaseActivity;
+import com.zenglb.baselib.base.BaseActivity;
 import com.zenglb.framework.R;
 import com.zenglb.framework.activity.main.AreUSleepFragmentList;
 import com.zenglb.framework.fragment.mainfragment.MeProfileFragment;

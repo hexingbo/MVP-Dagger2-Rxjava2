@@ -11,7 +11,7 @@ import android.transition.TransitionInflater;
 import android.view.View;
 import android.view.ViewAnimationUtils;
 import android.view.animation.AccelerateInterpolator;
-import com.zenglb.commonlib.base.BaseActivity;
+import com.zenglb.baselib.base.BaseActivity;
 import com.zenglb.framework.R;
 
 public class RegisterActivity extends BaseActivity {

@@ -1,25 +1,12 @@
 package com.zenglb.framework.http.core;
 /**
  * 这个类和具体的业务api 结构有关，本Demo的API 结构大致如下：
- * //=====================Http success===============================
  {
- "code": 0,
- "error": "",
- "result":
- {
- "access_token": "if i should see you after long years,how should i greet",
- "token_type": "Bearer",
- "expires": "2016-05-12 17:13:13",
- "refresh_token": "with tear? with slience",
- "scopes": "all"
+  "code": 0,
+  "error": "",
+  "result":{
+   }
  }
- }
- // =======================Http error====================================
- {
- "code": HTTP_BAD_REQUEST,
- "error": "错误信息"
- }
- *
  * Created by anylife.zlb@gmail.com on 2016/7/11.
  */
 public class HttpResponse<T> {

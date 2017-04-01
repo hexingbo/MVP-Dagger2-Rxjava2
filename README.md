@@ -1,13 +1,9 @@
 #FBI WARMIMNG:api 仅供交流，不要外传！
+目前没有添加权限申请，Android 6.0 以上的手机请手动的在设置里面授权所有申请的权限吧！
 
-
-#目前没有添加权限申请，Android 6.0 以上的手机请手动的在设置里面授权所有申请的权限吧！
-
-![image](https://github.com/AnyLifeZLB/AndroidAppFrameWork/raw/master/4.png)
-
-# 封装干什么
-  首先，我反对过度封装；封装的目的是为了减少重复代码，精简清晰化项目结构，方便分工开发维护，Demo里面
-只有基本的处理，不含LOG,各种Utils 等等，抽象出基类，控制流程。
+# 关于本Demo
+  本项目作为轻量化的练习Demo,方便以后新项目进行参考，主要练习基础项目封装，GreenDao,Material-Animations,
+  Retrofit,Proguard混淆和JSbridge(webview中拍照上传)
 
 # 关于Proguard
 
@@ -19,19 +15,19 @@
 # 应用中使用的lib
   其实大部分的App 最难以做好的模块是Http，http 模块封装的好，做起业务来很方便。
   UX 部分多考虑Material design和动画Material-Animations
-  ## 建议必选
+  ## 需选
   - 数据库 GreenDao3(如果有需要使用数据库，建议使用，配置很简洁了)
   - 过度动画 Material-Animations
   - Http请求 retrofit2
   - 列表数据上拉下拉 官方/springview
-  - 图片展示 universalimageloader不再维护了，可选用glide,pissico等
+  - 图片展示 UML不再维护了，可选用glide,pissico等
   - 权限管理 XXXXXXXXXXXXXXX
   - 二维码 com.journeyapps:zxing-android-embedded
 
   ## 可选
-  - 视图绑定和监听 butterknife/databing
-  - rxjava,rxAndroid,Eventbus 。  Square 的东西都很好用，但是
-  - Bugly - Umeng(太庞大了)
+  - butterknife/databing
+  - rxjava,rxAndroid,Eventbus
+  - Bugly
   - leakcanary
   - +_)(*&^%$E#W@@!@^%%#$@#$!%&!
 

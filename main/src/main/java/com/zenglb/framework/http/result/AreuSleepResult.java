@@ -1,6 +1,7 @@
 package com.zenglb.framework.http.result;
 
 /**
+ * just a demo !
  * Created by zenglb on 2017/2/9.
  */
 public class AreuSleepResult {

@@ -95,7 +95,7 @@ dependencies {
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
-    compile project(':commonLib')
+    compile project(':baseLib')
     compile project(':settingViewLib')
 
     //1.greemdao 和加密

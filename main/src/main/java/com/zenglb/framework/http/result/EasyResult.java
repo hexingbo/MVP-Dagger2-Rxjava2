@@ -1,7 +1,7 @@
 package com.zenglb.framework.http.result;
 
 /**
- * 有些API result 字段返回的没有任何的意义，就传这个吧，比如检查手机是否存在
+ * 有些API result 字段返回的没有任何的意义，就传这个吧，比如检查手机是否存在，当然你可以随意玩玩
  *
  * Created by anylife.zlb@gmail.com on 2016/7/11.
  */

@@ -11,8 +11,8 @@ import android.telephony.gsm.GsmCellLocation;
 import android.text.TextUtils;
 import android.widget.Toast;
 
-import com.zenglb.commonlib.base.BaseActivity;
-import com.zenglb.commonlib.sharedpreferences.SharedPreferencesDao;
+import com.zenglb.baselib.base.BaseActivity;
+import com.zenglb.baselib.sharedpreferences.SharedPreferencesDao;
 import com.zenglb.framework.R;
 import com.zenglb.framework.activity.access.LoginActivity;
 import com.zenglb.framework.navigation.MainActivityBottomNavi;

@@ -7,9 +7,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.zenglb.commonlib.base.BaseActivity;
+import com.zenglb.baselib.base.BaseActivity;
 import com.zenglb.framework.R;
-import com.zenglb.framework.activity.web.WebActivity;
 
 /**
  * 喂,你睡着了吗（答题列表）
@@ -64,8 +63,13 @@ public class DemoFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 ((BaseActivity) getActivity()).goWebView("file:///android_asset/index.html");
+//                ((BaseActivity) getActivity()).goWebView("https://www.baidu.com");
             }
         });
+
+//        TextView ss=new TextView();
+//        ss.setTextColor();
+
     }
 
 
@@ -82,7 +86,6 @@ public class DemoFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-
     }
 
     @Override

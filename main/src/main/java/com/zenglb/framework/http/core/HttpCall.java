@@ -3,7 +3,7 @@ package com.zenglb.framework.http.core;
 import android.text.TextUtils;
 import android.util.Log;
 
-import com.zenglb.commonlib.sharedpreferences.SharedPreferencesDao;
+import com.zenglb.baselib.sharedpreferences.SharedPreferencesDao;
 import com.zenglb.framework.config.SPKey;
 import com.zenglb.framework.http.param.LoginParams;
 import com.zenglb.framework.http.result.LoginResult;
@@ -24,7 +24,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 /**
  * Http 请求配置和流程处理，部分Return 配置可以更加的简洁，为了试验，不简洁了
- *
+ * <p>
  * cleanToken&refresh 和业务有关，整个配置不超过200 行
  *
  * Created by Anylife.zlb@gmail.com on 2017/3/16.

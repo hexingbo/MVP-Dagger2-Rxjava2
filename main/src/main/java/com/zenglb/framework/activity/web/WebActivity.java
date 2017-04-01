@@ -14,13 +14,13 @@ import android.support.v4.content.FileProvider;
 import android.util.Base64;
 import android.view.View;
 
-import com.zenglb.commonlib.base.BaseWebViewActivity;
-import com.zenglb.commonlib.jsbridge.BridgeImpl;
-import com.zenglb.commonlib.jsbridge.Callback;
-import com.zenglb.commonlib.jsbridge.JSCallBackStatusCode;
-import com.zenglb.commonlib.utils.BitMapUtil;
-import com.zenglb.commonlib.utils.FileCachePathConfig;
-import com.zenglb.commonlib.utils.FileStorage;
+import com.zenglb.baselib.base.BaseWebViewActivity;
+import com.zenglb.baselib.jsbridge.BridgeImpl;
+import com.zenglb.baselib.jsbridge.Callback;
+import com.zenglb.baselib.jsbridge.JSCallBackStatusCode;
+import com.zenglb.baselib.utils.BitMapUtil;
+import com.zenglb.baselib.utils.FileCachePathConfig;
+import com.zenglb.baselib.utils.FileStorage;
 import com.zenglb.framework.service.ForegroundService;
 
 import org.json.JSONObject;
@@ -30,8 +30,9 @@ import java.io.File;
 
 /**
  * WIP :work in Process
- * <p>
- * <p>
+ *
+ *  4.4 的手机有毛病 ！
+ *
  * 业务逻辑相关的写在这里处理,拍照因为部分4.4 无法响应<type-file>的问题，全部使用native,同时启动一个前台Service
  */
 public class WebActivity extends BaseWebViewActivity implements View.OnClickListener {
@@ -76,6 +77,10 @@ public class WebActivity extends BaseWebViewActivity implements View.OnClickList
         IntentFilter filter = new IntentFilter(BridgeImpl.fliterTAG);
         callNewActForResultReceiver = new CallNewActForResultReceiver();
         registerReceiver(callNewActForResultReceiver, filter);
+
+        Intent startIntent = new Intent(mContext, ForegroundService.class);
+        startIntent.setAction(ForegroundService.START_FOREGROUND_ACTION);
+        startService(startIntent);
     }
 
     @Override
@@ -180,9 +185,9 @@ public class WebActivity extends BaseWebViewActivity implements View.OnClickList
     @Override
     protected void onPause() {
         super.onPause();
-        Intent startIntent = new Intent(mContext, ForegroundService.class);
-        startIntent.setAction(ForegroundService.START_FOREGROUND_ACTION);
-        startService(startIntent);
+//        Intent startIntent = new Intent(mContext, ForegroundService.class);
+//        startIntent.setAction(ForegroundService.START_FOREGROUND_ACTION);
+//        startService(startIntent);
     }
 
     @Override
