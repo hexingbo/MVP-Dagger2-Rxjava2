@@ -1,8 +1,8 @@
 #FBI WARMIMNG:api 仅供交流，不要外传！
 
 # 关于本Demo
-  本项目作为轻量化的练习Demo,方便以后新项目进行参考，主要练习基础项目封装，GreenDao,Material-Animations,
-  Retrofit,Proguard混淆和JSbridge(webview 在单独的进程中),baseActivity(不要放那么多和Base 无关的东西)
+  本项目作为轻量化的练习Demo,方便以后新项目进行参考，主要练习基础项目封装，GreenDao3,Material-Animations,
+  Retrofit2,mvp,Proguard混淆和JSbridge(webview 在单独的进程中),baseActivity(不要放那么多和Base 无关的东西)
 
 # 关于Proguard
   Proguard 能混淆代码，能减少Apk 的体积，优化结构，不管怎样没有理由不Proguard吧，至于第三方的加固感觉没有必要，
@@ -31,11 +31,11 @@
 
 # 关于持久化数据的保存
 - SharePrence (考虑有几个进程可能要content p)
-
 - Datebase
    sqlite ? no!  ORMDB please,Now maybe the best is greendao3.
 
 # 关于动画
+  要适当的有过度动画，不要太生硬
 
 # 关于图片
   这个需要看项目的业务了，也就那几个老牌的库
@@ -43,12 +43,25 @@
 # 关于Crash 的采集
   Bugly
 
+# 关于项目中的素材
+  多用webp,.9.png,还有很多新的工程构建
+
+# 关于5大布局 的发展
+  现在不只是FrameLayout，LinearLayouy  等等以前的，还有很多新的如percentLayout,flexlayout coordilayout
+  等等都是Google 官方新出来的推荐使用的布局样式，多使用新的
+
+# toolbar
+  设计师会遵循Android 的规范设计了，吧！会的
+
 # 运营统计
   再说吧。
 
 #关于调试工具
  推荐Facebook stetho ，可以网络请求（抓包），不root查看DB 文件和sharepreference，甚至在4.4 以后webview
  可以远程调试；提高生产力的利器啊。
+
+# 安全加密
+  混淆Proguard，https,数据库加密，密码明文传输是什么鬼，多多oauth
 
 
 # 应用中使用的lib
@@ -83,6 +96,7 @@
 - Proguard 混淆 打包优化
 - BaseWebView 的处理（未完善，Android 的坑很多）
 - support lib 和动画
+
 
 
 
