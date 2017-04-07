@@ -11,6 +11,7 @@ import java.io.FileReader;
 
 /**
  * BaseApplication，初始化必然初始化的一些配置
+ *
  */
 public class BaseApplication extends Application {
 	public static final String TAG = BaseApplication.class.getSimpleName();
@@ -19,7 +20,7 @@ public class BaseApplication extends Application {
 	@Override
 	public void onCreate() {
 		super.onCreate();
-		String processName = getProcessName();
+		String processName = getProcessName();  //注意区分进程初始化不同的东西
 //		Log.d(TAG, processName + "Application onCreate");
 		if (!TextUtils.isEmpty(processName) && processName.equals(this.getPackageName())) { //main Process
 			SharedPreferencesDao.initSharePrefenceDao(this);
@@ -29,8 +30,6 @@ public class BaseApplication extends Application {
 		}
 
 	}
-
-
 
 
 	/**

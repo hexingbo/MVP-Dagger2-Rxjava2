@@ -32,25 +32,27 @@ import com.zenglb.framework.http.core.HttpCallBack;
 import com.zenglb.framework.http.core.HttpResponse;
 import com.zenglb.framework.http.result.LoginResult;
 
+import permissions.dispatcher.RuntimePermissions;
 import retrofit2.Call;
 
 /**
  * 1.登录的对话框在弹出键盘的时候希望能够向上移动
  * 2.内存占用实在是太多太多了，太多太多了！
- * 3.
+ * 3.在这里把需要申请的权限都申请一遍？ 这样不是都很流氓
+ * @author zenglb
  */
+//@RuntimePermissions
 public class LoginActivity extends BaseActivity {
-    EditText etUsername;
-    EditText etPassword;
-    Button btGo;
-    CardView cv;
-    FloatingActionButton fab;
+    private EditText etUsername;
+    private EditText etPassword;
+    private Button btGo;
+    private CardView cv;
+    private FloatingActionButton fab;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         SharedPreferencesDao.getInstance().saveData(SPKey.KEY_ACCESS_TOKEN, "");
-
     }
 
     @Override
@@ -67,21 +69,16 @@ public class LoginActivity extends BaseActivity {
         fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(this);
         btGo.setOnClickListener(this);
-
         etUsername.setText(SharedPreferencesDao.getInstance().getData(SPKey.KEY_LAST_ACCOUNT, "", String.class));
-
         etUsername.setText("18826562075");
         etPassword.setText("zxcv1234");
-
     }
 
 
     /**
-     * Login
+     * Login @
      */
     private void login() {
-//        this.goWebView("file:///android_asset/index.html");
-
         String userName = etUsername.getText().toString().trim();
         String password = etPassword.getText().toString().trim();
 
@@ -100,11 +97,9 @@ public class LoginActivity extends BaseActivity {
 
         //2.Generic Programming Techniques is the basis of Android develop
         Call<HttpResponse<LoginResult>> loginCall = HttpCall.getApiService().goLogin(loginParams);
-
         loginCall.enqueue(new HttpCallBack<HttpResponse<LoginResult>>(this) {
             @Override
             public void onSuccess(HttpResponse<LoginResult> loginResultHttpResponse) {
-
                 SharedPreferencesDao.getInstance().saveData(SPKey.KEY_ACCESS_TOKEN, "Bearer " + loginResultHttpResponse.getResult().getAccessToken());
                 SharedPreferencesDao.getInstance().saveData(SPKey.KEY_REFRESH_TOKEN, loginResultHttpResponse.getResult().getRefreshToken());
                 SharedPreferencesDao.getInstance().saveData(SPKey.KEY_LAST_ACCOUNT, etUsername.getText().toString().trim());
@@ -121,7 +116,6 @@ public class LoginActivity extends BaseActivity {
                 }else{
                     startActivity(i2);
                 }
-
                 LoginActivity.this.finish();
             }
 
@@ -146,37 +140,18 @@ public class LoginActivity extends BaseActivity {
                 break;
             case R.id.bt_go:
                 login();
-//                giveTipsToOpti();
                 break;
         }
     }
 
 
     /**
-     * 给出提示要求用户去选择优化电池
+     * 登录页面不允许返回，就是这样的流氓
+     *
+     * @param keyCode
+     * @param event
+     * @return
      */
-    private void giveTiipsToOpti() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            PowerManager pm = (PowerManager) getSystemService(Context.POWER_SERVICE);
-            if (!pm.isIgnoringBatteryOptimizations(mContext.getPackageName())) {
-                new AlertDialog.Builder(mContext)
-                        .setTitle("Tips")
-                        .setMessage("请在接下来的电池优化中选择[是]，虽然会消耗多一些的电量，但能让手机更好接收推送")
-                        .setCancelable(false)
-                        .setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                Intent intent = new Intent(Settings.ACTION_REQUEST_IGNORE_BATTERY_OPTIMIZATIONS);
-                                intent.setData(Uri.parse("package:" + mContext.getPackageName()));
-                                startActivity(intent);  //请求电池不优化
-                            }
-                        })
-                        .show();
-            }
-        }
-    }
-
-
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_BACK) { //监控/拦截/屏蔽返回键

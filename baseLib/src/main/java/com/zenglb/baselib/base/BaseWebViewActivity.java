@@ -2,6 +2,7 @@ package com.zenglb.baselib.base;
 
 import android.content.DialogInterface;
 import android.net.http.SslError;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.view.KeyEvent;
@@ -57,6 +58,10 @@ public abstract class BaseWebViewActivity extends BaseActivity {
         mWebView = (WebView) findViewById(R.id.webview);
         mWebView.setScrollBarStyle(WebView.SCROLLBARS_OUTSIDE_OVERLAY);
 
+        //Android 4.4 开始，默认的浏览器已经是 chrome 了，所以 webview 也是 chrome 了，这就给了 webview 远程调试的能力。
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            mWebView.setWebContentsDebuggingEnabled(true);
+        }
         springView = (SpringView) findViewById(R.id.springview);
         springView.setType(SpringView.Type.OVERLAP);
         // TODO: 2017/3/17  还有冲突,滑动不行啊
@@ -71,6 +76,7 @@ public abstract class BaseWebViewActivity extends BaseActivity {
             }
         });
         WebSettings settings = mWebView.getSettings();
+
 
 
 

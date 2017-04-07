@@ -3,7 +3,7 @@
     package="com.dtr.settingviewlib.test" >
 
     <uses-sdk
-        android:minSdkVersion="15"
+        android:minSdkVersion="19"
         android:targetSdkVersion="25" />
 
     <instrumentation
@@ -12,6 +12,10 @@
         android:handleProfiling="false"
         android:label="Tests for com.dtr.settingviewlib.test"
         android:targetPackage="com.dtr.settingviewlib.test" />
+
+    <meta-data
+        android:name="android.support.VERSION"
+        android:value="25.3.0" />
 
     <application>
         <uses-library android:name="android.test.runner" />

@@ -1,0 +1,11 @@
+/**
+ * 所有Module 的共享变量，这里修改了，全部地方都能修改
+ */
+project.ext {
+    compileSdkVersion = 25
+    buildToolsVersion = "25.0.2"
+
+    minSdkVersion = 19
+    targetSdkVersion = 25
+
+}

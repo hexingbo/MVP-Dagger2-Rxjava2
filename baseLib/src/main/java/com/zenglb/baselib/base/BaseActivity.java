@@ -9,11 +9,11 @@ import android.view.View;
 import com.zenglb.commonlib.R;
 
 /**
- * 基类就只做基类的事情,不要把业务层面的代码写到这里来
+ * 基类就只做基类的事情,不要把业务层面的代码写到这里来 ！！
  * 1.toolbar 的封装
  * 2.页面之间的跳转
  * 3.注意WebViewActivity 开启了多进程！
- *
+ * @author zenglb 20170301
  */
 public abstract class BaseActivity extends AppCompatActivity implements View.OnClickListener{
     private static final String TAG = BaseActivity.class.getSimpleName();
@@ -55,7 +55,6 @@ public abstract class BaseActivity extends AppCompatActivity implements View.OnC
 //            builder.create().show();
 //        }
     }
-
 
 
     protected abstract int setLayoutId();

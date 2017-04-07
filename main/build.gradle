@@ -11,12 +11,12 @@ def getDate() {
 
 
 android {
-    compileSdkVersion 25
-    buildToolsVersion "25.0.2"
+    compileSdkVersion project.ext.compileSdkVersion
+    buildToolsVersion project.ext.buildToolsVersion
     defaultConfig {
         applicationId "com.zenglb.framework"
-        minSdkVersion 19
-        targetSdkVersion 25
+        minSdkVersion project.ext.minSdkVersion
+        targetSdkVersion project.ext.targetSdkVersion
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
@@ -29,7 +29,6 @@ android {
 //    signingConfigs {
 //        MyConfig {
 //            storeFile file('E:/Android/Code/AnyLife_Zlb_Keystore')
-//
 //            keyAlias properties.getProperty("MyConfig.user")
 //            keyPassword properties.getProperty("MyConfig.password")
 //            storePassword properties.getProperty("MyConfig.password")
@@ -98,15 +97,9 @@ dependencies {
     compile project(':baseLib')
     compile project(':settingViewLib')
 
-    //1.greemdao 和加密
-    //2.Recyclerview 动画和分割线
-    //3.上拉下拉加载数据
-    //4.http 网络数据处理
-    //
-    //5.百分比布局控件
-    //6.JSBRIDGE
+    testCompile 'junit:junit:4.12'
 
-    //7.zxing
+    debugCompile 'com.facebook.stetho:stetho:1.4.2'
 
 
     compile 'org.greenrobot:greendao:3.2.0'
@@ -116,10 +109,14 @@ dependencies {
     compile 'com.squareup.retrofit2:retrofit:2.1.0'
     compile 'com.squareup.retrofit2:converter-gson:2.1.0'
     compile 'com.squareup.okhttp3:logging-interceptor:3.4.1'
-    compile 'com.google.code.gson:gson:2.4'
+    compile 'com.google.code.gson:gson:2.7'
     compile 'com.zhy:percent-support-extends:1.1.1'
     compile 'com.google.zxing:core:3.2.1'
     compile 'com.journeyapps:zxing-android-embedded:3.4.0'
-    compile 'com.android.support:support-vector-drawable:25.2.0'
-    testCompile 'junit:junit:4.12'
+    compile 'com.android.support:support-vector-drawable:25.3.0'
+
+
+    compile 'com.github.hotchemi:permissionsdispatcher:2.3.2'
+    annotationProcessor 'com.github.hotchemi:permissionsdispatcher-processor:2.3.2'
+
 }
