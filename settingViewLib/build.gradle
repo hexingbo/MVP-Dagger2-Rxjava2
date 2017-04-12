@@ -15,8 +15,14 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.txt'
         }
     }
+
+    compileOptions {
+        sourceCompatibility project.ext.sourceCompatibility
+        targetCompatibility project.ext.targetCompatibility
+    }
+
 }
 
 dependencies {
-    compile 'com.android.support:support-v4:25.3.0'
+    compile "com.android.support:support-v4:$project.ext.supportLibraryVersion"
 }

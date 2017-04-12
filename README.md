@@ -3,6 +3,7 @@
 # 关于本Demo
   本项目作为轻量化的练习Demo,方便以后新项目进行参考，主要练习基础项目封装，GreenDao3,Material-Animations,
   Retrofit2,mvp,Proguard混淆和JSbridge(webview 在单独的进程中),baseActivity(不要放那么多和Base 无关的东西)
+  慢慢的也会加入Rxjava2 和 dragger(/2)
 
 # 关于Proguard
   Proguard 能混淆代码，能减少Apk 的体积，优化结构，不管怎样没有理由不Proguard吧，至于第三方的加固感觉没有必要，
@@ -25,23 +26,41 @@
   应该没有比retrofit2 更好的了吧？不过api 不是restful 就需要再封装一下了，网路模块就是数据命脉，做好了
   整个app 的结构会简化很多。
 
-# 关于MVC，MVP (什么？MVVM)
-  MVC 中Activity 可能代码会随着业务的复杂变得很大，里面承载了太多的东西，试试MVP吧。当然如果是小项目的话
-  使用MVP 估计并不会提高很多生产力，还会产生大量的接口类，MVVM 不说了
+# UI架构模型
+  Android应用的UI架构模型经历了MVC,MVP 和 MVVM 的演变过程。MVC中View 层（Activity，Fragment/自定义的View）
+  可能代码会随着业务的复杂变得很大，里面不但要处理界面，还要处理很多业务逻辑里面承载了太多的东西，试试MVP吧，
+  已经是很流行的UI架构模型了。
+  使用MVP多关注代码结构、整体架构、可测试性、可维护性这四个方面
+
+## 关于MVP
+  - View层
+  包含界面相关的功能（Activity,Fragment,View,Adapter）,专注用户的交互，实现设计师给出的界面，动画.View层
+  一般会持有Presenter 层的引用，或者也可以通过依赖注入(dragger/2)的方式获取Presenter 实例，非UI逻辑的操作
+  委托给Presenter.
+
+  - Presenter 逻辑控制层
+  充当中间人的角色，隔离model层和View层，该层从View 层剥离控制逻辑部分形成的，主要负责View层和Model 层的
+  交互。例如接收view 层的网络数据请求，并分发给对应的Model层处理，同时监听Model层的处理结果，最终反馈给
+  View 层，从而实现界面的刷新。
+
+  - Model 层
+  封装数据来源，一个程序的本质是处理各种数据，input data ,proces data,output data.例如Android 的网络数据
+  ，本地数据库数据，对Presenter 层提供简单易用的接口。
+
 
 # 关于持久化数据的保存
 - SharePrence (考虑有几个进程可能要content p)
 - Datebase
    sqlite ? no!  ORMDB please,Now maybe the best is greendao3.
 
-# 关于动画
-  要适当的有过度动画，不要太生硬
+# 关于过渡动画
+  要适当的有过度动画，不要太生硬,material transtion
 
 # 关于图片
-  这个需要看项目的业务了，也就那几个老牌的库
+  这个需要看项目的业务了，也就那几个老牌的库UIL，Glide,Picasso,fresco,bitmapFun;Glide与Picasso非常相似。
 
 # 关于Crash 的采集
-  Bugly
+  Bugly吧
 
 # 关于项目中的素材
   多用webp,.9.png,还有很多新的工程构建
@@ -53,19 +72,19 @@
 # toolbar
   设计师会遵循Android 的规范设计了，吧！会的
 
-# 运营统计
-  再说吧。
+# 关于依赖注解
+  Dragger2 吧 ... ...
 
-#关于调试工具
+# 关于调试工具
  推荐Facebook stetho ，可以网络请求（抓包），不root查看DB 文件和sharepreference，甚至在4.4 以后webview
  可以远程调试；提高生产力的利器啊。
 
 # 安全加密
-  混淆Proguard，https,数据库加密，密码明文传输是什么鬼，多多oauth
+  混淆Proguard，https,数据库加密，密码明文传输是什么鬼，多多oauth。
 
-
-# 应用中使用的lib
-  其实大部分的App 最难以做好的模块是Http，http 模块封装的好，做起业务来很方便。
+# 应用中使用的第三方框架
+  其实大部分的App 最难以做好的模块是Http，http 模块封装的好，做起业务来很方便。关于第三方框架不要聚合型
+  的Afinal,xUtils,issues很多不解决的，仿XXUI的慎用（仿你妹，MD不行吗？）
   UX 部分多考虑Material design和动画Material-Animations
   ## 需选
   - 数据库 GreenDao3(如果有需要使用数据库，建议使用，配置很简洁了)
@@ -77,8 +96,8 @@
   - 二维码 com.journeyapps:zxing-android-embedded
 
   ## 可选
-  - butterknife/databing
-  - rxjava,rxAndroid,Eventbus ,square 公司的套件包
+  - butterknife（view注入）/dragger(性能优)/dragger2 (power by google base dragger)
+  - rxjava2,rxAndroid（Google 也有agera）,Eventbus ,square 公司的套件包
   - Bugly
   - leakcanary
   - Facebook stetho
@@ -86,8 +105,7 @@
   - kotlin
 
 # 项目中包含的基本的通用模块
-- 混淆压缩打包优化 Proguard　proguard-android-optimize　和 proguard-android 区别 ？
-  https://github.com/D-clock/Doc/blob/master/Android/Gradle/4_AndroidStudio%E4%B8%8BProGuard%E6%B7%B7%E6%B7%86%E6%89%93%E5%8C%85.md
+- [混淆压缩打包优化 Proguard　proguard-android-optimize　和 proguard-android 区别 ？](https://github.com/D-clock/Doc/blob/master/Android/Gradle/4_AndroidStudio%E4%B8%8BProGuard%E6%B7%B7%E6%B7%86%E6%89%93%E5%8C%85.md)
 - Toolbar 的处理
 - Fragment 的懒加载
 - 通用的BaseActivity 和BaseFragment的封装（跳转PV打点，事件打点，不放和base 无关的东西）
@@ -96,8 +114,3 @@
 - Proguard 混淆 打包优化
 - BaseWebView 的处理（未完善，Android 的坑很多）
 - support lib 和动画
-
-
-
-
-

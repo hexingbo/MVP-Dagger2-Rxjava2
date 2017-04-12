@@ -4,16 +4,22 @@
 project.ext {
     //1.关于SDK version
     compileSdkVersion = 25
-    buildToolsVersion = "25.0.2"
+    buildToolsVersion = '25.0.2'
 
     minSdkVersion = 19
     targetSdkVersion = 25
 
     //2.关于Debug和Realease 的不同配置
 
+    //3.指定Java version
+    sourceCompatibility = JavaVersion.VERSION_1_7
+    targetCompatibility = JavaVersion.VERSION_1_7
 
+    //4.support Lib Version ,最好全部使用同一个版本号
+    supportLibraryVersion = '25.3.1'
 
-    //
+    //5.
+
 
 
 }

@@ -8,6 +8,7 @@ import com.zenglb.framework.http.result.ModulesResult;
 
 import java.util.List;
 
+import io.reactivex.Observable;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
@@ -22,6 +23,17 @@ import retrofit2.http.Query;
  * Created by zenglb on 2017/3/17.
  */
 public interface ApiService {
+
+    /**
+     * login/oauth2 By rxjava2
+     *
+     */
+    @Headers("NoNeedAuthFlag: NoNeedAuthFlag")
+    @POST("api/lebang/oauth/access_token")
+    Observable<HttpResponse<LoginResult>> login(@Body LoginParams loginRequest);
+
+
+
     /**
      * login/oauth2
      */

@@ -62,7 +62,6 @@ public abstract class BaseActivity extends AppCompatActivity implements View.OnC
 
     public void onClick(View view){}  //不是必须的
 
-
     /*
 	 * Activity的跳转
 	 */

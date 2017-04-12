@@ -21,12 +21,13 @@ android {
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         vectorDrawables.useSupportLibrary = true
+
     }
 
     Properties properties = new Properties()
     properties.load(project.rootProject.file('local.properties').newDataInputStream())
 
-//    signingConfigs {
+//    signingConfigs {  //暂时不要签名
 //        MyConfig {
 //            storeFile file('E:/Android/Code/AnyLife_Zlb_Keystore')
 //            keyAlias properties.getProperty("MyConfig.user")
@@ -87,6 +88,11 @@ android {
         daoPackage 'com.zenglb.framework.database.daomaster' //我觉得最好放在Entity 下面的目录！！！
     }
 
+    compileOptions {
+        sourceCompatibility project.ext.sourceCompatibility
+        targetCompatibility project.ext.targetCompatibility
+    }
+
 }
 
 dependencies {
@@ -101,22 +107,25 @@ dependencies {
 
     debugCompile 'com.facebook.stetho:stetho:1.4.2'
 
-
     compile 'org.greenrobot:greendao:3.2.0'
     compile 'net.zetetic:android-database-sqlcipher:3.5.4'
+
     compile 'jp.wasabeef:recyclerview-animators:2.2.4'
     compile 'com.yqritc:recyclerview-flexibledivider:1.4.0'
+
+    compile 'io.reactivex.rxjava2:rxjava:2.0.1'
+    compile 'io.reactivex.rxjava2:rxandroid:2.0.1'
+
     compile 'com.squareup.retrofit2:retrofit:2.1.0'
     compile 'com.squareup.retrofit2:converter-gson:2.1.0'
     compile 'com.squareup.okhttp3:logging-interceptor:3.4.1'
-    compile 'com.google.code.gson:gson:2.7'
+    compile 'com.jakewharton.retrofit:retrofit2-rxjava2-adapter:1.0.0'
+
     compile 'com.zhy:percent-support-extends:1.1.1'
     compile 'com.google.zxing:core:3.2.1'
     compile 'com.journeyapps:zxing-android-embedded:3.4.0'
-    compile 'com.android.support:support-vector-drawable:25.3.0'
-
+    compile "com.android.support:support-vector-drawable:project.ext.supportLibraryVersion"
 
     compile 'com.github.hotchemi:permissionsdispatcher:2.3.2'
     annotationProcessor 'com.github.hotchemi:permissionsdispatcher-processor:2.3.2'
-
 }

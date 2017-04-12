@@ -29,6 +29,11 @@ public class MyApplication extends BaseApplication {
         super.onCreate();
         String processName = getProcessName();
         Log.d(TAG, processName + "Application onCreate");
+
+        // 很多的东西最好能放到一个IntentService 中去初始化
+        // InitializeService.start(this);
+
+
         if (!TextUtils.isEmpty(processName) && processName.equals(this.getPackageName())) { //main Process
             setDaoSession(SharedPreferencesDao.getInstance().getData("Account", "DefDb", String.class));
             isDebugCheck();

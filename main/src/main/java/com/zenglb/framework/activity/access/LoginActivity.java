@@ -32,16 +32,20 @@ import com.zenglb.framework.http.core.HttpCallBack;
 import com.zenglb.framework.http.core.HttpResponse;
 import com.zenglb.framework.http.result.LoginResult;
 
+import io.reactivex.Observer;
+import io.reactivex.Scheduler;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.schedulers.Schedulers;
 import permissions.dispatcher.RuntimePermissions;
 import retrofit2.Call;
 
 /**
  * 1.登录的对话框在弹出键盘的时候希望能够向上移动
  * 2.内存占用实在是太多太多了，太多太多了！
- * 3.在这里把需要申请的权限都申请一遍？ 这样不是都很流氓
+ *
  * @author zenglb
  */
-//@RuntimePermissions
 public class LoginActivity extends BaseActivity {
     private EditText etUsername;
     private EditText etPassword;
@@ -74,11 +78,59 @@ public class LoginActivity extends BaseActivity {
         etPassword.setText("zxcv1234");
     }
 
+    /**
+     * 登录请求使用Rxjava2 来控制
+     */
+    private void loginByRxJava2() {
+        String userName = etUsername.getText().toString().trim();
+        String password = etPassword.getText().toString().trim();
+
+        if (TextUtils.isEmpty(userName) || TextUtils.isEmpty(password)) {
+            Toast.makeText(this, "请完整输入用户名和密码", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        HttpCall.cleanToken();
+
+        LoginParams loginParams = new LoginParams();
+        loginParams.setClient_id("5e96eac06151d0ce2dd9554d7ee167ce");
+        loginParams.setClient_secret("aCE34n89Y277n3829S7PcMN8qANF8Fh");
+        loginParams.setGrant_type("password");
+        loginParams.setUsername(userName);
+        loginParams.setPassword(password);
+
+        HttpCall.getApiService().login(loginParams)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<HttpResponse<LoginResult>>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+
+                    }
+
+                    @Override
+                    public void onNext(HttpResponse<LoginResult> loginResultHttpResponse) {
+                        //假如在这个时候主线程关闭了，回调回来就会出事啊！
+
+                        loginSuccess(loginResultHttpResponse);
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+
+                    }
+
+                    @Override
+                    public void onComplete() {
+
+                    }
+                });
+    }
+
 
     /**
      * Login @
      */
-    private void login() {
+    private void login111() {
         String userName = etUsername.getText().toString().trim();
         String password = etPassword.getText().toString().trim();
 
@@ -100,23 +152,7 @@ public class LoginActivity extends BaseActivity {
         loginCall.enqueue(new HttpCallBack<HttpResponse<LoginResult>>(this) {
             @Override
             public void onSuccess(HttpResponse<LoginResult> loginResultHttpResponse) {
-                SharedPreferencesDao.getInstance().saveData(SPKey.KEY_ACCESS_TOKEN, "Bearer " + loginResultHttpResponse.getResult().getAccessToken());
-                SharedPreferencesDao.getInstance().saveData(SPKey.KEY_REFRESH_TOKEN, loginResultHttpResponse.getResult().getRefreshToken());
-                SharedPreferencesDao.getInstance().saveData(SPKey.KEY_LAST_ACCOUNT, etUsername.getText().toString().trim());
-
-                Intent i2 = new Intent(LoginActivity.this, MainActivityBottomNavi.class);
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                    //Android 5.0 以下不能使用啊
-                    Explode explode = new Explode();
-                    explode.setDuration(300);
-                    getWindow().setExitTransition(explode);
-                    getWindow().setEnterTransition(explode);
-                    ActivityOptionsCompat oc2 = ActivityOptionsCompat.makeSceneTransitionAnimation(LoginActivity.this);
-                    startActivity(i2, oc2.toBundle());
-                }else{
-                    startActivity(i2);
-                }
-                LoginActivity.this.finish();
+                loginSuccess(loginResultHttpResponse);
             }
 
             @Override
@@ -125,6 +161,28 @@ public class LoginActivity extends BaseActivity {
             }
         });
     }
+
+
+    private void loginSuccess(HttpResponse<LoginResult> loginResultHttpResponse) {
+        SharedPreferencesDao.getInstance().saveData(SPKey.KEY_ACCESS_TOKEN, "Bearer " + loginResultHttpResponse.getResult().getAccessToken());
+        SharedPreferencesDao.getInstance().saveData(SPKey.KEY_REFRESH_TOKEN, loginResultHttpResponse.getResult().getRefreshToken());
+        SharedPreferencesDao.getInstance().saveData(SPKey.KEY_LAST_ACCOUNT, etUsername.getText().toString().trim());
+
+        Intent i2 = new Intent(LoginActivity.this, MainActivityBottomNavi.class);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            //Android 5.0 以下不能使用啊
+            Explode explode = new Explode();
+            explode.setDuration(300);
+            getWindow().setExitTransition(explode);
+            getWindow().setEnterTransition(explode);
+            ActivityOptionsCompat oc2 = ActivityOptionsCompat.makeSceneTransitionAnimation(LoginActivity.this);
+            startActivity(i2, oc2.toBundle());
+        } else {
+            startActivity(i2);
+        }
+        LoginActivity.this.finish();
+    }
+
 
     public void onClick(View view) {
         switch (view.getId()) {
@@ -139,11 +197,10 @@ public class LoginActivity extends BaseActivity {
                 }
                 break;
             case R.id.bt_go:
-                login();
+                loginByRxJava2();
                 break;
         }
     }
-
 
     /**
      * 登录页面不允许返回，就是这样的流氓
