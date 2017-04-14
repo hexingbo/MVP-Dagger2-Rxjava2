@@ -16,16 +16,22 @@ import android.widget.Toast;
 import com.liaoinstan.springview.container.DefaultFooter;
 import com.liaoinstan.springview.container.DefaultHeader;
 import com.liaoinstan.springview.widget.SpringView;
+import com.zenglb.baselib.sharedpreferences.SharedPreferencesDao;
+import com.zenglb.framework.config.SPKey;
+import com.zenglb.framework.http.result.LoginResult;
 import com.zenglb.framework.navigation.MainActivityBottomNavi;
 import com.zenglb.framework.R;
 import com.zenglb.framework.http.core.HttpCall;
 import com.zenglb.framework.http.core.HttpCallBack;
 import com.zenglb.framework.http.core.HttpResponse;
 import com.zenglb.framework.http.result.AreuSleepResult;
+import com.zenglb.framework.rxhttp.BaseObserver;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
 import retrofit2.Call;
 
 /**
@@ -133,20 +139,33 @@ public class AreUSleepFragmentList extends Fragment {
      * 请求答题列表
      */
     private void getHttpData(String mParam1, int page) {
-        Call<HttpResponse<List<AreuSleepResult>>> getAreuSleepCall = HttpCall.getApiService().getAreuSleep(mParam1, page);
-        getAreuSleepCall.enqueue(new HttpCallBack<HttpResponse<List<AreuSleepResult>>>(getActivity(), false) {
-            @Override
-            public void onSuccess(HttpResponse<List<AreuSleepResult>> listHttpResponse) {
-                Log.e("dfd", listHttpResponse.getResult().toString());
-                disposeHttpResult(listHttpResponse.getResult());
-            }
+        HttpCall.getApiService().getAreuSleep(mParam1, page)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new BaseObserver<List<AreuSleepResult>>(getActivity(),false){
+                    @Override
+                    public void onSuccess(List<AreuSleepResult> areuSleepResults) {
+                        disposeHttpResult(areuSleepResults);
+                    }
+                    @Override
+                    public void onFailure(int code, String message) {
+                        super.onFailure(code, message);
+                    }
+                });
 
-            @Override
-            public void onFailure(int code, String messageStr) {
-                super.onFailure(code, messageStr);
-            }
-
-        });
+//        Call<HttpResponse<List<AreuSleepResult>>> getAreuSleepCall = HttpCall.getApiService().getAreuSleep(mParam1, page);
+//        getAreuSleepCall.enqueue(new HttpCallBack<HttpResponse<List<AreuSleepResult>>>(getActivity(), false) {
+//            @Override
+//            public void onSuccess(HttpResponse<List<AreuSleepResult>> listHttpResponse) {
+//                Log.e("dfd", listHttpResponse.getResult().toString());
+//                disposeHttpResult(listHttpResponse.getResult());
+//            }
+//            @Override
+//            public void onFailure(int code, String messageStr) {
+//                super.onFailure(code, messageStr);
+//            }
+//
+//        });
     }
 
 

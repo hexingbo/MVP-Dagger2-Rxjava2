@@ -20,23 +20,21 @@ import com.zenglb.framework.navigation.MainActivityBottomNavi;
 import com.zenglb.framework.config.SPKey;
 
 
+import java.util.concurrent.TimeUnit;
+
+import io.reactivex.Flowable;
+import io.reactivex.FlowableEmitter;
+import io.reactivex.FlowableOnSubscribe;
 import io.reactivex.Observable;
-import io.reactivex.ObservableEmitter;
 import io.reactivex.ObservableOnSubscribe;
-import io.reactivex.Observer;
-import io.reactivex.Scheduler;
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.disposables.Disposable;
-import io.reactivex.functions.Consumer;
-import io.reactivex.functions.Function;
-import io.reactivex.schedulers.Schedulers;
+
 
 /**
  * 启动页面的背景图放在不同的目录还会导致内存的占用大小不一样啊
  */
 public class LaunchActivity extends BaseActivity {
 
-   private String TAG="Rxjava2";
+    private String TAG = "Rxjava2";
 
     private Handler UiHandler = new Handler() {
         public void handleMessage(Message msg) {
@@ -72,6 +70,7 @@ public class LaunchActivity extends BaseActivity {
 
     @Override
     protected void initViews() {
+
     }
 
     @Override
@@ -82,37 +81,10 @@ public class LaunchActivity extends BaseActivity {
     }
 
 
-//    Disposable subscribe() {}
-//    Disposable subscribe(Consumer<? super T> onNext) {}
-//    Disposable subscribe(Consumer<? super T> onNext, Consumer<? super Throwable> onError) {}
-//    Disposable subscribe(Consumer<? super T> onNext, Consumer<? super Throwable> onError, Action onComplete) {}
-//    Disposable subscribe(Consumer<? super T> onNext, Consumer<? super Throwable> onError, Action onComplete, Consumer<? super Disposable> onSubscribe) {}
-
     /**
      * 测试Rxjava2 的基本使用
      */
-    private void testRxjava(){
-
-
-        Observable.create(new ObservableOnSubscribe<Integer>() {
-            @Override
-            public void subscribe(ObservableEmitter<Integer> emitter) throws Exception {
-                emitter.onNext(1);
-                emitter.onNext(2);
-                emitter.onNext(3);
-            }
-        }).map(new Function<Integer, String>() {
-            @Override
-            public String apply(Integer integer) throws Exception {
-                return "This is result " + integer;
-            }
-        }).subscribe(new Consumer<String>() {
-            @Override
-            public void accept(String s) throws Exception {
-                Log.d(TAG, s);
-            }
-        });
-
+    private void testRxjava() {
 
 
 //        Observable<Integer> observable = Observable.create(new ObservableOnSubscribe<Integer>() {
@@ -141,16 +113,16 @@ public class LaunchActivity extends BaseActivity {
 
     /**
      * 获取手机号码，一般获取不到
-     *
+     * <p>
      * 用到的权限：
      * name="android.permission.READ_PHONE_STATE"
-     *
+     * <p>
      * 要想获取更多电话、数据、移动网络相关信息请查阅TelephonyManager资料
      */
     public String getLineNum(Context ctx) {
         String strResult = "";
         TelephonyManager telephonyManager = (TelephonyManager) ctx
-                      .getSystemService(Context.TELEPHONY_SERVICE);
+                .getSystemService(Context.TELEPHONY_SERVICE);
         if (telephonyManager != null) {
             strResult = telephonyManager.getLine1Number();
         }
@@ -161,27 +133,27 @@ public class LaunchActivity extends BaseActivity {
      *
      *
      */
-    private void getSomeInfo(){
-        int cid=-1,lac=-1;
+    private void getSomeInfo() {
+        int cid = -1, lac = -1;
         TelephonyManager mTelephonyManager = (TelephonyManager) getSystemService(Context.TELEPHONY_SERVICE);
         try {
             GsmCellLocation location = (GsmCellLocation) mTelephonyManager.getCellLocation();
-            if(null!=location){
-                lac= location.getLac();
+            if (null != location) {
+                lac = location.getLac();
                 cid = location.getCid();
             }
-        }catch (Exception e){
+        } catch (Exception e) {
         }
 
         try {
             CdmaCellLocation location2 = (CdmaCellLocation) mTelephonyManager.getCellLocation();
-            if(null!=location2){
+            if (null != location2) {
                 cid = location2.getBaseStationId();
                 lac = location2.getNetworkId();
             }
-        }catch (Exception e){
+        } catch (Exception e) {
         }
-        Toast.makeText(this,"cid:+"+cid+"  lac:"+lac,Toast.LENGTH_LONG).show();
+        Toast.makeText(this, "cid:+" + cid + "  lac:" + lac, Toast.LENGTH_LONG).show();
     }
 
 }

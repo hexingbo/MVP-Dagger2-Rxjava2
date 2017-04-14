@@ -18,7 +18,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 /**
- * 所有的错误的情况处理是否有更加简单的处理方式？比如：http://www.jianshu.com/p/5b8b1062866b
+ * 所有的错误的情况处理是否有更加简单的处理方式？比如：http://www.jianshu.com/p/5b8b1062866b ，用Rxjava
  *
  *
  * 这里的封装处理方式和api 协议结构有关。因为我们的Api 不是那么的restful-需要再处理一下
@@ -26,7 +26,10 @@ import retrofit2.Response;
  * 一般的Success 的处理各不相同，但是fail会有很多相同的处理方式
  * 一定要处理好各种异常情况。
  */
+@Deprecated
 public abstract class HttpCallBack<T extends HttpResponse> implements Callback<T> {
+//public abstract class HttpCallBack<T> implements Callback<HttpResponse<T>> {  //这样更好嘛
+
     private final String TAG = HttpCallBack.class.getSimpleName();
     private static Gson gson = new Gson();
     private final int RESPONSE_CODE_OK = 0;      //自定义的业务逻辑，成功返回积极数据

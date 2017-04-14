@@ -1,20 +1,15 @@
 package com.zenglb.framework.activity.access;
 
 import android.app.ActivityOptions;
-import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.PowerManager;
-import android.provider.Settings;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.ActivityOptionsCompat;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.CardView;
 import android.text.TextUtils;
 import android.transition.Explode;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
@@ -28,17 +23,11 @@ import com.zenglb.framework.navigation.MainActivityBottomNavi;
 import com.zenglb.framework.config.SPKey;
 import com.zenglb.framework.http.param.LoginParams;
 import com.zenglb.framework.http.core.HttpCall;
-import com.zenglb.framework.http.core.HttpCallBack;
-import com.zenglb.framework.http.core.HttpResponse;
 import com.zenglb.framework.http.result.LoginResult;
+import com.zenglb.framework.rxhttp.BaseObserver;
 
-import io.reactivex.Observer;
-import io.reactivex.Scheduler;
 import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
-import permissions.dispatcher.RuntimePermissions;
-import retrofit2.Call;
 
 /**
  * 1.登录的对话框在弹出键盘的时候希望能够向上移动
@@ -76,6 +65,15 @@ public class LoginActivity extends BaseActivity {
         etUsername.setText(SharedPreferencesDao.getInstance().getData(SPKey.KEY_LAST_ACCOUNT, "", String.class));
         etUsername.setText("18826562075");
         etPassword.setText("zxcv1234");
+
+//        cv.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Log.e("ddd","ddddddddd");
+//            }
+//        });
+
+        cv.setOnClickListener(v -> Log.e("ddd", "ddddddddd"));
     }
 
     /**
@@ -91,6 +89,7 @@ public class LoginActivity extends BaseActivity {
         }
         HttpCall.cleanToken();
 
+        //1.需要改进，能否改进为链式写法
         LoginParams loginParams = new LoginParams();
         loginParams.setClient_id("5e96eac06151d0ce2dd9554d7ee167ce");
         loginParams.setClient_secret("aCE34n89Y277n3829S7PcMN8qANF8Fh");
@@ -98,74 +97,62 @@ public class LoginActivity extends BaseActivity {
         loginParams.setUsername(userName);
         loginParams.setPassword(password);
 
-        HttpCall.getApiService().login(loginParams)
+        HttpCall.getApiService().goLogin2(loginParams)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Observer<HttpResponse<LoginResult>>() {
+                .subscribe(new BaseObserver<LoginResult>(this, true) {
                     @Override
-                    public void onSubscribe(Disposable d) {
-
+                    public void onSuccess(LoginResult loginResult) {
+                        loginSuccess(loginResult);
                     }
 
                     @Override
-                    public void onNext(HttpResponse<LoginResult> loginResultHttpResponse) {
-                        //假如在这个时候主线程关闭了，回调回来就会出事啊！
-
-                        loginSuccess(loginResultHttpResponse);
-                    }
-
-                    @Override
-                    public void onError(Throwable e) {
-
-                    }
-
-                    @Override
-                    public void onComplete() {
-
+                    public void onFailure(int code, String message) {
+                        super.onFailure(code, message);
                     }
                 });
     }
 
 
-    /**
-     * Login @
-     */
-    private void login111() {
-        String userName = etUsername.getText().toString().trim();
-        String password = etPassword.getText().toString().trim();
+//    /**
+//     * Login @
+//     */
+//    private void loginByRetrofit() {
+//        String userName = etUsername.getText().toString().trim();
+//        String password = etPassword.getText().toString().trim();
+//
+//        if (TextUtils.isEmpty(userName) || TextUtils.isEmpty(password)) {
+//            Toast.makeText(this, "请完整输入用户名和密码", Toast.LENGTH_SHORT).show();
+//            return;
+//        }
+//        HttpCall.cleanToken();
+//
+//        LoginParams loginParams = new LoginParams();
+//        loginParams.setClient_id("5e96eac06151d0ce2dd9554d7ee167ce");
+//        loginParams.setClient_secret("aCE34n89Y277n3829S7PcMN8qANF8Fh");
+//        loginParams.setGrant_type("password");
+//        loginParams.setUsername(userName);
+//        loginParams.setPassword(password);
+//
+//        //2.Generic Programming Techniques is the basis of Android develop
+//        Call<HttpResponse<LoginResult>> loginCall = HttpCall.getApiService().goLogin(loginParams);
+//        loginCall.enqueue(new HttpCallBack<HttpResponse<LoginResult>>(this) {
+//            @Override
+//            public void onSuccess(HttpResponse<LoginResult> loginResultHttpResponse) {
+//                loginSuccess(loginResultHttpResponse.getResult());
+//            }
+//
+//            @Override
+//            public void onFailure(int code, String messageStr) {
+//                super.onFailure(code, messageStr);
+//            }
+//        });
+//    }
 
-        if (TextUtils.isEmpty(userName) || TextUtils.isEmpty(password)) {
-            Toast.makeText(this, "请完整输入用户名和密码", Toast.LENGTH_SHORT).show();
-            return;
-        }
-        HttpCall.cleanToken();
 
-        LoginParams loginParams = new LoginParams();
-        loginParams.setClient_id("5e96eac06151d0ce2dd9554d7ee167ce");
-        loginParams.setClient_secret("aCE34n89Y277n3829S7PcMN8qANF8Fh");
-        loginParams.setGrant_type("password");
-        loginParams.setUsername(userName);
-        loginParams.setPassword(password);
-
-        //2.Generic Programming Techniques is the basis of Android develop
-        Call<HttpResponse<LoginResult>> loginCall = HttpCall.getApiService().goLogin(loginParams);
-        loginCall.enqueue(new HttpCallBack<HttpResponse<LoginResult>>(this) {
-            @Override
-            public void onSuccess(HttpResponse<LoginResult> loginResultHttpResponse) {
-                loginSuccess(loginResultHttpResponse);
-            }
-
-            @Override
-            public void onFailure(int code, String messageStr) {
-                super.onFailure(code, messageStr);
-            }
-        });
-    }
-
-
-    private void loginSuccess(HttpResponse<LoginResult> loginResultHttpResponse) {
-        SharedPreferencesDao.getInstance().saveData(SPKey.KEY_ACCESS_TOKEN, "Bearer " + loginResultHttpResponse.getResult().getAccessToken());
-        SharedPreferencesDao.getInstance().saveData(SPKey.KEY_REFRESH_TOKEN, loginResultHttpResponse.getResult().getRefreshToken());
+    private void loginSuccess(LoginResult loginResult) {
+        SharedPreferencesDao.getInstance().saveData(SPKey.KEY_ACCESS_TOKEN, "Bearer " + loginResult.getAccessToken());
+        SharedPreferencesDao.getInstance().saveData(SPKey.KEY_REFRESH_TOKEN, loginResult.getRefreshToken());
         SharedPreferencesDao.getInstance().saveData(SPKey.KEY_LAST_ACCOUNT, etUsername.getText().toString().trim());
 
         Intent i2 = new Intent(LoginActivity.this, MainActivityBottomNavi.class);
@@ -197,6 +184,8 @@ public class LoginActivity extends BaseActivity {
                 }
                 break;
             case R.id.bt_go:
+
+//                login111();
                 loginByRxJava2();
                 break;
         }

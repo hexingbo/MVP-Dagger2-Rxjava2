@@ -8,6 +8,7 @@ import com.zenglb.baselib.sharedpreferences.SharedPreferencesDao;
 import com.zenglb.framework.config.SPKey;
 import com.zenglb.framework.http.param.LoginParams;
 import com.zenglb.framework.http.result.LoginResult;
+import com.zenglb.framework.rxhttp.BaseObserver;
 
 import java.io.IOException;
 import java.util.concurrent.TimeUnit;
@@ -27,7 +28,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
  * Http 请求配置和流程处理，部分Return 配置可以更加的简洁，为了试验，不简洁了
  * <p>
  * cleanToken&refresh 和业务有关，整个配置不超过200 行
- *
+ * <p>
  * Created by Anylife.zlb@gmail.com on 2017/3/16.
  */
 public class HttpCall {
@@ -127,26 +128,36 @@ public class HttpCall {
         loginParams.setClient_secret("aCE34n89Y277n3829S7PcMN8qANF8Fh");
         loginParams.setGrant_type("refresh_token");
         loginParams.setRefresh_token(SharedPreferencesDao.getInstance().getData(SPKey.KEY_REFRESH_TOKEN, "", String.class));
-        Call<HttpResponse<LoginResult>> refreshTokenCall = HttpCall.getApiService().refreshToken(loginParams);
-        try {
-            retrofit2.Response<HttpResponse<LoginResult>> response = refreshTokenCall.execute();
-            if (response.isSuccessful()) {
-                int responseCode = response.body().getCode();
-                if (responseCode == 0) {
-                    HttpResponse<LoginResult> httpResponse = response.body();
-                    SharedPreferencesDao.getInstance().saveData(SPKey.KEY_ACCESS_TOKEN, "Bearer " + httpResponse.getResult().getAccessToken());
-                    SharedPreferencesDao.getInstance().saveData(SPKey.KEY_REFRESH_TOKEN, httpResponse.getResult().getRefreshToken());
-                } else {
-//                    //退回到登录页面
-//                    Intent intent = new Intent();
-//                    intent.setAction("com.itheima.intent.open02");
-//                    intent.addCategory("android.intent.category.DEFAULT");
-//                    startActivity(intent);
-                }
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+
+        HttpCall.getApiService().goLogin2(loginParams)
+                .subscribe(new BaseObserver<LoginResult>(null, false) {
+                    @Override
+                    public void onSuccess(LoginResult loginResult) {
+                        SharedPreferencesDao.getInstance().saveData(SPKey.KEY_ACCESS_TOKEN, "Bearer " + loginResult.getAccessToken());
+                        SharedPreferencesDao.getInstance().saveData(SPKey.KEY_REFRESH_TOKEN, loginResult.getRefreshToken());
+                    }
+
+                    @Override
+                    public void onFailure(int code, String message) {
+                        super.onFailure(code, message);
+                    }
+                });
+
+
+//        Call<HttpResponse<LoginResult>> refreshTokenCall = HttpCall.getApiService().refreshToken(loginParams);
+//        try {
+//            retrofit2.Response<HttpResponse<LoginResult>> response = refreshTokenCall.execute();
+//            if (response.isSuccessful()) {
+//                int responseCode = response.body().getCode();
+//                if (responseCode == 0) {
+//                    HttpResponse<LoginResult> httpResponse = response.body();
+//                    SharedPreferencesDao.getInstance().saveData(SPKey.KEY_ACCESS_TOKEN, "Bearer " + httpResponse.getResult().getAccessToken());
+//                    SharedPreferencesDao.getInstance().saveData(SPKey.KEY_REFRESH_TOKEN, httpResponse.getResult().getRefreshToken());
+//                }
+//            }
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
     }
 
     /**

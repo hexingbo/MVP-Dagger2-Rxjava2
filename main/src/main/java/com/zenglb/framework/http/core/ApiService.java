@@ -30,16 +30,15 @@ public interface ApiService {
      */
     @Headers("NoNeedAuthFlag: NoNeedAuthFlag")
     @POST("api/lebang/oauth/access_token")
-    Observable<HttpResponse<LoginResult>> login(@Body LoginParams loginRequest);
+    Observable<HttpResponse<LoginResult>> goLogin2(@Body LoginParams loginRequest);
 
 
-
-    /**
-     * login/oauth2
-     */
-    @Headers("NoNeedAuthFlag: NoNeedAuthFlag")
-    @POST("api/lebang/oauth/access_token")
-    Call<HttpResponse<LoginResult>> goLogin(@Body LoginParams loginParams);
+//    /**
+//     * login/oauth2
+//     */
+//    @Headers("NoNeedAuthFlag: NoNeedAuthFlag")
+//    @POST("api/lebang/oauth/access_token1")
+//    Call<HttpResponse<LoginResult>> goLogin(@Body LoginParams loginParams);
 
     /**
      * this request after login/oauth before logout
@@ -49,23 +48,28 @@ public interface ApiService {
      */
     @POST("api/lebang/oauth/access_token")
     @Headers("NoNeedAuthFlag: NoNeedAuthFlag")
-    Call<HttpResponse<LoginResult>> refreshToken(@Body LoginParams loginParams);
+    Observable<HttpResponse<LoginResult>> refreshToken(@Body LoginParams loginParams);
+
+
+    @GET("api/lebang/night_school/{type}")
+    Observable<HttpResponse<List<AreuSleepResult>>> getAreuSleep(@Path("type") String type, @Query("page") int page);
+
 
     /**
      * get Message List();
      */
+    @Deprecated
     @GET("api/lebang/messages")
     Call<HttpResponse<List<Messages>>> getMessages(@Query("max_id") long maxId, @Query("limit") int limit);
 
     /**
      * test get something
      */
+    @Deprecated
     @GET("api/lebang/staffs/me/modules")
     Call<HttpResponse<ModulesResult>> getModules();
 
 
-    @GET("api/lebang/night_school/{type}")
-    Call<HttpResponse<List<AreuSleepResult>>> getAreuSleep(@Path("type") String type, @Query("page") int page);
 
 }
 

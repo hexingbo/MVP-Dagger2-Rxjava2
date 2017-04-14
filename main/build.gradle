@@ -1,5 +1,6 @@
 apply plugin: 'com.android.application'
 apply plugin: 'org.greenrobot.greendao'  //for greenDao
+apply plugin: 'me.tatarka.retrolambda'
 
 import java.text.DateFormat
 import java.text.SimpleDateFormat
@@ -8,7 +9,6 @@ def getDate() {
     DateFormat df = new SimpleDateFormat("yyyyMMdd");
     return df.format(new Date());
 }
-
 
 android {
     compileSdkVersion project.ext.compileSdkVersion
@@ -21,7 +21,6 @@ android {
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         vectorDrawables.useSupportLibrary = true
-
     }
 
     Properties properties = new Properties()
@@ -48,7 +47,7 @@ android {
         }
 
         debug {  //debug 的时候就打开了混淆，防止Release 后才发现混淆出问题
-            minifyEnabled true
+            minifyEnabled true   //希望能尽早支持Java 8
             zipAlignEnabled true
             shrinkResources true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
@@ -119,12 +118,12 @@ dependencies {
     compile 'com.squareup.retrofit2:retrofit:2.1.0'
     compile 'com.squareup.retrofit2:converter-gson:2.1.0'
     compile 'com.squareup.okhttp3:logging-interceptor:3.4.1'
-    compile 'com.jakewharton.retrofit:retrofit2-rxjava2-adapter:1.0.0'
+    compile 'com.jakewharton.retrofit:retrofit2-rxjava2-adapter:1.0.0'  //
 
     compile 'com.zhy:percent-support-extends:1.1.1'
     compile 'com.google.zxing:core:3.2.1'
     compile 'com.journeyapps:zxing-android-embedded:3.4.0'
-    compile "com.android.support:support-vector-drawable:project.ext.supportLibraryVersion"
+//    compile "com.android.support:support-vector-drawable:$project.ext.supportLibraryVersion"
 
     compile 'com.github.hotchemi:permissionsdispatcher:2.3.2'
     annotationProcessor 'com.github.hotchemi:permissionsdispatcher-processor:2.3.2'

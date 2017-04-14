@@ -24,7 +24,7 @@
 
 # 关于Http网络请求
   应该没有比retrofit2 更好的了吧？不过api 不是restful 就需要再封装一下了，网路模块就是数据命脉，做好了
-  整个app 的结构会简化很多。
+  整个app 的结构会简化很多，结合Rxjava（/2）不是更快哉
 
 # UI架构模型
   Android应用的UI架构模型经历了MVC,MVP 和 MVVM 的演变过程。MVC中View 层（Activity，Fragment/自定义的View）
@@ -97,7 +97,7 @@
 
   ## 可选
   - butterknife（view注入）/dragger(性能优)/dragger2 (power by google base dragger)
-  - rxjava2,rxAndroid（Google 也有agera）,Eventbus ,square 公司的套件包
+  - rxjava2,rxAndroid（Google 也有agera）,square 公司的套件包
   - Bugly
   - leakcanary
   - Facebook stetho
