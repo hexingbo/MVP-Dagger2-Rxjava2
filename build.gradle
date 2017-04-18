@@ -27,7 +27,8 @@ subprojects {
 allprojects {
     repositories {
         jcenter()
-        mavenCentral()  // ? 还使用maven，jcenter 多好
+        maven { url "https://dl.bintray.com/drummer-aidan/maven" }
+//        mavenCentral()  // ? 还使用maven，jcenter 多好
     }
 }
 

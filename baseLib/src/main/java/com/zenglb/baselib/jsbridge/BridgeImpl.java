@@ -14,7 +14,7 @@ import java.util.Map;
  * 里面的所有的方法（除了方法名字）都必须满足一定的规则！
  */
 public class BridgeImpl implements IBridge {
-    private static Map<Integer,Callback> callbackCache=new HashMap();
+    private static Map<Integer,Callback> callbackCache=new HashMap();  //缓存callback,onActResult 用
     public static String fliterTAG="MY.intent.action.XXXXXXXXXX";
 
     /**

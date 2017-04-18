@@ -125,10 +125,10 @@ dependencies {
     compile 'com.google.zxing:core:3.2.1'
     compile 'com.journeyapps:zxing-android-embedded:3.4.0'
 
+    compile 'com.github.boxme:squarecamera:1.1.0'
+
     debugCompile 'com.squareup.leakcanary:leakcanary-android:1.5'
     releaseCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.5'
-
-    compile 'com.github.boxme:squarecamera:1.1.0'  //低端手机的不适用系统相机拍拍照，用这个来处理！
 
 //    compile "com.android.support:support-vector-drawable:$project.ext.supportLibraryVersion"
     compile 'com.github.hotchemi:permissionsdispatcher:2.3.2'

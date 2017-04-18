@@ -8,12 +8,8 @@ import com.zenglb.baselib.sharedpreferences.SharedPreferencesDao;
 import com.zenglb.framework.config.SPKey;
 import com.zenglb.framework.http.param.LoginParams;
 import com.zenglb.framework.http.result.LoginResult;
-import com.zenglb.framework.rxhttp.BaseObserver;
-
 import java.io.IOException;
 import java.util.concurrent.TimeUnit;
-
-import io.reactivex.schedulers.Schedulers;
 import okhttp3.Authenticator;
 import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;

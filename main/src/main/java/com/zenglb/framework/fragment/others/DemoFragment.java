@@ -62,8 +62,8 @@ public class DemoFragment extends Fragment {
         rootView.findViewById(R.id.jsbridge).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                ((BaseActivity) getActivity()).goWebView("file:///android_asset/index.html");
-                ((BaseActivity) getActivity()).goWebView("file:///android_asset/yahoo.pdf");
+                ((BaseActivity) getActivity()).goWebView("file:///android_asset/index.html");
+//                ((BaseActivity) getActivity()).goWebView("file:///android_asset/yahoo.pdf");
             }
         });
 

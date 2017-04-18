@@ -1,7 +1,10 @@
 package com.zenglb.framework.activity.web;
 
+import android.Manifest;
+import android.app.AlertDialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.res.Configuration;
@@ -10,10 +13,13 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.support.annotation.NonNull;
 import android.support.v4.content.FileProvider;
 import android.util.Base64;
 import android.view.View;
+import android.widget.Toast;
 
+import com.desmond.squarecamera.CameraActivity;
 import com.zenglb.baselib.base.BaseWebViewActivity;
 import com.zenglb.baselib.jsbridge.BridgeImpl;
 import com.zenglb.baselib.jsbridge.Callback;
@@ -28,16 +34,25 @@ import org.json.JSONObject;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 
+import permissions.dispatcher.NeedsPermission;
+import permissions.dispatcher.OnNeverAskAgain;
+import permissions.dispatcher.OnPermissionDenied;
+import permissions.dispatcher.OnShowRationale;
+import permissions.dispatcher.PermissionRequest;
+import permissions.dispatcher.RuntimePermissions;
+
 /**
  * WIP :work in Process
- *
- *  4.4 的手机有毛病 ！再也不怕拍照问题了，fuck them
- *
+ * <p>
+ * 4.4 的手机有毛病 ！再也不怕拍照问题了，fuck them
+ * <p>
  * 业务逻辑相关的写在这里处理,拍照因为部分4.4 无法响应<type-file>的问题，全部使用native,同时启动一个前台Service
  */
+@RuntimePermissions
 public class WebActivity extends BaseWebViewActivity implements View.OnClickListener {
+    private static final int REQUEST_SOFT_CAMERA = 1000;  //软相机拍照
     private final static int REQUEST_CAPTURE_IMG = 1001;   //相册选取
-    private final static int REQUEST_PICK_IMAGE  = 1002;   //拍照问题见issue
+    private final static int REQUEST_PICK_IMAGE = 1002;   //拍照问题见issue
     private final static int REQUEST_PICTURE_CUT = 1003;   //剪裁图片
     private Uri imageUri;
     private CallNewActForResultReceiver callNewActForResultReceiver = null;
@@ -59,7 +74,8 @@ public class WebActivity extends BaseWebViewActivity implements View.OnClickList
                     WebActivity.this.startActivityForResult(zxingIntent, BaseWebViewActivity.ZXING_REQUEST_CODE);
                     break;
                 case GET_IMG_REQUEST_CODE:
-                    openCamera();
+                    WebActivityPermissionsDispatcher.showCameraWithCheck(WebActivity.this);
+
                     break;
                 default:
                     break;
@@ -87,6 +103,9 @@ public class WebActivity extends BaseWebViewActivity implements View.OnClickList
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (resultCode == RESULT_OK) {
             switch (requestCode) {
+                case REQUEST_SOFT_CAMERA:
+                    backImgToJS(BitMapUtil.getSimpleByBelowLine(this, data.getData(), 800, 800));
+                    break;
                 case REQUEST_CAPTURE_IMG://
                     backImgToJS(BitMapUtil.getSimpleByBelowLine(this, imageUri, 800, 800));
                     break;
@@ -97,7 +116,8 @@ public class WebActivity extends BaseWebViewActivity implements View.OnClickList
                         try {
                             JSONObject object = new JSONObject();
                             object.put("qrcode", code);
-                            callback.apply(BridgeImpl.returnJSONObject(JSCallBackStatusCode.JS_CALL_BACK_SUCCESS, "扫码成功", object));  //这里回调js 没有任何的意义呀！
+                            callback.apply(BridgeImpl.returnJSONObject(JSCallBackStatusCode.JS_CALL_BACK_SUCCESS, "扫码成功", object));
+                            //这里回调js 没有任何的意义呀！
                         } catch (Exception e) {
                             e.printStackTrace();
                         }
@@ -151,7 +171,6 @@ public class WebActivity extends BaseWebViewActivity implements View.OnClickList
 
     /**
      * 这不是最好的拍照方案
-     *
      */
     private void openCamera() {
         File file = new FileStorage(FileCachePathConfig.CACHE_IMAGE_CHILD).createTempFile("tempTake.jpg");
@@ -193,6 +212,69 @@ public class WebActivity extends BaseWebViewActivity implements View.OnClickList
     @Override
     public void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
+    }
+
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        WebActivityPermissionsDispatcher.onRequestPermissionsResult(this, requestCode, grantResults);
+    }
+
+    //=============== 下面都是权限管理的===================
+
+    /**
+     * 权限被同意了，同意后每次check 都会被调用
+     */
+    @NeedsPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE)
+    void showCamera() {
+        // TODO: 2017/4/18  很多低端机调用系统的相机会出问题，等项目无反馈问题后再加上拍照的软处理 ！
+        /**
+         * 很多低端机调用系统的相机会出问题，上周才解决完，等项目无反馈问题后再加上拍照的软处理 ！
+         *
+         *
+         */
+
+        if (false) {
+            openCamera();
+        } else {
+            Intent startCustomCameraIntent = new Intent(mContext, CameraActivity.class);
+            startActivityForResult(startCustomCameraIntent, REQUEST_SOFT_CAMERA);
+        }
+    }
+
+
+    @OnShowRationale(Manifest.permission.WRITE_EXTERNAL_STORAGE)
+    void showRationaleForCamera(final PermissionRequest request) {
+        new AlertDialog.Builder(this)
+                .setPositiveButton("好的", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        request.proceed();
+                    }
+                })
+                .setNegativeButton("不给", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        request.cancel();
+                    }
+                })
+                .setCancelable(false)
+                .setMessage("扫码需要摄像头权限，应用将要申请摄像头权限")
+                .show();
+    }
+
+    /**
+     * 权限申请被拒绝了，简单一点关闭页面然后弹出Toast
+     */
+    @OnPermissionDenied(Manifest.permission.WRITE_EXTERNAL_STORAGE)
+    void showDeniedForCamera() {
+//        ZxingActivity.this.finish();
+        Toast.makeText(WebActivity.this, "你拒绝了授权使用此功能", Toast.LENGTH_LONG).show();
+    }
+
+    @OnNeverAskAgain(Manifest.permission.WRITE_EXTERNAL_STORAGE)
+    void showNeverAskForCamera() {
+//        Log.e(TAG, "showNeverAskForCamera");
     }
 
 
