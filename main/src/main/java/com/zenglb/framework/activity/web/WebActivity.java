@@ -31,7 +31,7 @@ import java.io.File;
 /**
  * WIP :work in Process
  *
- *  4.4 的手机有毛病 ！
+ *  4.4 的手机有毛病 ！再也不怕拍照问题了，fuck them
  *
  * 业务逻辑相关的写在这里处理,拍照因为部分4.4 无法响应<type-file>的问题，全部使用native,同时启动一个前台Service
  */

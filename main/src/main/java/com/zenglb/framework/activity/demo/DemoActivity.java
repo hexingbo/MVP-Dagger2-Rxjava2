@@ -49,10 +49,10 @@ public class DemoActivity extends BaseActivity {
      */
     private void getMessages() {
         Call<HttpResponse<List<Messages>>> getMsgsCall = HttpCall.getApiService().getMessages(0, 20);
-        getMsgsCall.enqueue(new HttpCallBack<HttpResponse<List<Messages>>>(null) {
+        getMsgsCall.enqueue(new HttpCallBack<List<Messages>>(null) {
             @Override
-            public void onSuccess(HttpResponse<List<Messages>> listHttpResponse) {
-                ((TextView) findViewById(R.id.message_txt)).setText(listHttpResponse.getResult().toString());
+            public void onSuccess(List<Messages> listHttpResponse) {
+                ((TextView) findViewById(R.id.message_txt)).setText(listHttpResponse.toString());
             }
 
             @Override
@@ -70,10 +70,10 @@ public class DemoActivity extends BaseActivity {
      */
     private void requestModules() {
         Call<HttpResponse<ModulesResult>> getModulesCall = HttpCall.getApiService().getModules();
-        getModulesCall.enqueue(new HttpCallBack<HttpResponse<ModulesResult>>(this) {
+        getModulesCall.enqueue(new HttpCallBack<ModulesResult>(this) {
             @Override
-            public void onSuccess(HttpResponse<ModulesResult> getModulesCallResponse) {
-                ((TextView) findViewById(R.id.message_txt)).setText(getModulesCallResponse.getResult().toString());
+            public void onSuccess(ModulesResult getModulesCallResponse) {
+                ((TextView) findViewById(R.id.message_txt)).setText(getModulesCallResponse.toString());
             }
 
             @Override

@@ -1,6 +1,5 @@
 package com.zenglb.framework.rxhttp;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.CallSuper;
@@ -11,9 +10,11 @@ import com.google.gson.Gson;
 import com.jakewharton.retrofit2.adapter.rxjava2.HttpException;
 import com.zenglb.baselib.utils.TextUtils;
 import com.zenglb.framework.activity.access.LoginActivity;
-import com.zenglb.framework.http.core.HttpCallBack;
 import com.zenglb.framework.http.core.HttpResponse;
 import com.zenglb.framework.http.core.HttpUiTips;
+
+import org.reactivestreams.Subscriber;
+import org.reactivestreams.Subscription;
 
 import java.io.IOException;
 import java.net.ConnectException;
@@ -21,30 +22,28 @@ import java.net.SocketTimeoutException;
 import java.net.UnknownHostException;
 import java.net.UnknownServiceException;
 
-import io.reactivex.Observer;
 import io.reactivex.disposables.Disposable;
 
 /**
- * Base Observer 的封装处理,对Rxjava 不熟悉
- *
- *
+ * Base Observer 的封装处理,对Rxjava 不熟悉，暂时先这样吧。实际的使用还不是很明白
+ * <p>
  * Created by zenglb on 2017/4/14.
  */
-
-public abstract class BaseObserver<T> implements Observer<HttpResponse<T>> {
-    private final String TAG = BaseObserver.class.getSimpleName();
-    private static Gson gson = new Gson();
+public abstract class BaseSubscriber<T> implements Subscriber<HttpResponse<T>> {
+    private final String TAG = BaseSubscriber.class.getSimpleName();
     private final int RESPONSE_CODE_OK = 0;      //自定义的业务逻辑，成功返回积极数据
-    private final int RESPONSE_CODE_FAILED = -1; //返回数据失败
+    private final int RESPONSE_CODE_FAILED = -1; //返回数据失败,严重的错误
 
     //是否需要显示Http 请求的进度，默认的是需要，但是Service 和 预取数据不需要
     private boolean showProgress = true;
     private Context mContext;
+    private static Gson gson = new Gson();
 
-    private Disposable disposable;   //不处理吧
+    private int errorCode;
+    private String errorMsg = "未知的错误！";
 
     /**
-     * 根据具体的Api 业务逻辑去重写 onSuccess 方法！
+     * 根据具体的Api 业务逻辑去重写 onSuccess 方法！Error 是选择重写，but 必须Super ！
      *
      * @param t
      */
@@ -54,7 +53,7 @@ public abstract class BaseObserver<T> implements Observer<HttpResponse<T>> {
      * @param mContext
      * @param showProgress 默认需要显示进程，不要的话请传 false
      */
-    public BaseObserver(Context mContext, boolean showProgress) {
+    public BaseSubscriber(Context mContext, boolean showProgress) {
         this.showProgress = showProgress;
         this.mContext = mContext;
         if (showProgress) {
@@ -63,69 +62,51 @@ public abstract class BaseObserver<T> implements Observer<HttpResponse<T>> {
     }
 
     @Override
-    public final void onSubscribe(Disposable d) {
-        this.disposable = d;
+    public void onSubscribe(Subscription s) {
+        s.request(2);  //what is the hell ??????
     }
 
     @Override
-    public final void onNext(HttpResponse<T> response) {
+    public void onNext(HttpResponse<T> response) {
         Log.e(TAG, response.toString());
         HttpUiTips.dismissDialog(mContext);
-
         if (response.getCode() == RESPONSE_CODE_OK) {
             onSuccess(response.getResult());
         } else {
+            Log.e(TAG, "这里有机会跑起来吗?");
             onFailure(response.getCode(), response.getError());
         }
-
     }
 
     @Override
     public final void onError(Throwable t) {
         HttpUiTips.dismissDialog(mContext);
-
-        int code = 0;
-        String errorMessage = "未知错误";
-
         if (t instanceof HttpException) {
             HttpException httpException = (HttpException) t;
-            String meg = httpException.response().toString();
-            code = httpException.code();
-            errorMessage = httpException.getMessage();
-
+            errorCode = httpException.code();
+            errorMsg = httpException.getMessage();
+            getErrorMsg(httpException);
         } else if (t instanceof SocketTimeoutException) {  //VPN open
-            code = RESPONSE_CODE_FAILED;
-            errorMessage = "服务器响应超时";
+            errorCode = RESPONSE_CODE_FAILED;
+            errorMsg = "服务器响应超时";
         } else if (t instanceof ConnectException) {
-            code = RESPONSE_CODE_FAILED;
-            errorMessage = "网络连接异常，请检查网络";
+            errorCode = RESPONSE_CODE_FAILED;
+            errorMsg = "网络连接异常，请检查网络";
         } else if (t instanceof RuntimeException) {
-            code = RESPONSE_CODE_FAILED;
-            errorMessage = "运行时错误";
+            errorCode = RESPONSE_CODE_FAILED;
+            errorMsg = "运行时错误";
         } else if (t instanceof UnknownHostException) {
-            code = RESPONSE_CODE_FAILED;
-            errorMessage = "无法解析主机，请检查网络连接";
+            errorCode = RESPONSE_CODE_FAILED;
+            errorMsg = "无法解析主机，请检查网络连接";
         } else if (t instanceof UnknownServiceException) {
-            code = RESPONSE_CODE_FAILED;
-            errorMessage = "未知的服务器错误";
+            errorCode = RESPONSE_CODE_FAILED;
+            errorMsg = "未知的服务器错误";
         } else if (t instanceof IOException) {  //飞行模式等
-            code = RESPONSE_CODE_FAILED;
-            errorMessage = "没有网络，请检查网络连接";
+            errorCode = RESPONSE_CODE_FAILED;
+            errorMsg = "没有网络，请检查网络连接";
         }
-
-
-        /**
-         * 严重的错误弹出dialog，一般的错误就只要Toast
-         */
-        if (RESPONSE_CODE_FAILED == code) {
-            onFailure(RESPONSE_CODE_FAILED, errorMessage);
-        } else {
-            if (mContext != null && !((Activity) mContext).isFinishing()) {
-                Toast.makeText(mContext, errorMessage + " - " + code, Toast.LENGTH_SHORT).show();
-            }
-        }
+        onFailure(errorCode, errorMsg);
     }
-
 
     /**
      * 简单的把Dialog 处理掉
@@ -134,6 +115,7 @@ public abstract class BaseObserver<T> implements Observer<HttpResponse<T>> {
     public final void onComplete() {
 //        HttpUiTips.dismissDialog(mContext);
     }
+
 
     /**
      * Default error dispose!
@@ -150,7 +132,6 @@ public abstract class BaseObserver<T> implements Observer<HttpResponse<T>> {
             disposeEorCode(message, code);
         }
     }
-
 
     /**
      * 对通用问题的统一拦截处理
@@ -169,7 +150,37 @@ public abstract class BaseObserver<T> implements Observer<HttpResponse<T>> {
                 mContext.startActivity(intent);
                 break;
         }
-        Toast.makeText(mContext, message + " # " + code, Toast.LENGTH_SHORT).show();
+        Toast.makeText(mContext, message + "   code=" + code, Toast.LENGTH_SHORT).show();
+    }
+
+
+    /**
+     * 获取详细的错误的信息 errorCode,errorMsg
+     * <p>
+     * 以登录的时候的Grant_type 故意写错为例子,这个时候的http 应该是直接的返回401=httpException.code()
+     * 但是是怎么导致401的？我们的服务器会在respose.errorBody 中的content 中说明
+     */
+    private final void getErrorMsg(HttpException httpException) {
+        String errorBodyStr = "";
+        try {   //我们的项目需要的UniCode转码，不是必须要的！
+            errorBodyStr = TextUtils.convertUnicode(httpException.response().errorBody().string());
+        } catch (IOException ioe) {
+            Log.e("errorBodyStr ioe:", ioe.toString());
+        }
+        try {
+            HttpResponse errorResponse = gson.fromJson(errorBodyStr, HttpResponse.class);
+            if (null != errorResponse) {
+                errorCode = errorResponse.getCode();
+                errorMsg = errorResponse.getError();
+            } else {
+                errorCode = RESPONSE_CODE_FAILED;
+                errorMsg = "ErrorResponse is null";
+            }
+        } catch (Exception jsonException) {
+            errorCode = RESPONSE_CODE_FAILED;
+            errorMsg = "http请求错误Json 信息异常";
+            jsonException.printStackTrace();
+        }
     }
 
 }

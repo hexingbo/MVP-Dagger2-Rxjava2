@@ -16,23 +16,14 @@ import android.widget.Toast;
 import com.liaoinstan.springview.container.DefaultFooter;
 import com.liaoinstan.springview.container.DefaultHeader;
 import com.liaoinstan.springview.widget.SpringView;
-import com.zenglb.baselib.sharedpreferences.SharedPreferencesDao;
-import com.zenglb.framework.config.SPKey;
-import com.zenglb.framework.http.result.LoginResult;
-import com.zenglb.framework.navigation.MainActivityBottomNavi;
+import com.zenglb.baselib.base.BaseActivity;
 import com.zenglb.framework.R;
 import com.zenglb.framework.http.core.HttpCall;
-import com.zenglb.framework.http.core.HttpCallBack;
-import com.zenglb.framework.http.core.HttpResponse;
 import com.zenglb.framework.http.result.AreuSleepResult;
-import com.zenglb.framework.rxhttp.BaseObserver;
-
+import com.zenglb.framework.rxhttp.BaseSubscriber;
+import com.zenglb.framework.rxhttp.RxUtils;
 import java.util.ArrayList;
 import java.util.List;
-
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.schedulers.Schedulers;
-import retrofit2.Call;
 
 /**
  * 喂,你睡着了吗（答题列表）
@@ -122,11 +113,11 @@ public class AreUSleepFragmentList extends Fragment {
         areUSleepListAdapter.setOnItemClickListener(new AreUSleepListAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(View view, int position) {
-//                BaseActivity baseActivity = (BaseActivity) getActivity();
-//                baseActivity.goWebView("http://www.baidu.com", "");
+                BaseActivity baseActivity = (BaseActivity) getActivity();
+                baseActivity.goWebView("http://www.baidu.com", "");
 
-                Intent intent = new Intent(getActivity(), MainActivityBottomNavi.class);
-                startActivity(intent);
+//                Intent intent = new Intent(getActivity(), MainActivityBottomNavi.class);
+//                startActivity(intent);
             }
 
             @Override
@@ -140,9 +131,8 @@ public class AreUSleepFragmentList extends Fragment {
      */
     private void getHttpData(String mParam1, int page) {
         HttpCall.getApiService().getAreuSleep(mParam1, page)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new BaseObserver<List<AreuSleepResult>>(getActivity(),false){
+                .compose(RxUtils.rxSchedulerHelper())
+                .subscribe(new BaseSubscriber<List<AreuSleepResult>>(getActivity(),false){
                     @Override
                     public void onSuccess(List<AreuSleepResult> areuSleepResults) {
                         disposeHttpResult(areuSleepResults);
@@ -152,20 +142,6 @@ public class AreUSleepFragmentList extends Fragment {
                         super.onFailure(code, message);
                     }
                 });
-
-//        Call<HttpResponse<List<AreuSleepResult>>> getAreuSleepCall = HttpCall.getApiService().getAreuSleep(mParam1, page);
-//        getAreuSleepCall.enqueue(new HttpCallBack<HttpResponse<List<AreuSleepResult>>>(getActivity(), false) {
-//            @Override
-//            public void onSuccess(HttpResponse<List<AreuSleepResult>> listHttpResponse) {
-//                Log.e("dfd", listHttpResponse.getResult().toString());
-//                disposeHttpResult(listHttpResponse.getResult());
-//            }
-//            @Override
-//            public void onFailure(int code, String messageStr) {
-//                super.onFailure(code, messageStr);
-//            }
-//
-//        });
     }
 
 

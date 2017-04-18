@@ -19,15 +19,15 @@ import android.widget.Toast;
 import com.zenglb.baselib.base.BaseActivity;
 import com.zenglb.baselib.sharedpreferences.SharedPreferencesDao;
 import com.zenglb.framework.R;
+import com.zenglb.framework.http.core.HttpCallBack;
 import com.zenglb.framework.navigation.MainActivityBottomNavi;
 import com.zenglb.framework.config.SPKey;
 import com.zenglb.framework.http.param.LoginParams;
 import com.zenglb.framework.http.core.HttpCall;
 import com.zenglb.framework.http.result.LoginResult;
-import com.zenglb.framework.rxhttp.BaseObserver;
+import com.zenglb.framework.rxhttp.BaseSubscriber;
+import com.zenglb.framework.rxhttp.RxUtils;
 
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.schedulers.Schedulers;
 
 /**
  * 1.登录的对话框在弹出键盘的时候希望能够向上移动
@@ -77,7 +77,7 @@ public class LoginActivity extends BaseActivity {
     }
 
     /**
-     * 登录请求使用Rxjava2 来控制
+     * Login ,普通的登录和使用Rxjava 的方式都可以
      */
     private void loginByRxJava2() {
         String userName = etUsername.getText().toString().trim();
@@ -97,58 +97,65 @@ public class LoginActivity extends BaseActivity {
         loginParams.setUsername(userName);
         loginParams.setPassword(password);
 
-        HttpCall.getApiService().goLogin2(loginParams)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new BaseObserver<LoginResult>(this, true) {
+//        HttpCall.getApiService().goLoginByRxjava(loginParams)
+//                .subscribeOn(Schedulers.io())             //能否把这两步也省了！
+//                .observeOn(AndroidSchedulers.mainThread())
+//                .subscribe(new BaseObserver<LoginResult>(this, true) {
+//                    @Override
+//                    public void onSuccess(LoginResult loginResult) {
+//                        loginSuccess(loginResult);
+//                    }
+//                });
+
+        /**
+         * 使用compose 来处理统一的线程切换问题
+         *
+         */
+        HttpCall.getApiService().goLoginByRxjavaFlowable(loginParams)
+                .compose(RxUtils.rxSchedulerHelper())
+                .subscribe(new BaseSubscriber<LoginResult>(this, true) {
+                    @Override
+                    public void onSuccess(LoginResult loginResult) {
+                        loginSuccess(loginResult);
+                    }
+                });
+    }
+
+
+    /**
+     * Login ,普通的登录和使用Rxjava 的方式都可以
+     */
+    private void loginByRetrofit() {
+        String userName = etUsername.getText().toString().trim();
+        String password = etPassword.getText().toString().trim();
+
+        if (TextUtils.isEmpty(userName) || TextUtils.isEmpty(password)) {
+            Toast.makeText(this, "请完整输入用户名和密码", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        HttpCall.cleanToken();
+
+        LoginParams loginParams = new LoginParams();
+        loginParams.setClient_id("5e96eac06151d0ce2dd9554d7ee167ce");
+        loginParams.setClient_secret("aCE34n89Y277n3829S7PcMN8qANF8Fh");
+        loginParams.setGrant_type("password");
+        loginParams.setUsername(userName);
+        loginParams.setPassword(password);
+
+        //2.Generic Programming Techniques is the basis of Android develop
+        HttpCall.getApiService().goLoginByRetrofit(loginParams)
+                .enqueue(new HttpCallBack<LoginResult>(this) {
                     @Override
                     public void onSuccess(LoginResult loginResult) {
                         loginSuccess(loginResult);
                     }
 
                     @Override
-                    public void onFailure(int code, String message) {
-                        super.onFailure(code, message);
+                    public void onFailure(int code, String messageStr) {
+                        super.onFailure(code, messageStr);
                     }
                 });
     }
-
-
-//    /**
-//     * Login @
-//     */
-//    private void loginByRetrofit() {
-//        String userName = etUsername.getText().toString().trim();
-//        String password = etPassword.getText().toString().trim();
-//
-//        if (TextUtils.isEmpty(userName) || TextUtils.isEmpty(password)) {
-//            Toast.makeText(this, "请完整输入用户名和密码", Toast.LENGTH_SHORT).show();
-//            return;
-//        }
-//        HttpCall.cleanToken();
-//
-//        LoginParams loginParams = new LoginParams();
-//        loginParams.setClient_id("5e96eac06151d0ce2dd9554d7ee167ce");
-//        loginParams.setClient_secret("aCE34n89Y277n3829S7PcMN8qANF8Fh");
-//        loginParams.setGrant_type("password");
-//        loginParams.setUsername(userName);
-//        loginParams.setPassword(password);
-//
-//        //2.Generic Programming Techniques is the basis of Android develop
-//        Call<HttpResponse<LoginResult>> loginCall = HttpCall.getApiService().goLogin(loginParams);
-//        loginCall.enqueue(new HttpCallBack<HttpResponse<LoginResult>>(this) {
-//            @Override
-//            public void onSuccess(HttpResponse<LoginResult> loginResultHttpResponse) {
-//                loginSuccess(loginResultHttpResponse.getResult());
-//            }
-//
-//            @Override
-//            public void onFailure(int code, String messageStr) {
-//                super.onFailure(code, messageStr);
-//            }
-//        });
-//    }
-
 
     private void loginSuccess(LoginResult loginResult) {
         SharedPreferencesDao.getInstance().saveData(SPKey.KEY_ACCESS_TOKEN, "Bearer " + loginResult.getAccessToken());
@@ -168,8 +175,8 @@ public class LoginActivity extends BaseActivity {
             startActivity(i2);
         }
         LoginActivity.this.finish();
-    }
 
+    }
 
     public void onClick(View view) {
         switch (view.getId()) {
@@ -184,8 +191,7 @@ public class LoginActivity extends BaseActivity {
                 }
                 break;
             case R.id.bt_go:
-
-//                login111();
+//                loginByRetrofit();
                 loginByRxJava2();
                 break;
         }
@@ -205,6 +211,5 @@ public class LoginActivity extends BaseActivity {
         }
         return super.onKeyDown(keyCode, event);
     }
-
 
 }

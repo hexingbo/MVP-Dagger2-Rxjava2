@@ -24,7 +24,7 @@
 
 # 关于Http网络请求
   应该没有比retrofit2 更好的了吧？不过api 不是restful 就需要再封装一下了，网路模块就是数据命脉，做好了
-  整个app 的结构会简化很多，结合Rxjava（/2）不是更快哉
+  整个app 的结构会简化很多，结合Rxjava（/2）不是更快哉。现在项目http 请求是自由切换是否用Rxjava
 
 # UI架构模型
   Android应用的UI架构模型经历了MVC,MVP 和 MVVM 的演变过程。MVC中View 层（Activity，Fragment/自定义的View）
@@ -81,6 +81,12 @@
 
 # 安全加密
   混淆Proguard，https,数据库加密，密码明文传输是什么鬼，多多oauth。
+
+# 推送
+  会越来越严格，目前没有很好的第三方，绿色联盟？如果企业对推送有强需求，还是建议用短信和微信消息做补充
+
+# Rxjava
+  https://realm.io/cn/news/kau-felipe-lima-adopting-rxjava-airbnb-android/
 
 # 应用中使用的第三方框架
   其实大部分的App 最难以做好的模块是Http，http 模块封装的好，做起业务来很方便。关于第三方框架不要聚合型

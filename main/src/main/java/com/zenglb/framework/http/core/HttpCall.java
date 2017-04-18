@@ -13,6 +13,7 @@ import com.zenglb.framework.rxhttp.BaseObserver;
 import java.io.IOException;
 import java.util.concurrent.TimeUnit;
 
+import io.reactivex.schedulers.Schedulers;
 import okhttp3.Authenticator;
 import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
@@ -123,41 +124,30 @@ public class HttpCall {
      * 不是必须这样
      */
     private static void refreshToken() {
+        if (TextUtils.isEmpty(SharedPreferencesDao.getInstance().getData(SPKey.KEY_REFRESH_TOKEN, "", String.class))) {
+            return;
+        }
+
         LoginParams loginParams = new LoginParams();
         loginParams.setClient_id("5e96eac06151d0ce2dd9554d7ee167ce");
         loginParams.setClient_secret("aCE34n89Y277n3829S7PcMN8qANF8Fh");
         loginParams.setGrant_type("refresh_token");
         loginParams.setRefresh_token(SharedPreferencesDao.getInstance().getData(SPKey.KEY_REFRESH_TOKEN, "", String.class));
 
-        HttpCall.getApiService().goLogin2(loginParams)
-                .subscribe(new BaseObserver<LoginResult>(null, false) {
-                    @Override
-                    public void onSuccess(LoginResult loginResult) {
-                        SharedPreferencesDao.getInstance().saveData(SPKey.KEY_ACCESS_TOKEN, "Bearer " + loginResult.getAccessToken());
-                        SharedPreferencesDao.getInstance().saveData(SPKey.KEY_REFRESH_TOKEN, loginResult.getRefreshToken());
-                    }
-
-                    @Override
-                    public void onFailure(int code, String message) {
-                        super.onFailure(code, message);
-                    }
-                });
-
-
-//        Call<HttpResponse<LoginResult>> refreshTokenCall = HttpCall.getApiService().refreshToken(loginParams);
-//        try {
-//            retrofit2.Response<HttpResponse<LoginResult>> response = refreshTokenCall.execute();
-//            if (response.isSuccessful()) {
-//                int responseCode = response.body().getCode();
-//                if (responseCode == 0) {
-//                    HttpResponse<LoginResult> httpResponse = response.body();
-//                    SharedPreferencesDao.getInstance().saveData(SPKey.KEY_ACCESS_TOKEN, "Bearer " + httpResponse.getResult().getAccessToken());
-//                    SharedPreferencesDao.getInstance().saveData(SPKey.KEY_REFRESH_TOKEN, httpResponse.getResult().getRefreshToken());
-//                }
-//            }
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
+        Call<HttpResponse<LoginResult>> refreshTokenCall = HttpCall.getApiService().refreshToken(loginParams);
+        try {
+            retrofit2.Response<HttpResponse<LoginResult>> response = refreshTokenCall.execute();
+            if (response.isSuccessful()) {
+                int responseCode = response.body().getCode();
+                if (responseCode == 0) {
+                    HttpResponse<LoginResult> httpResponse = response.body();
+                    SharedPreferencesDao.getInstance().saveData(SPKey.KEY_ACCESS_TOKEN, "Bearer " + httpResponse.getResult().getAccessToken());
+                    SharedPreferencesDao.getInstance().saveData(SPKey.KEY_REFRESH_TOKEN, httpResponse.getResult().getRefreshToken());
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     /**
