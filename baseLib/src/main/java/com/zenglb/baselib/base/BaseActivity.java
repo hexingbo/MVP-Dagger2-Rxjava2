@@ -3,9 +3,10 @@ package com.zenglb.baselib.base;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+
+import com.trello.rxlifecycle2.components.support.RxAppCompatActivity;
 import com.zenglb.commonlib.R;
 
 /**
@@ -15,7 +16,7 @@ import com.zenglb.commonlib.R;
  * 3.注意WebViewActivity 开启了多进程！
  * @author zenglb 20170301
  */
-public abstract class BaseActivity extends AppCompatActivity implements View.OnClickListener{
+public abstract class BaseActivity extends RxAppCompatActivity implements View.OnClickListener{
     private static final String TAG = BaseActivity.class.getSimpleName();
     private Toolbar mToolbar;
     public Context mContext;

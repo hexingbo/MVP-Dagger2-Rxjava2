@@ -105,14 +105,6 @@ public class MeProfileFragment extends BaseFragment {
             if (visibleTime == 1) { //这里也不是每次可见的时候都能刷新，只有第一次可见的时候或者数据加载从来没有成功 才调用刷新
                 disposeHttpResult();
                 Toast.makeText(mActivity, "第一次可见", Toast.LENGTH_SHORT).show();
-
-//                new Handler().postDelayed(new Runnable() {  //是Spring View的Bug！
-//                    @Override
-//                    public void run() {
-//                        springView.callFresh();
-//                    }
-//                }, 500);
-
             }
         }
     }

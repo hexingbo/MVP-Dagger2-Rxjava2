@@ -3,7 +3,8 @@
 # 关于本Demo
   本项目作为轻量化的练习Demo,方便以后新项目进行参考，主要练习基础项目封装，GreenDao3,Material-Animations,
   Retrofit2,mvp,Proguard混淆和JSbridge(webview 在单独的进程中),baseActivity(不要放那么多和Base 无关的东西)
-  慢慢的也会加入Rxjava2 和 dragger(/2)
+  慢慢的也会加入Rxjava2 和 其他的，反对过度封装。大部分App基本rxjava2(慎用) + retrofit2 +MVP 就够了,反对过度
+  的封装，反对拿J2EE 的一些思想放Android 上，当然打好基础任何时候都必要的。
 
 # 关于Proguard
   Proguard 能混淆代码，能减少Apk 的体积，优化结构，不管怎样没有理由不Proguard吧，至于第三方的加固感觉没有必要，
@@ -22,7 +23,7 @@
   PermissionsDispatcher provides a simple annotation-based API to handle runtime permissions。
   还是那句话：既然是动态权限就不要第一次打开app就拼命的申请权限，在用的时候申请吧。
 
-# 关于Http网络请求
+# 关于Http网络请求 (Rxjava2+Retrofit2)
   应该没有比retrofit2 更好的了吧？不过api 不是restful 就需要再封装一下了，网路模块就是数据命脉，做好了
   整个app 的结构会简化很多，结合Rxjava（/2）不是更快哉。现在项目http 请求是自由切换是否用Rxjava
 
@@ -51,7 +52,7 @@
 # 关于持久化数据的保存
 - SharePrence (考虑有几个进程可能要content p)
 - Datebase
-   sqlite ? no!  ORMDB please,Now maybe the best is greendao3.
+   sqlite ? no!  ORMDB please,Now maybe the best is greendao3.Rxjava2+GreenDao3 may be wonderful!
 
 # 关于过渡动画
   要适当的有过度动画，不要太生硬,material transtion
@@ -70,7 +71,8 @@
   等等都是Google 官方新出来的推荐使用的布局样式，多使用新的
 
 # toolbar
-  设计师会遵循Android 的规范设计了，吧！会的
+  设计师会遵循Android 的规范设计了吧!讲真现在很多设计师如果还不管Android 的一些设计，我想他们除了懒不想去
+  了解更多的东西我想不出其他原因，还拿iOS 的那一套，不管Android 系统规范就算了。甚至不知SP，DP 单位，cry
 
 # 关于依赖注解
   Dragger2 吧 ... ...

@@ -18,6 +18,8 @@
 
         <item name="actionMenuTextColor">@color/white</item> <!--  敲定颜色-->
         <item name="android:textSize">14sp</item> <!--  搞掂字体大小-->
+        <item name="android:textColor">@color/squarecamera__red</item> <!--  搞掂字体大小-->
+
 
     </style>
 

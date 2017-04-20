@@ -25,8 +25,8 @@ import com.zenglb.framework.config.SPKey;
 import com.zenglb.framework.http.param.LoginParams;
 import com.zenglb.framework.http.core.HttpCall;
 import com.zenglb.framework.http.result.LoginResult;
-import com.zenglb.framework.rxhttp.BaseSubscriber;
-import com.zenglb.framework.rxhttp.RxUtils;
+import com.zenglb.framework.rxhttp.BaseObserver;
+import com.zenglb.framework.rxhttp.RxObservableUtils;
 
 
 /**
@@ -97,28 +97,37 @@ public class LoginActivity extends BaseActivity {
         loginParams.setUsername(userName);
         loginParams.setPassword(password);
 
-//        HttpCall.getApiService().goLoginByRxjava(loginParams)
-//                .subscribeOn(Schedulers.io())             //能否把这两步也省了！
-//                .observeOn(AndroidSchedulers.mainThread())
-//                .subscribe(new BaseObserver<LoginResult>(this, true) {
+        /**
+         * 使用compose 来处理统一的线程切换问题
+         *
+         *
+         在subscribe()之后， Observable会持有 Subscriber的引用，这个引用如果不能及时被释放，将有内存泄露的风险。
+         所以最好保持一个原则：要在不再使用的时候尽快在合适的地方（例如 onPause()、onStop()等方法中）
+         调用 unsubscribe()来解除引用关系，以避免内存泄露的发生。
+
+         */
+//        HttpCall.getApiService().goLoginByRxjavaFlowable(loginParams)
+//                .compose(RxSubscriberUtils.rxNetThreadHelper())
+//                .compose(bindToLifecycle())
+//                .subscribe(new BaseSubscriber<LoginResult>(this, true) {
 //                    @Override
 //                    public void onSuccess(LoginResult loginResult) {
 //                        loginSuccess(loginResult);
 //                    }
 //                });
 
-        /**
-         * 使用compose 来处理统一的线程切换问题
-         *
-         */
-        HttpCall.getApiService().goLoginByRxjavaFlowable(loginParams)
-                .compose(RxUtils.rxSchedulerHelper())
-                .subscribe(new BaseSubscriber<LoginResult>(this, true) {
+
+                HttpCall.getApiService().goLoginByRxjavaObserver(loginParams)
+                .compose(RxObservableUtils.applySchedulers())
+                .compose(bindToLifecycle())
+                .subscribe(new BaseObserver<LoginResult>(this, true) {
                     @Override
                     public void onSuccess(LoginResult loginResult) {
                         loginSuccess(loginResult);
                     }
                 });
+
+
     }
 
 
@@ -128,7 +137,6 @@ public class LoginActivity extends BaseActivity {
     private void loginByRetrofit() {
         String userName = etUsername.getText().toString().trim();
         String password = etPassword.getText().toString().trim();
-
         if (TextUtils.isEmpty(userName) || TextUtils.isEmpty(password)) {
             Toast.makeText(this, "请完整输入用户名和密码", Toast.LENGTH_SHORT).show();
             return;

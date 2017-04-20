@@ -48,4 +48,7 @@ dependencies {
     compile "com.android.support:cardview-v7:$project.ext.supportLibraryVersion"
     compile "com.liaoinstan.springview:library:1.2.6"
 
+    compile 'com.trello.rxlifecycle2:rxlifecycle-components:2.0.1'
+
+
 }

@@ -9,6 +9,12 @@ public class AreuSleepResult {
     private String start_time;
     private String id;
 
+    public AreuSleepResult(String topic, String start_time, String id) {
+        this.topic = topic;
+        this.start_time = start_time;
+        this.id = id;
+    }
+
     public String getTopic() {
         return topic;
     }

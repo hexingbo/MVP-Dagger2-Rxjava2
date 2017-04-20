@@ -33,6 +33,47 @@
         android:textColor="@color/colorPrimary"
         android:textSize="18sp" />
 
+
+
+    <TextView
+        android:id="@+id/rxjava"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingTop="22dp"
+        android:text="Rxjava2"
+        android:textColor="@color/colorPrimary"
+        android:textSize="18sp" />
+
+
+    <TextView
+        android:id="@+id/mvp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingTop="22dp"
+        android:text="mvp-dragger2"
+        android:textColor="@color/colorPrimary"
+        android:textSize="18sp" />
+
+
+    <TextView
+        android:id="@+id/kotlin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingTop="22dp"
+        android:text="kotlin"
+        android:textColor="@color/colorPrimary"
+        android:textSize="18sp" />
+
+
+    <TextView
+        android:id="@+id/jni"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingTop="22dp"
+        android:text="JNI敏感信息隐藏"
+        android:textColor="@color/colorPrimary"
+        android:textSize="18sp" />
+
     //1234567890p-
     <ImageView
         android:layout_width="88dp"

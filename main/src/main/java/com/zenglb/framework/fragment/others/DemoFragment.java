@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 
 import com.zenglb.baselib.base.BaseActivity;
 import com.zenglb.framework.R;
+import com.zenglb.framework.activity.demo.DemoActivity;
 
 /**
  * 喂,你睡着了吗（答题列表）
@@ -67,8 +68,15 @@ public class DemoFragment extends Fragment {
             }
         });
 
-//        TextView ss=new TextView();
-//        ss.setTextColor();
+        /**
+         * 添加水印
+         */
+        rootView.findViewById(R.id.animation).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ((BaseActivity) getActivity()).setIntentClass(DemoActivity.class);
+            }
+        });
 
     }
 

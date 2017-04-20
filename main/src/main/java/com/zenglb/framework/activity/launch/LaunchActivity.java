@@ -9,24 +9,19 @@ import android.telephony.TelephonyManager;
 import android.telephony.cdma.CdmaCellLocation;
 import android.telephony.gsm.GsmCellLocation;
 import android.text.TextUtils;
+import android.util.Base64;
 import android.util.Log;
 import android.widget.Toast;
 
 import com.zenglb.baselib.base.BaseActivity;
 import com.zenglb.baselib.sharedpreferences.SharedPreferencesDao;
+import com.zenglb.baselib.utils.AESHelper;
 import com.zenglb.framework.R;
 import com.zenglb.framework.activity.access.LoginActivity;
 import com.zenglb.framework.navigation.MainActivityBottomNavi;
 import com.zenglb.framework.config.SPKey;
 
-
-import java.util.concurrent.TimeUnit;
-
-import io.reactivex.Flowable;
-import io.reactivex.FlowableEmitter;
-import io.reactivex.FlowableOnSubscribe;
-import io.reactivex.Observable;
-import io.reactivex.ObservableOnSubscribe;
+import java.io.UnsupportedEncodingException;
 
 
 /**
@@ -78,7 +73,30 @@ public class LaunchActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         UiHandler.sendEmptyMessageDelayed(0, 2000); //
         testRxjava();
+
+        String originalText = "宫亭是SB";
+        String key = "VankeService1997";
+
+
+        Toast.makeText(this, "自助加密再解密:" + AESHelper.decrypt(AESHelper.encrypt("爱你哦，F!",key),key), Toast.LENGTH_SHORT).show();
+
+        //1.模拟加密,base 64
+        String baseStrEncode = Base64.encodeToString(AESHelper.encrypt(originalText, key).getBytes(), Base64.URL_SAFE);
+
+        //2.解密，解不出？ 重启试试
+        String result = null;
+        try {
+            result = AESHelper.decrypt(new String(Base64.decode(baseStrEncode, Base64.URL_SAFE), "UTF-8"), key);
+        } catch (Exception e) {
+            Log.e("E", e.toString());
+        }
+
+
+        Toast.makeText(this, "解码结果:" + result, Toast.LENGTH_SHORT).show();
+        Log.e("result", result);
+
     }
+
 
 
     /**

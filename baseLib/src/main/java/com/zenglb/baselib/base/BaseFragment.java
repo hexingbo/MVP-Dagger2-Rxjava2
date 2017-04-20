@@ -6,12 +6,14 @@ import android.support.annotation.CallSuper;
 import android.support.v4.app.Fragment;
 import android.view.View;
 
+import com.trello.rxlifecycle2.components.support.RxFragment;
+
 /**
  * Base Fragment,实现懒加载，一般的主页面的要求实现懒加载
  * <p>
  * Created by zenglb on 2017/1/5.
  */
-public abstract class BaseFragment extends Fragment {
+public abstract class BaseFragment extends RxFragment {
     private String TAG = BaseFragment.class.getSimpleName();
     //保证Fragment即使在onDetach后，仍持有Activity的引用（有引起内存泄露的风险，但是相比空指针闪退，这种做法“安全”些）
     protected Activity mActivity;          //防止getActivity()== null

@@ -12,6 +12,7 @@ import com.zenglb.framework.R;
 import com.zenglb.framework.activity.main.AreUSleepFragmentList;
 import com.zenglb.framework.fragment.mainfragment.MeProfileFragment;
 import com.zenglb.framework.fragment.others.DemoFragment;
+import com.zenglb.framework.fragment.rxjava2.Rxjava2DemoFragment;
 
 /**
  * 本来挺好的，但是4/5 个bottom navi 的时候 不能定制样式啊，反射XX
@@ -114,7 +115,7 @@ public class MainActivityBottomNavi extends BaseActivity {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
         adapter.addFragment(DemoFragment.newInstance("demo"));
         adapter.addFragment(AreUSleepFragmentList.newInstance("expired"));
-        adapter.addFragment(AreUSleepFragmentList.newInstance("done"));
+        adapter.addFragment(Rxjava2DemoFragment.newInstance("done"));
         adapter.addFragment(MeProfileFragment.newInstance("MeProfile", "333"));
 
         viewPager.setAdapter(adapter);

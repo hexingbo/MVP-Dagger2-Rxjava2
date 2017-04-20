@@ -21,11 +21,24 @@ import retrofit2.http.Query;
 /**
  * 所有的具体的和业务相关的Http请求，现在就是基本可以使用Rxjava 或者不使用
  *
+ * 要能够自由的在Service 中使用！
+ *
+ *
  * Created by zenglb on 2017/3/17.
  */
 public interface ApiService {
     // TODO: 2017/4/18 所有的请求都是在io 中执行，切换回main,那么要怎么省掉这部分相同的代码？
     // TODO: 2017/4/18 Rxjava 出来了内存泄漏，感觉会死的很惨，不敢上线实际的使用啊！
+
+
+
+    /**
+     * Login ,尝试使用Flowable 来处理，
+     */
+    @Headers("NoNeedAuthFlag: NoNeedAuthFlag")
+    @POST("api/lebang/oauth/access_token")
+    Observable<HttpResponse<LoginResult>> goLoginByRxjavaObserver(@Body LoginParams loginRequest);
+
 
     /**
      * Login ,尝试使用Flowable 来处理，
@@ -40,6 +53,10 @@ public interface ApiService {
     @Headers("NoNeedAuthFlag: NoNeedAuthFlag")
     @POST("api/lebang/oauth/access_token1")
     Call<HttpResponse<LoginResult>> goLoginByRetrofit(@Body LoginParams loginParams);
+
+
+
+
 
     @GET("api/lebang/night_school/{type}")
     Flowable<HttpResponse<List<AreuSleepResult>>> getAreuSleep(@Path("type") String type, @Query("page") int page);

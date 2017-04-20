@@ -12,14 +12,15 @@ import com.zenglb.baselib.utils.TextUtils;
 import com.zenglb.framework.activity.access.LoginActivity;
 import com.zenglb.framework.http.core.HttpResponse;
 import com.zenglb.framework.http.core.HttpUiTips;
-import org.reactivestreams.Subscription;
+
 import java.io.IOException;
 import java.net.ConnectException;
 import java.net.SocketTimeoutException;
 import java.net.UnknownHostException;
 import java.net.UnknownServiceException;
 
-import io.reactivex.subscribers.DisposableSubscriber;
+import io.reactivex.Observer;
+import io.reactivex.disposables.Disposable;
 
 
 /**
@@ -29,9 +30,8 @@ import io.reactivex.subscribers.DisposableSubscriber;
  *
  * Created by zenglb on 2017/4/14.
  */
-@Deprecated
-public abstract class BaseSubscriber<T> extends DisposableSubscriber<HttpResponse<T>> {
-    private final String TAG = BaseSubscriber.class.getSimpleName();
+public abstract class BaseObserver<T> implements Observer<HttpResponse<T>> {
+    private final String TAG = BaseObserver.class.getSimpleName();
     private final int RESPONSE_CODE_OK = 0;      //自定义的业务逻辑，成功返回积极数据
     private final int RESPONSE_CODE_FAILED = -1; //返回数据失败,严重的错误
 
@@ -54,7 +54,7 @@ public abstract class BaseSubscriber<T> extends DisposableSubscriber<HttpRespons
      * @param mContext
      * @param showProgress 默认需要显示进程，不要的话请传 false
      */
-    public BaseSubscriber(Context mContext, boolean showProgress) {
+    public BaseObserver(Context mContext, boolean showProgress) {
         this.showProgress = showProgress;
         this.mContext = mContext;
         if (showProgress) {
@@ -62,19 +62,10 @@ public abstract class BaseSubscriber<T> extends DisposableSubscriber<HttpRespons
         }
     }
 
-//    @Override
-//    public void onSubscribe(Subscription s) {
-//        s.request(2);  //what is the hell ??????
-//    }
-
-
-    public BaseSubscriber() {
-        super();
-    }
 
     @Override
-    protected void onStart() {
-        super.onStart();
+    public void onSubscribe(Disposable d) {
+
     }
 
     @Override

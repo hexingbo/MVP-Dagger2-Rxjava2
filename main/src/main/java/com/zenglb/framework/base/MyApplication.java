@@ -1,10 +1,13 @@
 package com.zenglb.framework.base;
 
+import android.content.Context;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.text.TextUtils;
 import android.util.Log;
 
+import com.squareup.leakcanary.LeakCanary;
+import com.squareup.leakcanary.RefWatcher;
 import com.zenglb.baselib.sharedpreferences.SharedPreferencesDao;
 import com.zenglb.framework.database.daomaster.DaoMaster;
 import com.zenglb.baselib.base.BaseApplication;
@@ -24,6 +27,8 @@ public class MyApplication extends BaseApplication {
     public static final boolean ENCRYPTED = false;
     private DaoSession daoSession;
 
+    private RefWatcher refWatcher;
+
     @Override
     public void onCreate() {
         super.onCreate();
@@ -35,6 +40,9 @@ public class MyApplication extends BaseApplication {
 
 
         if (!TextUtils.isEmpty(processName) && processName.equals(this.getPackageName())) { //main Process
+
+            refWatcher = LeakCanary.install(this);
+
             setDaoSession(SharedPreferencesDao.getInstance().getData("Account", "DefDb", String.class));
             isDebugCheck();
         }
@@ -44,6 +52,13 @@ public class MyApplication extends BaseApplication {
     @Override
     public void onTerminate() {
         super.onTerminate();
+    }
+
+
+
+    public static RefWatcher getRefWatcher(Context context) {
+        MyApplication application = (MyApplication) context.getApplicationContext();
+        return application.refWatcher;
     }
 
 

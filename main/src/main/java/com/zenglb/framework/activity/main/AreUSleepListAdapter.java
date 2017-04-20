@@ -75,8 +75,8 @@ public class AreUSleepListAdapter extends RecyclerView.Adapter<AreUSleepListAdap
 		AreuSleepResult bean = data.get(position);
 		viewHolder.itemView.setClickable(true);
 
-		viewHolder.topic.setText(bean.getTopic().trim()+"56789");
-		viewHolder.time.setText("发题时间 " + bean.getStart_time());
+		viewHolder.topic.setText(bean.getTopic().trim());
+		viewHolder.time.setText("#" + bean.getStart_time());
 
 		if (mOnItemClickListener != null) {
 			viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
