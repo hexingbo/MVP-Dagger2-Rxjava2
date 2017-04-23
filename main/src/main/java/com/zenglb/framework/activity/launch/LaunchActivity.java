@@ -72,7 +72,6 @@ public class LaunchActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         UiHandler.sendEmptyMessageDelayed(0, 2000); //
-        testRxjava();
 
         String originalText = "宫亭是SB";
         String key = "VankeService1997";
@@ -96,37 +95,7 @@ public class LaunchActivity extends BaseActivity {
         Log.e("result", result);
 
     }
-
-
-
-    /**
-     * 测试Rxjava2 的基本使用
-     */
-    private void testRxjava() {
-
-
-//        Observable<Integer> observable = Observable.create(new ObservableOnSubscribe<Integer>() {
-//            @Override
-//            public void subscribe(ObservableEmitter<Integer> emitter) throws Exception {
-//                Log.d(TAG, "Observable thread is : " + Thread.currentThread().getName());
-//                Log.d(TAG, "emit 1");
-//                emitter.onNext(1);
-//            }
-//        });
-//
-//        Consumer<Integer> consumer = new Consumer<Integer>() {
-//            @Override
-//            public void accept(Integer integer) throws Exception {
-//                Log.d(TAG, "Observer thread is :" + Thread.currentThread().getName());
-//                Log.d(TAG, "onNext: " + integer);
-//            }
-//        };
-//
-//        observable.subscribeOn(Schedulers.newThread())     //订阅新的线程中的事件源
-//                  .observeOn(AndroidSchedulers.mainThread()) //在主线程中观察，切换到主线程处理问题
-//                  .subscribe(consumer);
-
-    }
+    
 
 
     /**

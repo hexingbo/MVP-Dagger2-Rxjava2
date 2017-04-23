@@ -1,8 +1,10 @@
-package com.zenglb.framework.rxhttp;
+package com.zenglb.baselib.rxUtils;
 
 import android.app.Dialog;
 import android.content.DialogInterface;
+
 import java.util.concurrent.TimeUnit;
+
 import io.reactivex.Observable;
 import io.reactivex.ObservableSource;
 import io.reactivex.ObservableTransformer;
@@ -17,6 +19,7 @@ import io.reactivex.schedulers.Schedulers;
  * Created by zenglb on 2017/4/20.
  */
 public class RxObservableUtils {
+
     /**
      * 无进度Schedulers
      */
@@ -30,6 +33,7 @@ public class RxObservableUtils {
             }
         };
     }
+
 
     /**
      * 有进度Schedulers

@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import com.zenglb.baselib.base.BaseActivity;
 import com.zenglb.framework.R;
 import com.zenglb.framework.activity.demo.DemoActivity;
+import com.zenglb.framework.service.TestRxIntentService;
 
 /**
  * 喂,你睡着了吗（答题列表）
@@ -51,6 +52,7 @@ public class DemoFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_demo, container, false);
         viewsInit(rootView);
+
         return rootView;
     }
 
@@ -69,7 +71,7 @@ public class DemoFragment extends Fragment {
         });
 
         /**
-         * 添加水印
+         * demo Act
          */
         rootView.findViewById(R.id.animation).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -77,6 +79,18 @@ public class DemoFragment extends Fragment {
                 ((BaseActivity) getActivity()).setIntentClass(DemoActivity.class);
             }
         });
+
+
+        /**
+         * jni jni
+         */
+        rootView.findViewById(R.id.jni).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                TestRxIntentService.start(getActivity());
+            }
+        });
+
 
     }
 

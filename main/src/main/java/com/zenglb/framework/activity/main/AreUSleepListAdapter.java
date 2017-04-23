@@ -8,7 +8,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.zenglb.framework.R;
-import com.zenglb.framework.http.result.AreuSleepResult;
+import com.zenglb.framework.http.result.JokesResult;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,7 +21,7 @@ public class AreUSleepListAdapter extends RecyclerView.Adapter<AreUSleepListAdap
 	private int checkedIndex = -1;
 	private Context mContext;
 	private LayoutInflater mLayoutInflater;
-	private List<AreuSleepResult> data = new ArrayList<>();
+	private List<JokesResult> data = new ArrayList<>();
 
 	public interface OnItemClickListener {
 		void onItemClick(View view, int position);
@@ -38,7 +38,7 @@ public class AreUSleepListAdapter extends RecyclerView.Adapter<AreUSleepListAdap
 	 * @param mContext
 	 * @param data
 	 */
-	public AreUSleepListAdapter(Context mContext, List<AreuSleepResult> data) {
+	public AreUSleepListAdapter(Context mContext, List<JokesResult> data) {
 		this.mContext = mContext;
 		mLayoutInflater = LayoutInflater.from(mContext);
 		this.data = data;
@@ -72,11 +72,11 @@ public class AreUSleepListAdapter extends RecyclerView.Adapter<AreUSleepListAdap
 
 	@Override
 	public void onBindViewHolder(final ViewHolder viewHolder, final int position) {
-		AreuSleepResult bean = data.get(position);
+		JokesResult bean = data.get(position);
 		viewHolder.itemView.setClickable(true);
 
 		viewHolder.topic.setText(bean.getTopic().trim());
-		viewHolder.time.setText("#" + bean.getStart_time());
+		viewHolder.time.setText(bean.getStart_time());
 
 		if (mOnItemClickListener != null) {
 			viewHolder.itemView.setOnClickListener(new View.OnClickListener() {

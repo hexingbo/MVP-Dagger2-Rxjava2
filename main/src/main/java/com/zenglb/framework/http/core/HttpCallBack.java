@@ -5,21 +5,23 @@ import android.content.Intent;
 import android.support.annotation.CallSuper;
 import android.util.Log;
 import android.widget.Toast;
+
 import com.google.gson.Gson;
 import com.zenglb.baselib.utils.TextUtils;
 import com.zenglb.framework.activity.access.LoginActivity;
+
 import java.io.IOException;
 import java.net.ConnectException;
 import java.net.SocketTimeoutException;
 import java.net.UnknownHostException;
 import java.net.UnknownServiceException;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
 /**
  * 2017.04.15 以后不再维护，使用Rxjava2+ retrofit 结合的吧！
- *
  */
 @Deprecated
 public abstract class HttpCallBack<T> implements Callback<HttpResponse<T>> {
@@ -27,13 +29,11 @@ public abstract class HttpCallBack<T> implements Callback<HttpResponse<T>> {
     private static Gson gson = new Gson();
     private final int RESPONSE_CODE_OK = 0;      //自定义的业务逻辑，成功返回积极数据
     private final int RESPONSE_CODE_FAILED = -1; //返回数据失败
-
-    //是否需要显示Http 请求的进度，默认的是需要，但是Service 和 预取数据不需要
-    private boolean showProgress = true;
     private Context mContext;
 
     /**
      * 根据具体的Api 业务逻辑去重写 onSuccess 方法！
+     *
      * @param t
      */
     public abstract void onSuccess(T t);
@@ -43,10 +43,7 @@ public abstract class HttpCallBack<T> implements Callback<HttpResponse<T>> {
      */
     public HttpCallBack(Context mContext) {
         this.mContext = mContext;
-        if (showProgress) {
-            //show your progress bar
-            HttpUiTips.showDialog(mContext,true, "loading...");
-        }
+        HttpUiTips.showDialog(mContext, true, "loading...");
     }
 
     /**
@@ -54,11 +51,8 @@ public abstract class HttpCallBack<T> implements Callback<HttpResponse<T>> {
      * @param showProgress 默认需要显示进程，不要的话请传 false
      */
     public HttpCallBack(Context mContext, boolean showProgress) {
-        this.showProgress = showProgress;
         this.mContext = mContext;
-        if (showProgress) {
-            HttpUiTips.showDialog(mContext,true, null);
-        }
+        HttpUiTips.showDialog(mContext, true, null);
     }
 
 
@@ -72,11 +66,12 @@ public abstract class HttpCallBack<T> implements Callback<HttpResponse<T>> {
     @CallSuper  //if overwrite,you should let it run.
     public void onFailure(int code, String message) {
         if (code == RESPONSE_CODE_FAILED && mContext != null) {
-            HttpUiTips.alertTip(mContext,message, code);
+            HttpUiTips.alertTip(mContext, message, code);
         } else {
             disposeEorCode(message, code);
         }
     }
+
     /**
      * Invoked for a received HTTP response.
      * <p>
@@ -153,7 +148,6 @@ public abstract class HttpCallBack<T> implements Callback<HttpResponse<T>> {
         onFailure(RESPONSE_CODE_FAILED, errorMessage);
     }
 
-
     /**
      * 对通用问题的统一拦截处理
      *
@@ -173,7 +167,5 @@ public abstract class HttpCallBack<T> implements Callback<HttpResponse<T>> {
         }
         Toast.makeText(mContext, message + " # " + code, Toast.LENGTH_SHORT).show();
     }
-
-
 
 }

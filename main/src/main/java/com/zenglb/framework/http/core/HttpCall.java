@@ -34,8 +34,8 @@ public class HttpCall {
     private static String TOKEN;
     private static ApiService apiService;
 
-    public static void cleanToken() {
-        TOKEN = "";
+    public static void setToken(String token) {
+        TOKEN = token;
     }
 
     public static ApiService getApiService() {

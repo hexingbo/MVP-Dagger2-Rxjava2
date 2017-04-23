@@ -1,12 +1,6 @@
 package com.zenglb.framework.rxhttp;
 
-import android.content.Context;
-import android.provider.SyncStateContract;
-
-import com.trello.rxlifecycle2.android.ActivityEvent;
-
 import org.reactivestreams.Subscription;
-
 import io.reactivex.Flowable;
 import io.reactivex.FlowableTransformer;
 import io.reactivex.android.schedulers.AndroidSchedulers;

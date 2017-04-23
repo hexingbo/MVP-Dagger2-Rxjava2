@@ -9,7 +9,6 @@ import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v7.widget.CardView;
 import android.text.TextUtils;
 import android.transition.Explode;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
@@ -26,7 +25,7 @@ import com.zenglb.framework.http.param.LoginParams;
 import com.zenglb.framework.http.core.HttpCall;
 import com.zenglb.framework.http.result.LoginResult;
 import com.zenglb.framework.rxhttp.BaseObserver;
-import com.zenglb.framework.rxhttp.RxObservableUtils;
+import com.zenglb.baselib.rxUtils.RxObservableUtils;
 
 
 /**
@@ -66,14 +65,6 @@ public class LoginActivity extends BaseActivity {
         etUsername.setText("18826562075");
         etPassword.setText("zxcv1234");
 
-//        cv.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Log.e("ddd","ddddddddd");
-//            }
-//        });
-
-        cv.setOnClickListener(v -> Log.e("ddd", "ddddddddd"));
     }
 
     /**
@@ -87,7 +78,7 @@ public class LoginActivity extends BaseActivity {
             Toast.makeText(this, "请完整输入用户名和密码", Toast.LENGTH_SHORT).show();
             return;
         }
-        HttpCall.cleanToken();
+        HttpCall.setToken("");
 
         //1.需要改进，能否改进为链式写法
         LoginParams loginParams = new LoginParams();
@@ -97,29 +88,9 @@ public class LoginActivity extends BaseActivity {
         loginParams.setUsername(userName);
         loginParams.setPassword(password);
 
-        /**
-         * 使用compose 来处理统一的线程切换问题
-         *
-         *
-         在subscribe()之后， Observable会持有 Subscriber的引用，这个引用如果不能及时被释放，将有内存泄露的风险。
-         所以最好保持一个原则：要在不再使用的时候尽快在合适的地方（例如 onPause()、onStop()等方法中）
-         调用 unsubscribe()来解除引用关系，以避免内存泄露的发生。
-
-         */
-//        HttpCall.getApiService().goLoginByRxjavaFlowable(loginParams)
-//                .compose(RxSubscriberUtils.rxNetThreadHelper())
-//                .compose(bindToLifecycle())
-//                .subscribe(new BaseSubscriber<LoginResult>(this, true) {
-//                    @Override
-//                    public void onSuccess(LoginResult loginResult) {
-//                        loginSuccess(loginResult);
-//                    }
-//                });
-
-
-                HttpCall.getApiService().goLoginByRxjavaObserver(loginParams)
+        HttpCall.getApiService().goLoginByRxjavaObserver(loginParams)
                 .compose(RxObservableUtils.applySchedulers())
-                .compose(bindToLifecycle())
+                .compose(bindToLifecycle())  //两个compose  能否合并起来，或者重写一个操作符
                 .subscribe(new BaseObserver<LoginResult>(this, true) {
                     @Override
                     public void onSuccess(LoginResult loginResult) {
@@ -127,6 +98,12 @@ public class LoginActivity extends BaseActivity {
                     }
                 });
 
+//        getService(HttpCall.getApiService().goLoginByRxjavaObserver(loginParams)).subscribe(new BaseObserver<LoginResult>(this) {
+//            @Override
+//            public void onSuccess(LoginResult loginResult) {
+//                loginSuccess(loginResult);
+//            }
+//        });
 
     }
 
@@ -141,7 +118,7 @@ public class LoginActivity extends BaseActivity {
             Toast.makeText(this, "请完整输入用户名和密码", Toast.LENGTH_SHORT).show();
             return;
         }
-        HttpCall.cleanToken();
+        HttpCall.setToken("");
 
         LoginParams loginParams = new LoginParams();
         loginParams.setClient_id("5e96eac06151d0ce2dd9554d7ee167ce");
@@ -183,7 +160,6 @@ public class LoginActivity extends BaseActivity {
             startActivity(i2);
         }
         LoginActivity.this.finish();
-
     }
 
     public void onClick(View view) {
@@ -199,7 +175,6 @@ public class LoginActivity extends BaseActivity {
                 }
                 break;
             case R.id.bt_go:
-//                loginByRetrofit();
                 loginByRxJava2();
                 break;
         }

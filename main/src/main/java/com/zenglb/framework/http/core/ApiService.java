@@ -2,9 +2,10 @@ package com.zenglb.framework.http.core;
 
 import com.zenglb.framework.entity.Messages;
 import com.zenglb.framework.http.param.LoginParams;
-import com.zenglb.framework.http.result.AreuSleepResult;
+import com.zenglb.framework.http.result.JokesResult;
 import com.zenglb.framework.http.result.LoginResult;
 import com.zenglb.framework.http.result.ModulesResult;
+import com.zenglb.framework.http.result.StaffMsg;
 
 import java.util.List;
 
@@ -30,8 +31,6 @@ public interface ApiService {
     // TODO: 2017/4/18 所有的请求都是在io 中执行，切换回main,那么要怎么省掉这部分相同的代码？
     // TODO: 2017/4/18 Rxjava 出来了内存泄漏，感觉会死的很惨，不敢上线实际的使用啊！
 
-
-
     /**
      * Login ,尝试使用Flowable 来处理，
      */
@@ -41,11 +40,11 @@ public interface ApiService {
 
 
     /**
-     * Login ,尝试使用Flowable 来处理，
+     * 获取信息
+     *
      */
-    @Headers("NoNeedAuthFlag: NoNeedAuthFlag")
-    @POST("api/lebang/oauth/access_token")
-    Flowable<HttpResponse<LoginResult>> goLoginByRxjavaFlowable(@Body LoginParams loginRequest);
+    @GET("api/lebang/staffs/me/detail")
+    Observable<HttpResponse<StaffMsg>> getStaffMsg();
 
     /**
      * Login ,普通的登录和使用Rxjava 的方式都可以
@@ -54,12 +53,12 @@ public interface ApiService {
     @POST("api/lebang/oauth/access_token1")
     Call<HttpResponse<LoginResult>> goLoginByRetrofit(@Body LoginParams loginParams);
 
-
-
-
-
     @GET("api/lebang/night_school/{type}")
-    Flowable<HttpResponse<List<AreuSleepResult>>> getAreuSleep(@Path("type") String type, @Query("page") int page);
+    Observable<HttpResponse<List<JokesResult>>> getJokes(@Path("type") String type, @Query("page") int page);
+
+    @Deprecated
+    @GET("api/lebang/night_school/{type}")
+    Flowable<HttpResponse<List<JokesResult>>> getAreuSleep(@Path("type") String type, @Query("page") int page);
 
     /**
      * get Message List();
@@ -84,5 +83,13 @@ public interface ApiService {
     Call<HttpResponse<LoginResult>> refreshToken(@Body LoginParams loginParams);
 
 
+
+    /**
+     * Login ,尝试使用Flowable 来处理，
+     */
+    @Deprecated
+    @Headers("NoNeedAuthFlag: NoNeedAuthFlag")
+    @POST("api/lebang/oauth/access_token")
+    Flowable<HttpResponse<LoginResult>> goLoginByRxjavaFlowable(@Body LoginParams loginRequest);
 }
 

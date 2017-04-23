@@ -4,12 +4,12 @@ package com.zenglb.framework.http.result;
  * just a demo !
  * Created by zenglb on 2017/2/9.
  */
-public class AreuSleepResult {
+public class JokesResult {
     private String topic;
     private String start_time;
     private String id;
 
-    public AreuSleepResult(String topic, String start_time, String id) {
+    public JokesResult(String topic, String start_time, String id) {
         this.topic = topic;
         this.start_time = start_time;
         this.id = id;

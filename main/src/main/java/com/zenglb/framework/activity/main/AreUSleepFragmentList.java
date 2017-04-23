@@ -19,7 +19,7 @@ import com.zenglb.baselib.base.BaseFragment;
 import com.zenglb.framework.R;
 import com.zenglb.framework.base.MyApplication;
 import com.zenglb.framework.http.core.HttpCall;
-import com.zenglb.framework.http.result.AreuSleepResult;
+import com.zenglb.framework.http.result.JokesResult;
 import com.zenglb.framework.rxhttp.BaseSubscriber;
 import com.zenglb.framework.rxhttp.RxSubscriberUtils;
 import java.util.ArrayList;
@@ -40,7 +40,7 @@ public class AreUSleepFragmentList extends BaseFragment {
     private SpringView springView;
     private RecyclerView mRecyclerView = null;
     private AreUSleepListAdapter areUSleepListAdapter;
-    private List<AreuSleepResult> data = new ArrayList<>();
+    private List<JokesResult> data = new ArrayList<>();
 
     public AreUSleepFragmentList() {
         // Required empty public constructor
@@ -159,9 +159,9 @@ public class AreUSleepFragmentList extends BaseFragment {
         HttpCall.getApiService().getAreuSleep(mParam1, page)
                 .compose(RxSubscriberUtils.rxNetThreadHelper())
                 .compose(bindToLifecycle())
-                .subscribe(new BaseSubscriber<List<AreuSleepResult>>(getActivity(),false){
+                .subscribe(new BaseSubscriber<List<JokesResult>>(getActivity(),false){
                     @Override
-                    public void onSuccess(List<AreuSleepResult> areuSleepResults) {
+                    public void onSuccess(List<JokesResult> areuSleepResults) {
                         disposeHttpResult(areuSleepResults);
                     }
                     @Override
@@ -177,7 +177,7 @@ public class AreUSleepFragmentList extends BaseFragment {
      *
      * @return
      */
-    private void disposeHttpResult(List<AreuSleepResult> areuSleepBeanLista) {
+    private void disposeHttpResult(List<JokesResult> areuSleepBeanLista) {
         springView.onFinishFreshAndLoad();
         if (areuSleepBeanLista != null) {
             if (page <= 1) data.clear();

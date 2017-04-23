@@ -151,16 +151,9 @@ public class DemoActivity extends BaseActivity {
             public void onProgressChanged(WebView view, int newProgress) {
                 if (newProgress == 100) {
                     mWebView.setBackgroundColor(Color.TRANSPARENT);
-
                     mWebView.setBackground(new BitmapDrawable(WaterMarkTextUtil.drawWaterMark("    张锦鸿    ", DemoActivity.this)));
 //                    topLoadingBar.setVisibility(View.INVISIBLE);
                 }
-//               else {
-//                    if (View.INVISIBLE == topLoadingBar.getVisibility()) {
-//                        topLoadingBar.setVisibility(View.VISIBLE);
-//                    }
-//                    topLoadingBar.setProgress(newProgress);
-//                }
                 super.onProgressChanged(view, newProgress);
             }
         });
@@ -179,7 +172,7 @@ public class DemoActivity extends BaseActivity {
 //            public void onSuccess(List<Messages> listHttpResponse) {
 //                ((TextView) findViewById(R.id.message_txt)).setText(listHttpResponse.toString());
 //            }
-//
+
 //            @Override
 //            public void onFailure(int code, String messageStr) {
 //                super.onFailure(code, messageStr);

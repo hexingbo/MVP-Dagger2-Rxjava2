@@ -32,11 +32,9 @@ import io.reactivex.disposables.Disposable;
  */
 public abstract class BaseObserver<T> implements Observer<HttpResponse<T>> {
     private final String TAG = BaseObserver.class.getSimpleName();
-    private final int RESPONSE_CODE_OK = 0;      //自定义的业务逻辑，成功返回积极数据
-    private final int RESPONSE_CODE_FAILED = -1; //返回数据失败,严重的错误
+    private final int RESPONSE_CODE_OK = 0;       //自定义的业务逻辑，成功返回积极数据
+    private final int RESPONSE_CODE_FAILED = -1;  //返回数据失败,严重的错误
 
-    //是否需要显示Http 请求的进度，默认的是需要，但是Service 和 预取数据不需要
-    private boolean showProgress = true;
     private Context mContext;
     private static Gson gson = new Gson();
 
@@ -52,24 +50,30 @@ public abstract class BaseObserver<T> implements Observer<HttpResponse<T>> {
 
     /**
      * @param mContext
+     */
+    public BaseObserver(Context mContext ) {
+        this.mContext = mContext;
+        HttpUiTips.showDialog(mContext, true, null);
+    }
+
+    /**
+     * @param mContext
      * @param showProgress 默认需要显示进程，不要的话请传 false
      */
-    public BaseObserver(Context mContext, boolean showProgress) {
-        this.showProgress = showProgress;
+    public  BaseObserver(Context mContext, boolean showProgress) {
         this.mContext = mContext;
         if (showProgress) {
             HttpUiTips.showDialog(mContext, true, null);
         }
     }
 
-
     @Override
-    public void onSubscribe(Disposable d) {
-
+    public final void onSubscribe(Disposable d) {
+        //dddddddddddddddddddd
     }
 
     @Override
-    public void onNext(HttpResponse<T> response) {
+    public final void onNext(HttpResponse<T> response) {
         Log.e(TAG, response.toString());
         HttpUiTips.dismissDialog(mContext);
         if (response.getCode() == RESPONSE_CODE_OK) {
@@ -81,7 +85,7 @@ public abstract class BaseObserver<T> implements Observer<HttpResponse<T>> {
     }
 
     @Override
-    public  void onError(Throwable t) {
+    public final void onError(Throwable t) {
         HttpUiTips.dismissDialog(mContext);
         if (t instanceof HttpException) {
             HttpException httpException = (HttpException) t;
@@ -114,10 +118,9 @@ public abstract class BaseObserver<T> implements Observer<HttpResponse<T>> {
      * 简单的把Dialog 处理掉
      */
     @Override
-    public void onComplete() {
+    public final void onComplete() {
 //        HttpUiTips.dismissDialog(mContext);
     }
-
 
     /**
      * Default error dispose!

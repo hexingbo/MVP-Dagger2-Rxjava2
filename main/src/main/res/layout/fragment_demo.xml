@@ -1,85 +1,113 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_launch"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:padding="22dp"
     tools:context=".navigation.MainActivityBottomNavi">
 
-    <TextView
-        android:id="@+id/jsbridge"
-        android:layout_width="wrap_content"
+    <com.github.glomadrian.grav.GravView
+        android:id="@+id/gravew"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_centerInParent="true"
+        app:animationGenerators="@array/BubbleAnimations"
+        app:array_colors="@array/Spectral"
+        app:ball_from_size="10dp"
+        app:ball_to_size="20dp"
+        app:colorGenerator="com.github.glomadrian.grav.generator.paint.ArrayColorGenerator"
+        app:gravGenerator="com.github.glomadrian.grav.generator.grav.BallGenerator"
+        app:pointGenerator="com.github.glomadrian.grav.generator.point.RegularPointGenerator"
+        app:regular_cell_size="300"
+        app:regular_variance="200"
+        app:shake_direction="vertical"
+        app:shake_max_duration="20000"
+        app:shake_min_duration="10000"
+        app:shake_variance="500dp"
+        app:side_to_side_direction="leftToRight"
+        app:side_to_side_max_duration="10000"
+        app:side_to_side_min_duration="10000"
+        />
+
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:onClick="goJsBridge"
-        android:text="JsBridge"
-        android:textColor="@color/colorPrimary"
-        android:textSize="18sp" />
+        android:orientation="vertical"
+        android:padding="22dp">
 
-    <TextView
-        android:id="@+id/animation"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:paddingTop="22dp"
-        android:text="Material-Animations"
-        android:textColor="@color/colorPrimary"
-        android:textSize="18sp" />
+        <TextView
+            android:id="@+id/jsbridge"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="goJsBridge"
+            android:text="JsBridge"
+            android:textColor="@color/colorPrimary"
+            android:textSize="18sp" />
 
-    <TextView
-        android:id="@+id/baidu"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:paddingTop="22dp"
-        android:text="Webview Process"
-        android:textColor="@color/colorPrimary"
-        android:textSize="18sp" />
+        <TextView
+            android:id="@+id/animation"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingTop="22dp"
+            android:text="Material-Animations"
+            android:textColor="@color/colorPrimary"
+            android:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/baidu"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingTop="22dp"
+            android:text="Webview Process"
+            android:textColor="@color/colorPrimary"
+            android:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/rxjava"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingTop="22dp"
+            android:text="Rxjava2"
+            android:textColor="@color/colorPrimary"
+            android:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/mvp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingTop="22dp"
+            android:text="mvp-dragger2"
+            android:textColor="@color/colorPrimary"
+            android:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/kotlin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingTop="22dp"
+            android:text="kotlin"
+            android:textColor="@color/colorPrimary"
+            android:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/jni"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingTop="22dp"
+            android:text="JNI敏感信息隐藏"
+            android:textColor="@color/colorPrimary"
+            android:textSize="18sp" />
+
+        <ImageView
+            android:layout_width="88dp"
+            android:layout_height="88dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="33dp"
+            android:src="@drawable/logo" />
+
+    </LinearLayout>
 
 
 
-    <TextView
-        android:id="@+id/rxjava"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:paddingTop="22dp"
-        android:text="Rxjava2"
-        android:textColor="@color/colorPrimary"
-        android:textSize="18sp" />
-
-
-    <TextView
-        android:id="@+id/mvp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:paddingTop="22dp"
-        android:text="mvp-dragger2"
-        android:textColor="@color/colorPrimary"
-        android:textSize="18sp" />
-
-
-    <TextView
-        android:id="@+id/kotlin"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:paddingTop="22dp"
-        android:text="kotlin"
-        android:textColor="@color/colorPrimary"
-        android:textSize="18sp" />
-
-
-    <TextView
-        android:id="@+id/jni"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:paddingTop="22dp"
-        android:text="JNI敏感信息隐藏"
-        android:textColor="@color/colorPrimary"
-        android:textSize="18sp" />
-
-    //1234567890p-
-    <ImageView
-        android:layout_width="88dp"
-        android:layout_height="88dp"
-        android:layout_marginTop="55dp"
-        android:layout_gravity="center"
-        android:src="@drawable/logok" />
-
-</LinearLayout>
+</RelativeLayout>

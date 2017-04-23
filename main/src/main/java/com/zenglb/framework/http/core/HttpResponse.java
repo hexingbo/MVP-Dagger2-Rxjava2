@@ -16,6 +16,15 @@ public class HttpResponse<T> {
 	public int getCode() {
 		return code;
 	}
+
+	public boolean isSuccess() {
+		if(code==0){
+			return true;
+		}else {
+			return false;
+		}
+	}
+
 	public void setCode(int code) {
 		this.code = code;
 	}
