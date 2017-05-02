@@ -23,15 +23,17 @@ public class Callback {
         mPort = port;
     }
 
+    /**
+     * 最终返回给JS
+     *
+     * @param jsonObject
+     */
     public void apply(JSONObject jsonObject) {
         final String execJs = String.format(CALLBACK_JS_FORMAT, mPort, String.valueOf(jsonObject));
         if (mWebViewRef != null && mWebViewRef.get() != null) {
-            mHandler.post(new Runnable() {
-                @Override
-                public void run() {
-                    //Java要调用js的方法，是非常容易做到的，使用WebView.loadUrl(“JavaScript:function()”)即可
-                    mWebViewRef.get().loadUrl(execJs);
-                }
+            mHandler.post(() -> {
+                //Java要调用js的方法，是非常容易做到的，使用WebView.loadUrl(“JavaScript:function()”)即可
+                mWebViewRef.get().loadUrl(execJs);
             });
         }
     }

@@ -9,6 +9,7 @@ import android.util.Log;
 import com.squareup.leakcanary.LeakCanary;
 import com.squareup.leakcanary.RefWatcher;
 import com.zenglb.baselib.sharedpreferences.SharedPreferencesDao;
+import com.zenglb.framework.SdkManager;
 import com.zenglb.framework.database.daomaster.DaoMaster;
 import com.zenglb.baselib.base.BaseApplication;
 import com.zenglb.framework.database.daomaster.DaoSession;
@@ -37,16 +38,49 @@ public class MyApplication extends BaseApplication {
 
         // 很多的东西最好能放到一个IntentService 中去初始化
         // InitializeService.start(this);
+        isDebugCheck();
+        initApplication();
 
 
-        if (!TextUtils.isEmpty(processName) && processName.equals(this.getPackageName())) { //main Process
 
-            refWatcher = LeakCanary.install(this);
+//        if (!TextUtils.isEmpty(processName) && processName.equals(this.getPackageName())) { //main Process
+//            setDaoSession(SharedPreferencesDao.getInstance().getData("Account", "DefDb", String.class));
+//            if(isDebug){
+//                refWatcher = LeakCanary.install(this);
+////                Stetho.initializeWithDefaults(this);
+//            }
+//        }
 
-            setDaoSession(SharedPreferencesDao.getInstance().getData("Account", "DefDb", String.class));
-            isDebugCheck();
+    }
+
+    /**
+     * 根据不同的进程来初始化不同的东西
+     *   比如web进程就不需要初始化推送，也不需要图片加载等等
+     *
+     * 发新版 或 测试版也有不同的初始化
+     *   比如调试工具stetho 在debug 环境是要的，Release 是不需要的
+     *
+     */
+    private void initApplication(){
+        //部分 初始化服务最好能新开一个IntentService 去处理,bugly 在两个进程都有初始化
+        String processName = getProcessName();
+        switch (processName){
+            case "com.zenglb.framework":
+                SdkManager.initDebugOrRelease(this);
+                setDaoSession(SharedPreferencesDao.getInstance().getData("Account", "DefDb", String.class));
+                refWatcher = LeakCanary.install(this);
+
+
+                break;
+            case "com.zenglb.framework:webprocess":
+
+                break;
+            default:
+                Log.e(TAG,"what a fatal error!");
+                break;
         }
     }
+
 
 
     @Override

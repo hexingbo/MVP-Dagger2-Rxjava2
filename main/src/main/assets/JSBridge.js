@@ -16,7 +16,8 @@
             this.callbacks[port] = callback;
             var uri=Util.getUri(obj,method,params,port);
 
-            window.prompt(uri, "123456");  //window.prompt 会调用Webview 重写的onJsPrompt(...)方法
+            //2.形成JSBridge 协议 - jsbridge://www:callback/getQRCode?params={"key":"value"}
+            window.prompt(uri, "defvale");  //window.prompt 会调用Webview 重写的onJsPrompt(...)方法
         },
 
         //Native 执行完后回调注册的JsCallBack
@@ -35,7 +36,6 @@
             return Math.floor(Math.random() * (1 << 30));
         },
 
-        //2.形成JSBridge 协议 - jsbridge://www:8080/getQRCode?params={"key":"value"}
         getUri:function(obj, method, params, port){
             params = this.getParam(params);
             var uri = JSBRIDGE_PROTOCOL + '://' + obj + ':' + port + '/' + method + '?' + params;
@@ -52,7 +52,7 @@
         }
     };
 
-    //4.
+    //4.不要端口
     for (var key in Inner) {
         if (!hasOwnProperty.call(JSBridge, key)) {
             JSBridge[key] = Inner[key];

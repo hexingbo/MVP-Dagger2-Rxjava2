@@ -70,8 +70,9 @@
 <ul class="list">
     <li>
         <div>
+
             <!-- onClick 监听后会调用JS（JSBridge）中的call方法。 -->
-            <button onclick="JSBridge.call('NativeBridgeClsName','showToast',{'msg':'Hello JSBridge'},function(res){alert('Native返回的数据：'+JSON.stringify(res))}  )">
+            <button onclick="JSBridge.call('NativeBridgeClsName','showToast',{'msg':'Hello-JSBridge'},function(res){alert('Native返回的数据：'+JSON.stringify(res))}  )">
                 showToast#
             </button>
         </div>

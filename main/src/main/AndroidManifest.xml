@@ -75,6 +75,7 @@
         <activity
             android:name=".activity.setHeadImg.SetHeadImgActivity"
             android:launchMode="singleTask" />
+
         <activity
             android:name=".activity.zxing.ZxingActivity"
             android:launchMode="singleTask">
@@ -85,6 +86,10 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
+
+        <activity android:name=".activity.ndk.NDKActivity"></activity>
+
+
         <activity android:name="com.desmond.squarecamera.CameraActivity" />
         <activity
             android:name=".navigation.MainActivityBottomNavi"
@@ -104,7 +109,8 @@
         <service android:name=".service.ForegroundService" />
         <service
             android:name=".service.TestRxIntentService"
-            android:exported="false"></service>
+            android:exported="false" />
+
     </application>
 
 </manifest>

@@ -1,12 +1,7 @@
 package com.zenglb.framework.http.core;
 /**
  * 这个类和具体的业务api 结构有关，本Demo的API 结构大致如下：
- {
-  "code": 0,
-  "error": "",
-  "result":{
-   }
- }
+ *
  * Created by anylife.zlb@gmail.com on 2016/7/11.
  */
 public class HttpResponse<T> {

@@ -13,6 +13,7 @@ import android.util.Base64;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.zenglb.androidndk.NDKinterface;
 import com.zenglb.baselib.base.BaseActivity;
 import com.zenglb.baselib.sharedpreferences.SharedPreferencesDao;
 import com.zenglb.baselib.utils.AESHelper;
@@ -23,6 +24,13 @@ import com.zenglb.framework.config.SPKey;
 
 import java.io.UnsupportedEncodingException;
 
+import io.reactivex.Single;
+import io.reactivex.SingleEmitter;
+import io.reactivex.SingleObserver;
+import io.reactivex.SingleOnSubscribe;
+import io.reactivex.annotations.NonNull;
+import io.reactivex.disposables.Disposable;
+
 
 /**
  * 启动页面的背景图放在不同的目录还会导致内存的占用大小不一样啊
@@ -30,6 +38,7 @@ import java.io.UnsupportedEncodingException;
 public class LaunchActivity extends BaseActivity {
 
     private String TAG = "Rxjava2";
+    private NDKinterface ndKinterface;
 
     private Handler UiHandler = new Handler() {
         public void handleMessage(Message msg) {
@@ -73,29 +82,36 @@ public class LaunchActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         UiHandler.sendEmptyMessageDelayed(0, 2000); //
 
-        String originalText = "宫亭是SB";
-        String key = "VankeService1997";
+        ndKinterface=new NDKinterface();
 
+        ndKinterface.getAESDecrypt(ndKinterface.getAESEncrypt("宫亭是SB"));
 
-        Toast.makeText(this, "自助加密再解密:" + AESHelper.decrypt(AESHelper.encrypt("爱你哦，F!",key),key), Toast.LENGTH_SHORT).show();
+//        getAESEncrypt("dasda");
 
-        //1.模拟加密,base 64
-        String baseStrEncode = Base64.encodeToString(AESHelper.encrypt(originalText, key).getBytes(), Base64.URL_SAFE);
+//        String originalText = "宫亭是SB";
+//        String key = "VankeService1997";
 
-        //2.解密，解不出？ 重启试试
-        String result = null;
-        try {
-            result = AESHelper.decrypt(new String(Base64.decode(baseStrEncode, Base64.URL_SAFE), "UTF-8"), key);
-        } catch (Exception e) {
-            Log.e("E", e.toString());
-        }
-
-
-        Toast.makeText(this, "解码结果:" + result, Toast.LENGTH_SHORT).show();
-        Log.e("result", result);
+//        Toast.makeText(this, "自助加密再解密:" + AESHelper.decrypt(AESHelper.encrypt("爱你哦，F!",key),key), Toast.LENGTH_SHORT).show();
+//
+//        //1.模拟加密,base 64
+//        String baseStrEncode = Base64.encodeToString(AESHelper.encrypt(originalText, key).getBytes(), Base64.URL_SAFE);
+//
+//        //2.解密，解不出？ 重启试试
+//        String result = null;
+//        try {
+//            result = AESHelper.decrypt(new String(Base64.decode(baseStrEncode, Base64.URL_SAFE), "UTF-8"), key);
+//        } catch (Exception e) {
+//            Log.e("E", e.toString());
+//        }
+//
+//
+//        Toast.makeText(this, "解码结果:" + result, Toast.LENGTH_SHORT).show();
+//        Log.e("result", result);
 
     }
-    
+
+
+
 
 
     /**

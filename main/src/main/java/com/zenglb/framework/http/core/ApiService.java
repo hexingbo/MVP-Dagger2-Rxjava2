@@ -38,7 +38,6 @@ public interface ApiService {
     @POST("api/lebang/oauth/access_token")
     Observable<HttpResponse<LoginResult>> goLoginByRxjavaObserver(@Body LoginParams loginRequest);
 
-
     /**
      * 获取信息
      *

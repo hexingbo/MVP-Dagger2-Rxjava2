@@ -79,7 +79,6 @@ public abstract class BaseWebViewActivity extends BaseActivity {
 
 
 
-
 //        //支持获取手势焦点，输入用户名、密码或其他
 //        mWebView.requestFocusFromTouch();
 
@@ -110,7 +109,7 @@ public abstract class BaseWebViewActivity extends BaseActivity {
 
         settings.setJavaScriptEnabled(true);
         //手动设置UA,让运营商劫持DNS的浏览器广告不生效 http://my.oschina.net/zxcholmes/blog/596192
-        settings.setUserAgentString("suijishu" + "#" + settings.getUserAgentString() + "0123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657585960616263646566676869707172737475767778798081828384858687888990919293949596979899100101102103104105106107108109110111112113114115116117118119120121122123124125126127128129130131132133134135136137138139140141142143144145146147148149150");
+        settings.setUserAgentString("suijishu" + "#" + settings.getUserAgentString() + "01234560");
         setWebViewClient();
         setWebChromeClient();
 

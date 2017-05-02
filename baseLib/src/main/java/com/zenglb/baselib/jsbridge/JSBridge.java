@@ -20,6 +20,7 @@ public class JSBridge {
     //所有JS能调用的native 的方法都需要注册，防止反编译后重新注入native方法
     private static Map<String, HashMap<String, Method>> exposedMethods = new HashMap<>();
 
+
     /**
      * 注入JS 可以调用的Native方法！
      *
@@ -53,7 +54,7 @@ public class JSBridge {
             }
             Class[] parameters = method.getParameterTypes();
             if (null != parameters && parameters.length == 3) {
-                if (parameters[0] == WebView.class && parameters[1] == JSONObject.class && parameters[2] == Callback.class) {
+                if (parameters[0] == WebView.class && (parameters[1] == JSONObject.class||parameters[1] == Integer.class) && parameters[2] == Callback.class) {
                     mMethodsMap.put(name, method);
                 }
             }
@@ -62,6 +63,7 @@ public class JSBridge {
     }
 
     /**
+     * 需要处理没法调用的Native方法等问题
      *
      * @param webView
      * @param uriString
@@ -73,6 +75,7 @@ public class JSBridge {
         String param = "{}";
         String port = "";
         if (!TextUtils.isEmpty(uriString) && uriString.startsWith("JSBridge")) {
+            //如果不是JSBridge，就直接的丢弃不处理
             Uri uri = Uri.parse(uriString);
             className = uri.getHost();
             param = uri.getQuery();
@@ -83,17 +86,30 @@ public class JSBridge {
             }
         }
 
+        methodName="dafdasfda";
+
         if (exposedMethods.containsKey(className)) {
             HashMap<String, Method> methodHashMap = exposedMethods.get(className);
-            if (methodHashMap != null && methodHashMap.size() != 0 && methodHashMap.containsKey(methodName)) {
+            if (methodHashMap != null && methodHashMap.size() != 0) {
+//                if(methodHashMap.containsKey(methodName))
+
                 Method method = methodHashMap.get(methodName);
                 if (method != null) {
-                    try {
-                        //http://azrael6619.iteye.com/blog/429797   Java的反射机制
+                    try {//http://azrael6619.iteye.com/blog/429797   Java的反射机制
                         method.invoke(null, webView, new JSONObject(param), new Callback(webView, port));
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
+                }else{
+
+                    Method eorMethod = methodHashMap.get("returnCommonEor");
+                    //需要处理本地方法不存在的情况
+                    try {
+                        eorMethod.invoke(null, webView, JSCallBackStatusCode.NATIVE_FUNCTION_NULL, new Callback(webView, port));
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+
                 }
             }
         }

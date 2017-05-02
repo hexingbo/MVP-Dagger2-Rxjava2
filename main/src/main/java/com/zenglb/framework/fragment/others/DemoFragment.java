@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import com.zenglb.baselib.base.BaseActivity;
 import com.zenglb.framework.R;
 import com.zenglb.framework.activity.demo.DemoActivity;
+import com.zenglb.framework.activity.ndk.NDKActivity;
 import com.zenglb.framework.service.TestRxIntentService;
 
 /**
@@ -65,8 +66,8 @@ public class DemoFragment extends Fragment {
         rootView.findViewById(R.id.jsbridge).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ((BaseActivity) getActivity()).goWebView("file:///android_asset/index.html");
-//                ((BaseActivity) getActivity()).goWebView("file:///android_asset/yahoo.pdf");
+//                ((BaseActivity) getActivity()).goWebView("file:///android_asset/index.html");
+                ((BaseActivity) getActivity()).goWebView("file:///android_asset/app.html");
             }
         });
 
@@ -76,7 +77,7 @@ public class DemoFragment extends Fragment {
         rootView.findViewById(R.id.animation).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ((BaseActivity) getActivity()).setIntentClass(DemoActivity.class);
+                ((BaseActivity) getActivity()).startActivity(DemoActivity.class);
             }
         });
 
@@ -87,6 +88,7 @@ public class DemoFragment extends Fragment {
         rootView.findViewById(R.id.jni).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                ((BaseActivity) getActivity()).startActivity(NDKActivity.class);
                 TestRxIntentService.start(getActivity());
             }
         });

@@ -63,6 +63,22 @@ public class BridgeImpl implements IBridge {
         callNewActForResult(webView,BaseWebViewActivity.ZXING_REQUEST_CODE);
     }
 
+    /**
+     * 处理通用的错误，比如调用了本地并不存在的方法！
+     *
+     *
+     * @param code        -1 不存在的Native方法   -2
+     * @param callback
+     */
+    public static void returnCommonEor(WebView webView, final Integer code, final Callback callback) {
+        if (null != callback) {
+            try {
+                callback.apply(returnJSONObject(code, "调用本地方法失败", null));  //这里回调js 没有任何的意义呀！
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+    }
 
     public static void showToast(WebView webView, JSONObject param, final Callback callback) {
         String message = param.optString("msg");
@@ -78,6 +94,13 @@ public class BridgeImpl implements IBridge {
         }
     }
 
+    /**
+     * 测试在子线程中完成操作
+     *
+     * @param webView
+     * @param param
+     * @param callback
+     */
     public static void testThread(WebView webView, JSONObject param, final Callback callback) {
         new Thread(new Runnable() {
             @Override

@@ -27,6 +27,8 @@ import com.zenglb.framework.http.result.LoginResult;
 import com.zenglb.framework.rxhttp.BaseObserver;
 import com.zenglb.baselib.rxUtils.RxObservableUtils;
 
+import io.reactivex.Single;
+
 
 /**
  * 1.登录的对话框在弹出键盘的时候希望能够向上移动
@@ -47,6 +49,7 @@ public class LoginActivity extends BaseActivity {
         SharedPreferencesDao.getInstance().saveData(SPKey.KEY_ACCESS_TOKEN, "");
     }
 
+
     @Override
     protected int setLayoutId() {
         return R.layout.activity_login;
@@ -64,8 +67,10 @@ public class LoginActivity extends BaseActivity {
         etUsername.setText(SharedPreferencesDao.getInstance().getData(SPKey.KEY_LAST_ACCOUNT, "", String.class));
         etUsername.setText("18826562075");
         etPassword.setText("zxcv1234");
-
     }
+
+
+
 
     /**
      * Login ,普通的登录和使用Rxjava 的方式都可以
@@ -91,12 +96,28 @@ public class LoginActivity extends BaseActivity {
         HttpCall.getApiService().goLoginByRxjavaObserver(loginParams)
                 .compose(RxObservableUtils.applySchedulers())
                 .compose(bindToLifecycle())  //两个compose  能否合并起来，或者重写一个操作符
-                .subscribe(new BaseObserver<LoginResult>(this, true) {
+                .subscribe(new BaseObserver<LoginResult>(LoginActivity.this, true) {
                     @Override
                     public void onSuccess(LoginResult loginResult) {
                         loginSuccess(loginResult);
                     }
                 });
+
+        HttpCall.getApiService().goLoginByRxjavaObserver(loginParams)
+                .compose(RxObservableUtils.applySchedulers())
+                .compose(bindToLifecycle())  //两个compose  能否合并起来，或者重写一个操作符
+                .subscribe(new BaseObserver<LoginResult>() {
+                    @Override
+                    public void onSuccess(LoginResult loginResult) {
+                        loginSuccess(loginResult);
+                    }
+
+                    @Override
+                    public void onFailure(int code, String message) {
+                        super.onFailure(code, message);
+                    }
+                });
+
 
 //        getService(HttpCall.getApiService().goLoginByRxjavaObserver(loginParams)).subscribe(new BaseObserver<LoginResult>(this) {
 //            @Override

@@ -81,7 +81,7 @@ public abstract class BaseActivity extends RxAppCompatActivity implements View.O
     /*
 	 * Activity的跳转
 	 */
-    public void setIntentClass(Class<?> cla) {
+    public void startActivity(Class<?> cla) {
         Intent intent = new Intent();
         intent.setClass(this, cla);
         startActivity(intent);

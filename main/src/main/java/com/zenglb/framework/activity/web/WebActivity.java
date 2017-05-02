@@ -132,7 +132,7 @@ public class WebActivity extends BaseWebViewActivity implements View.OnClickList
                         try {  //使用gson 改造一下
                             JSONObject object = new JSONObject();
                             object.put("qrcode", "");
-                            callback.apply(BridgeImpl.returnJSONObject(JSCallBackStatusCode.SCAN_QR_CODE_CANCEL, "扫码失败", object));  //这里回调js 没有任何的意义呀！
+                            callback.apply(BridgeImpl.returnJSONObject(JSCallBackStatusCode.SCAN_QR_CODE_CANCEL, "扫码失败", object));
                         } catch (Exception e) {
                             e.printStackTrace();
                         }

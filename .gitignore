@@ -7,4 +7,5 @@
 /build
 /captures
 /settingViewLib
+/.settingViewLib
 .externalNativeBuild

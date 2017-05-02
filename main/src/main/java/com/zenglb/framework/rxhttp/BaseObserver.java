@@ -1,5 +1,6 @@
 package com.zenglb.framework.rxhttp;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.CallSuper;
@@ -25,9 +26,9 @@ import io.reactivex.disposables.Disposable;
 
 /**
  * Base Observer 的封装处理,对Rxjava 不熟悉，暂时先这样吧。实际的使用还不是很明白
- *
+ * <p>
  * 注意内存泄漏：https://github.com/trello/RxLifecycle/tree/2.x
- *
+ * <p>
  * Created by zenglb on 2017/4/14.
  */
 public abstract class BaseObserver<T> implements Observer<HttpResponse<T>> {
@@ -51,17 +52,25 @@ public abstract class BaseObserver<T> implements Observer<HttpResponse<T>> {
     /**
      * @param mContext
      */
-    public BaseObserver(Context mContext ) {
-        this.mContext = mContext;
+    public BaseObserver() {
+
+    }
+
+
+    /**
+     * @param mCtx
+     */
+    public BaseObserver(Context mCtx) {
+        this.mContext = mCtx;
         HttpUiTips.showDialog(mContext, true, null);
     }
 
     /**
-     * @param mContext
+     * @param mCtx
      * @param showProgress 默认需要显示进程，不要的话请传 false
      */
-    public  BaseObserver(Context mContext, boolean showProgress) {
-        this.mContext = mContext;
+    public BaseObserver(Context mCtx, boolean showProgress) {
+        this.mContext = mCtx;
         if (showProgress) {
             HttpUiTips.showDialog(mContext, true, null);
         }
@@ -111,7 +120,7 @@ public abstract class BaseObserver<T> implements Observer<HttpResponse<T>> {
             errorCode = RESPONSE_CODE_FAILED;
             errorMsg = "没有网络，请检查网络连接";
         }
-        onFailure(errorCode, errorMsg);
+        onFailure(errorCode, errorMsg);  //
     }
 
     /**
@@ -150,9 +159,11 @@ public abstract class BaseObserver<T> implements Observer<HttpResponse<T>> {
             case 123:
             case 401:
                 //退回到登录页面
-                Intent intent = new Intent();
-                intent.setClass(mContext, LoginActivity.class);
-                mContext.startActivity(intent);
+                if (mContext != null && !((Activity) mContext).isFinishing()){
+                    Intent intent = new Intent();
+                    intent.setClass(mContext, LoginActivity.class);
+                    mContext.startActivity(intent);
+                }
                 break;
         }
         Toast.makeText(mContext, message + "   code=" + code, Toast.LENGTH_SHORT).show();
