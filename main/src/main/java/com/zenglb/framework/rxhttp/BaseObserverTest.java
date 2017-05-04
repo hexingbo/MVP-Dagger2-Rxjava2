@@ -24,14 +24,14 @@ import io.reactivex.Observer;
 import io.reactivex.disposables.Disposable;
 
 /**
- * Base Observer 的封装处理,对Rxjava 不熟悉，暂时先这样吧。实际的使用还不是很明白
- * <p>
- * 注意内存泄漏：https://github.com/trello/RxLifecycle/tree/2.x
- * <p>
- * Created by zenglb on 2017/4/14.
+ * 结合Java 8 的新特性进行一些修改测试
+ * lambda
+ *
+ *
+ * Created by zenglb on 2017/5/4.
  */
-public abstract class BaseObserver<T> implements Observer<HttpResponse<T>> {
-    private final String TAG = BaseObserver.class.getSimpleName();
+public abstract class BaseObserverTest<T> implements Observer<HttpResponse<T>> {
+    private final String TAG = BaseObserverTest.class.getSimpleName();
     private final int RESPONSE_CODE_OK = 0;       //自定义的业务逻辑，成功返回积极数据
     private final int RESPONSE_CODE_FAILED = -1;  //返回数据失败,严重的错误
 
@@ -48,26 +48,23 @@ public abstract class BaseObserver<T> implements Observer<HttpResponse<T>> {
      */
     public abstract void onSuccess(T t);
 
-    /**
-     * @param
-     */
-    public BaseObserver() {
-
-    }
 
     /**
+     *
      * @param mCtx
      */
-    public BaseObserver(Context mCtx) {
+    public BaseObserverTest(Context mCtx) {
         this.mContext = mCtx;
         HttpUiTips.showDialog(mContext, true, null);
     }
 
     /**
+     *
+     *
      * @param mCtx
      * @param showProgress 默认需要显示进程，不要的话请传 false
      */
-    public BaseObserver(Context mCtx, boolean showProgress) {
+    public BaseObserverTest(Context mCtx, boolean showProgress) {
         this.mContext = mCtx;
         if (showProgress) {
             HttpUiTips.showDialog(mContext, true, null);
@@ -88,6 +85,7 @@ public abstract class BaseObserver<T> implements Observer<HttpResponse<T>> {
         } else {
             onFailure(response.getCode(), response.getError());
         }
+
     }
 
     @Override

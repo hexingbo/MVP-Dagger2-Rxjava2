@@ -16,18 +16,18 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.zenglb.baselib.base.BaseActivity;
+import com.zenglb.baselib.rxUtils.RxObservableUtils;
 import com.zenglb.baselib.sharedpreferences.SharedPreferencesDao;
 import com.zenglb.framework.R;
-import com.zenglb.framework.http.core.HttpCallBack;
-import com.zenglb.framework.navigation.MainActivityBottomNavi;
 import com.zenglb.framework.config.SPKey;
-import com.zenglb.framework.http.param.LoginParams;
 import com.zenglb.framework.http.core.HttpCall;
+import com.zenglb.framework.http.core.HttpCallBack;
+import com.zenglb.framework.http.param.LoginParams;
 import com.zenglb.framework.http.result.LoginResult;
+import com.zenglb.framework.navigation.MainActivityBottomNavi;
 import com.zenglb.framework.rxhttp.BaseObserver;
-import com.zenglb.baselib.rxUtils.RxObservableUtils;
 
-import io.reactivex.Single;
+import java.util.Arrays;
 
 
 /**
@@ -62,14 +62,22 @@ public class LoginActivity extends BaseActivity {
         btGo = (Button) findViewById(R.id.bt_go);
         cv = (CardView) findViewById(R.id.cv);
         fab = (FloatingActionButton) findViewById(R.id.fab);
+
+//        fab.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Toast.makeText(this, test, Toast.LENGTH_LONG).show();
+//            }
+//        });
+//
+//        fab.setOnClickListener(V -> Toast.makeText(this, "lamada 测试", Toast.LENGTH_LONG).show());
+
         fab.setOnClickListener(this);
         btGo.setOnClickListener(this);
         etUsername.setText(SharedPreferencesDao.getInstance().getData(SPKey.KEY_LAST_ACCOUNT, "", String.class));
         etUsername.setText("18826562075");
         etPassword.setText("zxcv1234");
     }
-
-
 
 
     /**
@@ -95,17 +103,7 @@ public class LoginActivity extends BaseActivity {
 
         HttpCall.getApiService().goLoginByRxjavaObserver(loginParams)
                 .compose(RxObservableUtils.applySchedulers())
-                .compose(bindToLifecycle())  //两个compose  能否合并起来，或者重写一个操作符
-                .subscribe(new BaseObserver<LoginResult>(LoginActivity.this, true) {
-                    @Override
-                    public void onSuccess(LoginResult loginResult) {
-                        loginSuccess(loginResult);
-                    }
-                });
-
-        HttpCall.getApiService().goLoginByRxjavaObserver(loginParams)
-                .compose(RxObservableUtils.applySchedulers())
-                .compose(bindToLifecycle())  //两个compose  能否合并起来，或者重写一个操作符
+                .compose(bindToLifecycle()) //两个compose 能否合并起来，或者重写一个操作符
                 .subscribe(new BaseObserver<LoginResult>() {
                     @Override
                     public void onSuccess(LoginResult loginResult) {
@@ -118,16 +116,7 @@ public class LoginActivity extends BaseActivity {
                     }
                 });
 
-
-//        getService(HttpCall.getApiService().goLoginByRxjavaObserver(loginParams)).subscribe(new BaseObserver<LoginResult>(this) {
-//            @Override
-//            public void onSuccess(LoginResult loginResult) {
-//                loginSuccess(loginResult);
-//            }
-//        });
-
     }
-
 
     /**
      * Login ,普通的登录和使用Rxjava 的方式都可以

@@ -9,9 +9,8 @@ public class NDKinterface {
         System.loadLibrary("En1Decrypt");
     }
 
-
     public static native String getAESEncrypt(String str);
-    public static native String getAESDecrypt(String str);
 
+    public static native String getAESDecrypt(String str);
 
 }

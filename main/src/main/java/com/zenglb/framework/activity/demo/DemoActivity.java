@@ -1,19 +1,11 @@
 package com.zenglb.framework.activity.demo;
 
 import android.content.DialogInterface;
-import android.content.Intent;
-import android.graphics.Canvas;
 import android.graphics.Color;
-import android.graphics.ColorFilter;
-import android.graphics.Shader;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
-import android.net.Uri;
 import android.net.http.SslError;
 import android.os.Bundle;
-import android.support.annotation.IntRange;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
@@ -26,22 +18,16 @@ import android.webkit.SslErrorHandler;
 import android.webkit.WebChromeClient;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.zenglb.baselib.base.BaseActivity;
 import com.zenglb.baselib.jsbridge.JSBridge;
-import com.zenglb.baselib.utils.AESHelper;
-import com.zenglb.baselib.utils.WaterMarkTextUtil;
 import com.zenglb.framework.R;
-import com.zenglb.framework.entity.Messages;
+import com.zenglb.framework.activity.java8test.myFunc;
 import com.zenglb.framework.http.core.HttpCall;
 import com.zenglb.framework.http.core.HttpCallBack;
 import com.zenglb.framework.http.core.HttpResponse;
 import com.zenglb.framework.http.result.ModulesResult;
-
-import java.util.List;
-import java.util.Map;
 
 import retrofit2.Call;
 
@@ -58,6 +44,11 @@ public class DemoActivity extends BaseActivity {
         setToolBarTitle("MainActivity"); //也可以直接在manifest 中设置好
         getToolbar().setOnMenuItemClickListener(onMenuItemClick);
 
+        // 1.接口默认方法，api<24 就不能使用？
+        Log.d("接口默认方法","测试:" + new myFunc().defaultMethod());
+
+        // 2.函数式接口
+        
 
     }
 
@@ -69,13 +60,28 @@ public class DemoActivity extends BaseActivity {
 
     @Override
     protected void initViews() {
-        Drawable drawable1 = new BitmapDrawable(WaterMarkTextUtil.drawWaterMark("    张锦鸿    ", this));
-        findViewById(R.id.message_txt).setBackground(drawable1);
         mWebView = (WebView) findViewById(com.zenglb.commonlib.R.id.webview);
         setWebViewClient();
         setWebChromeClient();
         mWebView.setBackgroundColor(Color.TRANSPARENT);
         mWebView.loadUrl("https://www.baidu.com/");
+
+        String test="测试不是一个final变量的访问域";
+
+        mWebView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.e("final 变量","final 变量测试"+test);
+            }
+        });
+
+        Runnable x = new Runnable() {
+            @Override
+            public void run() {
+                Log.e("final 变量","final 变量测试"+test);
+            }
+        };
+
     }
 
     private void setWebViewClient() {
@@ -151,8 +157,6 @@ public class DemoActivity extends BaseActivity {
             public void onProgressChanged(WebView view, int newProgress) {
                 if (newProgress == 100) {
                     mWebView.setBackgroundColor(Color.TRANSPARENT);
-                    mWebView.setBackground(new BitmapDrawable(WaterMarkTextUtil.drawWaterMark("    张锦鸿    ", DemoActivity.this)));
-//                    topLoadingBar.setVisibility(View.INVISIBLE);
                 }
                 super.onProgressChanged(view, newProgress);
             }

@@ -99,6 +99,15 @@
             android:textColor="@color/colorPrimary"
             android:textSize="18sp" />
 
+        <TextView
+            android:id="@+id/java8"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingTop="22dp"
+            android:text="Android与J8的（J9都要出了...）"
+            android:textColor="@color/colorPrimary"
+            android:textSize="18sp" />
+
         <ImageView
             android:layout_width="88dp"
             android:layout_height="88dp"

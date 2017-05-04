@@ -11,8 +11,11 @@ import java.nio.channels.FileChannel;
 
 /**
  * 导出DB 文件到getExternalStorageDirectory 目录去！
+ * 使用facebook 的调试工具吧！
+ *
  * Created by zenglb on 2016/12/27.
  */
+@Deprecated
 public class CopyDBUtils {
 	/**
 	 * Copy 私密数据库文件到 外部的存储空间 方便调试

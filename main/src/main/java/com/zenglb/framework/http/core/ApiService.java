@@ -21,15 +21,13 @@ import retrofit2.http.Query;
 
 /**
  * 所有的具体的和业务相关的Http请求，现在就是基本可以使用Rxjava 或者不使用
- *
+ * <p>
  * 要能够自由的在Service 中使用！
- *
- *
+ * <p>
+ * <p>
  * Created by zenglb on 2017/3/17.
  */
 public interface ApiService {
-    // TODO: 2017/4/18 所有的请求都是在io 中执行，切换回main,那么要怎么省掉这部分相同的代码？
-    // TODO: 2017/4/18 Rxjava 出来了内存泄漏，感觉会死的很惨，不敢上线实际的使用啊！
 
     /**
      * Login ,尝试使用Flowable 来处理，
@@ -40,7 +38,6 @@ public interface ApiService {
 
     /**
      * 获取信息
-     *
      */
     @GET("api/lebang/staffs/me/detail")
     Observable<HttpResponse<StaffMsg>> getStaffMsg();
@@ -80,7 +77,6 @@ public interface ApiService {
     @POST("api/lebang/oauth/access_token")
     @Headers("NoNeedAuthFlag: NoNeedAuthFlag")
     Call<HttpResponse<LoginResult>> refreshToken(@Body LoginParams loginParams);
-
 
 
     /**

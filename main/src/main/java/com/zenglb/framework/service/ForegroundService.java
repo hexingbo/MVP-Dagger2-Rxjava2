@@ -19,9 +19,9 @@ import com.zenglb.framework.navigation.MainActivityBottomNavi;
 
 /**
  * 前台Service，提高进程优先级，在系统内存不足的时候不会那么容易的被限制活动
- * <p>
+ *
  * 在HomeActivity 和 Web调用拍照的时候Start.(WEB 拍照的时候因为拍照需要消耗大量的内存，如果在过程中来电话等打断很可能助这儿因为内存不足进程优先级不高被限制活动了)
- * <p>
+ *
  * Created by zenglb on 2017/3/15.
  */
 public class ForegroundService extends Service {

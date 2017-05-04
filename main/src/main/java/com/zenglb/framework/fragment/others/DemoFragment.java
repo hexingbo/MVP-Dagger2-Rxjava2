@@ -63,18 +63,15 @@ public class DemoFragment extends Fragment {
      * @param
      */
     private void viewsInit(View rootView) {
-        rootView.findViewById(R.id.jsbridge).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-//                ((BaseActivity) getActivity()).goWebView("file:///android_asset/index.html");
-                ((BaseActivity) getActivity()).goWebView("file:///android_asset/app.html");
-            }
+        rootView.findViewById(R.id.jsbridge).setOnClickListener(v -> {
+            ((BaseActivity) getActivity()).goWebView("file:///android_asset/index.html");
+//                ((BaseActivity) getActivity()).goWebView("file:///android_asset/app.html");
         });
 
         /**
-         * demo Act
+         * 练习一些j8与Android 结合的东西！
          */
-        rootView.findViewById(R.id.animation).setOnClickListener(new View.OnClickListener() {
+        rootView.findViewById(R.id.java8).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 ((BaseActivity) getActivity()).startActivity(DemoActivity.class);
@@ -83,14 +80,18 @@ public class DemoFragment extends Fragment {
 
 
         /**
+         * 使用lamada 替代，Ctrl+Alt+L 格式化代码 Ctrl+Alt+O 优化导入的类和包 Alt+Insert 生成代码
+         */
+        rootView.findViewById(R.id.animation).setOnClickListener
+                (view -> ((BaseActivity) getActivity()).startActivity(DemoActivity.class));
+
+
+        /**
          * jni jni
          */
-        rootView.findViewById(R.id.jni).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ((BaseActivity) getActivity()).startActivity(NDKActivity.class);
-                TestRxIntentService.start(getActivity());
-            }
+        rootView.findViewById(R.id.jni).setOnClickListener(v -> {
+            ((BaseActivity) getActivity()).startActivity(NDKActivity.class);
+            TestRxIntentService.start(getActivity());
         });
 
 

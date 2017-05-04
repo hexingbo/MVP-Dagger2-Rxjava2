@@ -7,5 +7,4 @@ package com.zenglb.baselib.utils;
  */
 public class DeviceInfoUtils {
 
-
 }

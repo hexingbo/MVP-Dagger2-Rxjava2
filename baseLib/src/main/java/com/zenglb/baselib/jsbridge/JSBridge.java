@@ -54,7 +54,7 @@ public class JSBridge {
             }
             Class[] parameters = method.getParameterTypes();
             if (null != parameters && parameters.length == 3) {
-                if (parameters[0] == WebView.class && (parameters[1] == JSONObject.class||parameters[1] == Integer.class) && parameters[2] == Callback.class) {
+                if (parameters[0] == WebView.class && (parameters[1] == JSONObject.class || parameters[1] == Integer.class) && parameters[2] == Callback.class) {
                     mMethodsMap.put(name, method);
                 }
             }
@@ -86,13 +86,10 @@ public class JSBridge {
             }
         }
 
-        methodName="dafdasfda";
 
         if (exposedMethods.containsKey(className)) {
             HashMap<String, Method> methodHashMap = exposedMethods.get(className);
             if (methodHashMap != null && methodHashMap.size() != 0) {
-//                if(methodHashMap.containsKey(methodName))
-
                 Method method = methodHashMap.get(methodName);
                 if (method != null) {
                     try {//http://azrael6619.iteye.com/blog/429797   Java的反射机制
@@ -100,7 +97,7 @@ public class JSBridge {
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
-                }else{
+                } else {
 
                     Method eorMethod = methodHashMap.get("returnCommonEor");
                     //需要处理本地方法不存在的情况

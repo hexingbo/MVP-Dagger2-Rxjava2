@@ -22,6 +22,19 @@ android {
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         vectorDrawables.useSupportLibrary = true
 
+        /**
+         * NDK 开发配置1
+         */
+        externalNativeBuild {
+            cmake {
+                cppFlags ""
+            }
+        }
+        ndk{
+            abiFilters 'armeabi' ,'armeabi-v7a', 'arm64-v8a'
+        }
+
+
     }
 
     Properties properties = new Properties()
@@ -104,6 +117,15 @@ android {
 
     configurations.all {   //http://blog.csdn.net/anyway1919/article/details/53469318
         resolutionStrategy.force 'com.google.code.findbugs:jsr305:1.3.9'
+    }
+
+    /**
+     * NDK 开个配置2
+     */
+    externalNativeBuild {
+        cmake {
+            path "CMakeLists.txt"
+        }
     }
 
 }

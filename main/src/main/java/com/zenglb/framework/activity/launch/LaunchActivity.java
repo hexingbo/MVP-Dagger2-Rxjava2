@@ -37,29 +37,24 @@ import io.reactivex.disposables.Disposable;
  */
 public class LaunchActivity extends BaseActivity {
 
-    private String TAG = "Rxjava2";
-    private NDKinterface ndKinterface;
-
     private Handler UiHandler = new Handler() {
         public void handleMessage(Message msg) {
             switch (msg.what) {
                 case 0:
                     String accessToken = SharedPreferencesDao.getInstance().getData(SPKey.KEY_ACCESS_TOKEN, "", String.class);
-
                     if (TextUtils.isEmpty(accessToken)) {
                         Intent i1 = new Intent();
                         i1.setClass(LaunchActivity.this, LoginActivity.class);
                         startActivity(i1);
                         LaunchActivity.this.finish();
                     } else {
-//                          goWebView("https://www.baidu.com");
                         Intent i1 = new Intent();
                         i1.setClass(LaunchActivity.this, MainActivityBottomNavi.class);
                         startActivity(i1);
                         LaunchActivity.this.finish();
                     }
-
                     break;
+
                 default:
                     break;
             }
@@ -80,38 +75,12 @@ public class LaunchActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        UiHandler.sendEmptyMessageDelayed(0, 2000); //
+        UiHandler.sendEmptyMessageDelayed(0, 2000);
 
-        ndKinterface=new NDKinterface();
-
-        ndKinterface.getAESDecrypt(ndKinterface.getAESEncrypt("宫亭是SB"));
-
-//        getAESEncrypt("dasda");
-
-//        String originalText = "宫亭是SB";
-//        String key = "VankeService1997";
-
-//        Toast.makeText(this, "自助加密再解密:" + AESHelper.decrypt(AESHelper.encrypt("爱你哦，F!",key),key), Toast.LENGTH_SHORT).show();
-//
-//        //1.模拟加密,base 64
-//        String baseStrEncode = Base64.encodeToString(AESHelper.encrypt(originalText, key).getBytes(), Base64.URL_SAFE);
-//
-//        //2.解密，解不出？ 重启试试
-//        String result = null;
-//        try {
-//            result = AESHelper.decrypt(new String(Base64.decode(baseStrEncode, Base64.URL_SAFE), "UTF-8"), key);
-//        } catch (Exception e) {
-//            Log.e("E", e.toString());
-//        }
-//
-//
-//        Toast.makeText(this, "解码结果:" + result, Toast.LENGTH_SHORT).show();
-//        Log.e("result", result);
+        Toast.makeText(this,NDKinterface.getAESDecrypt(NDKinterface.getAESEncrypt("如果不是乱码就是成功了")),
+                Toast.LENGTH_LONG).show();     //测试加密解密是否有问题
 
     }
-
-
-
 
 
     /**
