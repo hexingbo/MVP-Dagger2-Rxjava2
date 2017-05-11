@@ -104,16 +104,16 @@ public class LoginActivity extends BaseActivity {
         HttpCall.getApiService().goLoginByRxjavaObserver(loginParams)
                 .compose(RxObservableUtils.applySchedulers())
                 .compose(bindToLifecycle()) //两个compose 能否合并起来，或者重写一个操作符
-                .subscribe(new BaseObserver<LoginResult>() {
+                .subscribe(new BaseObserver<LoginResult>(mContext) {
                     @Override
                     public void onSuccess(LoginResult loginResult) {
                         loginSuccess(loginResult);
                     }
 
-                    @Override
-                    public void onFailure(int code, String message) {
-                        super.onFailure(code, message);
-                    }
+//                    @Override
+//                    public void onFailure(int code, String message) {
+//                        super.onFailure(code, message);
+//                    }
                 });
 
     }

@@ -48,7 +48,7 @@ public class DemoActivity extends BaseActivity {
         Log.d("接口默认方法","测试:" + new myFunc().defaultMethod());
 
         // 2.函数式接口
-        
+
 
     }
 

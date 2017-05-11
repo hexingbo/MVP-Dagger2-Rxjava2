@@ -38,7 +38,7 @@ public abstract class BaseObserver<T> implements Observer<HttpResponse<T>> {
     private Context mContext;
     private static Gson gson = new Gson();
 
-    private int errorCode;
+    private int errorCode = -1111;
     private String errorMsg = "未知的错误！";
 
     /**
@@ -48,12 +48,12 @@ public abstract class BaseObserver<T> implements Observer<HttpResponse<T>> {
      */
     public abstract void onSuccess(T t);
 
-    /**
-     * @param
-     */
-    public BaseObserver() {
-
-    }
+//    /**
+//     * @param
+//     */
+//    public BaseObserver() {
+//
+//    }
 
     /**
      * @param mCtx
@@ -163,7 +163,9 @@ public abstract class BaseObserver<T> implements Observer<HttpResponse<T>> {
                 }
                 break;
         }
-        Toast.makeText(mContext, message + "   code=" + code, Toast.LENGTH_SHORT).show();
+        if (mContext != null) {
+            Toast.makeText(mContext, message + "   code=" + code, Toast.LENGTH_SHORT).show();
+        }
     }
 
 
@@ -185,13 +187,14 @@ public abstract class BaseObserver<T> implements Observer<HttpResponse<T>> {
             if (null != errorResponse) {
                 errorCode = errorResponse.getCode();
                 errorMsg = errorResponse.getError();
-            } else {
-                errorCode = RESPONSE_CODE_FAILED;
-                errorMsg = "ErrorResponse is null";
             }
+//            else {
+//                errorCode = RESPONSE_CODE_FAILED;
+//                errorMsg = "ErrorResponse is null";
+//            }
         } catch (Exception jsonException) {
-            errorCode = RESPONSE_CODE_FAILED;
-            errorMsg = "http请求错误Json 信息异常";
+//            errorCode = RESPONSE_CODE_FAILED;
+//            errorMsg = "http请求错误Json 信息异常";
             jsonException.printStackTrace();
         }
     }
