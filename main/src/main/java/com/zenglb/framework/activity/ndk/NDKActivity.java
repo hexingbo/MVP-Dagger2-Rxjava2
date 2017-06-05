@@ -27,7 +27,7 @@ public class NDKActivity extends BaseActivity {
     protected void initViews() {
         // Example of a call to a native method
         TextView tv = (TextView) findViewById(R.id.jni);
-        tv.setText(NDKinterface.getAESDecrypt(NDKinterface.getAESEncrypt("Hello,World!")));
+//        tv.setText(NDKinterface.getAESDecrypt(NDKinterface.getAESEncrypt("Hello,World!")));
     }
 
 //    /**

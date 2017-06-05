@@ -1,4 +1,4 @@
-package com.zenglb.framework.http.param;
+package com.zenglb.framework.retrofit2.param;
 
 /**
  * 登录需要提交的参数，并不是所有的http 请求都需要一个XXXParams,@Body 提交json str 才需要

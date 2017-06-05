@@ -52,7 +52,7 @@ import permissions.dispatcher.RuntimePermissions;
 public class WebActivity extends BaseWebViewActivity implements View.OnClickListener {
     private static final int REQUEST_SOFT_CAMERA = 1000;  //软相机拍照
     private final static int REQUEST_CAPTURE_IMG = 1001;   //相册选取
-    private final static int REQUEST_PICK_IMAGE =  1002;   //拍照问题见issue
+    private final static int REQUEST_PICK_IMAGE = 1002;   //拍照问题见issue
     private final static int REQUEST_PICTURE_CUT = 1003;   //剪裁图片
     private Uri imageUri;
     private CallNewActForResultReceiver callNewActForResultReceiver = null;

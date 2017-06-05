@@ -1,4 +1,4 @@
-package com.zenglb.framework.http.result;
+package com.zenglb.framework.retrofit2.result;
 
 /**
  * just a demo !

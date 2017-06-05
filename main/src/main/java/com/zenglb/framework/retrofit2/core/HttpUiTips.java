@@ -1,4 +1,4 @@
-package com.zenglb.framework.http.core;
+package com.zenglb.framework.retrofit2.core;
 
 import android.app.Activity;
 import android.content.Context;
@@ -8,10 +8,9 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 
 import com.zenglb.framework.R;
-import com.zenglb.framework.http.utils.HttpDialogUtils;
+import com.zenglb.framework.retrofit2.utils.HttpDialogUtils;
 
 /**
- *
  * Created by zenglb on 2017/3/24.
  */
 public class HttpUiTips {
@@ -43,7 +42,7 @@ public class HttpUiTips {
      * 当然不是必须需要显示的 !
      */
     public static void showDialog(final Context mContext, final boolean canceledOnTouchOutside, final String messageText) {
-        if (mContext == null || mContext == null || ((Activity) mContext).isFinishing())
+        if (mContext == null || !(mContext instanceof Activity) || ((Activity) mContext).isFinishing())
             return;
         ((Activity) mContext).runOnUiThread(new Runnable() {
             @Override
@@ -54,7 +53,7 @@ public class HttpUiTips {
     }
 
     public static void dismissDialog(final Context mContext) {
-        if (mContext == null || ((Activity) mContext).isFinishing())
+        if (mContext == null || !(mContext instanceof Activity) || ((Activity) mContext).isFinishing())
             return;             //maybe not good !
         if (mContext != null) {
             ((Activity) mContext).runOnUiThread(new Runnable() {

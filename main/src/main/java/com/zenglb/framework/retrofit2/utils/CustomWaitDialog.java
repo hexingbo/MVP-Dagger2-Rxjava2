@@ -1,4 +1,4 @@
-package com.zenglb.framework.http.utils;
+package com.zenglb.framework.retrofit2.utils;
 
 import android.app.Dialog;
 import android.content.Context;

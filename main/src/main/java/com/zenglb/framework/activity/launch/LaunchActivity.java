@@ -77,8 +77,8 @@ public class LaunchActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         UiHandler.sendEmptyMessageDelayed(0, 2000);
 
-        Toast.makeText(this,NDKinterface.getAESDecrypt(NDKinterface.getAESEncrypt("如果不是乱码就是成功了")),
-                Toast.LENGTH_LONG).show();     //测试加密解密是否有问题
+//        Toast.makeText(this,NDKinterface.getAESDecrypt(NDKinterface.getAESEncrypt("如果不是乱码就是成功了")),
+//                Toast.LENGTH_LONG).show();     //测试加密解密是否有问题
 
     }
 

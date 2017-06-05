@@ -8,7 +8,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.zenglb.framework.R;
-import com.zenglb.framework.http.result.JokesResult;
+import com.zenglb.framework.retrofit2.result.JokesResult;
 
 import java.util.ArrayList;
 import java.util.List;

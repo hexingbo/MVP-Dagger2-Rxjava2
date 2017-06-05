@@ -1,4 +1,4 @@
-package com.zenglb.framework.http.result;
+package com.zenglb.framework.retrofit2.result;
 
 /**
  * 这一类的entity 的定义就直接的放在一个包里面就行了。

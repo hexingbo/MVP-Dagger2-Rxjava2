@@ -5,8 +5,8 @@ import android.content.Intent;
 import android.content.Context;
 import android.util.Log;
 
-import com.zenglb.framework.http.core.HttpCall;
-import com.zenglb.framework.http.result.JokesResult;
+import com.zenglb.framework.retrofit2.core.HttpCall;
+import com.zenglb.framework.retrofit2.result.JokesResult;
 import com.zenglb.framework.rxhttp.BaseObserver;
 import com.zenglb.baselib.rxUtils.RxObservableUtils;
 

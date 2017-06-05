@@ -1,4 +1,4 @@
-package com.zenglb.framework.http.core;
+package com.zenglb.framework.retrofit2.core;
 
 import android.text.TextUtils;
 import android.util.Log;
@@ -6,8 +6,8 @@ import android.util.Log;
 import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import com.zenglb.baselib.sharedpreferences.SharedPreferencesDao;
 import com.zenglb.framework.config.SPKey;
-import com.zenglb.framework.http.param.LoginParams;
-import com.zenglb.framework.http.result.LoginResult;
+import com.zenglb.framework.retrofit2.param.LoginParams;
+import com.zenglb.framework.retrofit2.result.LoginResult;
 import java.io.IOException;
 import java.util.concurrent.TimeUnit;
 import okhttp3.Authenticator;
@@ -31,6 +31,8 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class HttpCall {
     private static final String TAG = HttpCall.class.getSimpleName();
     private static final String baseUrl = "http://test.4009515151.com/";
+//    private static final String baseUrl = "http://xxx.4009515151.com/";
+
     private static String TOKEN;
     private static ApiService apiService;
 

@@ -10,9 +10,9 @@ import com.google.gson.Gson;
 import com.jakewharton.retrofit2.adapter.rxjava2.HttpException;
 import com.zenglb.baselib.utils.TextUtils;
 import com.zenglb.framework.activity.access.LoginActivity;
-import com.zenglb.framework.http.core.HttpResponse;
-import com.zenglb.framework.http.core.HttpUiTips;
-import org.reactivestreams.Subscription;
+import com.zenglb.framework.retrofit2.core.HttpResponse;
+import com.zenglb.framework.retrofit2.core.HttpUiTips;
+
 import java.io.IOException;
 import java.net.ConnectException;
 import java.net.SocketTimeoutException;

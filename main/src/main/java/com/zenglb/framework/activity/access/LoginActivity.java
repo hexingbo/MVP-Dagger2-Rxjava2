@@ -20,14 +20,12 @@ import com.zenglb.baselib.rxUtils.RxObservableUtils;
 import com.zenglb.baselib.sharedpreferences.SharedPreferencesDao;
 import com.zenglb.framework.R;
 import com.zenglb.framework.config.SPKey;
-import com.zenglb.framework.http.core.HttpCall;
-import com.zenglb.framework.http.core.HttpCallBack;
-import com.zenglb.framework.http.param.LoginParams;
-import com.zenglb.framework.http.result.LoginResult;
+import com.zenglb.framework.retrofit2.core.HttpCall;
+import com.zenglb.framework.retrofit2.core.HttpCallBack;
+import com.zenglb.framework.retrofit2.param.LoginParams;
+import com.zenglb.framework.retrofit2.result.LoginResult;
 import com.zenglb.framework.navigation.MainActivityBottomNavi;
 import com.zenglb.framework.rxhttp.BaseObserver;
-
-import java.util.Arrays;
 
 
 /**

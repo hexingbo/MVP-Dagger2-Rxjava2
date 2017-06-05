@@ -1,4 +1,4 @@
-package com.zenglb.framework.http.core;
+package com.zenglb.framework.retrofit2.core;
 
 import android.content.Context;
 import android.content.Intent;

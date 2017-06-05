@@ -2,8 +2,6 @@ package com.zenglb.framework.activity.demo;
 
 import android.content.DialogInterface;
 import android.graphics.Color;
-import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.Drawable;
 import android.net.http.SslError;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
@@ -24,10 +22,10 @@ import com.zenglb.baselib.base.BaseActivity;
 import com.zenglb.baselib.jsbridge.JSBridge;
 import com.zenglb.framework.R;
 import com.zenglb.framework.activity.java8test.myFunc;
-import com.zenglb.framework.http.core.HttpCall;
-import com.zenglb.framework.http.core.HttpCallBack;
-import com.zenglb.framework.http.core.HttpResponse;
-import com.zenglb.framework.http.result.ModulesResult;
+import com.zenglb.framework.retrofit2.core.HttpCall;
+import com.zenglb.framework.retrofit2.core.HttpCallBack;
+import com.zenglb.framework.retrofit2.core.HttpResponse;
+import com.zenglb.framework.retrofit2.result.ModulesResult;
 
 import retrofit2.Call;
 

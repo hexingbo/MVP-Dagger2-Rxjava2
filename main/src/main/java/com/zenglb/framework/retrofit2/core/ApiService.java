@@ -1,11 +1,11 @@
-package com.zenglb.framework.http.core;
+package com.zenglb.framework.retrofit2.core;
 
 import com.zenglb.framework.entity.Messages;
-import com.zenglb.framework.http.param.LoginParams;
-import com.zenglb.framework.http.result.JokesResult;
-import com.zenglb.framework.http.result.LoginResult;
-import com.zenglb.framework.http.result.ModulesResult;
-import com.zenglb.framework.http.result.StaffMsg;
+import com.zenglb.framework.retrofit2.param.LoginParams;
+import com.zenglb.framework.retrofit2.result.JokesResult;
+import com.zenglb.framework.retrofit2.result.LoginResult;
+import com.zenglb.framework.retrofit2.result.ModulesResult;
+import com.zenglb.framework.retrofit2.result.StaffMsg;
 
 import java.util.List;
 
@@ -55,6 +55,10 @@ public interface ApiService {
     @Deprecated
     @GET("api/lebang/night_school/{type}")
     Flowable<HttpResponse<List<JokesResult>>> getAreuSleep(@Path("type") String type, @Query("page") int page);
+
+
+    @GET("api/lebang/night_school/{type}")
+    Observable<HttpResponse<List<JokesResult>>> getAreuSleepByObserver(@Path("type") String type, @Query("page") int page);
 
     /**
      * get Message List();

@@ -11,8 +11,8 @@ import com.google.gson.Gson;
 import com.jakewharton.retrofit2.adapter.rxjava2.HttpException;
 import com.zenglb.baselib.utils.TextUtils;
 import com.zenglb.framework.activity.access.LoginActivity;
-import com.zenglb.framework.http.core.HttpResponse;
-import com.zenglb.framework.http.core.HttpUiTips;
+import com.zenglb.framework.retrofit2.core.HttpResponse;
+import com.zenglb.framework.retrofit2.core.HttpUiTips;
 
 import java.io.IOException;
 import java.net.ConnectException;
@@ -156,7 +156,7 @@ public abstract class BaseObserver<T> implements Observer<HttpResponse<T>> {
             case 123:
             case 401:
                 //退回到登录页面
-                if (mContext != null && !((Activity) mContext).isFinishing()) {
+                if (mContext != null ) {  //Context 可以使Activity BroadCast Service !
                     Intent intent = new Intent();
                     intent.setClass(mContext, LoginActivity.class);
                     mContext.startActivity(intent);

@@ -16,18 +16,18 @@ import com.liaoinstan.springview.widget.SpringView;
 import com.squareup.leakcanary.RefWatcher;
 import com.zenglb.baselib.base.BaseActivity;
 import com.zenglb.baselib.base.BaseFragment;
+import com.zenglb.baselib.rxUtils.RxObservableUtils;
 import com.zenglb.framework.R;
 import com.zenglb.framework.base.MyApplication;
-import com.zenglb.framework.http.core.HttpCall;
-import com.zenglb.framework.http.result.JokesResult;
-import com.zenglb.framework.rxhttp.BaseSubscriber;
-import com.zenglb.framework.rxhttp.RxSubscriberUtils;
+import com.zenglb.framework.retrofit2.core.HttpCall;
+import com.zenglb.framework.retrofit2.result.JokesResult;
+import com.zenglb.framework.rxhttp.BaseObserver;
+
 import java.util.ArrayList;
 import java.util.List;
 
 /**
  * 懒加载太乱了，使用Rxjava 改造一下
- *
  *
  * @author zenglb 2016.10.24
  */
@@ -78,10 +78,8 @@ public class AreUSleepFragmentList extends BaseFragment {
 
     /**
      * 当视图可见的时候就会被调用，当然在onCreateView 也会调用一次，
-     *
+     * <p>
      * 太乱了，使用rxjava 改造一下懒加载  ！逻辑都是错误的！
-     *
-     *
      */
     @Override
     protected void lazyLoadData(boolean isForceLoad) {
@@ -156,19 +154,37 @@ public class AreUSleepFragmentList extends BaseFragment {
      * 请求答题列表
      */
     private void getHttpData(String mParam1, int page) {
-        HttpCall.getApiService().getAreuSleep(mParam1, page)
-                .compose(RxSubscriberUtils.rxNetThreadHelper())
-                .compose(bindToLifecycle())
-                .subscribe(new BaseSubscriber<List<JokesResult>>(getActivity(),false){
+//        HttpCall.getApiService().getAreuSleep(mParam1, page)
+//                .compose(RxSubscriberUtils.rxNetThreadHelper())
+//                .compose(bindToLifecycle())
+//                .subscribe(new BaseSubscriber<List<JokesResult>>(getActivity(),false){
+//                    @Override
+//                    public void onSuccess(List<JokesResult> areuSleepResults) {
+//                        disposeHttpResult(areuSleepResults);
+//                    }
+//                    @Override
+//                    public void onFailure(int code, String message) {
+//                        super.onFailure(code, message);
+//                    }
+//                });
+
+        HttpCall.getApiService().getAreuSleepByObserver(mParam1, page)
+                .compose(RxObservableUtils.applySchedulers())
+                .compose(bindToLifecycle()) //两个compose 能否合并起来，或者重写一个操作符
+                .subscribe(new BaseObserver<List<JokesResult>>(mActivity) {
                     @Override
-                    public void onSuccess(List<JokesResult> areuSleepResults) {
-                        disposeHttpResult(areuSleepResults);
+                    public void onSuccess(List<JokesResult> jokesResults) {
+                        disposeHttpResult(jokesResults);
                     }
+
                     @Override
                     public void onFailure(int code, String message) {
                         super.onFailure(code, message);
+                        disposeHttpResult(null);
                     }
                 });
+
+
     }
 
 
@@ -187,7 +203,7 @@ public class AreUSleepFragmentList extends BaseFragment {
                 page++;
                 areUSleepListAdapter.notifyDataSetChanged();
             } else {
-				Toast.makeText(getActivity(), "暂无数据，请稍后再试！", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(), "暂无数据，请稍后再试！", Toast.LENGTH_SHORT).show();
             }
         }
 
@@ -217,12 +233,12 @@ public class AreUSleepFragmentList extends BaseFragment {
     }
 
     @Override
-    public void onStart(){
+    public void onStart() {
         super.onStart();
     }
 
     @Override
-    public void onPause(){
+    public void onPause() {
         super.onPause();
     }
 
