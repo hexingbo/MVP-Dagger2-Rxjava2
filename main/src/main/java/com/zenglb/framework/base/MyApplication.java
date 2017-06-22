@@ -1,24 +1,21 @@
 package com.zenglb.framework.base;
 
-import android.content.Context;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.text.TextUtils;
 import android.util.Log;
 
 import com.squareup.leakcanary.LeakCanary;
-import com.squareup.leakcanary.RefWatcher;
+import com.zenglb.baselib.base.BaseApplication;
 import com.zenglb.baselib.sharedpreferences.SharedPreferencesDao;
 import com.zenglb.framework.SdkManager;
 import com.zenglb.framework.database.daomaster.DaoMaster;
-import com.zenglb.baselib.base.BaseApplication;
 import com.zenglb.framework.database.daomaster.DaoSession;
 import com.zenglb.framework.database.dbupdate.MySQLiteOpenHelper;
 
 import org.greenrobot.greendao.database.Database;
 
 /**
- *
  * Created by zenglb on 2017/3/15.
  */
 public class MyApplication extends BaseApplication {
@@ -27,8 +24,6 @@ public class MyApplication extends BaseApplication {
 
     public static final boolean ENCRYPTED = false;
     private DaoSession daoSession;
-
-    private RefWatcher refWatcher;
 
     @Override
     public void onCreate() {
@@ -42,7 +37,6 @@ public class MyApplication extends BaseApplication {
         initApplication();
 
 
-
 //        if (!TextUtils.isEmpty(processName) && processName.equals(this.getPackageName())) { //main Process
 //            setDaoSession(SharedPreferencesDao.getInstance().getData("Account", "DefDb", String.class));
 //            if(isDebug){
@@ -51,48 +45,39 @@ public class MyApplication extends BaseApplication {
 //            }
 //        }
 
+
     }
 
     /**
      * 根据不同的进程来初始化不同的东西
-     *   比如web进程就不需要初始化推送，也不需要图片加载等等
-     *
+     * 比如web进程就不需要初始化推送，也不需要图片加载等等
+     * <p>
      * 发新版 或 测试版也有不同的初始化
-     *   比如调试工具stetho 在debug 环境是要的，Release 是不需要的
-     *
+     * 比如调试工具stetho 在debug 环境是要的，Release 是不需要的
      */
-    private void initApplication(){
+    private void initApplication() {
         //部分 初始化服务最好能新开一个IntentService 去处理,bugly 在两个进程都有初始化
         String processName = getProcessName();
-        switch (processName){
+        switch (processName) {
             case "com.zenglb.framework":
                 SdkManager.initDebugOrRelease(this);
                 setDaoSession(SharedPreferencesDao.getInstance().getData("Account", "DefDb", String.class));
-                refWatcher = LeakCanary.install(this);
-
+                refWatcher = LeakCanary.install(this);  //只管主进程的,其他的进程自保吧
 
                 break;
             case "com.zenglb.framework:webprocess":
 
                 break;
             default:
-                Log.e(TAG,"what a fatal error!");
+                Log.e(TAG, "what a fatal error!");
                 break;
         }
     }
 
 
-
     @Override
     public void onTerminate() {
         super.onTerminate();
-    }
-
-
-
-    public static RefWatcher getRefWatcher(Context context) {
-        MyApplication application = (MyApplication) context.getApplicationContext();
-        return application.refWatcher;
     }
 
 
@@ -122,6 +107,7 @@ public class MyApplication extends BaseApplication {
 
     /**
      * 检查APP 是不是调试模式
+     *
      * @return
      */
     public boolean isDebug() {

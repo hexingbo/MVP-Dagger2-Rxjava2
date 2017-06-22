@@ -7,28 +7,28 @@
     android:layout_height="match_parent"
     tools:context=".navigation.MainActivityBottomNavi">
 
-    <com.github.glomadrian.grav.GravView
-        android:id="@+id/gravew"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_centerInParent="true"
-        app:animationGenerators="@array/BubbleAnimations"
-        app:array_colors="@array/Spectral"
-        app:ball_from_size="10dp"
-        app:ball_to_size="20dp"
-        app:colorGenerator="com.github.glomadrian.grav.generator.paint.ArrayColorGenerator"
-        app:gravGenerator="com.github.glomadrian.grav.generator.grav.BallGenerator"
-        app:pointGenerator="com.github.glomadrian.grav.generator.point.RegularPointGenerator"
-        app:regular_cell_size="300"
-        app:regular_variance="200"
-        app:shake_direction="vertical"
-        app:shake_max_duration="20000"
-        app:shake_min_duration="10000"
-        app:shake_variance="500dp"
-        app:side_to_side_direction="leftToRight"
-        app:side_to_side_max_duration="10000"
-        app:side_to_side_min_duration="10000"
-        />
+    <!--<com.github.glomadrian.grav.GravView-->
+        <!--android:id="@+id/gravew"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent"-->
+        <!--android:layout_centerInParent="true"-->
+        <!--app:animationGenerators="@array/BubbleAnimations"-->
+        <!--app:array_colors="@array/Spectral"-->
+        <!--app:ball_from_size="10dp"-->
+        <!--app:ball_to_size="20dp"-->
+        <!--app:colorGenerator="com.github.glomadrian.grav.generator.paint.ArrayColorGenerator"-->
+        <!--app:gravGenerator="com.github.glomadrian.grav.generator.grav.BallGenerator"-->
+        <!--app:pointGenerator="com.github.glomadrian.grav.generator.point.RegularPointGenerator"-->
+        <!--app:regular_cell_size="300"-->
+        <!--app:regular_variance="200"-->
+        <!--app:shake_direction="vertical"-->
+        <!--app:shake_max_duration="20000"-->
+        <!--app:shake_min_duration="10000"-->
+        <!--app:shake_variance="500dp"-->
+        <!--app:side_to_side_direction="leftToRight"-->
+        <!--app:side_to_side_max_duration="10000"-->
+        <!--app:side_to_side_min_duration="10000"-->
+        <!--/>-->
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -42,6 +42,7 @@
             android:layout_height="wrap_content"
             android:onClick="goJsBridge"
             android:text="JsBridge"
+            android:paddingBottom="22dp"
             android:textColor="@color/colorPrimary"
             android:textSize="18sp" />
 
@@ -49,9 +50,10 @@
             android:id="@+id/animation"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:paddingTop="22dp"
-            android:text="Material-Animations"
-            android:textColor="@color/colorPrimary"
+            android:transitionName="@string/shared_name"
+            android:text="Material Animations 动画演示"
+            android:textColor="@color/white"
+            android:background="#99000000"
             android:textSize="18sp" />
 
         <TextView
@@ -104,7 +106,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingTop="22dp"
-            android:text="Android与J8的（J9都要出了...）"
+            android:text="Temp Test"
             android:textColor="@color/colorPrimary"
             android:textSize="18sp" />
 

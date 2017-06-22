@@ -1,10 +1,12 @@
 package com.zenglb.framework.retrofit2.result;
 
+import java.io.Serializable;
+
 /**
  * just a demo !
  * Created by zenglb on 2017/2/9.
  */
-public class JokesResult {
+public class JokesResult implements Serializable {
     private String topic;
     private String start_time;
     private String id;

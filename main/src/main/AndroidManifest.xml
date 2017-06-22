@@ -23,6 +23,7 @@
     <application
         android:name=".base.MyApplication"
         android:allowBackup="true"
+        android:persistent="true"
         android:icon="@mipmap/ic_launcher"
         android:label="${APP_NAME}"
         android:supportsRtl="true"
@@ -41,19 +42,19 @@
             android:theme="@style/FullscreenTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activity.demo.DemoActivity" />
+
         <activity
             android:name=".activity.access.LoginActivity"
-            android:launchMode="singleTop"
+            android:launchMode="singleInstance"
             android:theme="@style/FullscreenTheme">
             <intent-filter>
                 <action android:name="app.intent.action.LOGIN" />
             </intent-filter>
         </activity>
+
         <activity
             android:name=".activity.access.RegisterActivity"
             android:theme="@style/Translucent" />
@@ -75,7 +76,6 @@
         <activity
             android:name=".activity.setHeadImg.SetHeadImgActivity"
             android:launchMode="singleTask" />
-
         <activity
             android:name=".activity.zxing.ZxingActivity"
             android:launchMode="singleTask">
@@ -86,15 +86,17 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
-
-        <activity android:name=".activity.ndk.NDKActivity"></activity>
-
-
+        <activity android:name=".activity.ndk.NDKActivity" />
         <activity android:name="com.desmond.squarecamera.CameraActivity" />
+
         <activity
             android:name=".navigation.MainActivityBottomNavi"
             android:label="@string/title_activity_main_bottom_navi"
-            android:launchMode="singleTop" />
+            android:launchMode="singleTask" />
+
+        <activity android:name=".activity.animal.SharedElementActivity" />
+
+        <activity android:name=".activity.demo.DemoActivity" />
 
         <provider
             android:name="android.support.v4.content.FileProvider"
@@ -110,6 +112,14 @@
         <service
             android:name=".service.TestRxIntentService"
             android:exported="false" />
+
+        <activity android:name=".activity.animal.AnimalMainActivity" />
+
+        <activity
+            android:name=".activity.retrofitTest.RetrofitTestActivity"
+            android:launchMode="singleTop">
+
+        </activity>
 
     </application>
 

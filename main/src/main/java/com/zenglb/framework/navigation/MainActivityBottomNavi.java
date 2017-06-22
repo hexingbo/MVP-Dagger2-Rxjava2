@@ -5,7 +5,9 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import com.zenglb.baselib.base.BaseActivity;
 import com.zenglb.framework.R;
@@ -124,5 +126,26 @@ public class MainActivityBottomNavi extends BaseActivity {
     protected boolean isShowBacking() {
         return false;
     }
+
+
+    /**
+     * 快速按2次退出
+     */
+    private long exitTime = 0;
+    @Override
+    public boolean dispatchKeyEvent(KeyEvent event) {
+        if (event.getKeyCode() == KeyEvent.KEYCODE_BACK && event.getAction() == KeyEvent.ACTION_DOWN) {
+            if (System.currentTimeMillis() - exitTime < 2000) {
+                finish();
+            } else {
+                exitTime = System.currentTimeMillis();
+                Toast.makeText(this.getApplicationContext(), "再按一次退出！", Toast.LENGTH_SHORT).show();
+            }
+            return true;
+        } else {
+            return super.dispatchKeyEvent(event); // 按下其他按钮，调用父类进行默认处理
+        }
+    }
+
 
 }

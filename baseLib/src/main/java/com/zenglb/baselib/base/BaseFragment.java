@@ -6,6 +6,7 @@ import android.support.annotation.CallSuper;
 import android.support.v4.app.Fragment;
 import android.view.View;
 
+import com.squareup.leakcanary.RefWatcher;
 import com.trello.rxlifecycle2.components.support.RxFragment;
 
 /**
@@ -38,6 +39,7 @@ public abstract class BaseFragment extends RxFragment {
 
     /**
      * 一定要super，放在最后面的一行代码来Super!
+     *
      */
     @CallSuper
     protected void initViews(View rootView) {
@@ -68,5 +70,17 @@ public abstract class BaseFragment extends RxFragment {
         super.onAttach(context);
         this.mActivity = (Activity) context;
     }
+
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+
+        RefWatcher refWatcher = BaseApplication.getRefWatcher(getActivity());
+        refWatcher.watch(this);
+
+    }
+
+
 
 }

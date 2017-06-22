@@ -1,16 +1,23 @@
 package com.zenglb.framework.fragment.others;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v4.app.Fragment;
+import android.support.v4.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.zenglb.baselib.base.BaseActivity;
+import com.zenglb.baselib.utils.TransitionHelper;
 import com.zenglb.framework.R;
+import com.zenglb.framework.activity.animal.AnimalMainActivity;
 import com.zenglb.framework.activity.demo.DemoActivity;
 import com.zenglb.framework.activity.ndk.NDKActivity;
+import com.zenglb.framework.activity.retrofitTest.RetrofitTestActivity;
 import com.zenglb.framework.service.TestRxIntentService;
 
 /**
@@ -74,7 +81,8 @@ public class DemoFragment extends Fragment {
         rootView.findViewById(R.id.java8).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ((BaseActivity) getActivity()).startActivity(DemoActivity.class);
+
+                ((BaseActivity) getActivity()).startActivity(RetrofitTestActivity.class);
             }
         });
 
@@ -83,7 +91,7 @@ public class DemoFragment extends Fragment {
          * 使用lamada 替代，Ctrl+Alt+L 格式化代码 Ctrl+Alt+O 优化导入的类和包 Alt+Insert 生成代码
          */
         rootView.findViewById(R.id.animation).setOnClickListener
-                (view -> ((BaseActivity) getActivity()).startActivity(DemoActivity.class));
+                (view -> transitionToActivity(AnimalMainActivity.class, (TextView) rootView.findViewById(R.id.animation), "Material Animations 动画演示"));
 
 
         /**
@@ -93,8 +101,22 @@ public class DemoFragment extends Fragment {
             ((BaseActivity) getActivity()).startActivity(NDKActivity.class);
             TestRxIntentService.start(getActivity());
         });
+    }
 
 
+    private void transitionToActivity(Class target, TextView textView, String title) {
+        final Pair<View, String>[] pairs = TransitionHelper.createSafeTransitionParticipants(getActivity(), true,
+                new Pair<>(textView, getActivity().getString(R.string.shared_name)));
+
+        startActivity(target, pairs, title);
+    }
+
+
+    private void startActivity(Class target, Pair<View, String>[] pairs, String title) {
+        Intent i = new Intent(getActivity(), target);
+        i.putExtra("title", title);
+        ActivityOptionsCompat transitionActivityOptions = ActivityOptionsCompat.makeSceneTransitionAnimation(getActivity(), pairs);
+        getActivity().startActivity(i, transitionActivityOptions.toBundle());
     }
 
 
@@ -117,5 +139,7 @@ public class DemoFragment extends Fragment {
     public void onStart() {
         super.onStart();
     }
+
+
 
 }

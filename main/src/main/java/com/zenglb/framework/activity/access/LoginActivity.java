@@ -5,10 +5,9 @@ import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v7.widget.CardView;
 import android.text.TextUtils;
-import android.transition.Explode;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
@@ -20,15 +19,22 @@ import com.zenglb.baselib.rxUtils.RxObservableUtils;
 import com.zenglb.baselib.sharedpreferences.SharedPreferencesDao;
 import com.zenglb.framework.R;
 import com.zenglb.framework.config.SPKey;
+import com.zenglb.framework.navigation.MainActivityBottomNavi;
 import com.zenglb.framework.retrofit2.core.HttpCall;
-import com.zenglb.framework.retrofit2.core.HttpCallBack;
 import com.zenglb.framework.retrofit2.param.LoginParams;
 import com.zenglb.framework.retrofit2.result.LoginResult;
-import com.zenglb.framework.navigation.MainActivityBottomNavi;
 import com.zenglb.framework.rxhttp.BaseObserver;
 
-
 /**
+ * 1.修复Http请求时候Dialog 导致的内存泄漏
+ * 2.练习共享元素动画
+ * 3.修改LaunchMode 配置
+ *
+ *
+ *
+ * 需要区分是从Launcher 跳转过来的还是 其他地方unOauth 导致跳转过来的
+ *
+ *
  * 1.登录的对话框在弹出键盘的时候希望能够向上移动
  * 2.内存占用实在是太多太多了，太多太多了！
  *
@@ -40,13 +46,14 @@ public class LoginActivity extends BaseActivity {
     private Button btGo;
     private CardView cv;
     private FloatingActionButton fab;
+    private boolean isFromLaunch=false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        isFromLaunch=getIntent().getBooleanExtra("isFromLaunch",false);
         SharedPreferencesDao.getInstance().saveData(SPKey.KEY_ACCESS_TOKEN, "");
     }
-
 
     @Override
     protected int setLayoutId() {
@@ -60,15 +67,6 @@ public class LoginActivity extends BaseActivity {
         btGo = (Button) findViewById(R.id.bt_go);
         cv = (CardView) findViewById(R.id.cv);
         fab = (FloatingActionButton) findViewById(R.id.fab);
-
-//        fab.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Toast.makeText(this, test, Toast.LENGTH_LONG).show();
-//            }
-//        });
-//
-//        fab.setOnClickListener(V -> Toast.makeText(this, "lamada 测试", Toast.LENGTH_LONG).show());
 
         fab.setOnClickListener(this);
         btGo.setOnClickListener(this);
@@ -86,7 +84,7 @@ public class LoginActivity extends BaseActivity {
         String password = etPassword.getText().toString().trim();
 
         if (TextUtils.isEmpty(userName) || TextUtils.isEmpty(password)) {
-            Toast.makeText(this, "请完整输入用户名和密码", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this.getApplicationContext(), "请完整输入用户名和密码", Toast.LENGTH_SHORT).show();
             return;
         }
         HttpCall.setToken("");
@@ -107,75 +105,50 @@ public class LoginActivity extends BaseActivity {
                     public void onSuccess(LoginResult loginResult) {
                         loginSuccess(loginResult);
                     }
-
-//                    @Override
-//                    public void onFailure(int code, String message) {
-//                        super.onFailure(code, message);
-//                    }
                 });
 
     }
 
     /**
-     * Login ,普通的登录和使用Rxjava 的方式都可以
+     * 登陆后的跳转，
+     *
+     * @param loginResult
      */
-    private void loginByRetrofit() {
-        String userName = etUsername.getText().toString().trim();
-        String password = etPassword.getText().toString().trim();
-        if (TextUtils.isEmpty(userName) || TextUtils.isEmpty(password)) {
-            Toast.makeText(this, "请完整输入用户名和密码", Toast.LENGTH_SHORT).show();
-            return;
-        }
-        HttpCall.setToken("");
-
-        LoginParams loginParams = new LoginParams();
-        loginParams.setClient_id("5e96eac06151d0ce2dd9554d7ee167ce");
-        loginParams.setClient_secret("aCE34n89Y277n3829S7PcMN8qANF8Fh");
-        loginParams.setGrant_type("password");
-        loginParams.setUsername(userName);
-        loginParams.setPassword(password);
-
-        //2.Generic Programming Techniques is the basis of Android develop
-        HttpCall.getApiService().goLoginByRetrofit(loginParams)
-                .enqueue(new HttpCallBack<LoginResult>(this) {
-                    @Override
-                    public void onSuccess(LoginResult loginResult) {
-                        loginSuccess(loginResult);
-                    }
-
-                    @Override
-                    public void onFailure(int code, String messageStr) {
-                        super.onFailure(code, messageStr);
-                    }
-                });
-    }
-
     private void loginSuccess(LoginResult loginResult) {
         SharedPreferencesDao.getInstance().saveData(SPKey.KEY_ACCESS_TOKEN, "Bearer " + loginResult.getAccessToken());
         SharedPreferencesDao.getInstance().saveData(SPKey.KEY_REFRESH_TOKEN, loginResult.getRefreshToken());
         SharedPreferencesDao.getInstance().saveData(SPKey.KEY_LAST_ACCOUNT, etUsername.getText().toString().trim());
+        HttpCall.setToken(SharedPreferencesDao.getInstance().getData(SPKey.KEY_ACCESS_TOKEN, "", String.class));
 
-        Intent i2 = new Intent(LoginActivity.this, MainActivityBottomNavi.class);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            //Android 5.0 以下不能使用啊
-            Explode explode = new Explode();
-            explode.setDuration(300);
-            getWindow().setExitTransition(explode);
-            getWindow().setEnterTransition(explode);
-            ActivityOptionsCompat oc2 = ActivityOptionsCompat.makeSceneTransitionAnimation(LoginActivity.this);
-            startActivity(i2, oc2.toBundle());
-        } else {
+        if(isFromLaunch){
+            Intent i2 = new Intent(LoginActivity.this, MainActivityBottomNavi.class);
             startActivity(i2);
+            LoginActivity.this.finish();
+        }else {//是来自Launcher启动的就跳转到主页面，否则从哪里来就到那里去
+            LoginActivity.this.finish();
         }
-        LoginActivity.this.finish();
+
     }
+
+
+
 
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.fab:
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                    getWindow().setExitTransition(null);
-                    getWindow().setEnterTransition(null);
+//                    //Explode
+//                    Explode explode = new Explode();
+//                    explode.setDuration(300);
+//
+//                    //Slide
+//                    Slide slideTracition = new Slide();
+//                    slideTracition.setSlideEdge(Gravity.LEFT);
+//                    slideTracition.setDuration(500);
+//
+//                    getWindow().setExitTransition(slideTracition);
+//                    getWindow().setEnterTransition(slideTracition);
+
                     ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(this, fab, fab.getTransitionName());
                     startActivity(new Intent(this, RegisterActivity.class), options.toBundle());
                 } else {
@@ -203,4 +176,10 @@ public class LoginActivity extends BaseActivity {
         return super.onKeyDown(keyCode, event);
     }
 
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        Log.e("aaa","onResume"+this.toString());
+    }
 }

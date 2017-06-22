@@ -9,27 +9,14 @@ import android.telephony.TelephonyManager;
 import android.telephony.cdma.CdmaCellLocation;
 import android.telephony.gsm.GsmCellLocation;
 import android.text.TextUtils;
-import android.util.Base64;
-import android.util.Log;
 import android.widget.Toast;
 
-import com.zenglb.androidndk.NDKinterface;
 import com.zenglb.baselib.base.BaseActivity;
 import com.zenglb.baselib.sharedpreferences.SharedPreferencesDao;
-import com.zenglb.baselib.utils.AESHelper;
 import com.zenglb.framework.R;
 import com.zenglb.framework.activity.access.LoginActivity;
-import com.zenglb.framework.navigation.MainActivityBottomNavi;
 import com.zenglb.framework.config.SPKey;
-
-import java.io.UnsupportedEncodingException;
-
-import io.reactivex.Single;
-import io.reactivex.SingleEmitter;
-import io.reactivex.SingleObserver;
-import io.reactivex.SingleOnSubscribe;
-import io.reactivex.annotations.NonNull;
-import io.reactivex.disposables.Disposable;
+import com.zenglb.framework.navigation.MainActivityBottomNavi;
 
 
 /**
@@ -44,6 +31,7 @@ public class LaunchActivity extends BaseActivity {
                     String accessToken = SharedPreferencesDao.getInstance().getData(SPKey.KEY_ACCESS_TOKEN, "", String.class);
                     if (TextUtils.isEmpty(accessToken)) {
                         Intent i1 = new Intent();
+                        i1.putExtra("isFromLaunch", true);
                         i1.setClass(LaunchActivity.this, LoginActivity.class);
                         startActivity(i1);
                         LaunchActivity.this.finish();
@@ -82,6 +70,12 @@ public class LaunchActivity extends BaseActivity {
 
     }
 
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        UiHandler.removeCallbacksAndMessages(null);
+    }
 
     /**
      * 获取手机号码，一般获取不到

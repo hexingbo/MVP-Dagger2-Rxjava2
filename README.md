@@ -10,7 +10,8 @@
 
 # 关于Http网络请求 (Rxjava2+Retrofit2)
   应该没有比Retrofit2 更好的了吧？不过api 不是restful 就需要再封装一下了，网路模块就是数据命脉，做好了
-  整个app 的结构会简化很多，结合Rxjava2不是更快哉;配合RxLifeCycle 控制生命周期
+  整个app 的结构会简化很多，结合Rxjava2不是更快哉;配合RxLifeCycle 控制生命周期;
+  BaseObserver 中getErrorMsg(HttpException httpException) 方法中的处理和我们的Api 结构有关，请知悉。
 
 
 # 关于JSBridge 和 Webview 中的拍照问题

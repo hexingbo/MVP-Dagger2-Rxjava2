@@ -107,7 +107,7 @@ public class Rxjava2DemoFragment extends BaseFragment {
     /**
      * 测试FlatMap 的操作
      * 实际中的应用场景应该是注册完毕后直接登录，这里演示为登录后获取信息，为了安全演示
-     *
+     * <p>
      * 当然我觉得还是分开写更加简单，清晰，容易控制
      */
     private void testFlatMap() {
@@ -153,7 +153,7 @@ public class Rxjava2DemoFragment extends BaseFragment {
      * 可是如果没有得到想要的结果呢？
      */
     private void zip() {
-        Observable<HttpResponse<List<JokesResult>>> observable1=
+        Observable<HttpResponse<List<JokesResult>>> observable1 =
                 HttpCall.getApiService().getJokes("expired", 1).subscribeOn(Schedulers.io());
 
         Observable<HttpResponse<StaffMsg>> observable2 =
@@ -171,7 +171,7 @@ public class Rxjava2DemoFragment extends BaseFragment {
                     @Override
                     public void accept(StaffMsg staffMsg) throws Exception {
                         //do something;
-                        Log.e(TAG,staffMsg.toString());
+                        Log.e(TAG, staffMsg.toString());
                     }
                 });
 
@@ -200,7 +200,7 @@ public class Rxjava2DemoFragment extends BaseFragment {
 
         areUSleepListAdapter.setOnItemClickListener(new AreUSleepListAdapter.OnItemClickListener() {
             @Override
-            public void onItemClick(View view, int position) {
+            public void onItemClick(AreUSleepListAdapter.ViewHolder view, int position) {
                 switch (position) {
                     case 0:
                         getJokes();
@@ -219,10 +219,12 @@ public class Rxjava2DemoFragment extends BaseFragment {
             }
 
             @Override
-            public void onItemLongClick(View view, int position) {
+            public void onItemLongClick(AreUSleepListAdapter.ViewHolder view, int position) {
 
             }
         });
+
+
     }
 
     /**

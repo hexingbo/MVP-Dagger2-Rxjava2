@@ -253,7 +253,7 @@ public class MeProfileFragment extends BaseFragment {
     }
 
     /**
-     *
+     * 加上mAnimaltion
      */
     public void logout() {
         Intent intent = new Intent();

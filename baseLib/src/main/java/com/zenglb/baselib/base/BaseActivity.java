@@ -17,6 +17,7 @@ import io.reactivex.Observable;
  * 1.toolbar 的封装
  * 2.页面之间的跳转
  * 3.注意WebViewActivity 开启了多进程！
+ *
  * @author zenglb 20170301
  */
 public abstract class BaseActivity extends RxAppCompatActivity implements View.OnClickListener{
@@ -34,18 +35,6 @@ public abstract class BaseActivity extends RxAppCompatActivity implements View.O
             setSupportActionBar(mToolbar);
         }
         initViews();
-    }
-
-
-    /**
-     * 不是链式调用不好玩！
-     *
-     * @param observable
-     * @return
-     */
-    protected final Observable getService(Observable observable) {
-        return observable.compose(RxObservableUtils.applySchedulers())
-                .compose(bindToLifecycle());
     }
 
 
@@ -81,7 +70,7 @@ public abstract class BaseActivity extends RxAppCompatActivity implements View.O
     /*
 	 * Activity的跳转
 	 */
-    public void startActivity(Class<?> cla) {
+    public final void startActivity(Class<?> cla) {
         Intent intent = new Intent();
         intent.setClass(this, cla);
         startActivity(intent);
@@ -104,7 +93,7 @@ public abstract class BaseActivity extends RxAppCompatActivity implements View.O
      *
      * @param link
      */
-    public void goWebView(String link) {
+    public final  void goWebView(String link) {
         Intent intent = new Intent();
         intent.setAction(BaseWebViewActivity.WEB_ACTION);
         intent.addCategory(BaseWebViewActivity.WEB_CATEGORY);
@@ -119,7 +108,7 @@ public abstract class BaseActivity extends RxAppCompatActivity implements View.O
      * @param title
      * @param link
      */
-    public void goWebView(String link,String title) {
+    public final void goWebView(String link,String title) {
         Intent intent = new Intent();
         intent.setAction(BaseWebViewActivity.WEB_ACTION);
         intent.addCategory(BaseWebViewActivity.WEB_CATEGORY);
@@ -135,7 +124,7 @@ public abstract class BaseActivity extends RxAppCompatActivity implements View.O
      *
      * @return support.v7.widget.Toolbar.
      */
-    public Toolbar getToolbar() {
+    public final Toolbar getToolbar() {
         return (Toolbar) findViewById(R.id.toolbar);
     }
 

@@ -1,7 +1,10 @@
 package com.zenglb.framework.activity.main;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.ActivityOptionsCompat;
+import android.support.v4.util.Pair;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -14,10 +17,11 @@ import com.liaoinstan.springview.container.DefaultFooter;
 import com.liaoinstan.springview.container.DefaultHeader;
 import com.liaoinstan.springview.widget.SpringView;
 import com.squareup.leakcanary.RefWatcher;
-import com.zenglb.baselib.base.BaseActivity;
 import com.zenglb.baselib.base.BaseFragment;
 import com.zenglb.baselib.rxUtils.RxObservableUtils;
+import com.zenglb.baselib.utils.TransitionHelper;
 import com.zenglb.framework.R;
+import com.zenglb.framework.activity.animal.SharedElementActivity;
 import com.zenglb.framework.base.MyApplication;
 import com.zenglb.framework.retrofit2.core.HttpCall;
 import com.zenglb.framework.retrofit2.result.JokesResult;
@@ -75,6 +79,7 @@ public class AreUSleepFragmentList extends BaseFragment {
         viewsInit(rootView);
         return rootView;
     }
+    
 
     /**
      * 当视图可见的时候就会被调用，当然在onCreateView 也会调用一次，
@@ -94,9 +99,40 @@ public class AreUSleepFragmentList extends BaseFragment {
             }
             if (visibleTime == 1) { //这里也不是每次可见的时候都能刷新，只有第一次可见的时候或者数据加载从来没有成功 才调用刷新
                 springView.callFresh();
-                Toast.makeText(mActivity, "第一次可见", Toast.LENGTH_SHORT).show();
+                Toast.makeText(mActivity.getApplicationContext(), "第一次可见", Toast.LENGTH_SHORT).show();
             }
         }
+    }
+
+
+    /**
+     * 带动画的跳转,
+     *
+     * @param target
+     * @param viewHolder
+     * @param jokesResult
+     */
+    private void transitionToActivity(Class target, AreUSleepListAdapter.ViewHolder viewHolder, JokesResult jokesResult) {
+        final Pair<View, String>[] pairs = TransitionHelper.createSafeTransitionParticipants(getActivity(), true,
+                new Pair<>(viewHolder.getTopic(), getActivity().getString(R.string.shared_name)),
+                new Pair<>(viewHolder.getTime(), getActivity().getString(R.string.shared_time)));
+
+        startActivity(target, pairs, jokesResult);
+    }
+
+
+    /**
+     * 带动画
+     *
+     * @param target
+     * @param pairs
+     * @param jokesResult
+     */
+    private void startActivity(Class target, Pair<View, String>[] pairs, JokesResult jokesResult) {
+        Intent i = new Intent(getActivity(), target);
+        i.putExtra("jokesResult", jokesResult);
+        ActivityOptionsCompat transitionActivityOptions = ActivityOptionsCompat.makeSceneTransitionAnimation(getActivity(), pairs);
+        getActivity().startActivity(i, transitionActivityOptions.toBundle());
     }
 
 
@@ -107,6 +143,18 @@ public class AreUSleepFragmentList extends BaseFragment {
      */
     private void viewsInit(View rootView) {
         areUSleepListAdapter = new AreUSleepListAdapter(getActivity(), data);
+        areUSleepListAdapter.setOnItemClickListener(new AreUSleepListAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(AreUSleepListAdapter.ViewHolder view, int position) {
+                transitionToActivity(SharedElementActivity.class, view, data.get(position));
+            }
+
+            @Override
+            public void onItemLongClick(AreUSleepListAdapter.ViewHolder view, int position) {
+
+            }
+        });
+
         mRecyclerView = (RecyclerView) rootView.findViewById(R.id.recyclerView);
         mRecyclerView.setAdapter(areUSleepListAdapter);
 
@@ -136,42 +184,18 @@ public class AreUSleepFragmentList extends BaseFragment {
         springView.setHeader(new DefaultHeader(getActivity()));
         springView.setFooter(new DefaultFooter(getActivity()));
 
-        areUSleepListAdapter.setOnItemClickListener(new AreUSleepListAdapter.OnItemClickListener() {
-            @Override
-            public void onItemClick(View view, int position) {
-                BaseActivity baseActivity = (BaseActivity) getActivity();
-                baseActivity.goWebView("http://www.baidu.com", "");
-            }
-
-            @Override
-            public void onItemLongClick(View view, int position) {
-            }
-        });
         super.initViews(rootView);  //
     }
+
 
     /**
      * 请求答题列表
      */
     private void getHttpData(String mParam1, int page) {
-//        HttpCall.getApiService().getAreuSleep(mParam1, page)
-//                .compose(RxSubscriberUtils.rxNetThreadHelper())
-//                .compose(bindToLifecycle())
-//                .subscribe(new BaseSubscriber<List<JokesResult>>(getActivity(),false){
-//                    @Override
-//                    public void onSuccess(List<JokesResult> areuSleepResults) {
-//                        disposeHttpResult(areuSleepResults);
-//                    }
-//                    @Override
-//                    public void onFailure(int code, String message) {
-//                        super.onFailure(code, message);
-//                    }
-//                });
-
         HttpCall.getApiService().getAreuSleepByObserver(mParam1, page)
                 .compose(RxObservableUtils.applySchedulers())
                 .compose(bindToLifecycle()) //两个compose 能否合并起来，或者重写一个操作符
-                .subscribe(new BaseObserver<List<JokesResult>>(mActivity) {
+                .subscribe(new BaseObserver<List<JokesResult>>(getActivity(), false) {
                     @Override
                     public void onSuccess(List<JokesResult> jokesResults) {
                         disposeHttpResult(jokesResults);
@@ -183,8 +207,6 @@ public class AreUSleepFragmentList extends BaseFragment {
                         disposeHttpResult(null);
                     }
                 });
-
-
     }
 
 
@@ -193,17 +215,17 @@ public class AreUSleepFragmentList extends BaseFragment {
      *
      * @return
      */
-    private void disposeHttpResult(List<JokesResult> areuSleepBeanLista) {
+    private void disposeHttpResult(List<JokesResult> jokesResultList) {
         springView.onFinishFreshAndLoad();
-        if (areuSleepBeanLista != null) {
+        if (jokesResultList != null) {
             if (page <= 1) data.clear();
 
-            if (areuSleepBeanLista != null && areuSleepBeanLista.size() != 0) {
-                data.addAll(areuSleepBeanLista);
+            if (jokesResultList != null && jokesResultList.size() != 0) {
+                data.addAll(jokesResultList);
                 page++;
                 areUSleepListAdapter.notifyDataSetChanged();
             } else {
-                Toast.makeText(getActivity(), "暂无数据，请稍后再试！", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity().getApplicationContext(), "暂无数据，请稍后再试！", Toast.LENGTH_SHORT).show();
             }
         }
 
@@ -212,6 +234,7 @@ public class AreUSleepFragmentList extends BaseFragment {
         } else {
             mEmptyTipsTxt.setVisibility(View.GONE);
         }
+
     }
 
 
