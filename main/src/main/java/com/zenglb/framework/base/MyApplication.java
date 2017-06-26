@@ -35,17 +35,6 @@ public class MyApplication extends BaseApplication {
         // InitializeService.start(this);
         isDebugCheck();
         initApplication();
-
-
-//        if (!TextUtils.isEmpty(processName) && processName.equals(this.getPackageName())) { //main Process
-//            setDaoSession(SharedPreferencesDao.getInstance().getData("Account", "DefDb", String.class));
-//            if(isDebug){
-//                refWatcher = LeakCanary.install(this);
-////                Stetho.initializeWithDefaults(this);
-//            }
-//        }
-
-
     }
 
     /**

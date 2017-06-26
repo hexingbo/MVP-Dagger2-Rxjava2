@@ -94,12 +94,11 @@ public class HttpCall {
             };
 
             HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY);
-//            loggingInterceptor.setLevel(BuildConfig.DEBUG ? HttpLoggingInterceptor.Level.BODY : HttpLoggingInterceptor.Level.NONE);
             loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
 
             OkHttpClient okHttpClient = new OkHttpClient.Builder()
                     .retryOnConnectionFailure(true)
-                    .connectTimeout(2, TimeUnit.SECONDS)
+                    .connectTimeout(11, TimeUnit.SECONDS)
                     .addNetworkInterceptor(mRequestInterceptor)
                     .addInterceptor(loggingInterceptor)
                     .authenticator(mAuthenticator2)
@@ -111,7 +110,9 @@ public class HttpCall {
                     .addConverterFactory(GsonConverterFactory.create())
                     .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                     .build();
+
             apiService = client.create(ApiService.class);
+
         }
         return apiService;
     }

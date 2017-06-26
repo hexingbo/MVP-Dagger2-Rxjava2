@@ -79,7 +79,7 @@ public class AreUSleepFragmentList extends BaseFragment {
         viewsInit(rootView);
         return rootView;
     }
-    
+
 
     /**
      * 当视图可见的时候就会被调用，当然在onCreateView 也会调用一次，

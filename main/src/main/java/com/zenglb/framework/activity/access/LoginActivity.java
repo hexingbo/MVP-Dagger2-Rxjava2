@@ -71,8 +71,9 @@ public class LoginActivity extends BaseActivity {
         fab.setOnClickListener(this);
         btGo.setOnClickListener(this);
         etUsername.setText(SharedPreferencesDao.getInstance().getData(SPKey.KEY_LAST_ACCOUNT, "", String.class));
-        etUsername.setText("18826562075");
+
         etPassword.setText("zxcv1234");
+        etUsername.setText("18826562075");
     }
 
 
