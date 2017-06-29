@@ -1,5 +1,5 @@
 # FBI WARMIMNG:api 仅供交流，不要外传！
-  提示需要下载NDK 的时候请先下载完毕，或者注释掉main.gradle 的NDK配置
+
 
 # 关于本Demo
   本项目作为轻量化的练习Demo,方便以后新项目进行参考，主要练习基础项目封装，GreenDao3,Material-Animations,

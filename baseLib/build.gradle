@@ -39,9 +39,9 @@ dependencies {
     })
     testCompile 'junit:junit:4.12'
 
+   //以源码的形式存放在工程中，修改retrofit 的代码玩一下
 
     compile project(':retrofit2')
-
 //        compile 'com.squareup.retrofit2:retrofit:2.3.0'
     compile 'com.squareup.retrofit2:converter-gson:2.3.0'
     compile 'com.squareup.okhttp3:logging-interceptor:3.8.1'

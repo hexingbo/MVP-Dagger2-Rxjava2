@@ -43,6 +43,9 @@ class Platform {
             }
         } catch (ClassNotFoundException ignored) {
         }
+
+
+
 //    try {
 //      Class.forName("java.util.Optional");
 //      return new Java8();
@@ -72,7 +75,12 @@ class Platform {
                                @Nullable Object... args) throws Throwable {
         throw new UnsupportedOperationException();
     }
-//
+
+
+    /**
+     * java 8
+     *
+     */
 //  @IgnoreJRERequirement // Only classloaded and used on Java 8.
 //  static class Java8 extends Platform {
 //    @Override boolean isDefaultMethod(Method method) {
@@ -91,6 +99,8 @@ class Platform {
 //          .invokeWithArguments(args);
 //    }
 //  }
+
+
 
     static class Android extends Platform {
         @Override
