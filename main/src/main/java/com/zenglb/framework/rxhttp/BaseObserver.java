@@ -74,7 +74,6 @@ public abstract class BaseObserver<T> implements Observer<HttpResponse<T>> {
 
     @Override
     public final void onNext(HttpResponse<T> response) {
-
         HttpUiTips.dismissDialog(mContext);
         if (response.getCode() == RESPONSE_CODE_OK) {
             onSuccess(response.getResult());

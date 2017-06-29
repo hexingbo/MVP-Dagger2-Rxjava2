@@ -76,6 +76,13 @@
 # 推送
   会越来越严格，目前没有很好的第三方，绿色联盟？如果企业对推送有强需求，还是建议用短信和微信消息做补充
 
+# 关于热修复
+  阿里的HotFix&微信的Tinker
+  android的热修复原理大体上分为两种，其一是通过dex的执行顺序实现Apk热修复的功能(Tinker)，但是其需要将App重启才能生 效;其二是通过Native修改函数指针的方式实现热修复(HotFix)。
+
+  显然对于修复紧急BUG这个场景，阿里百川HotFix的更为合适，它更加轻量，可以在不重启的情况下生效，且对性能几乎没有影
+  微信Tinker、QQ空间超级补丁技术更多地把场景定位在发布小的新功能上，采用ClassLoader的模式，牺牲较高的性能代价去实现 类、资源新增或替换的功能。阿里百川HotFix对应用本身做到无侵入，无性能损耗。
+
 # Rxjava2
   目前只是在http 请求的时候用了Rxjava2+retrofit2,没有侵入UI，打好基础才是王道
   https://realm.io/cn/news/kau-felipe-lima-adopting-rxjava-airbnb-android/

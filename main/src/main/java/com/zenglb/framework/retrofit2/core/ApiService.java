@@ -2,15 +2,18 @@ package com.zenglb.framework.retrofit2.core;
 
 import com.zenglb.framework.entity.Messages;
 import com.zenglb.framework.retrofit2.param.LoginParams;
+import com.zenglb.framework.retrofit2.result.CustomWeatherResult;
 import com.zenglb.framework.retrofit2.result.JokesResult;
 import com.zenglb.framework.retrofit2.result.LoginResult;
 import com.zenglb.framework.retrofit2.result.ModulesResult;
 import com.zenglb.framework.retrofit2.result.StaffMsg;
 
 import java.util.List;
+import java.util.Map;
 
 import io.reactivex.Flowable;
 import io.reactivex.Observable;
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
@@ -18,6 +21,8 @@ import retrofit2.http.Headers;
 import retrofit2.http.POST;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
+import retrofit2.http.QueryMap;
+import retrofit2.http.Url;
 
 /**
  * 所有的具体的和业务相关的Http请求，现在就是基本可以使用Rxjava 或者不使用
@@ -30,11 +35,19 @@ import retrofit2.http.Query;
 public interface ApiService {
 
     /**
+     * 第三方动态 url 访问
+     * 测试在同一个系统下访问外部URL
+     */
+    @GET
+    Call<CustomWeatherResult> getWeather(@Url String url, @Query("city") String city);
+
+    /**
      * Login ,尝试使用Flowable 来处理，
      */
     @Headers("NoNeedAuthFlag: NoNeedAuthFlag")
     @POST("api/lebang/oauth/access_token")
     Observable<HttpResponse<LoginResult>> goLoginByRxjavaObserver(@Body LoginParams loginRequest);
+
 
     /**
      * 获取信息
@@ -83,6 +96,7 @@ public interface ApiService {
     Call<HttpResponse<LoginResult>> refreshToken(@Body LoginParams loginParams);
 
 
+
     /**
      * Login ,尝试使用Flowable 来处理，
      */
@@ -90,5 +104,6 @@ public interface ApiService {
     @Headers("NoNeedAuthFlag: NoNeedAuthFlag")
     @POST("api/lebang/oauth/access_token")
     Flowable<HttpResponse<LoginResult>> goLoginByRxjavaFlowable(@Body LoginParams loginRequest);
+
 }
 

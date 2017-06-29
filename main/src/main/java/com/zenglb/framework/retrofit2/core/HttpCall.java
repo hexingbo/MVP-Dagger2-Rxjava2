@@ -5,6 +5,7 @@ import android.util.Log;
 
 import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import com.zenglb.baselib.sharedpreferences.SharedPreferencesDao;
+import com.zenglb.framework.base.MyApplication;
 import com.zenglb.framework.config.SPKey;
 import com.zenglb.framework.retrofit2.param.LoginParams;
 import com.zenglb.framework.retrofit2.result.LoginResult;
@@ -23,9 +24,13 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 /**
  * Http 请求配置和流程处理，部分Return 配置可以更加的简洁，为了试验，不简洁了
- * <p>
- * cleanToken&refresh 和业务有关，整个配置不超过200 行
- * <p>
+ *
+ *
+ * 1.问题
+ * .retryOnConnectionFailure(false)以及设置了header("Connection", "Keep-Alive")
+ * 是不是会导致http 请求 FAILED: java.io.IOException: unexpected end of stream on Connection
+ *
+ *
  * Created by Anylife.zlb@gmail.com on 2017/3/16.
  */
 public class HttpCall {
@@ -84,6 +89,8 @@ public class HttpCall {
 
                     Request authorisedRequest = originalRequest.newBuilder()
                             .header("Authorization", TOKEN)
+                            .header("Connection", "Keep-Alive") //新添加，time-out默认是多少呢？
+
                             .build();
 
                     Response originalResponse = chain.proceed(authorisedRequest);
@@ -93,7 +100,7 @@ public class HttpCall {
                 }
             };
 
-            HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY);
+            HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor();
             loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
 
             OkHttpClient okHttpClient = new OkHttpClient.Builder()
@@ -104,15 +111,14 @@ public class HttpCall {
                     .authenticator(mAuthenticator2)
                     .build();
 
-            Retrofit client = new Retrofit.Builder()
+            Retrofit retrofit = new Retrofit.Builder()
                     .baseUrl(baseUrl)
                     .client(okHttpClient)
                     .addConverterFactory(GsonConverterFactory.create())
                     .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                     .build();
 
-            apiService = client.create(ApiService.class);
-
+            apiService = retrofit.create(ApiService.class);
         }
         return apiService;
     }

@@ -25,16 +25,19 @@ import com.zenglb.framework.retrofit2.param.LoginParams;
 import com.zenglb.framework.retrofit2.result.LoginResult;
 import com.zenglb.framework.rxhttp.BaseObserver;
 
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * 1.修复Http请求时候Dialog 导致的内存泄漏
  * 2.练习共享元素动画
  * 3.修改LaunchMode 配置
- *
- *
- *
+ * <p>
+ * <p>
+ * <p>
  * 需要区分是从Launcher 跳转过来的还是 其他地方unOauth 导致跳转过来的
- *
- *
+ * <p>
+ * <p>
  * 1.登录的对话框在弹出键盘的时候希望能够向上移动
  * 2.内存占用实在是太多太多了，太多太多了！
  *
@@ -46,12 +49,12 @@ public class LoginActivity extends BaseActivity {
     private Button btGo;
     private CardView cv;
     private FloatingActionButton fab;
-    private boolean isFromLaunch=false;
+    private boolean isFromLaunch = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        isFromLaunch=getIntent().getBooleanExtra("isFromLaunch",false);
+        isFromLaunch = getIntent().getBooleanExtra("isFromLaunch", false);
         SharedPreferencesDao.getInstance().saveData(SPKey.KEY_ACCESS_TOKEN, "");
     }
 
@@ -72,7 +75,7 @@ public class LoginActivity extends BaseActivity {
         btGo.setOnClickListener(this);
         etUsername.setText(SharedPreferencesDao.getInstance().getData(SPKey.KEY_LAST_ACCOUNT, "", String.class));
 
-        etPassword.setText("zxcv1234");
+        etPassword.setText("qwer1234");
         etUsername.setText("18826562075");
     }
 
@@ -121,17 +124,15 @@ public class LoginActivity extends BaseActivity {
         SharedPreferencesDao.getInstance().saveData(SPKey.KEY_LAST_ACCOUNT, etUsername.getText().toString().trim());
         HttpCall.setToken(SharedPreferencesDao.getInstance().getData(SPKey.KEY_ACCESS_TOKEN, "", String.class));
 
-        if(isFromLaunch){
+        if (isFromLaunch) {
             Intent i2 = new Intent(LoginActivity.this, MainActivityBottomNavi.class);
             startActivity(i2);
             LoginActivity.this.finish();
-        }else {//是来自Launcher启动的就跳转到主页面，否则从哪里来就到那里去
+        } else {//是来自Launcher启动的就跳转到主页面，否则从哪里来就到那里去
             LoginActivity.this.finish();
         }
 
     }
-
-
 
 
     public void onClick(View view) {
@@ -181,6 +182,6 @@ public class LoginActivity extends BaseActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        Log.e("aaa","onResume"+this.toString());
+        Log.e("aaa", "onResume" + this.toString());
     }
 }

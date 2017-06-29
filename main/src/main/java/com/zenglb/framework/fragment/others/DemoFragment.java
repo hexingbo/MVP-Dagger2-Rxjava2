@@ -6,10 +6,12 @@ import android.os.Bundle;
 import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.util.Pair;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.zenglb.baselib.base.BaseActivity;
 import com.zenglb.baselib.utils.TransitionHelper;
@@ -18,7 +20,13 @@ import com.zenglb.framework.activity.animal.AnimalMainActivity;
 import com.zenglb.framework.activity.demo.DemoActivity;
 import com.zenglb.framework.activity.ndk.NDKActivity;
 import com.zenglb.framework.activity.retrofitTest.RetrofitTestActivity;
+import com.zenglb.framework.retrofit2.core.HttpCall;
+import com.zenglb.framework.retrofit2.result.CustomWeatherResult;
 import com.zenglb.framework.service.TestRxIntentService;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 /**
  * 喂,你睡着了吗（答题列表）
@@ -76,13 +84,29 @@ public class DemoFragment extends Fragment {
         });
 
         /**
-         * 练习一些j8与Android 结合的东西！
+         * 动态替换URL,参数照样的随意的使用啊。
+         *
          */
         rootView.findViewById(R.id.java8).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                String url="http://www.sojson.com/open/api/weather/json.shtml";
+                Call<CustomWeatherResult> news = HttpCall.getApiService().getWeather(url,"深圳");
+                //上面的实现是非常的精巧  http://www.jianshu.com/p/c1a3a881a144
 
-                ((BaseActivity) getActivity()).startActivity(RetrofitTestActivity.class);
+                news.enqueue(new Callback<CustomWeatherResult>() {
+                    @Override
+                    public void onResponse(Call<CustomWeatherResult> call, Response<CustomWeatherResult> response) {
+                        CustomWeatherResult customWeatherResult = response.body();
+                        Toast.makeText(getActivity(),"天气："+customWeatherResult.toString(),Toast.LENGTH_SHORT).show();
+                    }
+
+                    @Override
+                    public void onFailure(Call<CustomWeatherResult> call, Throwable t) {
+                        Toast.makeText(getActivity(),"失败："+call.toString()+"  异常："+t.toString(),Toast.LENGTH_SHORT).show();
+                    }
+                });
+
             }
         });
 

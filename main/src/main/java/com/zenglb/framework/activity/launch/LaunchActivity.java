@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.os.SystemClock;
 import android.telephony.TelephonyManager;
 import android.telephony.cdma.CdmaCellLocation;
 import android.telephony.gsm.GsmCellLocation;
@@ -67,6 +68,11 @@ public class LaunchActivity extends BaseActivity {
 
 //        Toast.makeText(this,NDKinterface.getAESDecrypt(NDKinterface.getAESEncrypt("如果不是乱码就是成功了")),
 //                Toast.LENGTH_LONG).show();     //测试加密解密是否有问题
+
+
+
+        //Account: zenglb@vanke.com  code:vankeApi
+
 
     }
 
