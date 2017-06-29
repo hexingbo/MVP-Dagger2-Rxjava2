@@ -24,6 +24,10 @@ import java.util.concurrent.Executor;
 
 import javax.annotation.Nullable;
 
+/**
+ * 注释掉了Java platform 的东西
+ *
+ */
 class Platform {
     private static final Platform PLATFORM = findPlatform();
 
