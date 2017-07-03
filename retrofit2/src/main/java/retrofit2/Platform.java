@@ -26,7 +26,6 @@ import javax.annotation.Nullable;
 
 /**
  * 注释掉了Java platform 的东西
- *
  */
 class Platform {
     private static final Platform PLATFORM = findPlatform();
@@ -43,7 +42,6 @@ class Platform {
             }
         } catch (ClassNotFoundException ignored) {
         }
-
 
 
 //    try {
@@ -79,7 +77,6 @@ class Platform {
 
     /**
      * java 8
-     *
      */
 //  @IgnoreJRERequirement // Only classloaded and used on Java 8.
 //  static class Java8 extends Platform {
@@ -99,7 +96,6 @@ class Platform {
 //          .invokeWithArguments(args);
 //    }
 //  }
-
 
 
     static class Android extends Platform {

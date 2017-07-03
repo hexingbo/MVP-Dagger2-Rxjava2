@@ -72,11 +72,13 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 @Target(PARAMETER)
 @Retention(RUNTIME)
 public @interface Query {
-  /** The query parameter name. */
-  String value();
+    /**
+     * The query parameter name.
+     */
+    String value();
 
-  /**
-   * Specifies whether the parameter {@linkplain #value() name} and value are already URL encoded.
-   */
-  boolean encoded() default false;
+    /**
+     * Specifies whether the parameter {@linkplain #value() name} and value are already URL encoded.
+     */
+    boolean encoded() default false;
 }
