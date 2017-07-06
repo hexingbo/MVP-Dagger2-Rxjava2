@@ -1,4 +1,4 @@
-package com.zenglb.framework.retrofit2.core;
+package com.zenglb.framework.retrofit.core;
 
 import android.app.Activity;
 import android.content.Context;
@@ -8,7 +8,7 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 
 import com.zenglb.framework.R;
-import com.zenglb.framework.retrofit2.utils.HttpDialogUtils;
+import com.zenglb.framework.retrofit.utils.HttpDialogUtils;
 
 /**
  * Created by zenglb on 2017/3/24.

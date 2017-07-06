@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.util.Pair;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,11 +16,10 @@ import com.zenglb.baselib.base.BaseActivity;
 import com.zenglb.baselib.utils.TransitionHelper;
 import com.zenglb.framework.R;
 import com.zenglb.framework.activity.animal.AnimalMainActivity;
-import com.zenglb.framework.activity.demo.DemoActivity;
+import com.zenglb.framework.activity.mvp.MVPActivity;
 import com.zenglb.framework.activity.ndk.NDKActivity;
-import com.zenglb.framework.activity.retrofitTest.RetrofitTestActivity;
-import com.zenglb.framework.retrofit2.core.HttpCall;
-import com.zenglb.framework.retrofit2.result.CustomWeatherResult;
+import com.zenglb.framework.retrofit.core.HttpCall;
+import com.zenglb.framework.retrofit.result.CustomWeatherResult;
 import com.zenglb.framework.service.TestRxIntentService;
 
 import retrofit2.Call;
@@ -125,6 +123,16 @@ public class DemoFragment extends Fragment {
             ((BaseActivity) getActivity()).startActivity(NDKActivity.class);
             TestRxIntentService.start(getActivity());
         });
+
+
+        /**
+         * mvp
+         */
+        rootView.findViewById(R.id.mvp).setOnClickListener(v -> {
+            ((BaseActivity) getActivity()).startActivity(MVPActivity.class);
+        });
+
+
     }
 
 

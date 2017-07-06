@@ -1,14 +1,13 @@
-package com.zenglb.framework.retrofit2.core;
+package com.zenglb.framework.retrofit.core;
 
 import android.text.TextUtils;
 import android.util.Log;
 
 import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import com.zenglb.baselib.sharedpreferences.SharedPreferencesDao;
-import com.zenglb.framework.base.MyApplication;
 import com.zenglb.framework.config.SPKey;
-import com.zenglb.framework.retrofit2.param.LoginParams;
-import com.zenglb.framework.retrofit2.result.LoginResult;
+import com.zenglb.framework.retrofit.param.LoginParams;
+import com.zenglb.framework.retrofit.result.LoginResult;
 import java.io.IOException;
 import java.util.concurrent.TimeUnit;
 import okhttp3.Authenticator;
@@ -39,12 +38,23 @@ public class HttpCall {
 //    private static final String baseUrl = "http://xxx.4009515151.com/";
 
     private static String TOKEN;
+
+    /**
+     * 下面apiService对象其实是一个动态代理对象，并不是一个真正的ApiService接口的implements产生的对象，
+     * 当apiService对象调用getXxxx方法时会被动态代理拦截，然后调用Proxy.newProxyInstance方法中的InvocationHandler对象，
+     * 它的invoke方法会传入3个参数：{@link Retrofit}
+     */
     private static ApiService apiService;
 
     public static void setToken(String token) {
         TOKEN = token;
     }
 
+    /**
+     * 每次都要invoke 这个方法不是很繁琐吗？
+     *
+     * @return
+     */
     public static ApiService getApiService() {
         if (apiService == null) {
             //处理没有认证  http 401 Not Authorised
@@ -90,7 +100,6 @@ public class HttpCall {
                     Request authorisedRequest = originalRequest.newBuilder()
                             .header("Authorization", TOKEN)
                             .header("Connection", "Keep-Alive") //新添加，time-out默认是多少呢？
-
                             .build();
 
                     Response originalResponse = chain.proceed(authorisedRequest);

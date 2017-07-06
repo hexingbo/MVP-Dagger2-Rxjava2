@@ -64,6 +64,12 @@ class Platform {
         return DefaultCallAdapterFactory.INSTANCE;
     }
 
+    /**
+     * 这个意义何在啊？
+     *
+     * @param method
+     * @return
+     */
     boolean isDefaultMethod(Method method) {
         return false;
     }

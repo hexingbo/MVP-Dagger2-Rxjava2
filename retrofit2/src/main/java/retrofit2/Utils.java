@@ -311,6 +311,12 @@ final class Utils {
         return ResponseBody.create(body.contentType(), body.contentLength(), buffer);
     }
 
+    /**
+     * 验证 invoke .create(ApiService.class) 中的ApiService 是一个接口，并且没有拓展其他的interfaces
+     *
+     * @param service
+     * @param <T>
+     */
     static <T> void validateServiceInterface(Class<T> service) {
         if (!service.isInterface()) {
             throw new IllegalArgumentException("API declarations must be interfaces.");

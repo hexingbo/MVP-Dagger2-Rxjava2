@@ -1,4 +1,4 @@
-package com.zenglb.framework.retrofit2.utils;
+package com.zenglb.framework.retrofit.utils;
 
 import android.content.Context;
 

@@ -23,9 +23,9 @@
     <application
         android:name=".base.MyApplication"
         android:allowBackup="true"
-        android:persistent="true"
         android:icon="@mipmap/ic_launcher"
         android:label="${APP_NAME}"
+        android:persistent="true"
         android:supportsRtl="true"
         android:theme="@style/MyAppTheme"
         tools:replace="android:theme">
@@ -42,19 +42,18 @@
             android:theme="@style/FullscreenTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity
-            android:name=".activity.access.LoginActivity"
+            android:name=".activity.access.OauthActivity"
             android:launchMode="singleInstance"
             android:theme="@style/FullscreenTheme">
             <intent-filter>
                 <action android:name="app.intent.action.LOGIN" />
             </intent-filter>
         </activity>
-
         <activity
             android:name=".activity.access.RegisterActivity"
             android:theme="@style/Translucent" />
@@ -88,14 +87,11 @@
         </activity>
         <activity android:name=".activity.ndk.NDKActivity" />
         <activity android:name="com.desmond.squarecamera.CameraActivity" />
-
         <activity
             android:name=".navigation.MainActivityBottomNavi"
             android:label="@string/title_activity_main_bottom_navi"
             android:launchMode="singleTask" />
-
         <activity android:name=".activity.animal.SharedElementActivity" />
-
         <activity android:name=".activity.demo.DemoActivity" />
 
         <provider
@@ -114,13 +110,11 @@
             android:exported="false" />
 
         <activity android:name=".activity.animal.AnimalMainActivity" />
-
         <activity
             android:name=".activity.retrofitTest.RetrofitTestActivity"
-            android:launchMode="singleTop">
-
-        </activity>
-
+            android:launchMode="singleTop" />
+        <activity android:name=".activity.mvp.MVPActivity" />
+        <activity android:name=".activity.PatternLock.PatternLockActivity"></activity>
     </application>
 
 </manifest>

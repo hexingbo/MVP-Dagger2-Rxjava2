@@ -17,6 +17,8 @@ import com.zenglb.framework.fragment.others.DemoFragment;
 import com.zenglb.framework.fragment.rxjava2.Rxjava2DemoFragment;
 
 /**
+ *
+ *
  * 本来挺好的，但是4/5 个bottom navi 的时候 不能定制样式啊，反射XX
  * Sadly, there isn't any way to force enable or disable this behaviour which may not work with every design.
  * It also doesn't allow populating the Bottom Navigation View with more than five items - as per the design spec
@@ -60,6 +62,16 @@ public class MainActivityBottomNavi extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setTitle("Main");
+    }
+
+    @Override
+    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
     }
 
     @Override

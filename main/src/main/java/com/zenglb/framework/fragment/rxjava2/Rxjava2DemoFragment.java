@@ -16,12 +16,12 @@ import com.zenglb.baselib.sharedpreferences.SharedPreferencesDao;
 import com.zenglb.framework.R;
 import com.zenglb.framework.activity.main.AreUSleepListAdapter;
 import com.zenglb.framework.config.SPKey;
-import com.zenglb.framework.retrofit2.core.HttpCall;
-import com.zenglb.framework.retrofit2.core.HttpResponse;
-import com.zenglb.framework.retrofit2.param.LoginParams;
-import com.zenglb.framework.retrofit2.result.JokesResult;
-import com.zenglb.framework.retrofit2.result.LoginResult;
-import com.zenglb.framework.retrofit2.result.StaffMsg;
+import com.zenglb.framework.retrofit.core.HttpCall;
+import com.zenglb.framework.retrofit.core.HttpResponse;
+import com.zenglb.framework.retrofit.param.LoginParams;
+import com.zenglb.framework.retrofit.result.JokesResult;
+import com.zenglb.framework.retrofit.result.LoginResult;
+import com.zenglb.framework.retrofit.result.StaffMsg;
 import com.zenglb.framework.rxhttp.BaseObserver;
 
 import java.util.ArrayList;

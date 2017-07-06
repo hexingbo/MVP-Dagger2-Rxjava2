@@ -5,7 +5,6 @@
       <module fileurl="file://$PROJECT_DIR$/AndroidAppFrameWork.iml" filepath="$PROJECT_DIR$/AndroidAppFrameWork.iml" />
       <module fileurl="file://$PROJECT_DIR$/baseLib/baseLib.iml" filepath="$PROJECT_DIR$/baseLib/baseLib.iml" />
       <module fileurl="file://$PROJECT_DIR$/main/main.iml" filepath="$PROJECT_DIR$/main/main.iml" />
-      <module fileurl="file://$PROJECT_DIR$/retrofit2/retrofit2.iml" filepath="$PROJECT_DIR$/retrofit2/retrofit2.iml" />
       <module fileurl="file://$PROJECT_DIR$/settingViewLib/settingViewLib.iml" filepath="$PROJECT_DIR$/settingViewLib/settingViewLib.iml" />
     </modules>
   </component>

@@ -11,7 +11,7 @@
 # 关于Http网络请求 (Rxjava2+Retrofit2)
   应该没有比Retrofit2 更好的了吧？不过api 不是restful 就需要再封装一下了，网路模块就是数据命脉，做好了
   整个app 的结构会简化很多，结合Rxjava2不是更快哉;配合RxLifeCycle 控制生命周期;
-  BaseObserver 中getErrorMsg(HttpException httpException) 方法中的处理和我们的Api 结构有关，请知悉。
+  BaseObserver 中getErrorMsg(HttpException httpException) 方法中的处理和我们的Api  结构有关，请知悉。可以在Activity，fragment，service，broadcast 等发起http请求。
 
 
 # 关于JSBridge 和 Webview 中的拍照问题
@@ -83,8 +83,13 @@
   显然对于修复紧急BUG这个场景，阿里百川HotFix的更为合适，它更加轻量，可以在不重启的情况下生效，且对性能几乎没有影
   微信Tinker、QQ空间超级补丁技术更多地把场景定位在发布小的新功能上，采用ClassLoader的模式，牺牲较高的性能代价去实现 类、资源新增或替换的功能。阿里百川HotFix对应用本身做到无侵入，无性能损耗。
 
+ [2017年6月阿里手淘推出了首个非侵入式移动热更新解决方案——Sophix。在Android热修复的三大领域：代码修复、资源修复、SO修复方面，以及方案的安全性和易用性方面，Sophix都做到了业界领先，期待开源](https://mp.weixin.qq.com/s?__biz=MzAxMTI4MTkwNQ==&mid=2650823404&idx=1&sn=c56458a97561f54b893b33a80635d399&chksm=80b78e72b7c00764b26972bd21cd3e4fe5bb075a8d80890340b2a7a0a565779add0757b161e8&mpshare=1&scene=1&srcid=0704C7XraNsOGvDsgN9bCNii&pass_ticket=AZhM9mvZM8BzU28oFsdChz0QSuCBcgFEhhet1%2FD2hXnrM%2FSkdWA5TsZ06l%2F%2Fhbwm#rd)
+
 # Rxjava2
   目前只是在http 请求的时候用了Rxjava2+retrofit2,没有侵入UI，打好基础才是王道
+  读取数据库等IO操作还在主线程，虽然影响不大，还是会卡一下的，坐等GreenDao 支持Rxjava2
+  这样UI就会更加的流畅起来啊
+
   https://realm.io/cn/news/kau-felipe-lima-adopting-rxjava-airbnb-android/
 
 # 项目中包含的基本的通用模块

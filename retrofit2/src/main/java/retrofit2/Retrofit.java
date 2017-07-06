@@ -134,6 +134,11 @@ public final class Retrofit {
         if (validateEagerly) {
             eagerlyValidateMethods(service);
         }
+        /**
+         *
+         *
+         *
+         */
         return (T) Proxy.newProxyInstance(service.getClassLoader(), new Class<?>[]{service},
                 new InvocationHandler() {
                     private final Platform platform = Platform.get();
@@ -156,6 +161,9 @@ public final class Retrofit {
                 });
     }
 
+    /**
+     * @param service
+     */
     private void eagerlyValidateMethods(Class<?> service) {
         Platform platform = Platform.get();
         for (Method method : service.getDeclaredMethods()) {

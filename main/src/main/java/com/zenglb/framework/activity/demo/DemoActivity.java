@@ -22,10 +22,10 @@ import com.zenglb.baselib.base.BaseActivity;
 import com.zenglb.baselib.jsbridge.JSBridge;
 import com.zenglb.framework.R;
 import com.zenglb.framework.activity.java8test.myFunc;
-import com.zenglb.framework.retrofit2.core.HttpCall;
-import com.zenglb.framework.retrofit2.core.HttpCallBack;
-import com.zenglb.framework.retrofit2.core.HttpResponse;
-import com.zenglb.framework.retrofit2.result.ModulesResult;
+import com.zenglb.framework.retrofit.core.HttpCall;
+import com.zenglb.framework.retrofit.core.HttpCallBack;
+import com.zenglb.framework.retrofit.core.HttpResponse;
+import com.zenglb.framework.retrofit.result.ModulesResult;
 
 import retrofit2.Call;
 

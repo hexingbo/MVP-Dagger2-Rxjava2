@@ -6,8 +6,8 @@ import android.widget.TextView;
 import com.zenglb.baselib.base.BaseActivity;
 import com.zenglb.baselib.rxUtils.RxObservableUtils;
 import com.zenglb.framework.R;
-import com.zenglb.framework.retrofit2.core.HttpCall;
-import com.zenglb.framework.retrofit2.result.JokesResult;
+import com.zenglb.framework.retrofit.core.HttpCall;
+import com.zenglb.framework.retrofit.result.JokesResult;
 import com.zenglb.framework.rxhttp.BaseObserver;
 
 import java.util.List;

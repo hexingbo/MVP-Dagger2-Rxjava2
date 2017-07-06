@@ -20,13 +20,10 @@ import com.zenglb.baselib.sharedpreferences.SharedPreferencesDao;
 import com.zenglb.framework.R;
 import com.zenglb.framework.config.SPKey;
 import com.zenglb.framework.navigation.MainActivityBottomNavi;
-import com.zenglb.framework.retrofit2.core.HttpCall;
-import com.zenglb.framework.retrofit2.param.LoginParams;
-import com.zenglb.framework.retrofit2.result.LoginResult;
+import com.zenglb.framework.retrofit.core.HttpCall;
+import com.zenglb.framework.retrofit.param.LoginParams;
+import com.zenglb.framework.retrofit.result.LoginResult;
 import com.zenglb.framework.rxhttp.BaseObserver;
-
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * 1.修复Http请求时候Dialog 导致的内存泄漏
@@ -43,7 +40,7 @@ import java.util.Map;
  *
  * @author zenglb
  */
-public class LoginActivity extends BaseActivity {
+public class OauthActivity extends BaseActivity {
     private EditText etUsername;
     private EditText etPassword;
     private Button btGo;
@@ -98,6 +95,7 @@ public class LoginActivity extends BaseActivity {
         loginParams.setClient_id("5e96eac06151d0ce2dd9554d7ee167ce");
         loginParams.setClient_secret("aCE34n89Y277n3829S7PcMN8qANF8Fh");
         loginParams.setGrant_type("password");
+
         loginParams.setUsername(userName);
         loginParams.setPassword(password);
 
@@ -125,11 +123,11 @@ public class LoginActivity extends BaseActivity {
         HttpCall.setToken(SharedPreferencesDao.getInstance().getData(SPKey.KEY_ACCESS_TOKEN, "", String.class));
 
         if (isFromLaunch) {
-            Intent i2 = new Intent(LoginActivity.this, MainActivityBottomNavi.class);
+            Intent i2 = new Intent(OauthActivity.this, MainActivityBottomNavi.class);
             startActivity(i2);
-            LoginActivity.this.finish();
+            OauthActivity.this.finish();
         } else {//是来自Launcher启动的就跳转到主页面，否则从哪里来就到那里去
-            LoginActivity.this.finish();
+            OauthActivity.this.finish();
         }
 
     }

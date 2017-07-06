@@ -3,6 +3,7 @@ package com.zenglb.framework.activity.main;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v4.util.Pair;
 import android.support.v7.widget.RecyclerView;
@@ -23,15 +24,17 @@ import com.zenglb.baselib.utils.TransitionHelper;
 import com.zenglb.framework.R;
 import com.zenglb.framework.activity.animal.SharedElementActivity;
 import com.zenglb.framework.base.MyApplication;
-import com.zenglb.framework.retrofit2.core.HttpCall;
-import com.zenglb.framework.retrofit2.result.JokesResult;
+import com.zenglb.framework.retrofit.core.HttpCall;
+import com.zenglb.framework.retrofit.result.JokesResult;
 import com.zenglb.framework.rxhttp.BaseObserver;
 
 import java.util.ArrayList;
 import java.util.List;
 
 /**
- * 懒加载太乱了，使用Rxjava 改造一下
+ * 懒加载
+ * 数据状态恢复
+ *
  *
  * @author zenglb 2016.10.24
  */
@@ -44,7 +47,27 @@ public class AreUSleepFragmentList extends BaseFragment {
     private SpringView springView;
     private RecyclerView mRecyclerView = null;
     private AreUSleepListAdapter areUSleepListAdapter;
-    private List<JokesResult> data = new ArrayList<>();
+    private ArrayList<JokesResult> data = new ArrayList<>();
+
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        Log.e(TAG,"onSaveInstanceState");
+        super.onSaveInstanceState(outState);
+        outState.putParcelableArrayList("dataArray",data);
+    }
+
+    @Override
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        if(savedInstanceState!=null&&savedInstanceState.containsKey("dataArray")){
+            Log.e(TAG,"onActivityCreated:      "+savedInstanceState.getParcelableArrayList("dataArray").toString());
+        }else{
+            Log.e(TAG,"onActivityCreated ");
+        }
+
+    }
+
 
     public AreUSleepFragmentList() {
         // Required empty public constructor
@@ -68,13 +91,19 @@ public class AreUSleepFragmentList extends BaseFragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Log.e(TAG,"onCreate");
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
+        }else {
+            setArguments(new Bundle());
         }
     }
 
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        Log.e(TAG,"onCreateView");
+
         View rootView = inflater.inflate(R.layout.fragment_are_usleep, container, false);
         viewsInit(rootView);
         return rootView;
@@ -88,6 +117,8 @@ public class AreUSleepFragmentList extends BaseFragment {
      */
     @Override
     protected void lazyLoadData(boolean isForceLoad) {
+        Log.e(TAG,"lazyLoadData         "+"visibleTime: "+visibleTime+"     isViewsInit: "+isViewsInit);
+
         if (isViewsInit && visibleTime < 1) {
             Log.e(TAG, "视图已经初始化完毕了，虽然不去加载网络数据，但是可以加载一下本地持久化的缓存数据啊！");
         }
@@ -98,8 +129,14 @@ public class AreUSleepFragmentList extends BaseFragment {
                 Log.e(TAG, "前面的支付页面支付9.9，那么这里显示的剩余金额必然变动了，敏感数据，要实时刷新");
             }
             if (visibleTime == 1) { //这里也不是每次可见的时候都能刷新，只有第一次可见的时候或者数据加载从来没有成功 才调用刷新
-                springView.callFresh();
-                Toast.makeText(mActivity.getApplicationContext(), "第一次可见", Toast.LENGTH_SHORT).show();
+//                new Handler().postDelayed(new Runnable() {
+//                    @Override
+//                    public void run() {
+//                        springView.callFresh();
+//                    }
+//                }, 500);
+                new Handler().postDelayed(() -> springView.callFresh(), 500);
+
             }
         }
     }
@@ -163,6 +200,7 @@ public class AreUSleepFragmentList extends BaseFragment {
         springView.setListener(new SpringView.OnFreshListener() {
             @Override
             public void onRefresh() {
+                Log.e(TAG,"onRefresh data");
                 page = 1;
                 getHttpData(mParam1, page);
             }
@@ -174,12 +212,7 @@ public class AreUSleepFragmentList extends BaseFragment {
         });
 
         mEmptyTipsTxt = (TextView) rootView.findViewById(R.id.tips_txt);
-        mEmptyTipsTxt.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                springView.callFresh();
-            }
-        });
+        mEmptyTipsTxt.setOnClickListener(view -> springView.callFresh());
 
         springView.setHeader(new DefaultHeader(getActivity()));
         springView.setFooter(new DefaultFooter(getActivity()));
@@ -234,9 +267,7 @@ public class AreUSleepFragmentList extends BaseFragment {
         } else {
             mEmptyTipsTxt.setVisibility(View.GONE);
         }
-
     }
-
 
     @Override
     public void onAttach(Context context) {
@@ -251,8 +282,6 @@ public class AreUSleepFragmentList extends BaseFragment {
     @Override
     public void onResume() {
         super.onResume();
-
-
     }
 
     @Override
@@ -268,6 +297,8 @@ public class AreUSleepFragmentList extends BaseFragment {
     @Override
     public void onDestroy() {
         super.onDestroy();
+        Log.e(TAG, "onDestroy");
+
         RefWatcher refWatcher = MyApplication.getRefWatcher(getActivity());
         refWatcher.watch(this);
     }

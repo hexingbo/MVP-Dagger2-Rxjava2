@@ -1,4 +1,4 @@
-package com.zenglb.framework.retrofit2.result;
+package com.zenglb.framework.retrofit.result;
 
 import java.util.List;
 

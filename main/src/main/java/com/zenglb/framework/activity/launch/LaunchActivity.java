@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.os.SystemClock;
 import android.telephony.TelephonyManager;
 import android.telephony.cdma.CdmaCellLocation;
 import android.telephony.gsm.GsmCellLocation;
@@ -15,9 +14,9 @@ import android.widget.Toast;
 import com.zenglb.baselib.base.BaseActivity;
 import com.zenglb.baselib.sharedpreferences.SharedPreferencesDao;
 import com.zenglb.framework.R;
-import com.zenglb.framework.activity.access.LoginActivity;
+import com.zenglb.framework.activity.PatternLock.PatternLockActivity;
+import com.zenglb.framework.activity.access.OauthActivity;
 import com.zenglb.framework.config.SPKey;
-import com.zenglb.framework.navigation.MainActivityBottomNavi;
 
 
 /**
@@ -33,12 +32,14 @@ public class LaunchActivity extends BaseActivity {
                     if (TextUtils.isEmpty(accessToken)) {
                         Intent i1 = new Intent();
                         i1.putExtra("isFromLaunch", true);
-                        i1.setClass(LaunchActivity.this, LoginActivity.class);
+                        i1.setClass(LaunchActivity.this, OauthActivity.class);
                         startActivity(i1);
                         LaunchActivity.this.finish();
                     } else {
                         Intent i1 = new Intent();
-                        i1.setClass(LaunchActivity.this, MainActivityBottomNavi.class);
+//                        i1.setClass(LaunchActivity.this, MainActivityBottomNavi.class);
+                        i1.setClass(LaunchActivity.this, PatternLockActivity.class);
+
                         startActivity(i1);
                         LaunchActivity.this.finish();
                     }

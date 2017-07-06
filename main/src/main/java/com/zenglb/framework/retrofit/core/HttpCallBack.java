@@ -1,4 +1,4 @@
-package com.zenglb.framework.retrofit2.core;
+package com.zenglb.framework.retrofit.core;
 
 import android.content.Context;
 import android.content.Intent;
@@ -8,7 +8,7 @@ import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.zenglb.baselib.utils.TextUtils;
-import com.zenglb.framework.activity.access.LoginActivity;
+import com.zenglb.framework.activity.access.OauthActivity;
 
 import java.io.IOException;
 import java.net.ConnectException;
@@ -161,7 +161,7 @@ public abstract class HttpCallBack<T> implements Callback<HttpResponse<T>> {
             case 401:
                 //退回到登录页面
                 Intent intent = new Intent();
-                intent.setClass(mContext, LoginActivity.class);
+                intent.setClass(mContext, OauthActivity.class);
                 mContext.startActivity(intent);
                 break;
         }
