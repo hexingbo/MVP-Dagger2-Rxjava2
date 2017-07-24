@@ -17,6 +17,7 @@ import com.zenglb.framework.R;
 import com.zenglb.framework.activity.PatternLock.PatternLockActivity;
 import com.zenglb.framework.activity.access.OauthActivity;
 import com.zenglb.framework.config.SPKey;
+import com.zenglb.framework.navigation.MainActivityBottomNavi;
 
 
 /**
@@ -37,8 +38,8 @@ public class LaunchActivity extends BaseActivity {
                         LaunchActivity.this.finish();
                     } else {
                         Intent i1 = new Intent();
-//                        i1.setClass(LaunchActivity.this, MainActivityBottomNavi.class);
-                        i1.setClass(LaunchActivity.this, PatternLockActivity.class);
+                        i1.setClass(LaunchActivity.this, MainActivityBottomNavi.class);
+//                        i1.setClass(LaunchActivity.this, PatternLockActivity.class);
 
                         startActivity(i1);
                         LaunchActivity.this.finish();

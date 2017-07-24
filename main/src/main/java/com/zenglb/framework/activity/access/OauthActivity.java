@@ -72,7 +72,7 @@ public class OauthActivity extends BaseActivity {
         btGo.setOnClickListener(this);
         etUsername.setText(SharedPreferencesDao.getInstance().getData(SPKey.KEY_LAST_ACCOUNT, "", String.class));
 
-        etPassword.setText("qwer1234");
+        etPassword.setText("zxcv1234");
         etUsername.setText("18826562075");
     }
 
