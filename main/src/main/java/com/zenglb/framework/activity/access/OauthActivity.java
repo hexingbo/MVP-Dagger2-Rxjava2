@@ -15,15 +15,20 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.zenglb.baselib.base.BaseActivity;
-import com.zenglb.baselib.rxUtils.RxObservableUtils;
+import com.zenglb.baselib.rxUtils.SwitchSchedulers;
 import com.zenglb.baselib.sharedpreferences.SharedPreferencesDao;
 import com.zenglb.framework.R;
 import com.zenglb.framework.config.SPKey;
 import com.zenglb.framework.navigation.MainActivityBottomNavi;
 import com.zenglb.framework.retrofit.core.HttpCall;
+import com.zenglb.framework.retrofit.core.HttpResponse;
 import com.zenglb.framework.retrofit.param.LoginParams;
 import com.zenglb.framework.retrofit.result.LoginResult;
 import com.zenglb.framework.rxhttp.BaseObserver;
+
+import io.reactivex.ObservableSource;
+import io.reactivex.annotations.NonNull;
+import io.reactivex.functions.Function;
 
 /**
  * 1.修复Http请求时候Dialog 导致的内存泄漏
@@ -99,9 +104,15 @@ public class OauthActivity extends BaseActivity {
         loginParams.setUsername(userName);
         loginParams.setPassword(password);
 
+
+        /**
+         * 1.两个compose 能否合并起来，或者重写一个操作符
+         * 2.这里HttpCall 不能在MVP 模式下很好的使用啊
+         *
+         */
         HttpCall.getApiService().goLoginByRxjavaObserver(loginParams)
-                .compose(RxObservableUtils.applySchedulers())
-                .compose(bindToLifecycle()) //两个compose 能否合并起来，或者重写一个操作符
+                .compose(SwitchSchedulers.toMainThread())
+                .compose(bindToLifecycle())
                 .subscribe(new BaseObserver<LoginResult>(mContext) {
                     @Override
                     public void onSuccess(LoginResult loginResult) {

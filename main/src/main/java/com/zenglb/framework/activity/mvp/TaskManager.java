@@ -2,7 +2,7 @@ package com.zenglb.framework.activity.mvp;
 
 import android.util.Log;
 
-import com.zenglb.baselib.rxUtils.RxObservableUtils;
+import com.zenglb.baselib.rxUtils.SwitchSchedulers;
 import com.zenglb.framework.retrofit.core.HttpCall;
 import com.zenglb.framework.retrofit.result.JokesResult;
 import com.zenglb.framework.rxhttp.BaseObserver;
@@ -31,7 +31,7 @@ public class TaskManager {
      */
     public void getHttpData(String mParam1, int page) {
         HttpCall.getApiService().getAreuSleepByObserver(mParam1, page)
-                .compose(RxObservableUtils.applySchedulers())
+                .compose(SwitchSchedulers.applySchedulers())
                 .subscribe(new BaseObserver<List<JokesResult>>(null) {
                     @Override
                     public void onSuccess(List<JokesResult> jokesResults) {

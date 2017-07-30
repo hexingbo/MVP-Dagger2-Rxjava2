@@ -7,7 +7,6 @@ import android.util.Log;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
-import com.jakewharton.retrofit2.adapter.rxjava2.HttpException;
 import com.zenglb.baselib.utils.TextUtils;
 import com.zenglb.framework.activity.access.OauthActivity;
 import com.zenglb.framework.retrofit.core.HttpResponse;
@@ -20,6 +19,7 @@ import java.net.UnknownHostException;
 import java.net.UnknownServiceException;
 
 import io.reactivex.subscribers.DisposableSubscriber;
+import retrofit2.HttpException;
 
 
 /**

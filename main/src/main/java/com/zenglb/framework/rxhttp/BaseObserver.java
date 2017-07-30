@@ -7,7 +7,6 @@ import android.util.Log;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
-import com.jakewharton.retrofit2.adapter.rxjava2.HttpException;
 import com.zenglb.baselib.utils.TextUtils;
 import com.zenglb.framework.activity.access.OauthActivity;
 import com.zenglb.framework.retrofit.core.HttpResponse;
@@ -21,6 +20,7 @@ import java.net.UnknownServiceException;
 
 import io.reactivex.Observer;
 import io.reactivex.disposables.Disposable;
+import retrofit2.HttpException;
 
 /**
  * Base Observer 的封装处理,对Rxjava 不熟悉，暂时先这样吧。实际的使用还不是很明白
@@ -31,6 +31,8 @@ import io.reactivex.disposables.Disposable;
  */
 public abstract class BaseObserver<T> implements Observer<HttpResponse<T>> {
     private final String TAG = BaseObserver.class.getSimpleName();
+    public final static String Thread_Main="main";
+
     private final int RESPONSE_CODE_OK = 0;       //自定义的业务逻辑，成功返回积极数据
     private final int RESPONSE_FATAL_EOR = -1;  //返回数据失败,严重的错误
 
@@ -39,6 +41,9 @@ public abstract class BaseObserver<T> implements Observer<HttpResponse<T>> {
 
     private int errorCode = -1111;
     private String errorMsg = "未知的错误！";
+
+
+    private Disposable disposable;
 
     /**
      * 根据具体的Api 业务逻辑去重写 onSuccess 方法！Error 是选择重写，but 必须Super ！
@@ -69,17 +74,24 @@ public abstract class BaseObserver<T> implements Observer<HttpResponse<T>> {
 
     @Override
     public final void onSubscribe(Disposable d) {
-        //dddddddddddddddddddd
+//        d.dispose(); //disable() 将会使得订阅关系断开，不再接收到事件,使用Rxlife 后不断开也行吧，开销是什么？
+        disposable=d;
     }
 
     @Override
     public final void onNext(HttpResponse<T> response) {
         HttpUiTips.dismissDialog(mContext);
+
+        if(!disposable.isDisposed()){
+            disposable.dispose();
+        }
+
         if (response.getCode() == RESPONSE_CODE_OK) {
             onSuccess(response.getResult());
         } else {
             onFailure(response.getCode(), response.getError());
         }
+
     }
 
     @Override
@@ -117,6 +129,8 @@ public abstract class BaseObserver<T> implements Observer<HttpResponse<T>> {
      */
     @Override
     public final void onComplete() {
+
+
 //        HttpUiTips.dismissDialog(mContext);
     }
 
@@ -155,9 +169,11 @@ public abstract class BaseObserver<T> implements Observer<HttpResponse<T>> {
                 }
                 break;
         }
-        if (mContext != null) {
+
+        if (mContext != null&& Thread.currentThread().getName().toString().equals(Thread_Main)) {
             Toast.makeText(mContext, message + "   code=" + code, Toast.LENGTH_SHORT).show();
         }
+
     }
 
 
@@ -169,7 +185,7 @@ public abstract class BaseObserver<T> implements Observer<HttpResponse<T>> {
      */
     private final void getErrorMsg(HttpException httpException) {
         String errorBodyStr = "";
-        try {   //我们的项目需要的UniCode转码，不是必须要的！
+        try {      //我们的项目需要的UniCode转码，不是必须要的！
             errorBodyStr = TextUtils.convertUnicode(httpException.response().errorBody().string());
         } catch (IOException ioe) {
             Log.e("errorBodyStr ioe:", ioe.toString());

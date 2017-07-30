@@ -8,7 +8,7 @@ import android.util.Log;
 import com.zenglb.framework.retrofit.core.HttpCall;
 import com.zenglb.framework.retrofit.result.JokesResult;
 import com.zenglb.framework.rxhttp.BaseObserver;
-import com.zenglb.baselib.rxUtils.RxObservableUtils;
+import com.zenglb.baselib.rxUtils.SwitchSchedulers;
 
 import java.util.List;
 
@@ -32,7 +32,7 @@ public class TestRxIntentService extends IntentService {
         if (intent != null) {
 
             HttpCall.getApiService().getJokes("expired", 1)
-                    .compose(RxObservableUtils.applySchedulers())
+                    .compose(SwitchSchedulers.applySchedulers())
                     .subscribe(new BaseObserver<List<JokesResult>>(null,false){
                         @Override
                         public void onSuccess(List<JokesResult> areuSleepResults) {

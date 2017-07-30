@@ -11,7 +11,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.zenglb.baselib.base.BaseFragment;
-import com.zenglb.baselib.rxUtils.RxObservableUtils;
+import com.zenglb.baselib.rxUtils.SwitchSchedulers;
 import com.zenglb.baselib.sharedpreferences.SharedPreferencesDao;
 import com.zenglb.framework.R;
 import com.zenglb.framework.activity.main.AreUSleepListAdapter;
@@ -89,7 +89,7 @@ public class Rxjava2DemoFragment extends BaseFragment {
      */
     private void getJokes() {
         HttpCall.getApiService().getJokes("expired", 1)
-                .compose(RxObservableUtils.applySchedulers())
+                .compose(SwitchSchedulers.applySchedulers())
                 .subscribe(new BaseObserver<List<JokesResult>>(null, false) {
                     @Override
                     public void onSuccess(List<JokesResult> areuSleepResults) {
@@ -119,7 +119,7 @@ public class Rxjava2DemoFragment extends BaseFragment {
         loginParams.setPassword("zxcv1234");
 
         HttpCall.getApiService().goLoginByRxjavaObserver(loginParams)
-                .compose(RxObservableUtils.applySchedulers())
+                .compose(SwitchSchedulers.applySchedulers())
                 .compose(bindToLifecycle())
                 .doOnNext(loginResult -> {
                     if (loginResult.isSuccess()) {

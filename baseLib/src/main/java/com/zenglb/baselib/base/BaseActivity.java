@@ -7,10 +7,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 
 import com.trello.rxlifecycle2.components.support.RxAppCompatActivity;
-import com.zenglb.baselib.rxUtils.RxObservableUtils;
 import com.zenglb.commonlib.R;
-
-import io.reactivex.Observable;
 
 /**
  * 基类就只做基类的事情,不要把业务层面的代码写到这里来 ！！

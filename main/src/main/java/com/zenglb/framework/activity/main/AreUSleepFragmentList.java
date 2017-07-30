@@ -19,7 +19,7 @@ import com.liaoinstan.springview.container.DefaultHeader;
 import com.liaoinstan.springview.widget.SpringView;
 import com.squareup.leakcanary.RefWatcher;
 import com.zenglb.baselib.base.BaseFragment;
-import com.zenglb.baselib.rxUtils.RxObservableUtils;
+import com.zenglb.baselib.rxUtils.SwitchSchedulers;
 import com.zenglb.baselib.utils.TransitionHelper;
 import com.zenglb.framework.R;
 import com.zenglb.framework.activity.animal.SharedElementActivity;
@@ -226,7 +226,7 @@ public class AreUSleepFragmentList extends BaseFragment {
      */
     private void getHttpData(String mParam1, int page) {
         HttpCall.getApiService().getAreuSleepByObserver(mParam1, page)
-                .compose(RxObservableUtils.applySchedulers())
+                .compose(SwitchSchedulers.applySchedulers())
                 .compose(bindToLifecycle()) //两个compose 能否合并起来，或者重写一个操作符
                 .subscribe(new BaseObserver<List<JokesResult>>(getActivity(), false) {
                     @Override

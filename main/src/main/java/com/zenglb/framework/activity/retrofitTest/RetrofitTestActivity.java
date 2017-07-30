@@ -4,7 +4,7 @@ import android.os.Bundle;
 import android.widget.TextView;
 
 import com.zenglb.baselib.base.BaseActivity;
-import com.zenglb.baselib.rxUtils.RxObservableUtils;
+import com.zenglb.baselib.rxUtils.SwitchSchedulers;
 import com.zenglb.framework.R;
 import com.zenglb.framework.retrofit.core.HttpCall;
 import com.zenglb.framework.retrofit.result.JokesResult;
@@ -29,7 +29,7 @@ public class RetrofitTestActivity extends BaseActivity {
      */
     private void getHttpData(String mParam1, int page) {
         HttpCall.getApiService().getAreuSleepByObserver(mParam1, page)
-                .compose(RxObservableUtils.applySchedulers())
+                .compose(SwitchSchedulers.applySchedulers())
                 .compose(bindToLifecycle()) //两个compose 能否合并起来，或者重写一个操作符
                 .subscribe(new BaseObserver<List<JokesResult>>(mContext) {
                     @Override

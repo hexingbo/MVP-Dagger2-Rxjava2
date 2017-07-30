@@ -8,7 +8,6 @@ import android.util.Log;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
-import com.jakewharton.retrofit2.adapter.rxjava2.HttpException;
 import com.zenglb.baselib.utils.TextUtils;
 import com.zenglb.framework.activity.access.OauthActivity;
 import com.zenglb.framework.retrofit.core.HttpResponse;
@@ -22,11 +21,9 @@ import java.net.UnknownServiceException;
 
 import io.reactivex.Observer;
 import io.reactivex.disposables.Disposable;
+import retrofit2.HttpException;
 
 /**
- * 结合Java 8 的新特性进行一些修改测试
- * lambda
- *
  *
  * Created by zenglb on 2017/5/4.
  */

@@ -9,6 +9,7 @@ import android.support.v7.app.AlertDialog;
 
 import com.zenglb.framework.R;
 import com.zenglb.framework.retrofit.utils.HttpDialogUtils;
+import com.zenglb.framework.rxhttp.BaseObserver;
 
 /**
  * Created by zenglb on 2017/3/24.
@@ -18,6 +19,10 @@ public class HttpUiTips {
      * http 请求遇阻提示，比如没有网络不提示，再重试也无用
      */
     public static void alertTip(Context mContext, String message, int code) {
+        if(!Thread.currentThread().getName().toString().equals(BaseObserver.Thread_Main)){
+            return;
+        }
+
         //// TODO: 2017/3/14 这里的提示框需要做成单例的,连续弹出来烦死了
         AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
         builder.setTitle("获取数据失败");

@@ -2,7 +2,7 @@ package com.zenglb.framework.activity.mvp;
 
 import android.util.Log;
 
-import com.zenglb.baselib.rxUtils.RxObservableUtils;
+import com.zenglb.baselib.rxUtils.SwitchSchedulers;
 import com.zenglb.framework.retrofit.core.HttpCall;
 import com.zenglb.framework.retrofit.result.JokesResult;
 import com.zenglb.framework.rxhttp.BaseObserver;
@@ -58,7 +58,7 @@ public class MainPresenter {
     public void getRefreshData(String mParam1, int page) {
 
         HttpCall.getApiService().getAreuSleepByObserver(mParam1, page)
-                .compose(RxObservableUtils.applySchedulers())
+                .compose(SwitchSchedulers.applySchedulers())
 //                .compose(bindToLifecycle()) //两个compose 能否合并起来，或者重写一个操作符
                 .subscribe(new BaseObserver<List<JokesResult>>(null) {
                     @Override

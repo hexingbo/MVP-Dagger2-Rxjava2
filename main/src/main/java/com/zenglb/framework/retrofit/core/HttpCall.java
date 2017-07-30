@@ -3,7 +3,6 @@ package com.zenglb.framework.retrofit.core;
 import android.text.TextUtils;
 import android.util.Log;
 
-import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import com.zenglb.baselib.sharedpreferences.SharedPreferencesDao;
 import com.zenglb.framework.config.SPKey;
 import com.zenglb.framework.retrofit.param.LoginParams;
@@ -11,6 +10,7 @@ import com.zenglb.framework.retrofit.result.LoginResult;
 import java.io.IOException;
 import java.util.concurrent.TimeUnit;
 import okhttp3.Authenticator;
+import okhttp3.ConnectionPool;
 import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -19,6 +19,7 @@ import okhttp3.Route;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Call;
 import retrofit2.Retrofit;
+import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 /**
@@ -34,7 +35,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
  */
 public class HttpCall {
     private static final String TAG = HttpCall.class.getSimpleName();
-    private static final String baseUrl = "http://test.4009515151.com/";
+    private static final String baseUrl = "http://test.4009515151.com/";  // WARMING-just for test !
 //    private static final String baseUrl = "http://xxx.4009515151.com/";
 
     private static String TOKEN;
@@ -106,6 +107,8 @@ public class HttpCall {
                     return originalResponse.newBuilder()
 //                            .body(new ProgressResponseBody(originalResponse.body(), progressListener))
                             .build();
+
+
                 }
             };
 
@@ -115,6 +118,7 @@ public class HttpCall {
             OkHttpClient okHttpClient = new OkHttpClient.Builder()
                     .retryOnConnectionFailure(true)
                     .connectTimeout(11, TimeUnit.SECONDS)
+//                    .connectionPool(new ConnectionPool(8, 15, TimeUnit.SECONDS))
                     .addNetworkInterceptor(mRequestInterceptor)
                     .addInterceptor(loggingInterceptor)
                     .authenticator(mAuthenticator2)
@@ -127,42 +131,12 @@ public class HttpCall {
                     .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                     .build();
 
+
             apiService = retrofit.create(ApiService.class);
         }
         return apiService;
     }
 
-
-    /**
-     * uese refresh token to Refresh an Access Token
-     * 不是必须这样
-     */
-    private static void refreshToken() {
-        if (TextUtils.isEmpty(SharedPreferencesDao.getInstance().getData(SPKey.KEY_REFRESH_TOKEN, "", String.class))) {
-            return;
-        }
-
-        LoginParams loginParams = new LoginParams();
-        loginParams.setClient_id("5e96eac06151d0ce2dd9554d7ee167ce");
-        loginParams.setClient_secret("aCE34n89Y277n3829S7PcMN8qANF8Fh");
-        loginParams.setGrant_type("refresh_token");
-        loginParams.setRefresh_token(SharedPreferencesDao.getInstance().getData(SPKey.KEY_REFRESH_TOKEN, "", String.class));
-
-        Call<HttpResponse<LoginResult>> refreshTokenCall = HttpCall.getApiService().refreshToken(loginParams);
-        try {
-            retrofit2.Response<HttpResponse<LoginResult>> response = refreshTokenCall.execute();
-            if (response.isSuccessful()) {
-                int responseCode = response.body().getCode();
-                if (responseCode == 0) {
-                    HttpResponse<LoginResult> httpResponse = response.body();
-                    SharedPreferencesDao.getInstance().saveData(SPKey.KEY_ACCESS_TOKEN, "Bearer " + httpResponse.getResult().getAccessToken());
-                    SharedPreferencesDao.getInstance().saveData(SPKey.KEY_REFRESH_TOKEN, httpResponse.getResult().getRefreshToken());
-                }
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
 
     /**
      * If both the original call and the call with refreshed token failed,it will probably keep failing, so don't try again.
@@ -204,6 +178,40 @@ public class HttpCall {
             return true;
         }
         return false;
+    }
+
+
+
+
+    /**
+     * uese refresh token to Refresh an Access Token
+     * 不是必须这样
+     */
+    private static void refreshToken() {
+        if (TextUtils.isEmpty(SharedPreferencesDao.getInstance().getData(SPKey.KEY_REFRESH_TOKEN, "", String.class))) {
+            return;
+        }
+
+        LoginParams loginParams = new LoginParams();
+        loginParams.setClient_id("5e96eac06151d0ce2dd9554d7ee167ce");
+        loginParams.setClient_secret("aCE34n89Y277n3829S7PcMN8qANF8Fh");
+        loginParams.setGrant_type("refresh_token");
+        loginParams.setRefresh_token(SharedPreferencesDao.getInstance().getData(SPKey.KEY_REFRESH_TOKEN, "", String.class));
+
+        Call<HttpResponse<LoginResult>> refreshTokenCall = HttpCall.getApiService().refreshToken(loginParams);
+        try {
+            retrofit2.Response<HttpResponse<LoginResult>> response = refreshTokenCall.execute();
+            if (response.isSuccessful()) {
+                int responseCode = response.body().getCode();
+                if (responseCode == 0) {
+                    HttpResponse<LoginResult> httpResponse = response.body();
+                    SharedPreferencesDao.getInstance().saveData(SPKey.KEY_ACCESS_TOKEN, "Bearer " + httpResponse.getResult().getAccessToken());
+                    SharedPreferencesDao.getInstance().saveData(SPKey.KEY_REFRESH_TOKEN, httpResponse.getResult().getRefreshToken());
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
 }
