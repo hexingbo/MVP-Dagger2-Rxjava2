@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@android:color/black"
-    tools:context="com.zenglb.framework.activity.PatternLock.PatternLockActivity">
+    tools:context="com.zenglb.framework.activity.patternlocks.PatternLockActivity">
 
     <include layout="@layout/basic_toolbar_layout" />
 

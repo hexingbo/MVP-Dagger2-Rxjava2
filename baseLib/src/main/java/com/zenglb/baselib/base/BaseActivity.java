@@ -9,8 +9,13 @@ import android.view.View;
 import com.trello.rxlifecycle2.components.support.RxAppCompatActivity;
 import com.zenglb.commonlib.R;
 
+import butterknife.ButterKnife;
+
 /**
  * 基类就只做基类的事情,不要把业务层面的代码写到这里来 ！！
+ *
+ * FBI WARMING,不要为了方便，只有某几个Activity 才会用的（定位，Wi-Fi 数据收集啊，写在Base里面，那还抽象什么）
+ *
  * 1.toolbar 的封装
  * 2.页面之间的跳转
  * 3.注意WebViewActivity 开启了多进程！
@@ -25,7 +30,11 @@ public abstract class BaseActivity extends RxAppCompatActivity implements View.O
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        ButterKnife.bind(this);
+
         setContentView(setLayoutId());
+
+
         mContext=BaseActivity.this;
         mToolbar = (Toolbar) findViewById(R.id.toolbar);
         if (mToolbar != null) {
@@ -35,28 +44,6 @@ public abstract class BaseActivity extends RxAppCompatActivity implements View.O
     }
 
 
-    /**
-     * 检查网络
-     *
-     */
-    private void getNetState(){
-//        //用于网络监测
-//        if(!NetUtils.isConnected(BaseActivity.this)){
-//            AlertDialog.Builder builder = new AlertDialog.Builder(BaseActivity.this);
-//            builder.setIcon(R.mipmap.ic_launcher);
-//            builder.setTitle("提示");
-//            builder.setMessage("当前没有可用网络，是否进入网络设置界面");
-//            builder.setNegativeButton("确定", new DialogInterface.OnClickListener() {
-//                @Override
-//                public void onClick(DialogInterface dialog, int which) {
-//                    dialog.dismiss();
-//                    NetUtils.openSetting(BaseActivity.this);
-//                }
-//            });
-//            builder.setPositiveButton("取消",null);
-//            builder.create().show();
-//        }
-    }
 
 
     protected abstract int setLayoutId();
@@ -71,7 +58,6 @@ public abstract class BaseActivity extends RxAppCompatActivity implements View.O
         Intent intent = new Intent();
         intent.setClass(this, cla);
         startActivity(intent);
-//        overridePendingTransition(R.anim.in_from_right, R.anim.out_to_left);
     }
 
 //    /*
@@ -90,29 +76,13 @@ public abstract class BaseActivity extends RxAppCompatActivity implements View.O
      *
      * @param link
      */
+
     public final  void goWebView(String link) {
         Intent intent = new Intent();
         intent.setAction(BaseWebViewActivity.WEB_ACTION);
         intent.addCategory(BaseWebViewActivity.WEB_CATEGORY);
         intent.putExtra(BaseWebViewActivity.URL, link);
         startActivity(intent);
-    }
-
-    /**
-     * Activity -> webview Activity的跳转-带参数
-     *
-     * @param
-     * @param title
-     * @param link
-     */
-    public final void goWebView(String link,String title) {
-        Intent intent = new Intent();
-        intent.setAction(BaseWebViewActivity.WEB_ACTION);
-        intent.addCategory(BaseWebViewActivity.WEB_CATEGORY);
-        intent.putExtra(BaseWebViewActivity.TITLE, title);
-        intent.putExtra(BaseWebViewActivity.URL, link);
-        startActivity(intent);
-//        overridePendingTransition(R.anim.in_from_right, R.anim.out_to_left);
     }
 
 

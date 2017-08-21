@@ -8,7 +8,7 @@ import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.zenglb.baselib.utils.TextUtils;
-import com.zenglb.framework.activity.access.OauthActivity;
+import com.zenglb.framework.mvp_oauth.Oauth_MVP_Activity;
 import com.zenglb.framework.retrofit.core.HttpResponse;
 import com.zenglb.framework.retrofit.core.HttpUiTips;
 
@@ -164,7 +164,7 @@ public abstract class BaseObserver<T> implements Observer<HttpResponse<T>> {
                 //退回到登录页面
                 if (mContext != null) {  //Context 可以使Activity BroadCast Service !
                     Intent intent = new Intent();
-                    intent.setClass(mContext, OauthActivity.class);
+                    intent.setClass(mContext, Oauth_MVP_Activity.class);
                     mContext.startActivity(intent);
                 }
                 break;

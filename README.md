@@ -5,7 +5,8 @@
   本项目作为轻量化的练习Demo,方便以后新项目进行参考，主要练习基础项目封装，GreenDao3,Material-Animations,
   Retrofit2,mvp,Proguard混淆和JSbridge(webview 在单独的进程中),baseActivity(不要放那么多和Base 无关的东西)
   慢慢的也会加入Rxjava2 和 其他的，反对过度封装。大部分App基本rxjava2(慎用) + retrofit2 +MVP 就够了,反对过度
-  的封装，反对拿J2EE 的一些思想放Android 上，当然打好基础任何时候都必要的。
+  的封装。
+  一直在纠结在何种开发模式之中，重构希望能把关注点集中到代码结构、整体架构、可测试性、可维护性这四个方面(https://github.com/googlesamples/android-architecture).
 
 
 # 关于Http网络请求 (Rxjava2+Retrofit2)
@@ -24,7 +25,8 @@
   ```
   Android 实现JSBridge的库有好几个，无复杂需要用轻量级的吧。
   独立新的进程后，每次打开webview Activity就是新的进程，因为栈中只会有一个webview Activity，关闭页面的时
-  候也关闭了进程，没有数据同步的问题。不过cookies 同步问题要注意同步刷新。
+  候也关闭了进程，没有数据同步的问题；不过cookies 同步问题要注意同步刷新。如android8一样，应用的 WebView 
+  对象将在多进程模式下运行。网页内容在独立的进程中处理，此进程与包含应用的进程相隔离，以提高安全性
 
   ## 低端机调用系统的相机拍照的问题
   比如红米手机，调用系统相机拍照时需要耗费大量内存，我们的app就成了后台app,很容易被系统干掉。
@@ -43,6 +45,8 @@
   使用MVP多关注代码结构、整体架构、可测试性、可维护性这四个方面
 
 ## 关于MVP
+  多参考Google官网的 + 这个：https://github.com/anylifezlb/android-guidelines
+
   - View层
   包含界面相关的功能（Activity,Fragment,View,Adapter）,专注用户的交互，实现设计师给出的界面，动画.View层
   一般会持有Presenter 层的引用，或者也可以通过依赖注入(dragger/2)的方式获取Presenter 实例，非UI逻辑的操作
@@ -81,9 +85,11 @@
   android的热修复原理大体上分为两种，其一是通过dex的执行顺序实现Apk热修复的功能(Tinker)，但是其需要将App重启才能生 效;其二是通过Native修改函数指针的方式实现热修复(HotFix)。
 
   显然对于修复紧急BUG这个场景，阿里百川HotFix的更为合适，它更加轻量，可以在不重启的情况下生效，且对性能几乎没有影
-  微信Tinker、QQ空间超级补丁技术更多地把场景定位在发布小的新功能上，采用ClassLoader的模式，牺牲较高的性能代价去实现 类、资源新增或替换的功能。阿里百川HotFix对应用本身做到无侵入，无性能损耗。
+  微信Tinker、QQ空间超级补丁技术更多地把场景定位在发布小的新功能上，采用ClassLoader的模式，牺牲较高的性能代价去实现 类、资源新增或替换的功能。
+  阿里百川HotFix对应用本身做到无侵入，无性能损耗。
 
- [2017年6月阿里手淘推出了首个非侵入式移动热更新解决方案——Sophix。在Android热修复的三大领域：代码修复、资源修复、SO修复方面，以及方案的安全性和易用性方面，Sophix都做到了业界领先，期待开源](https://mp.weixin.qq.com/s?__biz=MzAxMTI4MTkwNQ==&mid=2650823404&idx=1&sn=c56458a97561f54b893b33a80635d399&chksm=80b78e72b7c00764b26972bd21cd3e4fe5bb075a8d80890340b2a7a0a565779add0757b161e8&mpshare=1&scene=1&srcid=0704C7XraNsOGvDsgN9bCNii&pass_ticket=AZhM9mvZM8BzU28oFsdChz0QSuCBcgFEhhet1%2FD2hXnrM%2FSkdWA5TsZ06l%2F%2Fhbwm#rd)
+ [2017年6月阿里手淘推出了首个非侵入式移动热更新解决方案——Sophix。
+ 在Android热修复的三大领域：代码修复、资源修复、SO修复方面，以及方案的安全性和易用性方面，Sophix都做到了业界领先，可是要收费](https://mp.weixin.qq.com/s?__biz=MzAxMTI4MTkwNQ==&mid=2650823404&idx=1&sn=c56458a97561f54b893b33a80635d399&chksm=80b78e72b7c00764b26972bd21cd3e4fe5bb075a8d80890340b2a7a0a565779add0757b161e8&mpshare=1&scene=1&srcid=0704C7XraNsOGvDsgN9bCNii&pass_ticket=AZhM9mvZM8BzU28oFsdChz0QSuCBcgFEhhet1%2FD2hXnrM%2FSkdWA5TsZ06l%2F%2Fhbwm#rd)
 
 # Rxjava2
   目前只是在http 请求的时候用了Rxjava2+retrofit2,没有侵入UI，打好基础才是王道

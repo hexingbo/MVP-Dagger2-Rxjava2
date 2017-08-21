@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/light_white"
-    tools:context=".activity.wechat.MainActivityTab">
+    tools:context=".navigation.MainActivityBottomNavi">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -13,6 +13,8 @@
         <com.zhy.android.percent.support.PercentLinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:paddingBottom="12dp"
+
             android:orientation="vertical">
 
             <LinearLayout

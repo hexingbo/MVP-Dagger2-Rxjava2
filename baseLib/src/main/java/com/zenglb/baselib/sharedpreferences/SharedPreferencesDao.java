@@ -7,6 +7,8 @@ import android.util.Log;
 
 /**
  * 存储key-value 数据，支持加密
+ * SharedPreferencesDao 就是操作SP，反对把退出登录什么的也写在这里
+ *
  * <p>
  * Created by zenglb on 2016/11/8.
  */
@@ -80,15 +82,38 @@ public class SharedPreferencesDao {
             case "Long":
                 t = (T) (Long) sharedPreferences.getLong(key, (Long) defValue);
                 break;
-//			case "Double":
-//				t = (T) (Double) sharedPreferences.get
-//				break;
             case "Boolean":
                 t = (T) (Boolean) sharedPreferences.getBoolean(key, (Boolean) defValue);
                 break;
         }
         return t;
     }
+
+
+    /**
+     *
+     *
+     * @param key
+     * @param defaultObject
+     * @return
+     */
+
+    public  Object get(String key, Object defaultObject) {
+
+        if (defaultObject instanceof String) {
+            return sharedPreferences.getString(key, (String) defaultObject);
+        } else if (defaultObject instanceof Integer) {
+            return sharedPreferences.getInt(key, (Integer) defaultObject);
+        } else if (defaultObject instanceof Boolean) {
+            return sharedPreferences.getBoolean(key, (Boolean) defaultObject);
+        } else if (defaultObject instanceof Float) {
+            return sharedPreferences.getFloat(key, (Float) defaultObject);
+        } else if (defaultObject instanceof Long) {
+            return sharedPreferences.getLong(key, (Long) defaultObject);
+        }
+        return null;
+    }
+
 
     /**
      * 存储数据

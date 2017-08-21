@@ -48,12 +48,24 @@
         </activity>
         <activity
             android:name=".activity.access.OauthActivity"
-            android:launchMode="singleInstance"
+            android:launchMode="singleTop"
             android:theme="@style/FullscreenTheme">
             <intent-filter>
                 <action android:name="app.intent.action.LOGIN" />
             </intent-filter>
         </activity>
+
+        <activity
+            android:name=".mvp_oauth.Oauth_MVP_Activity"
+            android:launchMode="singleTop"
+            android:theme="@style/FullscreenTheme">
+            <intent-filter>
+                <action android:name="app.intent.action.LOGIN" />
+            </intent-filter>
+        </activity>
+
+
+
         <activity
             android:name=".activity.access.RegisterActivity"
             android:theme="@style/Translucent" />
@@ -114,7 +126,7 @@
             android:name=".activity.retrofitTest.RetrofitTestActivity"
             android:launchMode="singleTop" />
         <activity android:name=".activity.mvp.MVPActivity" />
-        <activity android:name=".activity.PatternLock.PatternLockActivity"></activity>
+        <activity android:name=".activity.patternlocks.PatternLockActivity"></activity>
     </application>
 
 </manifest>

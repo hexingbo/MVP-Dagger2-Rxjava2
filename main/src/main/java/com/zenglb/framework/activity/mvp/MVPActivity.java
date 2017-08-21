@@ -33,7 +33,6 @@ public class MVPActivity extends BaseActivity implements MainView {
      * 接收view 层的网络数据请求，并分发给对应的Model层处理，同时监听Model层的处理结果，
      * 最终反馈给View 层，从而实现界面的刷新
      */
-    private MainPresenter presenter;
     private TextView mShowTxt;
 
     private static final String ARG_PARAM1 = "param1";
@@ -44,6 +43,9 @@ public class MVPActivity extends BaseActivity implements MainView {
     private RecyclerView mRecyclerView = null;
     private AreUSleepListAdapter areUSleepListAdapter;
     private ArrayList<JokesResult> data = new ArrayList<>();
+
+    private MainPresenter presenter;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

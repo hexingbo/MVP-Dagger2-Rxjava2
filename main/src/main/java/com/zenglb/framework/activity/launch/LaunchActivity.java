@@ -14,9 +14,8 @@ import android.widget.Toast;
 import com.zenglb.baselib.base.BaseActivity;
 import com.zenglb.baselib.sharedpreferences.SharedPreferencesDao;
 import com.zenglb.framework.R;
-import com.zenglb.framework.activity.PatternLock.PatternLockActivity;
-import com.zenglb.framework.activity.access.OauthActivity;
 import com.zenglb.framework.config.SPKey;
+import com.zenglb.framework.mvp_oauth.Oauth_MVP_Activity;
 import com.zenglb.framework.navigation.MainActivityBottomNavi;
 
 
@@ -24,22 +23,22 @@ import com.zenglb.framework.navigation.MainActivityBottomNavi;
  * 启动页面的背景图放在不同的目录还会导致内存的占用大小不一样啊
  */
 public class LaunchActivity extends BaseActivity {
+    private static final int FINISH_LAUNCHER=0;
 
     private Handler UiHandler = new Handler() {
         public void handleMessage(Message msg) {
             switch (msg.what) {
-                case 0:
+                case FINISH_LAUNCHER:
                     String accessToken = SharedPreferencesDao.getInstance().getData(SPKey.KEY_ACCESS_TOKEN, "", String.class);
                     if (TextUtils.isEmpty(accessToken)) {
                         Intent i1 = new Intent();
                         i1.putExtra("isFromLaunch", true);
-                        i1.setClass(LaunchActivity.this, OauthActivity.class);
+                        i1.setClass(LaunchActivity.this, Oauth_MVP_Activity.class);
                         startActivity(i1);
                         LaunchActivity.this.finish();
                     } else {
                         Intent i1 = new Intent();
                         i1.setClass(LaunchActivity.this, MainActivityBottomNavi.class);
-//                        i1.setClass(LaunchActivity.this, PatternLockActivity.class);
 
                         startActivity(i1);
                         LaunchActivity.this.finish();
@@ -60,7 +59,6 @@ public class LaunchActivity extends BaseActivity {
 
     @Override
     protected void initViews() {
-
     }
 
     @Override
@@ -71,11 +69,6 @@ public class LaunchActivity extends BaseActivity {
 //        Toast.makeText(this,NDKinterface.getAESDecrypt(NDKinterface.getAESEncrypt("如果不是乱码就是成功了")),
 //                Toast.LENGTH_LONG).show();     //测试加密解密是否有问题
 
-
-
-        //Account: zenglb@vanke.com  code:vankeApi
-
-
     }
 
 
@@ -84,6 +77,15 @@ public class LaunchActivity extends BaseActivity {
         super.onDestroy();
         UiHandler.removeCallbacksAndMessages(null);
     }
+
+
+
+
+
+
+
+
+
 
     /**
      * 获取手机号码，一般获取不到

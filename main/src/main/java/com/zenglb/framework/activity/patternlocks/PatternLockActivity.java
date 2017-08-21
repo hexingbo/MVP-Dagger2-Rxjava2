@@ -1,11 +1,10 @@
-package com.zenglb.framework.activity.PatternLock;
+package com.zenglb.framework.activity.patternlocks;
 
 import android.os.Bundle;
 import android.util.Log;
 
 import com.andrognito.patternlockview.PatternLockView;
 import com.andrognito.patternlockview.utils.PatternLockUtils;
-import com.andrognito.patternlockview.utils.ResourceUtils;
 import com.andrognito.rxpatternlockview.RxPatternLockView;
 import com.andrognito.rxpatternlockview.events.PatternLockCompleteEvent;
 import com.andrognito.rxpatternlockview.events.PatternLockCompoundEvent;

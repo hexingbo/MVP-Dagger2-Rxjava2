@@ -158,6 +158,8 @@ dependencies {
     compile 'com.squareup.retrofit2:adapter-rxjava2:2.3.0'
 
 
+
+
     compile 'org.greenrobot:greendao:3.2.2'
     compile 'net.zetetic:android-database-sqlcipher:3.5.4'
     compile 'jp.wasabeef:recyclerview-animators:2.2.4'
