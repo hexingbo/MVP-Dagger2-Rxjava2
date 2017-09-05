@@ -78,7 +78,6 @@ public class MVPActivity extends BaseActivity implements MainView {
     public void onRefreshListView(List<JokesResult> jokesResultList) {
         springView.onFinishFreshAndLoad();
         if (jokesResultList != null) {
-
             if (page <= 1) data.clear();
 
             if (jokesResultList != null && jokesResultList.size() != 0) {

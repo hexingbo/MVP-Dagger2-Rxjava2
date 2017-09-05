@@ -17,10 +17,9 @@ import com.zenglb.baselib.utils.TransitionHelper;
 import com.zenglb.framework.R;
 import com.zenglb.framework.activity.animal.AnimalMainActivity;
 import com.zenglb.framework.activity.mvp.MVPActivity;
-import com.zenglb.framework.activity.ndk.NDKActivity;
+import com.zenglb.framework.dragger.DraggerActivity;
 import com.zenglb.framework.retrofit.core.HttpCall;
 import com.zenglb.framework.retrofit.result.CustomWeatherResult;
-import com.zenglb.framework.service.TestRxIntentService;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -77,8 +76,7 @@ public class DemoFragment extends Fragment {
      */
     private void viewsInit(View rootView) {
         rootView.findViewById(R.id.jsbridge).setOnClickListener(v -> {
-            ((BaseActivity) getActivity()).goWebView("file:///android_asset/index.html");
-//                ((BaseActivity) getActivity()).goWebView("file:///android_asset/app.html");
+//            ((BaseActivity) getActivity()).goWebView("file:///android_asset/index.html");
         });
 
         /**
@@ -88,20 +86,20 @@ public class DemoFragment extends Fragment {
         rootView.findViewById(R.id.java8).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String url="http://www.sojson.com/open/api/weather/json.shtml";
-                Call<CustomWeatherResult> news = HttpCall.getApiService().getWeather(url,"深圳");
+                String url = "http://www.sojson.com/open/api/weather/json.shtml";
+                Call<CustomWeatherResult> news = HttpCall.getApiService().getWeather(url, "深圳");
                 //上面的实现是非常的精巧  http://www.jianshu.com/p/c1a3a881a144
 
                 news.enqueue(new Callback<CustomWeatherResult>() {
                     @Override
                     public void onResponse(Call<CustomWeatherResult> call, Response<CustomWeatherResult> response) {
                         CustomWeatherResult customWeatherResult = response.body();
-                        Toast.makeText(getActivity(),"天气："+customWeatherResult.toString(),Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getActivity(), "天气：" + customWeatherResult.toString(), Toast.LENGTH_SHORT).show();
                     }
 
                     @Override
                     public void onFailure(Call<CustomWeatherResult> call, Throwable t) {
-                        Toast.makeText(getActivity(),"失败："+call.toString()+"  异常："+t.toString(),Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getActivity(), "失败：" + call.toString() + "  异常：" + t.toString(), Toast.LENGTH_SHORT).show();
                     }
                 });
 
@@ -115,13 +113,12 @@ public class DemoFragment extends Fragment {
         rootView.findViewById(R.id.animation).setOnClickListener
                 (view -> transitionToActivity(AnimalMainActivity.class, (TextView) rootView.findViewById(R.id.animation), "Material Animations 动画演示"));
 
-
         /**
          * jni jni
          */
         rootView.findViewById(R.id.jni).setOnClickListener(v -> {
-            ((BaseActivity) getActivity()).startActivity(NDKActivity.class);
-            TestRxIntentService.start(getActivity());
+//            ((BaseActivity) getActivity()).startActivity(NDKActivity.class);
+//            TestRxIntentService.start(getActivity());
         });
 
 
@@ -130,6 +127,14 @@ public class DemoFragment extends Fragment {
          */
         rootView.findViewById(R.id.mvp).setOnClickListener(v -> {
             ((BaseActivity) getActivity()).startActivity(MVPActivity.class);
+        });
+
+
+        /**
+         * dragger
+         */
+        rootView.findViewById(R.id.dragger).setOnClickListener(v -> {
+            ((BaseActivity) getActivity()).startActivity(DraggerActivity.class);
         });
 
 
@@ -171,7 +176,6 @@ public class DemoFragment extends Fragment {
     public void onStart() {
         super.onStart();
     }
-
 
 
 }

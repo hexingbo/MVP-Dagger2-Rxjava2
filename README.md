@@ -2,41 +2,18 @@
 
 
 # 关于本Demo
-  本项目作为轻量化的练习Demo,方便以后新项目进行参考，主要练习基础项目封装，GreenDao3,Material-Animations,
-  Retrofit2,mvp,Proguard混淆和JSbridge(webview 在单独的进程中),baseActivity(不要放那么多和Base 无关的东西)
-  慢慢的也会加入Rxjava2 和 其他的，反对过度封装。大部分App基本rxjava2(慎用) + retrofit2 +MVP 就够了,反对过度
-  的封装。
-  一直在纠结在何种开发模式之中，重构希望能把关注点集中到代码结构、整体架构、可测试性、可维护性这四个方面(https://github.com/googlesamples/android-architecture).
-
+  一直在纠结在何种开发模式之中，重构希望能把关注点集中到代码结构、整体架构、可测试性、可维护性这四个方面
+  Rxjava2 + retrofit2 + MVP + Drager2 + , 参考下面的两个链接练习（注重基础）：
+  
+  https://github.com/googlesamples/android-architecture
+  https://github.com/googlesamples/android-architecture-components
+  
 
 # 关于Http网络请求 (Rxjava2+Retrofit2)
   应该没有比Retrofit2 更好的了吧？不过api 不是restful 就需要再封装一下了，网路模块就是数据命脉，做好了
   整个app 的结构会简化很多，结合Rxjava2不是更快哉;配合RxLifeCycle 控制生命周期;
   BaseObserver 中getErrorMsg(HttpException httpException) 方法中的处理和我们的Api  结构有关，请知悉。可以在Activity，fragment，service，broadcast 等发起http请求。
 
-
-# 关于JSBridge 和 Webview 中的拍照问题
-  演示Demo中assets 目录内置了index.html 和JSbridge.js 来演示拍照问题，拍照和上传图片都是用了JsBridge
-  因为部分4.x 的Webview 手机无法处理 html中的type=file 标记
-  可以给WebView.setWebChromeClient,然后在当js调用window对象的window.prompt 方法后进行拦截,通信协议为：
-  ```
-  jsbridge://className:callbackAddr（port）/methodName?jsonObj
-  this.goWebView("file:///android_asset/index.html");
-  ```
-  Android 实现JSBridge的库有好几个，无复杂需要用轻量级的吧。
-  独立新的进程后，每次打开webview Activity就是新的进程，因为栈中只会有一个webview Activity，关闭页面的时
-  候也关闭了进程，没有数据同步的问题；不过cookies 同步问题要注意同步刷新。如android8一样，应用的 WebView 
-  对象将在多进程模式下运行。网页内容在独立的进程中处理，此进程与包含应用的进程相隔离，以提高安全性
-
-  ## 低端机调用系统的相机拍照的问题
-  比如红米手机，调用系统相机拍照时需要耗费大量内存，我们的app就成了后台app,很容易被系统干掉。
-  单独一个进程不能解决所有的问题，问题根源在于我们的app不能成为后台进程，所有自定义拍照功能吧。
-
-# 关于动态权限分配PermissionsDispatcher
-  Runtime permissions are great for users, but can be tedious to implement correctly for developers,
-  requiring a lot of boilerplate code.
-  PermissionsDispatcher provides a simple annotation-based API to handle runtime permissions。
-  还是那句话：既然是动态权限就不要第一次打开app就拼命的申请权限，在用的时候申请吧。
 
 # UI架构模型
   Android应用的UI架构模型经历了MVC,MVP 和 MVVM 的演变过程。MVC中View 层（Activity，Fragment/自定义的View）
@@ -61,24 +38,10 @@
   封装数据来源，一个程序的本质是处理各种数据，input data ,proces data,output data.例如Android 的网络数据
   ，本地数据库数据，对Presenter 层提供简单易用的接口。
 
-# 关于Proguard
-  Proguard 能混淆代码，能减少Apk 的体积，优化结构，不管怎样没有理由不Proguard吧，至于第三方的加固感觉没有必要，
-  more:https://my.oschina.net/zengliubao/blog/841296
-
-# 关于持久化数据的保存
-- SharePrence (考虑有几个进程可能要content p)
-- Datebase
-   sqlite ? no!  ORMDB please,Now maybe the best is greendao3.Rxjava2+GreenDao3 may be wonderful!
-
-# 关于过渡动画
-  要适当的有过度动画，不要太生硬,material transtion
 
 # 关于调试工具
  推荐Facebook stetho ，可以网络请求（抓包），不root查看DB 文件和sharepreference，甚至在4.4 以后webview
  可以远程调试；提高生产力的利器啊。
-
-# 推送
-  会越来越严格，目前没有很好的第三方，绿色联盟？如果企业对推送有强需求，还是建议用短信和微信消息做补充
 
 # 关于热修复
   阿里的HotFix&微信的Tinker

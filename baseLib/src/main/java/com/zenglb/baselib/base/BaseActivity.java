@@ -9,7 +9,6 @@ import android.view.View;
 import com.trello.rxlifecycle2.components.support.RxAppCompatActivity;
 import com.zenglb.commonlib.R;
 
-import butterknife.ButterKnife;
 
 /**
  * 基类就只做基类的事情,不要把业务层面的代码写到这里来 ！！
@@ -30,10 +29,8 @@ public abstract class BaseActivity extends RxAppCompatActivity implements View.O
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        ButterKnife.bind(this);
 
         setContentView(setLayoutId());
-
 
         mContext=BaseActivity.this;
         mToolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -71,19 +68,21 @@ public abstract class BaseActivity extends RxAppCompatActivity implements View.O
 //        overridePendingTransition(R.anim.in_from_right, R.anim.out_to_left);
 //    }
 
-    /**
-     * Activity -> webview Activity的跳转-带参数
-     *
-     * @param link
-     */
 
-    public final  void goWebView(String link) {
-        Intent intent = new Intent();
-        intent.setAction(BaseWebViewActivity.WEB_ACTION);
-        intent.addCategory(BaseWebViewActivity.WEB_CATEGORY);
-        intent.putExtra(BaseWebViewActivity.URL, link);
-        startActivity(intent);
-    }
+
+//    /**
+//     * Activity -> webview Activity的跳转-带参数
+//     *
+//     * @param link
+//     */
+//
+//    public final  void goWebView(String link) {
+//        Intent intent = new Intent();
+//        intent.setAction(BaseWebViewActivity.WEB_ACTION);
+//        intent.addCategory(BaseWebViewActivity.WEB_CATEGORY);
+//        intent.putExtra(BaseWebViewActivity.URL, link);
+//        startActivity(intent);
+//    }
 
 
     /**

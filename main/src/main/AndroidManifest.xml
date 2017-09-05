@@ -42,10 +42,11 @@
             android:theme="@style/FullscreenTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+
         </activity>
+
         <activity
             android:name=".activity.access.OauthActivity"
             android:launchMode="singleTop"
@@ -54,6 +55,7 @@
                 <action android:name="app.intent.action.LOGIN" />
             </intent-filter>
         </activity>
+
 
         <activity
             android:name=".mvp_oauth.Oauth_MVP_Activity"
@@ -64,47 +66,20 @@
             </intent-filter>
         </activity>
 
-
-
         <activity
             android:name=".activity.access.RegisterActivity"
             android:theme="@style/Translucent" />
+
         <activity
             android:name=".activity.main.AreUSleepListActivity"
             android:launchMode="singleTask" />
-        // 配置在新的进程中进行，
-        <activity
-            android:name=".activity.web.WebActivity"
-            android:configChanges="orientation|keyboard|keyboardHidden|screenSize"
-            android:launchMode="singleTop">
-            <intent-filter>
-                <action android:name="my.intent.action.GOTOWEB" />
 
-                <category android:name="my.intent.category.WEB" />
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
-        </activity>
-        <activity
-            android:name=".activity.setHeadImg.SetHeadImgActivity"
-            android:launchMode="singleTask" />
-        <activity
-            android:name=".activity.zxing.ZxingActivity"
-            android:launchMode="singleTask">
-            <intent-filter>
-                <action android:name="my.intent.action.GOSCANQR" />
-
-                <category android:name="my.intent.category.SCANQR" />
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
-        </activity>
-        <activity android:name=".activity.ndk.NDKActivity" />
         <activity android:name="com.desmond.squarecamera.CameraActivity" />
         <activity
             android:name=".navigation.MainActivityBottomNavi"
             android:label="@string/title_activity_main_bottom_navi"
             android:launchMode="singleTask" />
         <activity android:name=".activity.animal.SharedElementActivity" />
-        <activity android:name=".activity.demo.DemoActivity" />
 
         <provider
             android:name="android.support.v4.content.FileProvider"
@@ -116,7 +91,6 @@
                 android:resource="@xml/file_paths" />
         </provider>
 
-        <service android:name=".service.ForegroundService" />
         <service
             android:name=".service.TestRxIntentService"
             android:exported="false" />
@@ -126,7 +100,14 @@
             android:name=".activity.retrofitTest.RetrofitTestActivity"
             android:launchMode="singleTop" />
         <activity android:name=".activity.mvp.MVPActivity" />
-        <activity android:name=".activity.patternlocks.PatternLockActivity"></activity>
+
+        <!--<activity android:name=".dragger.DraggerActivity">-->
+        <!--<intent-filter>-->
+        <!--<action android:name="android.intent.action.MAIN" />-->
+        <!--<category android:name="android.intent.category.LAUNCHER" />-->
+        <!--</intent-filter>-->
+        <!--</activity>-->
+
     </application>
 
 </manifest>

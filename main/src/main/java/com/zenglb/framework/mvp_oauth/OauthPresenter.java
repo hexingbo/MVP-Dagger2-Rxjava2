@@ -1,10 +1,8 @@
 package com.zenglb.framework.mvp_oauth;
 
 import com.zenglb.framework.mvp_oauth.mvpbase.BasePresenter;
-import com.zenglb.framework.mvp_oauth.mvpbase.IModel;
 import com.zenglb.framework.retrofit.param.LoginParams;
 import com.zenglb.framework.retrofit.result.LoginResult;
-import java.util.HashMap;
 
 
 /**

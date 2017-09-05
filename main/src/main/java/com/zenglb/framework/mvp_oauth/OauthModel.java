@@ -8,22 +8,34 @@ import com.zenglb.framework.retrofit.param.LoginParams;
 import com.zenglb.framework.retrofit.result.LoginResult;
 import com.zenglb.framework.rxhttp.BaseObserver;
 
-
 /**
- * DataListener  ......
+ * DataListener ......
  *
  */
 public class OauthModel extends BaseModel {
-    private boolean isLogin = false;
 
-    public boolean login(@NonNull LoginParams loginParams, @NonNull final DataListener listener) {
+
+
+
+
+
+
+
+
+    /**
+     * 使用回调的方式把数据返回
+     *
+     * @param loginParams
+     * @param listener
+     * @return
+     */
+    public void login(@NonNull LoginParams loginParams, @NonNull final DataListener listener) {
         if (listener == null) {
             throw new RuntimeException("listener =null 无法通知更新UI");
         }
 
         ApiService.goLoginByRxjavaObserver(loginParams)
                 .compose(SwitchSchedulers.toMainThread())
-//                .compose(bindToLifecycle())
                 .subscribe(new BaseObserver<LoginResult>(null) {
                     @Override
                     public void onSuccess(LoginResult loginResult) {
@@ -36,8 +48,6 @@ public class OauthModel extends BaseModel {
                         listener.failInfo(message);
                     }
                 });
-
-        return isLogin;
     }
 
 

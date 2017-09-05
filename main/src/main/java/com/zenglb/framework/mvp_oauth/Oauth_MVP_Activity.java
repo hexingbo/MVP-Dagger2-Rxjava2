@@ -22,9 +22,6 @@ import com.zenglb.framework.retrofit.core.HttpCall;
 import com.zenglb.framework.retrofit.param.LoginParams;
 import com.zenglb.framework.retrofit.result.LoginResult;
 
-import butterknife.ButterKnife;
-import butterknife.OnClick;
-
 /**
  * 是不是感觉更加的复杂了，其实不是都要强制使用MVP 的,其他的模式可以extends
  * {@link com.zenglb.baselib.base.BaseActivity}
@@ -35,7 +32,6 @@ import butterknife.OnClick;
  * @author zenglb
  */
 public class Oauth_MVP_Activity extends BaseMVPActivity<OauthPresenter> implements OauthContract.OauthView {
-    private static final String TAG = Oauth_MVP_Activity.class.getSimpleName();
     private static final String PW = "zxcv1234";  //FBI WARMING !!!!
 
     private boolean isFromLaunch = false;  //从哪里跳转来的，很有用啊
@@ -102,7 +98,6 @@ public class Oauth_MVP_Activity extends BaseMVPActivity<OauthPresenter> implemen
         fab.setOnClickListener(this);
         oauthBtn.setOnClickListener(this);
 
-        ButterKnife.bind(this);
         etUsername.setText(SharedPreferencesDao.getInstance().getData(SPKey.KEY_LAST_ACCOUNT, "", String.class));
         etPassword.setText(PW);
         etUsername.setText("18826562075");
@@ -172,7 +167,6 @@ public class Oauth_MVP_Activity extends BaseMVPActivity<OauthPresenter> implemen
 
     }
 
-    @OnClick(R.id.fab)
     public void goRegister(){
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
 //                    //Explode

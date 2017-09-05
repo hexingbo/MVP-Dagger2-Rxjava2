@@ -135,8 +135,8 @@ public class MeProfileFragment extends BaseFragment {
         linearLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                BaseActivity baseActivity = (BaseActivity ) getActivity();
-                baseActivity.goWebView("file:///android_asset/index.html");
+//                BaseActivity baseActivity = (BaseActivity ) getActivity();
+//                baseActivity.goWebView("file:///android_asset/index.html");
             }
         });
 

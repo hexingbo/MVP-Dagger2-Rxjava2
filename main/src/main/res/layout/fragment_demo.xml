@@ -65,11 +65,11 @@
             android:textSize="18sp" />
 
         <TextView
-            android:id="@+id/rxjava"
+            android:id="@+id/dragger"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingTop="22dp"
-            android:text="Rxjava2"
+            android:text="dragger"
             android:textColor="@color/colorPrimary"
             android:textSize="18sp" />
 
