@@ -1,4 +1,4 @@
-package com.zenglb.framework.activity.mvp;
+package com.zenglb.framework.activity.mvp_basic;
 
 /**
  * data 层接口定义

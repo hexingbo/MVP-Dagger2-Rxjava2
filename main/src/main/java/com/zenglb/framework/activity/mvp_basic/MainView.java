@@ -1,4 +1,4 @@
-package com.zenglb.framework.activity.mvp;
+package com.zenglb.framework.activity.mvp_basic;
 
 import com.zenglb.framework.retrofit.result.JokesResult;
 

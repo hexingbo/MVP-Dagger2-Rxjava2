@@ -1,4 +1,4 @@
-package com.zenglb.framework.activity.mvp;
+package com.zenglb.framework.activity.mvp_basic;
 
 /**
  * Created by zenglb on 2017/7/5.

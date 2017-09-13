@@ -2,6 +2,7 @@ package com.zenglb.framework.rxhttp;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.NetworkOnMainThreadException;
 import android.support.annotation.CallSuper;
 import android.util.Log;
 import android.widget.Toast;
@@ -120,6 +121,9 @@ public abstract class BaseObserver<T> implements Observer<HttpResponse<T>> {
         } else if (t instanceof IOException) {  //飞行模式等
             errorCode = RESPONSE_FATAL_EOR;
             errorMsg = "没有网络，请检查网络连接";
+        } else if (t instanceof NetworkOnMainThreadException) {  //飞行模式等
+            errorCode = RESPONSE_FATAL_EOR;
+            errorMsg = "你是不是傻啊，主线程进行网络请求";
         }
         onFailure(errorCode, errorMsg);  //
     }

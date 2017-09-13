@@ -99,7 +99,7 @@
         <activity
             android:name=".activity.retrofitTest.RetrofitTestActivity"
             android:launchMode="singleTop" />
-        <activity android:name=".activity.mvp.MVPActivity" />
+        <activity android:name=".activity.mvp_basic.MVPActivity" />
 
         <!--<activity android:name=".dragger.DraggerActivity">-->
         <!--<intent-filter>-->

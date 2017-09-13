@@ -124,7 +124,7 @@ public class Oauth_MVP_Activity extends BaseMVPActivity<OauthPresenter> implemen
         loginParams.setUsername(userName);
         loginParams.setPassword(password);
 
-        mPresenter.login(loginParams);
+        mPresenter.login2(loginParams,this);
     }
 
 
@@ -168,6 +168,7 @@ public class Oauth_MVP_Activity extends BaseMVPActivity<OauthPresenter> implemen
     }
 
     public void goRegister(){
+
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
 //                    //Explode
 //                    Explode explode = new Explode();
@@ -193,8 +194,11 @@ public class Oauth_MVP_Activity extends BaseMVPActivity<OauthPresenter> implemen
     /**
      * 登录页面不允许返回，之前返回Home
      *
-     * @param keyCode
-     * @param event
+     * App用户在其他设备上登录，原来的设备因为unOauth 弹出到登录页面
+     * 竟然按返回键还能回去，假如有缓存敏感信息不是。。。
+     *
+     * @param  keyCode
+     * @param  event
      * @return
      */
     @Override

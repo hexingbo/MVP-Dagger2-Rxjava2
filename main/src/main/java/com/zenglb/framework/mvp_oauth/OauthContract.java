@@ -1,5 +1,7 @@
 package com.zenglb.framework.mvp_oauth;
 
+import android.content.Context;
+
 import com.zenglb.framework.retrofit.param.LoginParams;
 import com.zenglb.framework.retrofit.result.LoginResult;
 
@@ -16,6 +18,8 @@ public class OauthContract {
 
     public interface OauthPresenter {
         void login(LoginParams loginParams);      // 业务逻辑
+        void login2(LoginParams loginParams,Context mContext);      // 业务逻辑
+
     }
 
 
