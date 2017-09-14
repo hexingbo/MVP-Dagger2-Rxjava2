@@ -1,10 +1,12 @@
-package com.zenglb.framework.activity.mvp_basic;
+package com.zenglb.framework.mvp_more;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v4.util.Pair;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -12,28 +14,26 @@ import android.widget.Toast;
 import com.liaoinstan.springview.container.DefaultFooter;
 import com.liaoinstan.springview.container.DefaultHeader;
 import com.liaoinstan.springview.widget.SpringView;
-import com.zenglb.baselib.base.BaseActivity;
 import com.zenglb.baselib.utils.TransitionHelper;
 import com.zenglb.framework.R;
 import com.zenglb.framework.activity.animal.SharedElementActivity;
 import com.zenglb.framework.activity.main.AreUSleepListAdapter;
+import com.zenglb.framework.mvp_base.BaseMVPActivity;
 import com.zenglb.framework.retrofit.result.JokesResult;
 
 import java.util.ArrayList;
 import java.util.List;
 
 /**
- * 简单的MVP，数据可以从网络或者DB 里面获取
- *
- * Greendao3 还不支持Rxjava2,哎.....
- *
+ * MVP 的练习
  */
-public class MVPActivity extends BaseActivity implements MainView {
+public class MVPActivity extends BaseMVPActivity<TaskPresenter, TasksRepository> implements TaskContract.TaskView {
     /**
      * 接收view 层的网络数据请求，并分发给对应的Model层处理，同时监听Model层的处理结果，
      * 最终反馈给View 层，从而实现界面的刷新
      */
     private TextView mShowTxt;
+    private String TAG = MVPActivity.class.getSimpleName();
 
     private static final String ARG_PARAM1 = "param1";
     private TextView mEmptyTipsTxt;
@@ -42,52 +42,28 @@ public class MVPActivity extends BaseActivity implements MainView {
     private SpringView springView;
     private RecyclerView mRecyclerView = null;
     private AreUSleepListAdapter areUSleepListAdapter;
-    private ArrayList<JokesResult> data = new ArrayList<>();
-
-    private MainPresenter presenter;
-
+    private List<JokesResult> data = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        /**
-         * MainView
-         */
-        presenter = new MainPresenter();
-        presenter.addTaskListener(this);  //这个这个这个这个这个
-        presenter.getString();
     }
-
-
-    /**
-     * 显示数据
-     *
-     * @param json
-     */
-    @Override
-    public void onShowString(String json) {
-        mShowTxt.setText(json);
-    }
-
 
     /**
      * 拿到数据了，刷新ListView UI
      */
-    @Override
-    public void onRefreshListView(List<JokesResult> jokesResultList) {
-        springView.onFinishFreshAndLoad();
+    public void showTasks(List<JokesResult> jokesResultList) {
+        springView.onFinishFreshAndLoad();  //
+
         if (jokesResultList != null) {
             if (page <= 1) data.clear();
-
             if (jokesResultList != null && jokesResultList.size() != 0) {
                 data.addAll(jokesResultList);
-                page++; //自动 的加11111111
+                page++; //自动 的加1
                 areUSleepListAdapter.notifyDataSetChanged();
             } else {
                 Toast.makeText(this.getApplicationContext(), "暂无数据，请稍后再试！", Toast.LENGTH_SHORT).show();
             }
-
         }
 
         if (data == null || data.size() == 0) {
@@ -95,18 +71,37 @@ public class MVPActivity extends BaseActivity implements MainView {
         } else {
             mEmptyTipsTxt.setVisibility(View.GONE);
         }
-
     }
 
+    @Override
+    public void getTaskFailed(String message) {
+        springView.onFinishFreshAndLoad();  //
+    }
+
+
+    /**
+     * 显示缓存的20条数据
+     */
+    public void showCacheTasks(List<JokesResult> jokesResultList) {
+        if (jokesResultList != null && jokesResultList.size() != 0) {
+            data.addAll(jokesResultList);
+            areUSleepListAdapter.notifyDataSetChanged();
+            mEmptyTipsTxt.setVisibility(View.GONE);
+        } else {
+            mEmptyTipsTxt.setVisibility(View.VISIBLE);
+            Log.d(TAG, "No Cache data !");
+        }
+    }
 
     @Override
     protected int setLayoutId() {
         return R.layout.activity_mvp;
     }
 
+
     @Override
     protected void initViews() {
-        setToolBarTitle("MVP  (Rxjava");
+        setToolBarTitle("mvp&rxjava2 load local&remote data");
 
         mShowTxt = (TextView) findViewById(R.id.tips_txt);
 
@@ -132,12 +127,12 @@ public class MVPActivity extends BaseActivity implements MainView {
             @Override
             public void onRefresh() {
                 page = 1;
-                presenter.getRefreshData("expired",page);
+                mPresenter.getRemoteTasks("expired", page);
             }
 
             @Override
             public void onLoadmore() {
-                presenter.getRefreshData("expired",page);
+                mPresenter.getRemoteTasks("expired", page);
             }
 
         });
@@ -147,8 +142,16 @@ public class MVPActivity extends BaseActivity implements MainView {
 
         springView.setHeader(new DefaultHeader(this));
         springView.setFooter(new DefaultFooter(this));
+
+        new Handler().postDelayed(() -> springView.callFresh(), 500);
     }
 
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        mPresenter.getCacheTasks();
+    }
 
     /**
      * 带动画的跳转,
@@ -167,7 +170,7 @@ public class MVPActivity extends BaseActivity implements MainView {
 
 
     /**
-     * 带动画
+     * 带动画的Activity 跳转
      *
      * @param target
      * @param pairs

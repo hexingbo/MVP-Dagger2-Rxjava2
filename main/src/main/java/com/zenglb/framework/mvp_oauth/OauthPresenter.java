@@ -3,8 +3,7 @@ package com.zenglb.framework.mvp_oauth;
 import android.content.Context;
 
 import com.zenglb.baselib.rxUtils.SwitchSchedulers;
-import com.zenglb.framework.mvp_oauth.mvpbase.BasePresenter;
-import com.zenglb.framework.retrofit.core.ApiService;
+import com.zenglb.framework.mvp_base.BasePresenter;
 import com.zenglb.framework.retrofit.param.LoginParams;
 import com.zenglb.framework.retrofit.result.LoginResult;
 import com.zenglb.framework.rxhttp.BaseObserver;
@@ -15,24 +14,24 @@ import com.zenglb.framework.rxhttp.BaseObserver;
  * <p>
  * Google 的最基本的todo MVP 中也是类似这样处理的
  */
-public class OauthPresenter extends BasePresenter<Oauth_MVP_Activity>
+public class OauthPresenter extends BasePresenter<OauthModel,Oauth_MVP_Activity>
         implements OauthContract.OauthPresenter {
 
-    private final OauthModel oauthMode = new OauthModel();  //
-
+//    private final OauthModel oauthModel = new OauthModel();  //
 
     /**
      * Model 层只是提供Observable ,subscribe 放在Presenter 层！
-     * 应该再实验一个有远程缓存的出来！
-     *
+     * 这里的场景是比较简单的，只需要从网络缓存的，更复杂的场景是：
+     * <p>
+     * Local --》 Remote   --》Cache To Local  --》 DisPlay
      *
      * @param loginParams
      */
     @Override
-    public void login2(LoginParams loginParams, Context mContext) {
-        oauthMode.getLoginObservable(loginParams)
-                .compose(SwitchSchedulers.toMainThread())
-                .subscribe(new BaseObserver<LoginResult>(mContext) {
+    public void login2(LoginParams loginParams) {
+        getIModel().getLoginObservable(loginParams)
+                .compose(SwitchSchedulers.applySchedulers())
+                .subscribe(new BaseObserver<LoginResult>(getIView().mContext) {
                     @Override
                     public void onSuccess(LoginResult loginResult) {
                         getIView().loginSuccess(loginResult);
@@ -54,7 +53,7 @@ public class OauthPresenter extends BasePresenter<Oauth_MVP_Activity>
      */
     @Override
     public void login(LoginParams loginParams) {
-        oauthMode.loginWithCallBack(loginParams, new OauthModel
+        getIModel().loginWithCallBack(loginParams, new OauthModel
                 .DataListener<LoginResult>() {
             @Override
             public void successInfo(LoginResult result) {

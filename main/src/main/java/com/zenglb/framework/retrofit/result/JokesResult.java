@@ -3,22 +3,41 @@ package com.zenglb.framework.retrofit.result;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import org.greenrobot.greendao.annotation.Entity;
+import org.greenrobot.greendao.annotation.Unique;
+import org.greenrobot.greendao.annotation.Generated;
+
 
 /**
  * just a demo !
  * Created by zenglb on 2017/2/9.
  */
+@Entity
 public class JokesResult implements Parcelable {
     private String topic;
     private String start_time;
+    @Unique
     private String id;
-
 
     protected JokesResult(Parcel in) {
         topic = in.readString();
         start_time = in.readString();
         id = in.readString();
     }
+
+
+    @Generated(hash = 1603233542)
+    public JokesResult(String topic, String start_time, String id) {
+        this.topic = topic;
+        this.start_time = start_time;
+        this.id = id;
+    }
+
+
+    @Generated(hash = 939070435)
+    public JokesResult() {
+    }
+
 
     public static final Creator<JokesResult> CREATOR = new Creator<JokesResult>() {
         @Override
@@ -31,6 +50,8 @@ public class JokesResult implements Parcelable {
             return new JokesResult[size];
         }
     };
+
+
 
     @Override
     public int describeContents() {
@@ -45,11 +66,6 @@ public class JokesResult implements Parcelable {
         dest.writeString(id);
     }
 
-    public JokesResult(String topic, String start_time, String id) {
-        this.topic = topic;
-        this.start_time = start_time;
-        this.id = id;
-    }
 
     public String getTopic() {
         return topic;

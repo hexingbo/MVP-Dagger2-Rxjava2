@@ -1,11 +1,9 @@
 package com.zenglb.framework.retrofit.core;
 
-import com.zenglb.framework.entity.Messages;
 import com.zenglb.framework.retrofit.param.LoginParams;
 import com.zenglb.framework.retrofit.result.CustomWeatherResult;
 import com.zenglb.framework.retrofit.result.JokesResult;
 import com.zenglb.framework.retrofit.result.LoginResult;
-import com.zenglb.framework.retrofit.result.ModulesResult;
 import com.zenglb.framework.retrofit.result.StaffMsg;
 
 import java.util.List;
@@ -24,15 +22,15 @@ import retrofit2.http.Url;
 /**
  * ApiService 对象最终会被在retrofit.create(ApiService.class)后被动态代理
  * 比如 HttpCall.getApiService().getWeather(url,"深圳")
- *
+ * <p>
  * Retrofit关心的就是method和它的参数args，接下去Retrofit就会用Java反射获取到getWeather方法的注解信息，
  * 配合args参数，创建一个ServiceMethod对象，ServiceMethod就像是一个中央处理器，传入Retrofit对象和
  * Method对象，调用各个接口和解析器，最终生成一个Request，包含api 的域名、path、http请求方法、请求头、
  * 是有body、是否是multipart等等。最后返回一个Call对象，Retrofit2中Call接口的默认实现是OkHttpCall，
  * 它默认使用OkHttp3作为底层http请求client。
- *
- *
- *
+ * <p>
+ * <p>
+ * <p>
  * Created by zenglb on 2017/3/17.
  */
 public interface ApiService {
@@ -51,19 +49,11 @@ public interface ApiService {
     @POST("api/lebang/oauth/access_token")
     Observable<HttpResponse<LoginResult>> goLoginByRxjavaObserver(@Body LoginParams loginRequest);
 
-
     /**
      * 获取信息
      */
     @GET("api/lebang/staffs/me/detail")
     Observable<HttpResponse<StaffMsg>> getStaffMsg();
-
-    /**
-     * Login ,普通的登录和使用Rxjava 的方式都可以
-     */
-    @Headers("NoNeedAuthFlag: NoNeedAuthFlag")
-    @POST("api/lebang/oauth/access_token1")
-    Call<HttpResponse<LoginResult>> goLoginByRetrofit(@Body LoginParams loginParams);
 
     @GET("api/lebang/night_school/{type}")
     Observable<HttpResponse<List<JokesResult>>> getJokes(@Path("type") String type, @Query("page") int page);
@@ -76,17 +66,6 @@ public interface ApiService {
     @GET("api/lebang/night_school/{type}")
     Observable<HttpResponse<List<JokesResult>>> getAreuSleepByObserver(@Path("type") String type, @Query("page") int page);
 
-    /**
-     * get Message List();
-     */
-    @GET("api/lebang/messages")
-    Call<HttpResponse<List<Messages>>> getMessages(@Query("max_id") long maxId, @Query("limit") int limit);
-
-    /**
-     * test get something
-     */
-    @GET("api/lebang/staffs/me/modules")
-    Call<HttpResponse<ModulesResult>> getModules();
 
     /**
      * this request after login/oauth before logout
@@ -97,7 +76,6 @@ public interface ApiService {
     @POST("api/lebang/oauth/access_token")
     @Headers("NoNeedAuthFlag: NoNeedAuthFlag")
     Call<HttpResponse<LoginResult>> refreshToken(@Body LoginParams loginParams);
-
 
 
     /**

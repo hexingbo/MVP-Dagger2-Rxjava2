@@ -1,4 +1,4 @@
-package com.zenglb.framework.base;
+package com.zenglb.framework;
 
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
@@ -8,14 +8,17 @@ import android.util.Log;
 import com.squareup.leakcanary.LeakCanary;
 import com.zenglb.baselib.base.BaseApplication;
 import com.zenglb.baselib.sharedpreferences.SharedPreferencesDao;
-import com.zenglb.framework.SdkManager;
-import com.zenglb.framework.database.daomaster.DaoMaster;
-import com.zenglb.framework.database.daomaster.DaoSession;
+
+import com.zenglb.framework.database.dbmaster.DaoMaster;
+import com.zenglb.framework.database.dbmaster.DaoSession;
 import com.zenglb.framework.database.dbupdate.MySQLiteOpenHelper;
 
 import org.greenrobot.greendao.database.Database;
 
 /**
+ * Thank you, Vanke Service;I have enough time to do my favourite
+ *
+ *
  * Created by zenglb on 2017/3/15.
  */
 public class MyApplication extends BaseApplication {
@@ -25,16 +28,24 @@ public class MyApplication extends BaseApplication {
     public static final boolean ENCRYPTED = false;
     private DaoSession daoSession;
 
+    private static MyApplication myApplication;
+
     @Override
     public void onCreate() {
         super.onCreate();
         String processName = getProcessName();
         Log.d(TAG, processName + "Application onCreate");
 
+        myApplication=this;
+
         // 很多的东西最好能放到一个IntentService 中去初始化
         // InitializeService.start(this);
         isDebugCheck();
         initApplication();
+    }
+
+    public static MyApplication getInstance() {
+        return myApplication;
     }
 
     /**
@@ -45,18 +56,26 @@ public class MyApplication extends BaseApplication {
      * 比如调试工具stetho 在debug 环境是要的，Release 是不需要的
      */
     private void initApplication() {
+        if (LeakCanary.isInAnalyzerProcess(this)) {
+            // This process is dedicated to LeakCanary for heap analysis.
+            // You should not init your app in this process.
+            return;
+        }
+
         //部分 初始化服务最好能新开一个IntentService 去处理,bugly 在两个进程都有初始化
         String processName = getProcessName();
+
         switch (processName) {
             case "com.zenglb.framework":
                 SdkManager.initDebugOrRelease(this);
                 setDaoSession(SharedPreferencesDao.getInstance().getData("Account", "DefDb", String.class));
                 refWatcher = LeakCanary.install(this);  //只管主进程的,其他的进程自保吧
-
                 break;
+
             case "com.zenglb.framework:webprocess":
 
                 break;
+
             default:
                 Log.e(TAG, "what a fatal error!");
                 break;
@@ -73,6 +92,7 @@ public class MyApplication extends BaseApplication {
     /**
      * 设置数据库操作对象
      * 1.在Application 中设置一个默认的上传登陆的Session,在登录成功后创建一个新的Session
+     *
      */
     public void setDaoSession(String account) {
         if (!TextUtils.isEmpty(account)) {

@@ -17,11 +17,8 @@
     <!-- 在SD卡中创建与删除文件权限 -->
     <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS" />
 
-    <!-- 申请应用不要进行电池优化，以保证手机在锁屏状态下能够有网络活动，推送啊，推送 -->
-    <uses-permission android:name="android.permission.REQUEST_IGNORE_BATTERY_OPTIMIZATIONS" />
-
     <application
-        android:name=".base.MyApplication"
+        android:name=".MyApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="${APP_NAME}"
@@ -47,15 +44,6 @@
 
         </activity>
 
-        <activity
-            android:name=".activity.access.OauthActivity"
-            android:launchMode="singleTop"
-            android:theme="@style/FullscreenTheme">
-            <intent-filter>
-                <action android:name="app.intent.action.LOGIN" />
-            </intent-filter>
-        </activity>
-
 
         <activity
             android:name=".mvp_oauth.Oauth_MVP_Activity"
@@ -74,12 +62,16 @@
             android:name=".activity.main.AreUSleepListActivity"
             android:launchMode="singleTask" />
 
-        <activity android:name="com.desmond.squarecamera.CameraActivity" />
         <activity
             android:name=".navigation.MainActivityBottomNavi"
             android:label="@string/title_activity_main_bottom_navi"
             android:launchMode="singleTask" />
+
         <activity android:name=".activity.animal.SharedElementActivity" />
+
+        <activity android:name=".activity.animal.AnimalMainActivity" />
+
+        <activity android:name=".mvp_more.MVPActivity"/>
 
         <provider
             android:name="android.support.v4.content.FileProvider"
@@ -90,23 +82,6 @@
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/file_paths" />
         </provider>
-
-        <service
-            android:name=".service.TestRxIntentService"
-            android:exported="false" />
-
-        <activity android:name=".activity.animal.AnimalMainActivity" />
-        <activity
-            android:name=".activity.retrofitTest.RetrofitTestActivity"
-            android:launchMode="singleTop" />
-        <activity android:name=".activity.mvp_basic.MVPActivity" />
-
-        <!--<activity android:name=".dragger.DraggerActivity">-->
-        <!--<intent-filter>-->
-        <!--<action android:name="android.intent.action.MAIN" />-->
-        <!--<category android:name="android.intent.category.LAUNCHER" />-->
-        <!--</intent-filter>-->
-        <!--</activity>-->
 
     </application>
 

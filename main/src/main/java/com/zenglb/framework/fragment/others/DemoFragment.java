@@ -16,8 +16,7 @@ import com.zenglb.baselib.base.BaseActivity;
 import com.zenglb.baselib.utils.TransitionHelper;
 import com.zenglb.framework.R;
 import com.zenglb.framework.activity.animal.AnimalMainActivity;
-import com.zenglb.framework.activity.mvp_basic.MVPActivity;
-import com.zenglb.framework.dragger.DraggerActivity;
+import com.zenglb.framework.mvp_more.MVPActivity;
 import com.zenglb.framework.retrofit.core.HttpCall;
 import com.zenglb.framework.retrofit.result.CustomWeatherResult;
 
@@ -108,6 +107,15 @@ public class DemoFragment extends Fragment {
 
 
         /**
+         * mvp
+         */
+        rootView.findViewById(R.id.mvp).setOnClickListener(v -> {
+            ((BaseActivity) getActivity()).startActivity(MVPActivity.class);
+        });
+
+
+
+        /**
          * 使用lamada 替代，Ctrl+Alt+L 格式化代码 Ctrl+Alt+O 优化导入的类和包 Alt+Insert 生成代码
          */
         rootView.findViewById(R.id.animation).setOnClickListener
@@ -122,19 +130,13 @@ public class DemoFragment extends Fragment {
         });
 
 
-        /**
-         * mvp
-         */
-        rootView.findViewById(R.id.mvp).setOnClickListener(v -> {
-            ((BaseActivity) getActivity()).startActivity(MVPActivity.class);
-        });
 
 
         /**
          * dragger
          */
         rootView.findViewById(R.id.dragger).setOnClickListener(v -> {
-            ((BaseActivity) getActivity()).startActivity(DraggerActivity.class);
+//            ((BaseActivity) getActivity()).startActivity(DraggerActivity.class);
         });
 
 

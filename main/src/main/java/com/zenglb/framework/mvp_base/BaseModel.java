@@ -1,4 +1,4 @@
-package com.zenglb.framework.mvp_oauth.mvpbase;
+package com.zenglb.framework.mvp_base;
 
 import com.zenglb.framework.retrofit.core.ApiService;
 import com.zenglb.framework.retrofit.core.HttpCall;
@@ -13,5 +13,7 @@ public abstract class BaseModel implements IModel {
     static {
         ApiService = HttpCall.getApiService();
     }
+
+
 
 }

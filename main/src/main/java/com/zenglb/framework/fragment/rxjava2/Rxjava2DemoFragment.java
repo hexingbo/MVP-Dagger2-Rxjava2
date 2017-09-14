@@ -214,7 +214,6 @@ public class Rxjava2DemoFragment extends BaseFragment {
                     case 3:
 
                         break;
-
                 }
             }
 
@@ -223,7 +222,6 @@ public class Rxjava2DemoFragment extends BaseFragment {
 
             }
         });
-
 
     }
 
@@ -261,8 +259,6 @@ public class Rxjava2DemoFragment extends BaseFragment {
             }
         }
     }
-
-
     //============================================================================================
 
     @Override

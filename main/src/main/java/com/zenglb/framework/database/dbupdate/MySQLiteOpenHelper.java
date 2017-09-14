@@ -4,8 +4,9 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
-import com.zenglb.framework.database.daomaster.DaoMaster;
-import com.zenglb.framework.database.daomaster.MessagesDao;
+import com.zenglb.framework.database.dbmaster.DaoMaster;
+import com.zenglb.framework.database.dbmaster.JokesResultDao;
+import com.zenglb.framework.retrofit.result.JokesResult;
 
 
 /**
@@ -21,7 +22,7 @@ public class MySQLiteOpenHelper extends DaoMaster.OpenHelper {
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        MigrationHelper.migrate(db,MessagesDao.class);  //升级
+        MigrationHelper.migrate(db,JokesResultDao.class);  //
 
         if (oldVersion == newVersion) {
             Log.d("onUpgrade", "数据库是最新版本" + oldVersion + "，不需要升级");

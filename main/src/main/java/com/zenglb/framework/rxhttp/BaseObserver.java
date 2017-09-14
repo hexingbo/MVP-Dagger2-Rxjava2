@@ -109,10 +109,7 @@ public abstract class BaseObserver<T> implements Observer<HttpResponse<T>> {
         } else if (t instanceof ConnectException) {
             errorCode = RESPONSE_FATAL_EOR;
             errorMsg = "网络连接异常，请检查网络";
-        } else if (t instanceof RuntimeException) {
-            errorCode = RESPONSE_FATAL_EOR;
-            errorMsg = "运行时错误";
-        } else if (t instanceof UnknownHostException) {
+        }else if (t instanceof UnknownHostException) {
             errorCode = RESPONSE_FATAL_EOR;
             errorMsg = "无法解析主机，请检查网络连接";
         } else if (t instanceof UnknownServiceException) {
@@ -124,7 +121,11 @@ public abstract class BaseObserver<T> implements Observer<HttpResponse<T>> {
         } else if (t instanceof NetworkOnMainThreadException) {  //飞行模式等
             errorCode = RESPONSE_FATAL_EOR;
             errorMsg = "你是不是傻啊，主线程进行网络请求";
+        } else if (t instanceof RuntimeException) { //很多的错误都是extends RuntimeException
+            errorCode = RESPONSE_FATAL_EOR;
+            errorMsg = "运行时错误";
         }
+
         onFailure(errorCode, errorMsg);  //
     }
 
@@ -133,8 +134,6 @@ public abstract class BaseObserver<T> implements Observer<HttpResponse<T>> {
      */
     @Override
     public final void onComplete() {
-
-
 //        HttpUiTips.dismissDialog(mContext);
     }
 

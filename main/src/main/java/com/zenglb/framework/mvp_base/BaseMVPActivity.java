@@ -1,41 +1,47 @@
-package com.zenglb.framework.mvp_oauth.mvpbase;
+package com.zenglb.framework.mvp_base;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.view.View;
+
 import com.zenglb.baselib.base.BaseActivity;
 
 /**
- * 并不要求所有的功能都用MVP，真的不要求,想这种简单的登录就不需要
+ *
+ *
+ * 并不要求所有的功能都用MVP，真的不要求,简单的登录就不强制的需要
  *
  * Created by zlb on 2017/8/20.
  */
-public abstract class BaseMVPActivity<P extends BasePresenter> extends BaseActivity implements IView{
+public abstract class BaseMVPActivity<P extends BasePresenter,M extends BaseModel> extends BaseActivity implements IView{
     protected P mPresenter;    //View  中包含P，以后的Activity 只要从写loadPresenter 就好了
+    protected M mModel;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mPresenter = loadPresenter();  //实例化Presenter
+
+        mPresenter = CreateObjUtil.getT(this, 0);
+        mModel = CreateObjUtil.getT(this,1);
+
         initCommonData();
     }
 
-    /**
-     * 如果某个功能要搞MVP 模式，那么具体的P一定要在子类中实例化
-     * @return
-     */
-    protected abstract P loadPresenter();
+
 
     /**
      * 让P和V 关联起来
+     *
      */
     private void initCommonData() {
         if (mPresenter != null) {
-            mPresenter.attachView(this);
+            mPresenter.attachModelAndView(mModel,this);
         }
     }
 
-
+    /**
+     * 取消Presenter 和 View 的关联
+     *
+     */
     @Override
     protected void onDestroy() {
         super.onDestroy();
@@ -43,5 +49,6 @@ public abstract class BaseMVPActivity<P extends BasePresenter> extends BaseActiv
             mPresenter.detachView();
         }
     }
+
 
 }

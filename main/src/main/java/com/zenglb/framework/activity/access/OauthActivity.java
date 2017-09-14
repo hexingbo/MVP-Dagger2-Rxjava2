@@ -25,14 +25,10 @@ import com.zenglb.framework.retrofit.result.LoginResult;
 import com.zenglb.framework.rxhttp.BaseObserver;
 
 /**
- * 需要区分是从Launcher 跳转过来的还是 其他地方unOauth 导致跳转过来的
- * 其他页面因为Oauth 超时或者账号其他设备登录导致退出遵循哪里退出重新认证后回到哪里
- * <p>
- * 为了防止按返回键又回到退出前的页面，屏蔽返回键（按下去等于是Home）
+ * 使用MVP 改造了 {@link com.zenglb.framework.mvp_oauth.Oauth_MVP_Activity}
  *
- * @author zenglb
+ * @author anylife.zlb@gmail.com
  */
-
 @Deprecated
 public class OauthActivity extends BaseActivity {
 
@@ -117,7 +113,7 @@ public class OauthActivity extends BaseActivity {
          *
          */
         HttpCall.getApiService().goLoginByRxjavaObserver(loginParams)
-                .compose(SwitchSchedulers.toMainThread())
+                .compose(SwitchSchedulers.applySchedulers())
                 .compose(bindToLifecycle())
                 .subscribe(new BaseObserver<LoginResult>(mContext) {
                     @Override

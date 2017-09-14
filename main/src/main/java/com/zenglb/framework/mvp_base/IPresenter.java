@@ -1,16 +1,19 @@
-package com.zenglb.framework.mvp_oauth.mvpbase;
+package com.zenglb.framework.mvp_base;
 
 /**
  * 抽象出Presenter 接口
- * @param <V>
+ *
  */
-public interface IPresenter<V extends IView> {
+public interface IPresenter<M extends IModel,V extends IView> {
 
     /**
-     * 绑定
+     * 绑定View
+     *
      * @param view
      */
     void attachView(V view);
+
+    void attachModelAndView(M model,V view);
 
     /**
      * 防止内存的泄漏, 清除Presenter与Activity之间的绑定
@@ -21,5 +24,7 @@ public interface IPresenter<V extends IView> {
      * @return 获取View
      */
     V getIView();
+
+    M getIModel();
 
 }

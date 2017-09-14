@@ -16,7 +16,7 @@ import com.zenglb.baselib.sharedpreferences.SharedPreferencesDao;
 import com.zenglb.framework.R;
 import com.zenglb.framework.activity.access.RegisterActivity;
 import com.zenglb.framework.config.SPKey;
-import com.zenglb.framework.mvp_oauth.mvpbase.BaseMVPActivity;
+import com.zenglb.framework.mvp_base.BaseMVPActivity;
 import com.zenglb.framework.navigation.MainActivityBottomNavi;
 import com.zenglb.framework.retrofit.core.HttpCall;
 import com.zenglb.framework.retrofit.param.LoginParams;
@@ -29,11 +29,10 @@ import com.zenglb.framework.retrofit.result.LoginResult;
  * 更多请参考Google【to-do-MVP（TasksDataSource）】，在这个Branch 中Model中异步获取的数据也（Http，DB）也是
  * 通过回调来通知View 的更新，也有使用Event Bus 来做这种事件传递的，但是更想使用Rxjava2来做，下一个版本做完吧 ！
  *
- * @author zenglb
+ * @author  anylife.zlb@gmail.com
  */
-public class Oauth_MVP_Activity extends BaseMVPActivity<OauthPresenter> implements OauthContract.OauthView {
+public class Oauth_MVP_Activity extends BaseMVPActivity<OauthPresenter,OauthModel> implements OauthContract.OauthView {
     private static final String PW = "zxcv1234";  //FBI WARMING !!!!
-
     private boolean isFromLaunch = false;  //从哪里跳转来的，很有用啊
 
     EditText etUsername, etPassword;
@@ -54,15 +53,15 @@ public class Oauth_MVP_Activity extends BaseMVPActivity<OauthPresenter> implemen
 
     }
 
-    /**
-     * New OauthPresenter
-     *
-     * @return
-     */
-    @Override
-    protected OauthPresenter loadPresenter() {
-        return new OauthPresenter();
-    }
+//    /**
+//     * New OauthPresenter
+//     *
+//     * @return
+//     */
+//    @Override
+//    protected OauthPresenter loadPresenter() {
+//        return new OauthPresenter();
+//    }
 
 
     /**
@@ -124,7 +123,7 @@ public class Oauth_MVP_Activity extends BaseMVPActivity<OauthPresenter> implemen
         loginParams.setUsername(userName);
         loginParams.setPassword(password);
 
-        mPresenter.login2(loginParams,this);
+        mPresenter.login2(loginParams);
     }
 
 

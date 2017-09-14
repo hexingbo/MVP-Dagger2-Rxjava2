@@ -23,7 +23,7 @@ import com.zenglb.baselib.rxUtils.SwitchSchedulers;
 import com.zenglb.baselib.utils.TransitionHelper;
 import com.zenglb.framework.R;
 import com.zenglb.framework.activity.animal.SharedElementActivity;
-import com.zenglb.framework.base.MyApplication;
+import com.zenglb.framework.MyApplication;
 import com.zenglb.framework.retrofit.core.HttpCall;
 import com.zenglb.framework.retrofit.result.JokesResult;
 import com.zenglb.framework.rxhttp.BaseObserver;
