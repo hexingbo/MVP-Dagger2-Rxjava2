@@ -18,7 +18,7 @@ public class OauthModel extends BaseModel {
 
 
     /**
-     * 使用回调的方式把数据返回，
+     * 直接的返回Observable
      *
      * @param loginParams
      * @return
@@ -26,8 +26,8 @@ public class OauthModel extends BaseModel {
     public Observable<HttpResponse<LoginResult>> getLoginObservable(@NonNull LoginParams loginParams) {
 
         Thread.currentThread().getName();
-
         return ApiService.goLoginByRxjavaObserver(loginParams);
+
 //                .compose(SwitchSchedulers.toMainThread())
 //                .subscribe(new BaseObserver<LoginResult>(null) {
 //                    @Override
@@ -85,4 +85,5 @@ public class OauthModel extends BaseModel {
 
         void failInfo(String result);
     }
+
 }

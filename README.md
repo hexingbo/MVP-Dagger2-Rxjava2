@@ -5,8 +5,8 @@
   一直在纠结在何种开发模式之中，重构希望能把关注点集中到代码结构、整体架构、可测试性、可维护性这四个方面
   Rxjava2 + retrofit2 + MVP + Drager2 + , 参考下面的两个链接练习（注重基础）：
   
-  https://github.com/googlesamples/android-architecture
-  https://github.com/googlesamples/android-architecture-components
+  - https://github.com/googlesamples/android-architecture
+  - https://github.com/googlesamples/android-architecture-components
   
 
 # 关于Http网络请求 (Rxjava2+Retrofit2)

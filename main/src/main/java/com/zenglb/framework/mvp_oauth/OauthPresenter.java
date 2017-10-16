@@ -1,6 +1,5 @@
 package com.zenglb.framework.mvp_oauth;
 
-import android.content.Context;
 
 import com.zenglb.baselib.rxUtils.SwitchSchedulers;
 import com.zenglb.framework.mvp_base.BasePresenter;
@@ -16,8 +15,6 @@ import com.zenglb.framework.rxhttp.BaseObserver;
  */
 public class OauthPresenter extends BasePresenter<OauthModel,Oauth_MVP_Activity>
         implements OauthContract.OauthPresenter {
-
-//    private final OauthModel oauthModel = new OauthModel();  //
 
     /**
      * Model 层只是提供Observable ,subscribe 放在Presenter 层！
@@ -52,6 +49,7 @@ public class OauthPresenter extends BasePresenter<OauthModel,Oauth_MVP_Activity>
      * @param loginParams
      */
     @Override
+    @Deprecated
     public void login(LoginParams loginParams) {
         getIModel().loginWithCallBack(loginParams, new OauthModel
                 .DataListener<LoginResult>() {

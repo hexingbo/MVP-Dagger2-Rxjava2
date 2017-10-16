@@ -12,6 +12,7 @@ import com.zenglb.framework.retrofit.utils.HttpDialogUtils;
 import com.zenglb.framework.rxhttp.BaseObserver;
 
 /**
+ *
  * Created by zenglb on 2017/3/24.
  */
 public class HttpUiTips {
@@ -23,7 +24,8 @@ public class HttpUiTips {
             return;
         }
 
-        //// TODO: 2017/3/14 这里的提示框需要做成单例的,连续弹出来烦死了
+        //TODO: 2017/3/14 这里的提示框需要做成单例的
+
         AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
         builder.setTitle("获取数据失败");
         builder.setMessage(message);

@@ -5,16 +5,19 @@ import java.lang.ref.WeakReference;
 
 /**
  * 抽象出P 的共性，我们可以看见 View 和 Module 之间的关联是通过在P 中完成的。
+ *
+ * getIView 就能得到View
+ * getIModel 就能得到Model
+ *
  * <p>
  * public abstract class BasePresenter<M, V>
  * <p>
  * Created by zlb on 2017/8/20.
  */
 
-//public abstract class BasePresenter<M, V> {
 public abstract class BasePresenter<M extends IModel , V extends IView> implements IPresenter {
-    private WeakReference<V> mViewRef;  // View接口类型的弱引用
-    private WeakReference<M> mModelRef; // 其实根本没有必要
+    private WeakReference<V> mViewRef;            // View接口类型的弱引用
+    private WeakReference<M> mModelRef;           // 其实根本没有必要
 
     /**
      * 建立关联
@@ -27,6 +30,12 @@ public abstract class BasePresenter<M extends IModel , V extends IView> implemen
         mViewRef = new WeakReference(iview);
     }
 
+
+    /**
+     *
+     * @param model
+     * @param view
+     */
     @Override
     public void attachModelAndView(IModel model, IView view) {
         mViewRef = new WeakReference(view);
@@ -36,6 +45,7 @@ public abstract class BasePresenter<M extends IModel , V extends IView> implemen
 
     /**
      * 解除关联
+     *
      */
     @Override
     public void detachView() {
@@ -46,10 +56,24 @@ public abstract class BasePresenter<M extends IModel , V extends IView> implemen
     }
 
     /**
-     * 每次都要这样子判断是不是会很累啊
+     * 每次都要这样子判断是不是会很累啊,
+     *
+     * if（isAttachView）{
+     *     getIView.doSomething;
+     * }
+     *
+     * 能否在getIView 中mViewRef.get() 判断mViewRef = null && mViewRef.get() = null 后
+     * 自动的阻止doSomething  的执行，不要每次重复的去判断 ！
+     *
+     *
+     * 问题总是会存在的！试试  Android Architecture Components 吧
+     *
+     * https://developer.android.com/topic/libraries/architecture/index.html
+     *
      *
      * @return
      */
+    // TODO: 2017/9/26 看注释实现 
     public boolean isAttachView() {
         return mViewRef != null && mViewRef.get() != null;
     }
@@ -67,11 +91,9 @@ public abstract class BasePresenter<M extends IModel , V extends IView> implemen
     }
 
 
-
     @Override
     public M getIModel() {
         return mModelRef.get();
     }
-
 
 }

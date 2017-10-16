@@ -37,7 +37,6 @@ public class HttpCall {
     private static final String TAG = HttpCall.class.getSimpleName();
     private static final String baseUrl = "http://test.4009515151.com/";  // WARMING-just for test !
 //    private static final String baseUrl = "http://xxx.4009515151.com/";
-
     private static String TOKEN;
 
     /**

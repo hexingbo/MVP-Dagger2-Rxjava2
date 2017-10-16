@@ -182,7 +182,6 @@ public class Rxjava2DemoFragment extends BaseFragment {
 //                .observeOn(AndroidSchedulers.mainThread())
 //                .subscribe(staffMsg -> Log.e(TAG,staffMsg.toString()));
 
-
     }
 
     /**

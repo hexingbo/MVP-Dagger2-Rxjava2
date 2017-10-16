@@ -24,7 +24,7 @@ import io.reactivex.disposables.Disposable;
 import retrofit2.HttpException;
 
 /**
- * Base Observer 的封装处理,对Rxjava 不熟悉，暂时先这样吧。实际的使用还不是很明白
+ * Base Observer 的封装处理
  * <p>
  * 注意内存泄漏：https://github.com/trello/RxLifecycle/tree/2.x
  * <p>
@@ -92,7 +92,6 @@ public abstract class BaseObserver<T> implements Observer<HttpResponse<T>> {
         } else {
             onFailure(response.getCode(), response.getError());
         }
-
     }
 
     @Override
@@ -118,15 +117,15 @@ public abstract class BaseObserver<T> implements Observer<HttpResponse<T>> {
         } else if (t instanceof IOException) {  //飞行模式等
             errorCode = RESPONSE_FATAL_EOR;
             errorMsg = "没有网络，请检查网络连接";
-        } else if (t instanceof NetworkOnMainThreadException) {  //飞行模式等
+        } else if (t instanceof NetworkOnMainThreadException) {//主线程不能网络请求，这个很容易发现
             errorCode = RESPONSE_FATAL_EOR;
-            errorMsg = "你是不是傻啊，主线程进行网络请求";
+            errorMsg = "主线程不能网络请求";
         } else if (t instanceof RuntimeException) { //很多的错误都是extends RuntimeException
             errorCode = RESPONSE_FATAL_EOR;
             errorMsg = "运行时错误";
         }
 
-        onFailure(errorCode, errorMsg);  //
+        onFailure(errorCode, errorMsg);
     }
 
     /**
@@ -174,7 +173,7 @@ public abstract class BaseObserver<T> implements Observer<HttpResponse<T>> {
         }
 
         if (mContext != null&& Thread.currentThread().getName().toString().equals(Thread_Main)) {
-            Toast.makeText(mContext, message + "   code=" + code, Toast.LENGTH_SHORT).show();
+            Toast.makeText(mContext.getApplicationContext(), message + "   code=" + code, Toast.LENGTH_SHORT).show();
         }
 
     }
@@ -188,7 +187,7 @@ public abstract class BaseObserver<T> implements Observer<HttpResponse<T>> {
      */
     private final void getErrorMsg(HttpException httpException) {
         String errorBodyStr = "";
-        try {      //我们的项目需要的UniCode转码，不是必须要的！
+        try {      //我们的项目需要的UniCode转码
             errorBodyStr = TextUtils.convertUnicode(httpException.response().errorBody().string());
         } catch (IOException ioe) {
             Log.e("errorBodyStr ioe:", ioe.toString());

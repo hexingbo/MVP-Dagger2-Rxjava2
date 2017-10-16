@@ -10,6 +10,7 @@ import java.util.List;
 
 import io.reactivex.Flowable;
 import io.reactivex.Observable;
+import io.reactivex.Single;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
@@ -34,7 +35,6 @@ import retrofit2.http.Url;
  * Created by zenglb on 2017/3/17.
  */
 public interface ApiService {
-
     /**
      * 第三方动态 url 访问
      * 测试在同一个系统下访问外部URL
@@ -85,6 +85,7 @@ public interface ApiService {
     @Headers("NoNeedAuthFlag: NoNeedAuthFlag")
     @POST("api/lebang/oauth/access_token")
     Flowable<HttpResponse<LoginResult>> goLoginByRxjavaFlowable(@Body LoginParams loginRequest);
+
 
 }
 

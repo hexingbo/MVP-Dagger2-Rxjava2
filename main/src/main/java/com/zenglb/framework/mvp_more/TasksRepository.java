@@ -19,9 +19,11 @@ import io.reactivex.Single;
 public class TasksRepository extends BaseModel implements ITaskDataSource {
     /**
      * 获取缓存的数据,测试1，这样子还是在主线程读取的数据库啊！
+     * XXXXXXXX
      *
      * @return
      */
+    @Deprecated
     public Maybe<List<JokesResult>> getCacheTasks22() {
         String threadName = Thread.currentThread().getName(); //  这里线程的切换并没有成功
 

@@ -26,8 +26,17 @@ import com.zenglb.framework.retrofit.result.LoginResult;
  * 是不是感觉更加的复杂了，其实不是都要强制使用MVP 的,其他的模式可以extends
  * {@link com.zenglb.baselib.base.BaseActivity}
  *
- * 更多请参考Google【to-do-MVP（TasksDataSource）】，在这个Branch 中Model中异步获取的数据也（Http，DB）也是
- * 通过回调来通知View 的更新，也有使用Event Bus 来做这种事件传递的，但是更想使用Rxjava2来做，下一个版本做完吧 ！
+ * 更多请参考Google【to-do-MVP（TasksDataSource）】，抽象后发现代码很不好写啊
+ * extends BaseMVPActivity<OauthPresenter,OauthModel> implements OauthContract.OauthView
+ *
+ * 这样子写我想理解应该不会有太大的问题，关键是写起来繁琐，我们从来不干重复性的事情，尝试写一个MVP 模版生成器
+ * 比如OAUTH 功能，会自动的生产：
+ * 1，OauthActivity / OauthFragment  和对应的布局文件
+ * 2，OauthContract
+ * 3，OauthModel
+ * 4，OauthPresenter
+ * 5，
+ *
  *
  * @author  anylife.zlb@gmail.com
  */
@@ -52,16 +61,6 @@ public class Oauth_MVP_Activity extends BaseMVPActivity<OauthPresenter,OauthMode
         }
 
     }
-
-//    /**
-//     * New OauthPresenter
-//     *
-//     * @return
-//     */
-//    @Override
-//    protected OauthPresenter loadPresenter() {
-//        return new OauthPresenter();
-//    }
 
 
     /**
@@ -141,7 +140,7 @@ public class Oauth_MVP_Activity extends BaseMVPActivity<OauthPresenter,OauthMode
 
     @Override
     public void loginFail(String failMsg) {
-        Toast.makeText(this,"登录失败"+failMsg,Toast.LENGTH_SHORT);
+        Toast.makeText(this.getApplicationContext(),"登录失败"+failMsg,Toast.LENGTH_SHORT);
     }
 
 
@@ -167,26 +166,13 @@ public class Oauth_MVP_Activity extends BaseMVPActivity<OauthPresenter,OauthMode
     }
 
     public void goRegister(){
-
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-//                    //Explode
-//                    Explode explode = new Explode();
-//                    explode.setDuration(300);
-
-//                    //Slide
-//                    Slide slideTracition = new Slide();
-//                    slideTracition.setSlideEdge(Gravity.LEFT);
-//                    slideTracition.setDuration(500);
-//
-//                    getWindow().setExitTransition(slideTracition);
-//                    getWindow().setEnterTransition(slideTracition);
-
             ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(this, fab, fab.getTransitionName());
             startActivity(new Intent(this, RegisterActivity.class), options.toBundle());
+
         } else {
             startActivity(new Intent(this, RegisterActivity.class));
         }
-
     }
 
 

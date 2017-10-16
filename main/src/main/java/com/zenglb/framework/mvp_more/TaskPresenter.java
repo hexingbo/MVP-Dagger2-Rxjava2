@@ -13,10 +13,10 @@ import io.reactivex.annotations.NonNull;
 import io.reactivex.functions.Consumer;
 
 /**
+ *
  * Created by zenglb on 2017/7/5.
  */
 public class TaskPresenter extends BasePresenter<TasksRepository,MVPActivity> implements TaskContract.TaskPresenter {
-//    private TasksRepository mTasksRepository = new TasksRepository();
 
     /**
      * 获取缓存的最新的20条数据

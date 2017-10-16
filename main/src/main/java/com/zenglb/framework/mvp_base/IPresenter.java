@@ -11,6 +11,7 @@ public interface IPresenter<M extends IModel,V extends IView> {
      *
      * @param view
      */
+    @Deprecated
     void attachView(V view);
 
     void attachModelAndView(M model,V view);

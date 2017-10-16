@@ -82,13 +82,6 @@ public class LaunchActivity extends BaseActivity {
 
 
 
-
-
-
-
-
-
-
     /**
      * 获取手机号码，一般获取不到
      * <p>

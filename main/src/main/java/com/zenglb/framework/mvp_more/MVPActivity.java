@@ -53,7 +53,7 @@ public class MVPActivity extends BaseMVPActivity<TaskPresenter, TasksRepository>
      * 拿到数据了，刷新ListView UI
      */
     public void showTasks(List<JokesResult> jokesResultList) {
-        springView.onFinishFreshAndLoad();  //
+        springView.onFinishFreshAndLoad();
 
         if (jokesResultList != null) {
             if (page <= 1) data.clear();

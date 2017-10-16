@@ -5,6 +5,9 @@ import com.zenglb.framework.retrofit.core.HttpCall;
 
 /**
  * 一般的Model 层会有通过APi 去请求网络
+ *
+ * 数据库的DaoSession   要不也那个啥
+ *
  */
 public abstract class BaseModel implements IModel {
 
@@ -13,7 +16,6 @@ public abstract class BaseModel implements IModel {
     static {
         ApiService = HttpCall.getApiService();
     }
-
 
 
 }
