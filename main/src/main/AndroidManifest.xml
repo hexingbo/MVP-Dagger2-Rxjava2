@@ -71,7 +71,7 @@
 
         <activity android:name=".activity.animal.AnimalMainActivity" />
 
-        <activity android:name=".mvp_more.MVPActivity"/>
+        <activity android:name=".mvp_more.MVPActivity" />
 
         <provider
             android:name="android.support.v4.content.FileProvider"

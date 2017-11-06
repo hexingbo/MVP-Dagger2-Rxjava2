@@ -181,16 +181,17 @@ public class HttpCall {
 
 
 
-
     /**
      * uese refresh token to Refresh an Access Token
-     * 不是必须这样
+     *
+     * 使用同步的方式请求，不是异步
+     *
+     *
      */
     private static void refreshToken() {
         if (TextUtils.isEmpty(SharedPreferencesDao.getInstance().getData(SPKey.KEY_REFRESH_TOKEN, "", String.class))) {
             return;
         }
-
         LoginParams loginParams = new LoginParams();
         loginParams.setClient_id("5e96eac06151d0ce2dd9554d7ee167ce");
         loginParams.setClient_secret("aCE34n89Y277n3829S7PcMN8qANF8Fh");

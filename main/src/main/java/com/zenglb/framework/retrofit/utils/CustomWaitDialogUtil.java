@@ -1,6 +1,8 @@
 package com.zenglb.framework.retrofit.utils;
 
+import android.app.Activity;
 import android.content.Context;
+import android.util.Log;
 
 import com.zenglb.framework.R;
 
@@ -30,6 +32,13 @@ public class CustomWaitDialogUtil {
 
         if (waitDialog != null && waitDialog.get() != null && waitDialog.get().isShowing()) {
             waitDialog.get().dismiss();
+        }
+
+        Log.e("极端的关闭了",mContext+"哈哈哈哈哈哈哈============================="+((Activity) mContext).isFinishing());
+
+        if (mContext == null || !(mContext instanceof Activity) || ((Activity) mContext).isFinishing()){
+            Log.e("极端的关闭了","异步极端的关闭了Activity,但是还想显示Dialog=============================");
+            return;
         }
 
         mThreadActivityRef = new WeakReference<>(mContext);

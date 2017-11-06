@@ -19,6 +19,7 @@ import java.net.SocketTimeoutException;
 import java.net.UnknownHostException;
 import java.net.UnknownServiceException;
 
+import es.dmoral.toasty.Toasty;
 import io.reactivex.Observer;
 import io.reactivex.disposables.Disposable;
 import retrofit2.HttpException;
@@ -42,7 +43,6 @@ public abstract class BaseObserver<T> implements Observer<HttpResponse<T>> {
 
     private int errorCode = -1111;
     private String errorMsg = "未知的错误！";
-
 
     private Disposable disposable;
 
@@ -94,6 +94,12 @@ public abstract class BaseObserver<T> implements Observer<HttpResponse<T>> {
         }
     }
 
+    /**
+     * 通用异常错误的处理，不能弹出一样的东西出来
+     *
+     *
+     * @param t
+     */
     @Override
     public final void onError(Throwable t) {
         HttpUiTips.dismissDialog(mContext);
@@ -128,6 +134,8 @@ public abstract class BaseObserver<T> implements Observer<HttpResponse<T>> {
         onFailure(errorCode, errorMsg);
     }
 
+
+
     /**
      * 简单的把Dialog 处理掉
      */
@@ -135,6 +143,8 @@ public abstract class BaseObserver<T> implements Observer<HttpResponse<T>> {
     public final void onComplete() {
 //        HttpUiTips.dismissDialog(mContext);
     }
+
+
 
     /**
      * Default error dispose!
@@ -152,8 +162,10 @@ public abstract class BaseObserver<T> implements Observer<HttpResponse<T>> {
         }
     }
 
+
+
     /**
-     * 对通用问题的统一拦截处理
+     * 对通用问题的统一拦截处理,Demo 项目的特定的做法
      *
      * @param code
      */
@@ -173,7 +185,7 @@ public abstract class BaseObserver<T> implements Observer<HttpResponse<T>> {
         }
 
         if (mContext != null&& Thread.currentThread().getName().toString().equals(Thread_Main)) {
-            Toast.makeText(mContext.getApplicationContext(), message + "   code=" + code, Toast.LENGTH_SHORT).show();
+            Toasty.error(mContext.getApplicationContext(), message + "   code=" + code, Toast.LENGTH_SHORT).show();
         }
 
     }
@@ -187,7 +199,7 @@ public abstract class BaseObserver<T> implements Observer<HttpResponse<T>> {
      */
     private final void getErrorMsg(HttpException httpException) {
         String errorBodyStr = "";
-        try {      //我们的项目需要的UniCode转码
+        try {      //我们的项目需要的UniCode转码 ,!!!!!!!!!!!!!!
             errorBodyStr = TextUtils.convertUnicode(httpException.response().errorBody().string());
         } catch (IOException ioe) {
             Log.e("errorBodyStr ioe:", ioe.toString());

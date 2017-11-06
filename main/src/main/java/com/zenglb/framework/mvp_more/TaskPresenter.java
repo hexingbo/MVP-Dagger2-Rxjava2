@@ -41,11 +41,14 @@ public class TaskPresenter extends BasePresenter<TasksRepository,MVPActivity> im
      */
     @Override
     public void getRemoteTasks(String type, int page) {
+
         getIModel().getRemoteTasks(type, page)
                 .compose(SwitchSchedulers.applySchedulers())
                 .subscribe(new BaseObserver<List<JokesResult>>(getIView().mContext) {
                     @Override
                     public void onSuccess(List<JokesResult> jokesResults) {
+
+                        // View 生命周期的状态不可预知啊！
                         getIView().showTasks(jokesResults);
 
                         // TODO: 2017/9/14 操作数据库放到非UI 线程里面去做吧

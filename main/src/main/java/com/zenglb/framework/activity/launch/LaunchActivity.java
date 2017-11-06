@@ -19,7 +19,6 @@ import com.zenglb.framework.config.SPKey;
 import com.zenglb.framework.mvp_oauth.Oauth_MVP_Activity;
 import com.zenglb.framework.navigation.MainActivityBottomNavi;
 
-
 /**
  * 启动页面的背景图放在不同的目录还会导致内存的占用大小不一样啊
  */
@@ -41,7 +40,6 @@ public class LaunchActivity extends BaseActivity {
                         Intent i1 = new Intent();
                         i1.setClass(LaunchActivity.this, MainActivityBottomNavi.class);
 //                        i1.setClass(LaunchActivity.this, MVPActivity.class);
-
                         startActivity(i1);
                         LaunchActivity.this.finish();
                     }

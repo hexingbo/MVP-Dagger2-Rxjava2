@@ -7,7 +7,7 @@ buildscript {
     dependencies {
 //        classpath 'com.android.tools.build:gradle:3.0.0-beta5'
 
-        classpath 'com.android.tools.build:gradle:2.3.3'
+        classpath 'com.android.tools.build:gradle:3.0.0'
         classpath 'org.greenrobot:greendao-gradle-plugin:3.2.1'
         classpath 'me.tatarka:gradle-retrolambda:3.6.0'  //使用lamatada
         classpath 'com.neenbedankt.gradle.plugins:android-apt:1.8'
@@ -31,10 +31,11 @@ subprojects {
 allprojects {
     repositories {
         jcenter()
+
         maven { url "https://dl.bintray.com/drummer-aidan/maven" }
-        maven {
-            url "http://dl.bintray.com/glomadrian/maven"
-        }
+        maven { url "http://dl.bintray.com/glomadrian/maven" }
+        maven { url "https://jitpack.io" }
+
     }
 }
 

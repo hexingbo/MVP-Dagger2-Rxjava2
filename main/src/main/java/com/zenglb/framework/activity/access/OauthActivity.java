@@ -24,6 +24,8 @@ import com.zenglb.framework.retrofit.param.LoginParams;
 import com.zenglb.framework.retrofit.result.LoginResult;
 import com.zenglb.framework.rxhttp.BaseObserver;
 
+import es.dmoral.toasty.Toasty;
+
 /**
  * 使用MVP 改造了 {@link com.zenglb.framework.mvp_oauth.Oauth_MVP_Activity}
  *
@@ -35,9 +37,9 @@ public class OauthActivity extends BaseActivity {
     private static final String TAG = OauthActivity.class.getSimpleName();
     private EditText etUsername;
     private EditText etPassword;
-    private Button btGo;
-    private CardView cv;
-    private FloatingActionButton fab;
+    private Button loginBtn;
+    private CardView cardview;
+    private FloatingActionButton fabBtn;
     private boolean isFromLaunch = false;
 
     @Override
@@ -72,12 +74,12 @@ public class OauthActivity extends BaseActivity {
     protected void initViews() {
         etUsername = (EditText) findViewById(R.id.et_username);
         etPassword = (EditText) findViewById(R.id.et_password);
-        btGo = (Button) findViewById(R.id.bt_go);
-        cv = (CardView) findViewById(R.id.cv);
-        fab = (FloatingActionButton) findViewById(R.id.fab);
+        loginBtn = (Button) findViewById(R.id.login_btn);
+        cardview = (CardView) findViewById(R.id.cardview);
+        fabBtn = (FloatingActionButton) findViewById(R.id.fab_btn);
 
-        fab.setOnClickListener(this);
-        btGo.setOnClickListener(this);
+        fabBtn.setOnClickListener(this);
+        loginBtn.setOnClickListener(this);
         etUsername.setText(SharedPreferencesDao.getInstance().getData(SPKey.KEY_LAST_ACCOUNT, "", String.class));
 
         etPassword.setText("zxcv1234");
@@ -93,7 +95,7 @@ public class OauthActivity extends BaseActivity {
         String password = etPassword.getText().toString().trim();
 
         if (TextUtils.isEmpty(userName) || TextUtils.isEmpty(password)) {
-            Toast.makeText(this.getApplicationContext(), "请完整输入用户名和密码", Toast.LENGTH_SHORT).show();
+            Toasty.error(this.getApplicationContext(), "请完整输入用户名和密码", Toast.LENGTH_SHORT).show();
             return;
         }
         HttpCall.setToken("");
@@ -162,13 +164,13 @@ public class OauthActivity extends BaseActivity {
 //                    getWindow().setExitTransition(slideTracition);
 //                    getWindow().setEnterTransition(slideTracition);
 
-                    ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(this, fab, fab.getTransitionName());
+                    ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(this, fabBtn, fabBtn.getTransitionName());
                     startActivity(new Intent(this, RegisterActivity.class), options.toBundle());
                 } else {
                     startActivity(new Intent(this, RegisterActivity.class));
                 }
                 break;
-            case R.id.bt_go:
+            case R.id.login_btn:
                 loginByRxJava2();
                 break;
         }

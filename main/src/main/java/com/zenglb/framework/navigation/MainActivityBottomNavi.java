@@ -16,6 +16,8 @@ import com.zenglb.framework.fragment.mainfragment.MeProfileFragment;
 import com.zenglb.framework.fragment.others.DemoFragment;
 import com.zenglb.framework.fragment.rxjava2.Rxjava2DemoFragment;
 
+import es.dmoral.toasty.Toasty;
+
 /**
  *
  *
@@ -36,7 +38,7 @@ public class MainActivityBottomNavi extends BaseActivity {
             switch (item.getItemId()) {
                 case R.id.navigation_home:
                     viewPager.setCurrentItem(0);
-                    setTitle("主页*");
+                    setTitle("主页");
                     return true;
                 case R.id.navigation_dashboard:
                     viewPager.setCurrentItem(1);
@@ -142,6 +144,7 @@ public class MainActivityBottomNavi extends BaseActivity {
 
     /**
      * 快速按2次退出
+     *
      */
     private long exitTime = 0;
     @Override
@@ -151,7 +154,7 @@ public class MainActivityBottomNavi extends BaseActivity {
                 finish();
             } else {
                 exitTime = System.currentTimeMillis();
-                Toast.makeText(this.getApplicationContext(), "再按一次退出！", Toast.LENGTH_SHORT).show();
+                Toasty.info(this.getApplicationContext(), "再按一次退出！", Toast.LENGTH_SHORT).show();
             }
             return true;
         } else {

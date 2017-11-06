@@ -13,7 +13,7 @@ import com.zenglb.framework.rxhttp.BaseObserver;
  * <p>
  * Google 的最基本的todo MVP 中也是类似这样处理的
  */
-public class OauthPresenter extends BasePresenter<OauthModel,Oauth_MVP_Activity>
+public class OauthPresenter extends BasePresenter<OauthModel, Oauth_MVP_Activity>
         implements OauthContract.OauthPresenter {
 
     /**
@@ -31,7 +31,15 @@ public class OauthPresenter extends BasePresenter<OauthModel,Oauth_MVP_Activity>
                 .subscribe(new BaseObserver<LoginResult>(getIView().mContext) {
                     @Override
                     public void onSuccess(LoginResult loginResult) {
-                        getIView().loginSuccess(loginResult);
+                        /**
+                         * getIView() 可能出现是null 的情况，
+                         *
+                         */
+                        if(isAttachView()){
+                            getIView().loginSuccess(loginResult);
+                        }
+
+                        invokeMethod();  //把loginSuccess 放到里面去执行，不用判断isAttachView();
                     }
 
                     @Override

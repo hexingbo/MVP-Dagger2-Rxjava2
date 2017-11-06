@@ -35,7 +35,6 @@ import java.util.List;
  * 懒加载
  * 数据状态恢复
  *
- *
  * @author zenglb 2016.10.24
  */
 public class AreUSleepFragmentList extends BaseFragment {
@@ -52,18 +51,18 @@ public class AreUSleepFragmentList extends BaseFragment {
 
     @Override
     public void onSaveInstanceState(Bundle outState) {
-        Log.e(TAG,"onSaveInstanceState");
+        Log.e(TAG, "onSaveInstanceState");
         super.onSaveInstanceState(outState);
-        outState.putParcelableArrayList("dataArray",data);
+        outState.putParcelableArrayList("dataArray", data);
     }
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        if(savedInstanceState!=null&&savedInstanceState.containsKey("dataArray")){
-            Log.e(TAG,"onActivityCreated:      "+savedInstanceState.getParcelableArrayList("dataArray").toString());
-        }else{
-            Log.e(TAG,"onActivityCreated ");
+        if (savedInstanceState != null && savedInstanceState.containsKey("dataArray")) {
+            Log.e(TAG, "onActivityCreated:      " + savedInstanceState.getParcelableArrayList("dataArray").toString());
+        } else {
+            Log.e(TAG, "onActivityCreated ");
         }
 
     }
@@ -91,10 +90,10 @@ public class AreUSleepFragmentList extends BaseFragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Log.e(TAG,"onCreate");
+        Log.e(TAG, "onCreate");
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
-        }else {
+        } else {
             setArguments(new Bundle());
         }
     }
@@ -102,7 +101,7 @@ public class AreUSleepFragmentList extends BaseFragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        Log.e(TAG,"onCreateView");
+        Log.e(TAG, "onCreateView");
 
         View rootView = inflater.inflate(R.layout.fragment_are_usleep, container, false);
         viewsInit(rootView);
@@ -117,7 +116,7 @@ public class AreUSleepFragmentList extends BaseFragment {
      */
     @Override
     protected void lazyLoadData(boolean isForceLoad) {
-        Log.e(TAG,"lazyLoadData         "+"visibleTime: "+visibleTime+"     isViewsInit: "+isViewsInit);
+        Log.e(TAG, "lazyLoadData         " + "visibleTime: " + visibleTime + "     isViewsInit: " + isViewsInit);
 
         if (isViewsInit && visibleTime < 1) {
             Log.e(TAG, "视图已经初始化完毕了，虽然不去加载网络数据，但是可以加载一下本地持久化的缓存数据啊！");
@@ -169,6 +168,7 @@ public class AreUSleepFragmentList extends BaseFragment {
         Intent i = new Intent(getActivity(), target);
         i.putExtra("jokesResult", jokesResult);
         ActivityOptionsCompat transitionActivityOptions = ActivityOptionsCompat.makeSceneTransitionAnimation(getActivity(), pairs);
+//        getActivity().startActivityForResult();
         getActivity().startActivity(i, transitionActivityOptions.toBundle());
     }
 
@@ -200,7 +200,7 @@ public class AreUSleepFragmentList extends BaseFragment {
         springView.setListener(new SpringView.OnFreshListener() {
             @Override
             public void onRefresh() {
-                Log.e(TAG,"onRefresh data");
+                Log.e(TAG, "onRefresh data");
                 page = 1;
                 getHttpData(mParam1, page);
             }

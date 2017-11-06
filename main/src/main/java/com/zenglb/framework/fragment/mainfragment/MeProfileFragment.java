@@ -26,6 +26,8 @@ import com.zenglb.framework.mvp_oauth.Oauth_MVP_Activity;
 import java.util.ArrayList;
 import java.util.List;
 
+import es.dmoral.toasty.Toasty;
+
 /**
  * 懒加载的实验Fragment，将会作为github me Profile 的Fragment 复用
  * <p>
@@ -104,7 +106,7 @@ public class MeProfileFragment extends BaseFragment {
             }
             if (visibleTime == 1) { //这里也不是每次可见的时候都能刷新，只有第一次可见的时候或者数据加载从来没有成功 才调用刷新
                 disposeHttpResult();
-                Toast.makeText(mActivity, "第一次可见", Toast.LENGTH_SHORT).show();
+                Toasty.info(mActivity, "第一次可见", Toast.LENGTH_SHORT).show();
             }
         }
     }

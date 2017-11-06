@@ -3,10 +3,12 @@
 
 # 关于本Demo
   一直在纠结在何种开发模式之中，重构希望能把关注点集中到代码结构、整体架构、可测试性、可维护性这四个方面
-  Rxjava2 + retrofit2 + MVP + Drager2 + , 参考下面的两个链接练习（注重基础）：
-  
-  - https://github.com/googlesamples/android-architecture
-  - https://github.com/googlesamples/android-architecture-components
+  Rxjava2 + retrofit2 + MVP + Drager2 + xxx,应该是当前Android开发主流的框架 ，我们都会参考Google的官方框架https://github.com/googlesamples/android-architecture
+  但是现在 在MVP模式 中我们使用网络异步请求数据成功后需要更新UI 中的显示，但是你不知道对应的Activity／Fragment 等处于什么状态， 
+  此时当我们的异步调用面对无法预知的用户操作和系统处理的时候，什么问题都可能发生。
+    
+  总而言之，由于我们对于UI实时的状态做不到了如指掌，以至于对数据和逻辑的处理就无法尽善尽美。这是类似隐患得不到很好的解决根本原因。 
+  这个时候我们就会参考Google 的最新的项目架构组件https://github.com/googlesamples/android-architecture-components
   
 
 # 关于Http网络请求 (Rxjava2+Retrofit2)

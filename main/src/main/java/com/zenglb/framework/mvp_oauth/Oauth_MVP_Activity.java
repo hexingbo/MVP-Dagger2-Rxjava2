@@ -22,13 +22,16 @@ import com.zenglb.framework.retrofit.core.HttpCall;
 import com.zenglb.framework.retrofit.param.LoginParams;
 import com.zenglb.framework.retrofit.result.LoginResult;
 
+import es.dmoral.toasty.Toasty;
+
+
 /**
  * 是不是感觉更加的复杂了，其实不是都要强制使用MVP 的,其他的模式可以extends
  * {@link com.zenglb.baselib.base.BaseActivity}
- *
+ * <p>
  * 更多请参考Google【to-do-MVP（TasksDataSource）】，抽象后发现代码很不好写啊
  * extends BaseMVPActivity<OauthPresenter,OauthModel> implements OauthContract.OauthView
- *
+ * <p>
  * 这样子写我想理解应该不会有太大的问题，关键是写起来繁琐，我们从来不干重复性的事情，尝试写一个MVP 模版生成器
  * 比如OAUTH 功能，会自动的生产：
  * 1，OauthActivity / OauthFragment  和对应的布局文件
@@ -37,16 +40,15 @@ import com.zenglb.framework.retrofit.result.LoginResult;
  * 4，OauthPresenter
  * 5，
  *
- *
- * @author  anylife.zlb@gmail.com
+ * @author anylife.zlb@gmail.com
  */
-public class Oauth_MVP_Activity extends BaseMVPActivity<OauthPresenter,OauthModel> implements OauthContract.OauthView {
+public class Oauth_MVP_Activity extends BaseMVPActivity<OauthPresenter, OauthModel> implements OauthContract.OauthView {
     private static final String PW = "zxcv1234";  //FBI WARMING !!!!
-    private boolean isFromLaunch = false;  //从哪里跳转来的，很有用啊
+    private boolean isFromLaunch = false;         //从哪里跳转来的，很有用啊
 
     EditText etUsername, etPassword;
     Button oauthBtn;
-    FloatingActionButton fab;
+    FloatingActionButton fabBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -90,10 +92,10 @@ public class Oauth_MVP_Activity extends BaseMVPActivity<OauthPresenter,OauthMode
     protected void initViews() {
         etUsername = (EditText) findViewById(R.id.et_username);
         etPassword = (EditText) findViewById(R.id.et_password);
-        oauthBtn = (Button) findViewById(R.id.bt_go);
-        fab = (FloatingActionButton) findViewById(R.id.fab);
+        oauthBtn = (Button) findViewById(R.id.login_btn);
+        fabBtn = (FloatingActionButton) findViewById(R.id.fab_btn);
 
-        fab.setOnClickListener(this);
+        fabBtn.setOnClickListener(this);
         oauthBtn.setOnClickListener(this);
 
         etUsername.setText(SharedPreferencesDao.getInstance().getData(SPKey.KEY_LAST_ACCOUNT, "", String.class));
@@ -110,7 +112,7 @@ public class Oauth_MVP_Activity extends BaseMVPActivity<OauthPresenter,OauthMode
         String password = etPassword.getText().toString().trim();
 
         if (TextUtils.isEmpty(userName) || TextUtils.isEmpty(password)) {
-            Toast.makeText(this.getApplicationContext(), "请完整输入用户名和密码", Toast.LENGTH_SHORT).show();
+            Toasty.error(this.getApplicationContext(), "请完整输入用户名和密码", Toast.LENGTH_SHORT).show();
             return;
         }
 
@@ -128,10 +130,10 @@ public class Oauth_MVP_Activity extends BaseMVPActivity<OauthPresenter,OauthMode
 
     public void onClick(View view) {
         switch (view.getId()) {
-            case R.id.fab:
+            case R.id.fab_btn:
                 goRegister();
                 break;
-            case R.id.bt_go:
+            case R.id.login_btn:
                 mvpLogin();
                 break;
         }
@@ -140,7 +142,7 @@ public class Oauth_MVP_Activity extends BaseMVPActivity<OauthPresenter,OauthMode
 
     @Override
     public void loginFail(String failMsg) {
-        Toast.makeText(this.getApplicationContext(),"登录失败"+failMsg,Toast.LENGTH_SHORT);
+        Toasty.error(this.getApplicationContext(), "登录失败" + failMsg, Toast.LENGTH_SHORT).show();
     }
 
 
@@ -165,9 +167,9 @@ public class Oauth_MVP_Activity extends BaseMVPActivity<OauthPresenter,OauthMode
 
     }
 
-    public void goRegister(){
+    public void goRegister() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(this, fab, fab.getTransitionName());
+            ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(this, fabBtn, fabBtn.getTransitionName());
             startActivity(new Intent(this, RegisterActivity.class), options.toBundle());
 
         } else {
@@ -178,12 +180,12 @@ public class Oauth_MVP_Activity extends BaseMVPActivity<OauthPresenter,OauthMode
 
     /**
      * 登录页面不允许返回，之前返回Home
-     *
+     * <p>
      * App用户在其他设备上登录，原来的设备因为unOauth 弹出到登录页面
      * 竟然按返回键还能回去，假如有缓存敏感信息不是。。。
      *
-     * @param  keyCode
-     * @param  event
+     * @param keyCode
+     * @param event
      * @return
      */
     @Override

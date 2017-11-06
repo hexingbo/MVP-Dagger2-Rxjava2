@@ -41,7 +41,6 @@ public abstract class BaseMVPActivity<P extends BasePresenter, M extends BaseMod
         mModel = CreateObjUtil.getT(this, 1);
 
         initCommonData();
-
     }
 
 
