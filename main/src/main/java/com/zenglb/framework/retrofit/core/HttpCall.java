@@ -3,7 +3,9 @@ package com.zenglb.framework.retrofit.core;
 import android.text.TextUtils;
 import android.util.Log;
 
+import com.readystatesoftware.chuck.ChuckInterceptor;
 import com.zenglb.baselib.sharedpreferences.SharedPreferencesDao;
+import com.zenglb.framework.MyApplication;
 import com.zenglb.framework.config.SPKey;
 import com.zenglb.framework.retrofit.param.LoginParams;
 import com.zenglb.framework.retrofit.result.LoginResult;
@@ -11,6 +13,7 @@ import java.io.IOException;
 import java.util.concurrent.TimeUnit;
 import okhttp3.Authenticator;
 import okhttp3.ConnectionPool;
+import okhttp3.Headers;
 import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -34,7 +37,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
  * Created by Anylife.zlb@gmail.com on 2017/3/16.
  */
 public class HttpCall {
-    private static final String TAG = HttpCall.class.getSimpleName();
+    private static final String TAG = HttpCall.class.getSimpleName()+"OKHTTP";
     private static final String baseUrl = "http://test.4009515151.com/";  // WARMING-just for test !
 //    private static final String baseUrl = "http://xxx.4009515151.com/";
     private static String TOKEN;
@@ -57,7 +60,8 @@ public class HttpCall {
      */
     public static ApiService getApiService() {
         if (apiService == null) {
-            //处理没有认证  http 401 Not Authorised
+
+            //1.处理没有认证  http 401 Not Authorised
             Authenticator mAuthenticator2 = new Authenticator() {
                 @Override
                 public Request authenticate(Route route, Response response) throws IOException {
@@ -72,6 +76,8 @@ public class HttpCall {
                 }
             };
 
+            //2. 请求的拦截处理
+
             /**
              * 如果你的 token 是空的，就是还没有请求到 token，比如对于登陆请求，是没有 token 的，
              * 只有等到登陆之后才有 token，这时候就不进行附着上 token。另外，如果你的请求中已经带有验证 header 了，
@@ -85,7 +91,7 @@ public class HttpCall {
                         TOKEN = SharedPreferencesDao.getInstance().getData(SPKey.KEY_ACCESS_TOKEN, "", String.class);
                     }
 
-                    /***
+                    /**
                      * TOKEN == null，Login/Register noNeed Token
                      * noNeedAuth(originalRequest)    refreshToken api request is after log in before log out,but  refreshToken api no need auth
                      */
@@ -93,35 +99,43 @@ public class HttpCall {
                         Response originalResponse = chain.proceed(originalRequest);
                         return originalResponse.newBuilder()
                                 //get http request progress,et download app
-//                                .body(new ProgressResponseBody(originalResponse.body(), progressListener))
                                 .build();
                     }
 
                     Request authorisedRequest = originalRequest.newBuilder()
+                            .header("Test", "hello,It is a test")
                             .header("Authorization", TOKEN)
                             .header("Connection", "Keep-Alive") //新添加，time-out默认是多少呢？
                             .build();
 
                     Response originalResponse = chain.proceed(authorisedRequest);
+
+                    //把统一拦截的header 打印出来
+                    new MyHttpLoggingInterceptor().logInterceptorHeaders(authorisedRequest);
+
                     return originalResponse.newBuilder()
-//                            .body(new ProgressResponseBody(originalResponse.body(), progressListener))
                             .build();
-
-
                 }
             };
 
-            HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor();
-            loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
+            /**
+             * 如果不喜欢系统的Http 的打印方式，可以自己去实现Interceptor 接口
+             *
+             * 但是统一拦截的header 是无法打印的，因为是在请求发出后统一拦截打印的。
+             *
+             */
+            MyHttpLoggingInterceptor loggingInterceptor = new MyHttpLoggingInterceptor();
+            loggingInterceptor.setLevel(MyHttpLoggingInterceptor.Level.BODY);
 
             OkHttpClient okHttpClient = new OkHttpClient.Builder()
                     .retryOnConnectionFailure(true)
                     .connectTimeout(11, TimeUnit.SECONDS)
-//                    .connectionPool(new ConnectionPool(8, 15, TimeUnit.SECONDS))
                     .addNetworkInterceptor(mRequestInterceptor)
-                    .addInterceptor(loggingInterceptor)
                     .authenticator(mAuthenticator2)
+                    .addInterceptor(loggingInterceptor)
+                    .addInterceptor(new ChuckInterceptor(MyApplication.getInstance().getApplicationContext()))
                     .build();
+
 
             Retrofit retrofit = new Retrofit.Builder()
                     .baseUrl(baseUrl)
@@ -129,7 +143,6 @@ public class HttpCall {
                     .addConverterFactory(GsonConverterFactory.create())
                     .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                     .build();
-
 
             apiService = retrofit.create(ApiService.class);
         }

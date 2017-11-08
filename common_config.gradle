@@ -4,7 +4,6 @@
 project.ext {
     //1.关于SDK version
     compileSdkVersion = 26
-    buildToolsVersion = '26.0.0'
 
     //很不想要19 ，提到21 把是否会好很多
     minSdkVersion = 19
@@ -17,7 +16,7 @@ project.ext {
     targetCompatibility = JavaVersion.VERSION_1_8
 
     //4.support Lib Version ,最好全部使用同一个版本号
-    supportLibraryVersion = '26.+'
+    supportLibraryVersion = '26.1.0'
 
     //5.
 

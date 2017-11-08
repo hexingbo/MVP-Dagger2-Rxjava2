@@ -14,7 +14,7 @@ import android.widget.Toast;
 import com.zenglb.baselib.base.BaseActivity;
 import com.zenglb.baselib.sharedpreferences.SharedPreferencesDao;
 import com.zenglb.framework.R;
-import com.zenglb.framework.mvp_more.MVPActivity;
+import com.zenglb.framework.activity.quick_input_things.QuickInputThingsActivity;
 import com.zenglb.framework.config.SPKey;
 import com.zenglb.framework.mvp_oauth.Oauth_MVP_Activity;
 import com.zenglb.framework.navigation.MainActivityBottomNavi;
@@ -25,8 +25,9 @@ import com.zenglb.framework.navigation.MainActivityBottomNavi;
 public class LaunchActivity extends BaseActivity {
     private static final int FINISH_LAUNCHER=0;
 
-    private Handler UiHandler = new Handler() {
+    private  Handler UiHandler = new Handler() {
         public void handleMessage(Message msg) {
+
             switch (msg.what) {
                 case FINISH_LAUNCHER:
                     String accessToken = SharedPreferencesDao.getInstance().getData(SPKey.KEY_ACCESS_TOKEN, "", String.class);
@@ -39,7 +40,7 @@ public class LaunchActivity extends BaseActivity {
                     } else {
                         Intent i1 = new Intent();
                         i1.setClass(LaunchActivity.this, MainActivityBottomNavi.class);
-//                        i1.setClass(LaunchActivity.this, MVPActivity.class);
+                        // i1.setClass(LaunchActivity.this, QuickInputThingsActivity.class);
                         startActivity(i1);
                         LaunchActivity.this.finish();
                     }

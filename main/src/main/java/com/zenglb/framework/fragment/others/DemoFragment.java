@@ -16,6 +16,7 @@ import com.zenglb.baselib.base.BaseActivity;
 import com.zenglb.baselib.utils.TransitionHelper;
 import com.zenglb.framework.R;
 import com.zenglb.framework.activity.animal.AnimalMainActivity;
+import com.zenglb.framework.activity.quick_input_things.QuickInputThingsActivity;
 import com.zenglb.framework.mvp_more.MVPActivity;
 import com.zenglb.framework.retrofit.core.HttpCall;
 import com.zenglb.framework.retrofit.result.CustomWeatherResult;
@@ -74,8 +75,9 @@ public class DemoFragment extends Fragment {
      * @param
      */
     private void viewsInit(View rootView) {
-        rootView.findViewById(R.id.jsbridge).setOnClickListener(v -> {
-//            ((BaseActivity) getActivity()).goWebView("file:///android_asset/index.html");
+        rootView.findViewById(R.id.quickinput).setOnClickListener(v -> {
+
+            ((BaseActivity) getActivity()).startActivity(QuickInputThingsActivity.class);
         });
 
         /**

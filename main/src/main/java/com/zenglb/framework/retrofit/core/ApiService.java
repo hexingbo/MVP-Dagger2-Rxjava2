@@ -55,12 +55,11 @@ public interface ApiService {
     @GET("api/lebang/staffs/me/detail")
     Observable<HttpResponse<StaffMsg>> getStaffMsg();
 
+
+
     @GET("api/lebang/night_school/{type}")
     Observable<HttpResponse<List<JokesResult>>> getJokes(@Path("type") String type, @Query("page") int page);
 
-    @Deprecated
-    @GET("api/lebang/night_school/{type}")
-    Flowable<HttpResponse<List<JokesResult>>> getAreuSleep(@Path("type") String type, @Query("page") int page);
 
 
     @GET("api/lebang/night_school/{type}")

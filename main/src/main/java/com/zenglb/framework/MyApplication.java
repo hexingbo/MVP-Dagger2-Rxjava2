@@ -18,7 +18,6 @@ import org.greenrobot.greendao.database.Database;
 /**
  * Thank you, Vanke Service;I have enough time to do my favourite
  *
- *
  * Created by zenglb on 2017/3/15.
  */
 public class MyApplication extends BaseApplication {
