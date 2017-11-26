@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/Android-MVP-Rxjava2.iml" filepath="$PROJECT_DIR$/Android-MVP-Rxjava2.iml" />
       <module fileurl="file://$PROJECT_DIR$/AndroidAppFrameWork.iml" filepath="$PROJECT_DIR$/AndroidAppFrameWork.iml" />
       <module fileurl="file://$PROJECT_DIR$/baseLib/baseLib.iml" filepath="$PROJECT_DIR$/baseLib/baseLib.iml" />
       <module fileurl="file://$PROJECT_DIR$/main/main.iml" filepath="$PROJECT_DIR$/main/main.iml" />

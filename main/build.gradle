@@ -57,6 +57,7 @@ dependencies {
 
     compile project(':baseLib')
     compile project(':settingViewLib')
+    compile files('libs/universal-image-loader-1.9.5.jar')
 
     compile 'com.github.glomadrian:Grav:1.1'
     compile 'com.andrognito.patternlockview:patternlockview-reactive:1.0.0'

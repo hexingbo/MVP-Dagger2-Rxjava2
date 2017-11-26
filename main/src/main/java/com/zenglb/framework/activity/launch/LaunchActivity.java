@@ -15,6 +15,7 @@ import com.zenglb.baselib.base.BaseActivity;
 import com.zenglb.baselib.sharedpreferences.SharedPreferencesDao;
 import com.zenglb.framework.R;
 import com.zenglb.framework.activity.quick_input_things.QuickInputThingsActivity;
+import com.zenglb.framework.activity.rxjava2.ZipActivity;
 import com.zenglb.framework.config.SPKey;
 import com.zenglb.framework.mvp_oauth.Oauth_MVP_Activity;
 import com.zenglb.framework.navigation.MainActivityBottomNavi;
@@ -40,7 +41,7 @@ public class LaunchActivity extends BaseActivity {
                     } else {
                         Intent i1 = new Intent();
                         i1.setClass(LaunchActivity.this, MainActivityBottomNavi.class);
-                        // i1.setClass(LaunchActivity.this, QuickInputThingsActivity.class);
+//                         i1.setClass(LaunchActivity.this, ZipActivity.class);
                         startActivity(i1);
                         LaunchActivity.this.finish();
                     }

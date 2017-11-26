@@ -5,6 +5,8 @@ import android.content.pm.PackageManager;
 import android.text.TextUtils;
 import android.util.Log;
 
+import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 import com.squareup.leakcanary.LeakCanary;
 import com.zenglb.baselib.base.BaseApplication;
 import com.zenglb.baselib.sharedpreferences.SharedPreferencesDao;
@@ -69,6 +71,12 @@ public class MyApplication extends BaseApplication {
                 SdkManager.initDebugOrRelease(this);
                 setDaoSession(SharedPreferencesDao.getInstance().getData("Account", "DefDb", String.class));
                 refWatcher = LeakCanary.install(this);  //只管主进程的,其他的进程自保吧
+
+                //创建默认的ImageLoader配置参数
+                ImageLoaderConfiguration configuration = ImageLoaderConfiguration.createDefault(this);
+                //Initialize ImageLoader with configuration.
+                ImageLoader.getInstance().init(configuration);
+
                 break;
 
             case "com.zenglb.framework:webprocess":

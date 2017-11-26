@@ -68,8 +68,9 @@
                 android:resource="@xml/file_paths" />
         </provider>
 
-        <activity android:name=".activity.quick_input_things.QuickInputThingsActivity"></activity>
+        <activity android:name=".activity.quick_input_things.QuickInputThingsActivity" />
         <activity android:name=".activity.quick_input_things.SearchActivity" />
+        <activity android:name=".activity.rxjava2.ZipActivity"></activity>
     </application>
 
 </manifest>
