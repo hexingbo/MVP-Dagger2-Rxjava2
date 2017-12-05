@@ -15,6 +15,7 @@ import com.zenglb.framework.activity.main.AreUSleepFragmentList;
 import com.zenglb.framework.fragment.mainfragment.MeProfileFragment;
 import com.zenglb.framework.fragment.others.DemoFragment;
 import com.zenglb.framework.fragment.rxjava2.Rxjava2DemoFragment;
+import com.zenglb.framework.lifecycle.LifecycleObserverDemo;
 
 import es.dmoral.toasty.Toasty;
 
@@ -64,6 +65,8 @@ public class MainActivityBottomNavi extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setTitle("Main");
+
+
     }
 
     @Override

@@ -46,11 +46,18 @@ public abstract class BaseMVPActivity<P extends BasePresenter, M extends BaseMod
 
     @Override
     public void showLoading() {
+        //
 
     }
 
     @Override
-    public void showError() {
+    public void hideLoading() {
+        //
+
+    }
+
+    @Override
+    public void showError(String errorMsg) {
 
     }
 
@@ -65,6 +72,7 @@ public abstract class BaseMVPActivity<P extends BasePresenter, M extends BaseMod
 
     /**
      * 取消Presenter 和 View 的关联
+     *
      */
     @Override
     protected void onDestroy() {

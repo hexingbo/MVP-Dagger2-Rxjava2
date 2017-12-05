@@ -86,5 +86,9 @@ public interface ApiService {
     Flowable<HttpResponse<LoginResult>> goLoginByRxjavaFlowable(@Body LoginParams loginRequest);
 
 
+    @GET()
+    Call<String> getUserProfile(@Url String url);
+
+
 }
 

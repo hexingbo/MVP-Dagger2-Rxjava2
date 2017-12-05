@@ -1,11 +1,18 @@
 package com.zenglb.framework.mvp_base;
 
-// 想起一个笑话，大学2个室友分别去买了2只乌龟，其中一个室友怕混淆，把名字写在乌龟壳上
+/**
+ * 界面中会有很多类似的操作方法，比如显示 隐藏Dialog，提示错误等
+ *
+ */
 public interface IView {
 
     //显示等待框
     void showLoading();
+
+    //隐藏Dialog
+    void hideLoading();
+
     //显示错误提示
-    void showError();
+    void showError(String errorMsg);
 
 }

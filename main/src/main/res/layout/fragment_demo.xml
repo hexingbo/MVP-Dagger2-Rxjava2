@@ -26,7 +26,7 @@
             android:id="@+id/quickinput"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="处理本地搜索的快速输入关键字的问题"
+            android:text="处理快速操作问题，防抖动"
             android:paddingBottom="22dp"
             android:textColor="@color/colorPrimary"
             android:textSize="18sp" />

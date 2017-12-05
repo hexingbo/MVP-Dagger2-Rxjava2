@@ -145,4 +145,24 @@ public class StaffMsg {
     public void setContact_phones(List<String> contact_phones) {
         this.contact_phones = contact_phones;
     }
+
+    @Override
+    public String toString() {
+        return "StaffMsg{" +
+                "id=" + id +
+                ", fullname='" + fullname + '\'' +
+                ", nickname='" + nickname + '\'' +
+                ", sex='" + sex + '\'' +
+                ", mobile='" + mobile + '\'' +
+                ", created='" + created + '\'' +
+                ", updated='" + updated + '\'' +
+                ", identity_id='" + identity_id + '\'' +
+                ", is_keeper=" + is_keeper +
+                ", avatar_url='" + avatar_url + '\'' +
+                ", job_can_edit=" + job_can_edit +
+                ", role_identity='" + role_identity + '\'' +
+                ", contact_phones=" + contact_phones +
+                '}';
+    }
+
 }

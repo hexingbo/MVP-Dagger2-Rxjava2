@@ -74,3 +74,64 @@
 - BaseWebView 的 处理（未完善，Android 的坑很多）
 - support lib 和 动画
 - [混淆压缩打包优化 Proguard　proguard-android-optimize　和 proguard-android 区别 ？](https://github.com/D-clock/Doc/blob/master/Android/Gradle/4_AndroidStudio%E4%B8%8BProGuard%E6%B7%B7%E6%B7%86%E6%89%93%E5%8C%85.md)
+
+
+
+
+
+
+
+
+
+
+- 禁用插件
+File -> Settings… Plugins 去掉一些没有用的插件。
+ 比如：Git Integration、GitHub、Google Cloud Testing、Google Cloud Tools For Android Studio、
+ Goole Login、Google Services、JavaFX、SDK Updater、Subversion Integration、Terminal、TestNG-J。
+
+- 设置Gradle 
+1.开启守护进程 
+gradle.properties org.gradle.daemon=true //Android Studio默认使用daemon，所以可以不设置。 命令行：–daemon
+
+2.开始并行模式        
+gradle.properties        
+org.gradle.parallel=true // 多个decoupled工程时，并行编译        
+File -> Settings… Build>Compiler 
+在Command-line options里设置–parallel –max-          workers=4 
+
+命令行：-parallel –max-workers=4
+
+3. demand      
+gradle.properties      
+org.gradle.configureondemand=true      
+File -> Settings… Build>Compiler 
+默认Configure on demand是勾选的      
+命令行：–configure-on-demand
+
+4.离线（需要联网是再重新设置）     
+File -> Settings… Build>Build Tools>Gradle 勾选Offline work
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

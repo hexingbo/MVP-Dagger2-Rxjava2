@@ -12,12 +12,12 @@ import com.zenglb.commonlib.R;
 
 /**
  * 基类就只做基类的事情,不要把业务层面的代码写到这里来 ！！
+ *
  * <p>
  * FBI WARMING,不要为了方便，只有某几个Activity 才会用的（定位，Wi-Fi 数据收集啊，写在Base里面，那还抽象什么）
  * <p>
  * 1.toolbar 的封装
  * 2.页面之间的跳转
- * 3.注意WebViewActivity 开启了多进程！
  *
  * @author zenglb 20170301
  */
@@ -38,6 +38,7 @@ public abstract class BaseActivity extends RxAppCompatActivity implements View.O
             setSupportActionBar(mToolbar);
         }
         initViews();
+
     }
 
 
@@ -46,7 +47,8 @@ public abstract class BaseActivity extends RxAppCompatActivity implements View.O
     protected abstract void initViews();
 
     public void onClick(View view) {
-    }  //不是必须的
+
+    }
 
     /*
      * Activity的跳转
@@ -56,33 +58,6 @@ public abstract class BaseActivity extends RxAppCompatActivity implements View.O
         intent.setClass(this, cla);
         startActivity(intent);
     }
-
-
-//    /*
-//     * Activity的跳转-带参数
-//     */
-//    public void setIntentClass(Class<?> cla, Object obj) {
-//        Intent intent = new Intent();
-//        intent.setClass(this, cla);
-//        intent.putExtra(INTENTTAG, (Serializable) obj);
-//        startActivity(intent);
-//        overridePendingTransition(R.anim.in_from_right, R.anim.out_to_left);
-//    }
-
-
-//    /**
-//     * Activity -> webview Activity的跳转-带参数
-//     *
-//     * @param link
-//     */
-//
-//    public final  void goWebView(String link) {
-//        Intent intent = new Intent();
-//        intent.setAction(BaseWebViewActivity.WEB_ACTION);
-//        intent.addCategory(BaseWebViewActivity.WEB_CATEGORY);
-//        intent.putExtra(BaseWebViewActivity.URL, link);
-//        startActivity(intent);
-//    }
 
 
     /**
@@ -134,6 +109,7 @@ public abstract class BaseActivity extends RxAppCompatActivity implements View.O
             showBack();
         }
     }
+
 
     @Override
     protected void onDestroy() {

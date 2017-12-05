@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.Looper;
 import android.os.Message;
 import android.telephony.TelephonyManager;
 import android.telephony.cdma.CdmaCellLocation;
@@ -14,21 +15,62 @@ import android.widget.Toast;
 import com.zenglb.baselib.base.BaseActivity;
 import com.zenglb.baselib.sharedpreferences.SharedPreferencesDao;
 import com.zenglb.framework.R;
+import com.zenglb.framework.activity.alarmManger.AlarmMangerActivity;
+import com.zenglb.framework.activity.architecture.ArchitectureActivity;
 import com.zenglb.framework.activity.quick_input_things.QuickInputThingsActivity;
 import com.zenglb.framework.activity.rxjava2.ZipActivity;
 import com.zenglb.framework.config.SPKey;
+import com.zenglb.framework.demo.Rxjava_ZIP_Activity;
 import com.zenglb.framework.mvp_oauth.Oauth_MVP_Activity;
 import com.zenglb.framework.navigation.MainActivityBottomNavi;
 
 /**
  * 启动页面的背景图放在不同的目录还会导致内存的占用大小不一样啊
+ *
  */
 public class LaunchActivity extends BaseActivity {
     private static final int FINISH_LAUNCHER=0;
+    private  Handler UiHandler=new MyHandler();
 
-    private  Handler UiHandler = new Handler() {
+
+    @Override
+    protected int setLayoutId() {
+        return R.layout.activity_launch;
+    }
+
+    @Override
+    protected void initViews() {
+        //内部类，stati
+    }
+
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        UiHandler.sendEmptyMessageDelayed(0, 2000);  //好假啊
+//        Toast.makeText(this,NDKinterface.getAESDecrypt(NDKinterface.getAESEncrypt("如果不是乱码就是成功了")),
+//                Toast.LENGTH_LONG).show();     //测试加密解密是否有问题
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        UiHandler.removeCallbacksAndMessages(null);
+    }
+
+
+    /**
+     * 接受消息，处理消息 ，此Handler会与当前主线程一块运行
+     *
+     */
+    class MyHandler extends Handler {
+        public MyHandler() {
+        }
+        public MyHandler(Looper L) {
+            super(L);
+        }
+        // 子类必须重写此方法，接受数据
         public void handleMessage(Message msg) {
-
             switch (msg.what) {
                 case FINISH_LAUNCHER:
                     String accessToken = SharedPreferencesDao.getInstance().getData(SPKey.KEY_ACCESS_TOKEN, "", String.class);
@@ -41,46 +83,16 @@ public class LaunchActivity extends BaseActivity {
                     } else {
                         Intent i1 = new Intent();
                         i1.setClass(LaunchActivity.this, MainActivityBottomNavi.class);
-//                         i1.setClass(LaunchActivity.this, ZipActivity.class);
+//                        i1.setClass(LaunchActivity.this, Oauth_MVP_Activity.class);
                         startActivity(i1);
                         LaunchActivity.this.finish();
                     }
                     break;
-
                 default:
                     break;
             }
         }
-    };
-
-
-    @Override
-    protected int setLayoutId() {
-        return R.layout.activity_launch;
     }
-
-    @Override
-    protected void initViews() {
-    }
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        UiHandler.sendEmptyMessageDelayed(0, 2000);
-
-//        Toast.makeText(this,NDKinterface.getAESDecrypt(NDKinterface.getAESEncrypt("如果不是乱码就是成功了")),
-//                Toast.LENGTH_LONG).show();     //测试加密解密是否有问题
-
-    }
-
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        UiHandler.removeCallbacksAndMessages(null);
-    }
-
-
 
     /**
      * 获取手机号码，一般获取不到

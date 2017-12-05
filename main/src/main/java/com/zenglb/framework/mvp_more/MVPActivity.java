@@ -25,7 +25,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * MVP 的练习
+ *
+ *
+ *
+ *
  */
 public class MVPActivity extends BaseMVPActivity<TaskPresenter, TasksRepository> implements TaskContract.TaskView {
     /**

@@ -2,10 +2,8 @@ package com.zenglb.framework.mvp_base;
 
 import android.support.annotation.NonNull;
 import android.util.Log;
-
 import java.lang.ref.WeakReference;
-import java.lang.reflect.Method;
-import java.lang.reflect.Parameter;
+
 
 /**
  * 抽象出P 的共性，我们可以看见 View 和 Module 之间的关联是通过在P 中完成的。
@@ -27,17 +25,6 @@ public abstract class BasePresenter<M extends IModel, V extends IView> implement
     private WeakReference<V> mViewRef;            // View接口类型的弱引用
     private WeakReference<M> mModelRef;           // 其实根本没有必要
 
-    /**
-     * 建立关联
-     *
-     * @param iview
-     */
-    @Override
-    @Deprecated
-    public void attachView(IView iview) {
-        mViewRef = new WeakReference(iview);
-    }
-
 
     /**
      * @param model
@@ -49,7 +36,6 @@ public abstract class BasePresenter<M extends IModel, V extends IView> implement
         mModelRef = new WeakReference(model);
     }
 
-
     /**
      * 解除关联
      */
@@ -60,8 +46,6 @@ public abstract class BasePresenter<M extends IModel, V extends IView> implement
             mViewRef = null;
         }
     }
-
-
 
     /**
      * 获取View层（Activity／Fragment 等），有可能会已经销毁了
@@ -105,14 +89,12 @@ public abstract class BasePresenter<M extends IModel, V extends IView> implement
         return mViewRef != null && mViewRef.get() != null;
     }
 
-
-    /**
-     * 把结果返回到页面等等
-     */
-    public void invokeMethod(){
-
-    }
-
+//    /**
+//     * 把结果返回到页面等等
+//     */
+//    public void invokeMethod(){
+//
+//    }
 
 
     @Override

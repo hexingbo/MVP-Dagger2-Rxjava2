@@ -1,12 +1,10 @@
 package com.zenglb.framework.mvp_oauth;
 
-
 import com.zenglb.baselib.rxUtils.SwitchSchedulers;
 import com.zenglb.framework.mvp_base.BasePresenter;
 import com.zenglb.framework.retrofit.param.LoginParams;
 import com.zenglb.framework.retrofit.result.LoginResult;
 import com.zenglb.framework.rxhttp.BaseObserver;
-
 
 /**
  * 最不喜欢的就是 OauthModel.DataListener 这个回调接口，不想使用EventBus ！Rxjava2
@@ -31,15 +29,18 @@ public class OauthPresenter extends BasePresenter<OauthModel, Oauth_MVP_Activity
                 .subscribe(new BaseObserver<LoginResult>(getIView().mContext) {
                     @Override
                     public void onSuccess(LoginResult loginResult) {
+
+
                         /**
                          * getIView() 可能出现是null 的情况，
-                         *
                          */
                         if(isAttachView()){
                             getIView().loginSuccess(loginResult);
                         }
 
-                        invokeMethod();  //把loginSuccess 放到里面去执行，不用判断isAttachView();
+
+
+//                        invokeMethod();  //把loginSuccess 放到里面去执行，不用判断isAttachView();
                     }
 
                     @Override

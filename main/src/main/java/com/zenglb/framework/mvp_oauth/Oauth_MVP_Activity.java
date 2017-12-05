@@ -44,7 +44,7 @@ import es.dmoral.toasty.Toasty;
  */
 public class Oauth_MVP_Activity extends BaseMVPActivity<OauthPresenter, OauthModel> implements OauthContract.OauthView {
     private static final String PW = "zxcv1234";  //FBI WARMING !!!!
-    private boolean isFromLaunch = false;         //从哪里跳转来的，很有用啊
+    private boolean isFromLaunch = false;         //从哪里跳转来登录页面的
 
     EditText etUsername, etPassword;
     Button oauthBtn;
@@ -59,7 +59,7 @@ public class Oauth_MVP_Activity extends BaseMVPActivity<OauthPresenter, OauthMod
         //1,从Launcher 页面过来 2，用户主动退出 3，超时或其他页面退出（再次登录要回到那里去）
         isFromLaunch = getIntent().getBooleanExtra("isFromLaunch", false);
         if (!isFromLaunch) {
-            logoutCustomTime();
+            logoutCustomComponent();
         }
 
     }
@@ -77,7 +77,7 @@ public class Oauth_MVP_Activity extends BaseMVPActivity<OauthPresenter, OauthMod
     /**
      * 集成的IM 等第三方系统需要单独的退出来,因为
      */
-    private void logoutCustomTime() {
+    private void logoutCustomComponent() {
 //        RongyunIM.logout();
 //        Clear Oautoken,在web 页面的时候怎么退出来
     }
