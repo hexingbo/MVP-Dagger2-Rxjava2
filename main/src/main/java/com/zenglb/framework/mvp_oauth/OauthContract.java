@@ -1,7 +1,7 @@
 package com.zenglb.framework.mvp_oauth;
 
-import com.zenglb.framework.retrofit.param.LoginParams;
-import com.zenglb.framework.retrofit.result.LoginResult;
+import com.zenglb.framework.http.param.LoginParams;
+import com.zenglb.framework.http.result.LoginResult;
 
 /**
  * 合约，一个功能的基本只要看这个类就知道功能纲要了

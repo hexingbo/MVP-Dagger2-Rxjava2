@@ -9,13 +9,12 @@ import android.view.KeyEvent;
 import android.view.MenuItem;
 import android.widget.Toast;
 
-import com.zenglb.baselib.base.BaseActivity;
+import com.zenglb.framework.base.BaseActivity;
 import com.zenglb.framework.R;
 import com.zenglb.framework.activity.main.AreUSleepFragmentList;
 import com.zenglb.framework.fragment.mainfragment.MeProfileFragment;
 import com.zenglb.framework.fragment.others.DemoFragment;
 import com.zenglb.framework.fragment.rxjava2.Rxjava2DemoFragment;
-import com.zenglb.framework.lifecycle.LifecycleObserverDemo;
 
 import es.dmoral.toasty.Toasty;
 

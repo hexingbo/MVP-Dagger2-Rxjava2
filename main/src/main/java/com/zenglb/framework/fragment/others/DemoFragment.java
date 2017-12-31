@@ -12,14 +12,14 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.zenglb.baselib.base.BaseActivity;
+import com.zenglb.framework.base.BaseActivity;
 import com.zenglb.baselib.utils.TransitionHelper;
 import com.zenglb.framework.R;
 import com.zenglb.framework.activity.animal.AnimalMainActivity;
 import com.zenglb.framework.activity.quick_input_things.QuickInputThingsActivity;
+import com.zenglb.framework.http.HttpCall;
 import com.zenglb.framework.mvp_more.MVPActivity;
-import com.zenglb.framework.retrofit.core.HttpCall;
-import com.zenglb.framework.retrofit.result.CustomWeatherResult;
+import com.zenglb.framework.http.result.CustomWeatherResult;
 
 import retrofit2.Call;
 import retrofit2.Callback;

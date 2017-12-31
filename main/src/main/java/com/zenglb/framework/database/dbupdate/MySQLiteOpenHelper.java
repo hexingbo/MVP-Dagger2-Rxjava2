@@ -6,7 +6,6 @@ import android.util.Log;
 
 import com.zenglb.framework.database.dbmaster.DaoMaster;
 import com.zenglb.framework.database.dbmaster.JokesResultDao;
-import com.zenglb.framework.retrofit.result.JokesResult;
 
 
 /**

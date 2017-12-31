@@ -2,9 +2,8 @@ package com.zenglb.framework.demo;
 
 import android.graphics.Bitmap;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
-import com.zenglb.baselib.base.BaseActivity;
+import com.zenglb.framework.base.BaseActivity;
 import com.zenglb.framework.R;
 
 import io.reactivex.Observable;

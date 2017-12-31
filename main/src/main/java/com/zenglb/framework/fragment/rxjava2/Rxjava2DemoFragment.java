@@ -10,19 +10,20 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.zenglb.baselib.base.BaseFragment;
-import com.zenglb.baselib.rxUtils.SwitchSchedulers;
+import com.zenglb.framework.base.BaseFragment;
+import com.zenglb.framework.http.HttpCall;
+import com.zlb.httplib.core.HttpRetrofit;
+import com.zlb.httplib.core.rxUtils.SwitchSchedulers;
 import com.zenglb.baselib.sharedpreferences.SharedPreferencesDao;
 import com.zenglb.framework.R;
 import com.zenglb.framework.activity.main.AreUSleepListAdapter;
-import com.zenglb.framework.config.SPKey;
-import com.zenglb.framework.retrofit.core.HttpCall;
-import com.zenglb.framework.retrofit.core.HttpResponse;
-import com.zenglb.framework.retrofit.param.LoginParams;
-import com.zenglb.framework.retrofit.result.JokesResult;
-import com.zenglb.framework.retrofit.result.LoginResult;
-import com.zenglb.framework.retrofit.result.StaffMsg;
-import com.zenglb.framework.rxhttp.BaseObserver;
+import com.zlb.httplib.core.SPKey;
+import com.zlb.httplib.core.HttpResponse;
+import com.zenglb.framework.http.param.LoginParams;
+import com.zenglb.framework.http.result.JokesResult;
+import com.zenglb.framework.http.result.LoginResult;
+import com.zenglb.framework.http.result.StaffMsg;
+import com.zlb.httplib.core.BaseObserver;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -124,7 +125,7 @@ public class Rxjava2DemoFragment extends BaseFragment {
                 .doOnNext(loginResult -> {
                     if (loginResult.isSuccess()) {
                         String token = "Bearer " + loginResult.getResult().getAccessToken();
-                        HttpCall.setToken(token);
+                        HttpRetrofit.setToken(token);
                         SharedPreferencesDao.getInstance().saveData(SPKey.KEY_ACCESS_TOKEN, token);
                         SharedPreferencesDao.getInstance().saveData(SPKey.KEY_REFRESH_TOKEN, loginResult.getResult().getRefreshToken());
                     } else {
@@ -228,13 +229,13 @@ public class Rxjava2DemoFragment extends BaseFragment {
      * 初始化Demo 的数据
      */
     private void initDemoData() {
-        data.add(new JokesResult("Rxjava+retrofit 基础操作", "Rxjava2+retrofit2 基础操作，返回的是HttpRespose<T>, T is List<Jokes>", "000"));
-
-        data.add(new JokesResult("FlatMap 的变换操作", "FlatMap将一个发送事件的上游Observable变换为多个发送事件的Observables，" +
-                "然后将它们发射的事件合并后放进一个单独的Observable里. ", "111"));
-
-        data.add(new JokesResult("Zip 的变换操作", "需要展示用户的一些信息, 而这些信息分别要从两个服务器接口中获取, " +
-                "而只有当两个都获取到了之后才能进行展示, 这个时候就可以用Zip了", "222"));
+//        data.add(new JokesResult("Rxjava+retrofit 基础操作", "Rxjava2+retrofit2 基础操作，返回的是HttpRespose<T>, T is List<Jokes>", "000"));
+//
+//        data.add(new JokesResult("FlatMap 的变换操作", "FlatMap将一个发送事件的上游Observable变换为多个发送事件的Observables，" +
+//                "然后将它们发射的事件合并后放进一个单独的Observable里. ", "111"));
+//
+//        data.add(new JokesResult("Zip 的变换操作", "需要展示用户的一些信息, 而这些信息分别要从两个服务器接口中获取, " +
+//                "而只有当两个都获取到了之后才能进行展示, 这个时候就可以用Zip了", "222"));
 
         areUSleepListAdapter.notifyDataSetChanged();
     }

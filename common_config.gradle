@@ -6,7 +6,7 @@ project.ext {
     compileSdkVersion = 26
 
     //很不想要19 ，提到21 把是否会好很多
-    minSdkVersion = 19
+    minSdkVersion = 16
     targetSdkVersion = 26
 
     //2.关于Debug和Realease 的不同配置

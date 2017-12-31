@@ -3,11 +3,9 @@ package com.zenglb.framework.activity.architecture;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
-import android.widget.Toast;
 
 import com.zenglb.framework.R;
-import com.zenglb.framework.retrofit.core.HttpCall;
-import com.zenglb.framework.retrofit.result.CustomWeatherResult;
+import com.zenglb.framework.http.HttpCall;
 
 import retrofit2.Call;
 import retrofit2.Callback;

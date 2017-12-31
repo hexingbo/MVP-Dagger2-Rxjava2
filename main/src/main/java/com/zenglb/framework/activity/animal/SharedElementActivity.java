@@ -3,9 +3,9 @@ package com.zenglb.framework.activity.animal;
 import android.os.Bundle;
 import android.widget.TextView;
 
-import com.zenglb.baselib.base.BaseActivity;
+import com.zenglb.framework.base.BaseActivity;
 import com.zenglb.framework.R;
-import com.zenglb.framework.retrofit.result.JokesResult;
+import com.zenglb.framework.http.result.JokesResult;
 
 
 /**

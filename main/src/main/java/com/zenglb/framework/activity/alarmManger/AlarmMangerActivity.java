@@ -1,17 +1,7 @@
 package com.zenglb.framework.activity.alarmManger;
 
-import android.app.AlarmManager;
-import android.app.Notification;
-import android.app.NotificationManager;
-import android.app.PendingIntent;
-import android.content.ContentResolver;
-import android.content.ContentValues;
-import android.content.Context;
 import android.content.Intent;
-import android.database.Cursor;
 import android.graphics.Color;
-import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import android.provider.CalendarContract;
 import android.text.method.ScrollingMovementMethod;
@@ -21,12 +11,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bigkoo.pickerview.TimePickerView;
-import com.github.florent37.singledateandtimepicker.SingleDateAndTimePicker;
-import com.github.florent37.singledateandtimepicker.dialog.SingleDateAndTimePickerDialog;
-import com.zenglb.baselib.base.BaseActivity;
+import com.zenglb.framework.base.BaseActivity;
 import com.zenglb.framework.R;
-
-import org.feezu.liuli.timeselector.TimeSelector;
 
 import java.util.Calendar;
 import java.util.Date;

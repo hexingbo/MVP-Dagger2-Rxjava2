@@ -15,19 +15,19 @@ import android.widget.Toast;
 import com.zenglb.baselib.sharedpreferences.SharedPreferencesDao;
 import com.zenglb.framework.R;
 import com.zenglb.framework.activity.access.RegisterActivity;
-import com.zenglb.framework.config.SPKey;
+import com.zlb.httplib.core.HttpRetrofit;
+import com.zlb.httplib.core.SPKey;
 import com.zenglb.framework.mvp_base.BaseMVPActivity;
 import com.zenglb.framework.navigation.MainActivityBottomNavi;
-import com.zenglb.framework.retrofit.core.HttpCall;
-import com.zenglb.framework.retrofit.param.LoginParams;
-import com.zenglb.framework.retrofit.result.LoginResult;
+import com.zenglb.framework.http.param.LoginParams;
+import com.zenglb.framework.http.result.LoginResult;
 
 import es.dmoral.toasty.Toasty;
 
 
 /**
  * 是不是感觉更加的复杂了，其实不是都要强制使用MVP 的,其他的模式可以extends
- * {@link com.zenglb.baselib.base.BaseActivity}
+ * {@link com.zenglb.framework.base.BaseActivity}
  * <p>
  * 更多请参考Google【to-do-MVP（TasksDataSource）】，抽象后发现代码很不好写啊
  * extends BaseMVPActivity<OauthPresenter,OauthModel> implements OauthContract.OauthView
@@ -70,7 +70,7 @@ public class Oauth_MVP_Activity extends BaseMVPActivity<OauthPresenter, OauthMod
      */
     private void loginInit() {
         SharedPreferencesDao.getInstance().saveData(SPKey.KEY_ACCESS_TOKEN, "");
-        HttpCall.setToken("");
+        HttpRetrofit.setToken("");
     }
 
 
@@ -155,7 +155,7 @@ public class Oauth_MVP_Activity extends BaseMVPActivity<OauthPresenter, OauthMod
         SharedPreferencesDao.getInstance().saveData(SPKey.KEY_ACCESS_TOKEN, "Bearer " + loginResult.getAccessToken());
         SharedPreferencesDao.getInstance().saveData(SPKey.KEY_REFRESH_TOKEN, loginResult.getRefreshToken());
         SharedPreferencesDao.getInstance().saveData(SPKey.KEY_LAST_ACCOUNT, etUsername.getText().toString().trim());
-        HttpCall.setToken(SharedPreferencesDao.getInstance().getData(SPKey.KEY_ACCESS_TOKEN, "", String.class));
+        HttpRetrofit.setToken(SharedPreferencesDao.getInstance().getData(SPKey.KEY_ACCESS_TOKEN, "", String.class));
 
         if (isFromLaunch) {
             Intent i2 = new Intent(Oauth_MVP_Activity.this, MainActivityBottomNavi.class);

@@ -3,7 +3,7 @@ package com.zenglb.framework.mvp_base;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 
-import com.zenglb.baselib.base.BaseActivity;
+import com.zenglb.framework.base.BaseActivity;
 
 /**
  * 并不要求所有的功能都用MVP, 如果不需要使用MVP 就直接extends BaseActivity

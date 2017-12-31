@@ -2,9 +2,10 @@ package com.zenglb.framework.mvp_more;
 
 import com.zenglb.framework.MyApplication;
 import com.zenglb.framework.database.dbmaster.JokesResultDao;
+import com.zenglb.framework.http.HttpCall;
 import com.zenglb.framework.mvp_base.BaseModel;
-import com.zenglb.framework.retrofit.core.HttpResponse;
-import com.zenglb.framework.retrofit.result.JokesResult;
+import com.zlb.httplib.core.HttpResponse;
+import com.zenglb.framework.http.result.JokesResult;
 
 import java.util.List;
 
@@ -61,7 +62,7 @@ public class TasksRepository extends BaseModel implements ITaskDataSource {
     public Observable<HttpResponse<List<JokesResult>>> getRemoteTasks(String type, int page) {
         String threadName = Thread.currentThread().getName();
 
-        return ApiService.getAreuSleepByObserver(type, page);
+        return HttpCall.getApiService().getAreuSleepByObserver(type, page);
     }
 
 }

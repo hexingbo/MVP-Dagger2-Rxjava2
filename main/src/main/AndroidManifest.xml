@@ -38,14 +38,17 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <activity
             android:name=".mvp_oauth.Oauth_MVP_Activity"
             android:launchMode="singleTop"
             android:theme="@style/FullscreenTheme">
             <intent-filter>
+                <category android:name="android.intent.category.DEFAULT" />
                 <action android:name="app.intent.action.LOGIN" />
             </intent-filter>
         </activity>
+
         <activity
             android:name=".activity.access.RegisterActivity"
             android:theme="@style/Translucent" />

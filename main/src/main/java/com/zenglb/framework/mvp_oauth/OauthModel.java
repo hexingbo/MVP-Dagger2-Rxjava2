@@ -2,12 +2,13 @@ package com.zenglb.framework.mvp_oauth;
 
 import android.support.annotation.NonNull;
 
-import com.zenglb.baselib.rxUtils.SwitchSchedulers;
+import com.zenglb.framework.http.HttpCall;
+import com.zlb.httplib.core.rxUtils.SwitchSchedulers;
 import com.zenglb.framework.mvp_base.BaseModel;
-import com.zenglb.framework.retrofit.core.HttpResponse;
-import com.zenglb.framework.retrofit.param.LoginParams;
-import com.zenglb.framework.retrofit.result.LoginResult;
-import com.zenglb.framework.rxhttp.BaseObserver;
+import com.zlb.httplib.core.HttpResponse;
+import com.zenglb.framework.http.param.LoginParams;
+import com.zenglb.framework.http.result.LoginResult;
+import com.zlb.httplib.core.BaseObserver;
 
 import io.reactivex.Observable;
 
@@ -26,7 +27,7 @@ public class OauthModel extends BaseModel {
     public Observable<HttpResponse<LoginResult>> getLoginObservable(@NonNull LoginParams loginParams) {
 
         Thread.currentThread().getName();
-        return ApiService.goLoginByRxjavaObserver(loginParams);
+        return HttpCall.getApiService().goLoginByRxjavaObserver(loginParams);
 
 //                .compose(SwitchSchedulers.toMainThread())
 //                .subscribe(new BaseObserver<LoginResult>(null) {
@@ -57,7 +58,7 @@ public class OauthModel extends BaseModel {
             throw new RuntimeException("listener =null 无法通知更新UI");
         }
 
-        ApiService.goLoginByRxjavaObserver(loginParams)
+        HttpCall.getApiService().goLoginByRxjavaObserver(loginParams)
                 .compose(SwitchSchedulers.applySchedulers())
                 .subscribe(new BaseObserver<LoginResult>(null) {
                     @Override

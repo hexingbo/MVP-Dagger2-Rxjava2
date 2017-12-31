@@ -12,15 +12,11 @@ import android.telephony.gsm.GsmCellLocation;
 import android.text.TextUtils;
 import android.widget.Toast;
 
-import com.zenglb.baselib.base.BaseActivity;
+import com.zenglb.framework.base.BaseActivity;
 import com.zenglb.baselib.sharedpreferences.SharedPreferencesDao;
 import com.zenglb.framework.R;
-import com.zenglb.framework.activity.alarmManger.AlarmMangerActivity;
-import com.zenglb.framework.activity.architecture.ArchitectureActivity;
-import com.zenglb.framework.activity.quick_input_things.QuickInputThingsActivity;
-import com.zenglb.framework.activity.rxjava2.ZipActivity;
-import com.zenglb.framework.config.SPKey;
-import com.zenglb.framework.demo.Rxjava_ZIP_Activity;
+import com.zenglb.framework.mvp_more.MVPActivity;
+import com.zlb.httplib.core.SPKey;
 import com.zenglb.framework.mvp_oauth.Oauth_MVP_Activity;
 import com.zenglb.framework.navigation.MainActivityBottomNavi;
 
@@ -83,7 +79,7 @@ public class LaunchActivity extends BaseActivity {
                     } else {
                         Intent i1 = new Intent();
                         i1.setClass(LaunchActivity.this, MainActivityBottomNavi.class);
-//                        i1.setClass(LaunchActivity.this, Oauth_MVP_Activity.class);
+//                        i1.setClass(LaunchActivity.this, MVPActivity.class);
                         startActivity(i1);
                         LaunchActivity.this.finish();
                     }

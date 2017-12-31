@@ -2,13 +2,11 @@ package com.zenglb.framework.activity.architecture;
 
 import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.MutableLiveData;
-import android.util.Log;
 
-import com.zenglb.baselib.rxUtils.SwitchSchedulers;
-import com.zenglb.framework.retrofit.core.HttpCall;
-import com.zenglb.framework.retrofit.result.JokesResult;
-import com.zenglb.framework.retrofit.result.StaffMsg;
-import com.zenglb.framework.rxhttp.BaseObserver;
+import com.zenglb.framework.http.HttpCall;
+import com.zlb.httplib.core.rxUtils.SwitchSchedulers;
+import com.zenglb.framework.http.result.JokesResult;
+import com.zlb.httplib.core.BaseObserver;
 
 import java.util.List;
 

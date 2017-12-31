@@ -35,36 +35,34 @@ android {
     }
 
     greendao {
-        schemaVersion 5                  //修改这里的版本号，greenDAO会自动修改生成到DAOMaster中的版本号
+        schemaVersion 7                  //修改这里的版本号，greenDAO会自动修改生成到DAOMaster中的版本号
         targetGenDir 'src/main/java'     //表示greenDAO生成的DAOMaster和DaoSession的位置
         daoPackage 'com.zenglb.framework.database.dbmaster' //我觉得最好放在Entity 下面的目录！！！
     }
-
 
     compileOptions {
         sourceCompatibility project.ext.sourceCompatibility
         targetCompatibility project.ext.targetCompatibility
     }
 
-
 }
 
+
+
 dependencies {
-    implementation 'com.android.support:support-v4:26.0.0-beta1'
+    implementation 'com.android.support:support-v4:26.1.0'
     compile fileTree(dir: 'libs', include: ['*.jar'])
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
-
+    compile project(':httplib')
     compile project(':baseLib')
     compile project(':settingViewLib')
     compile files('libs/universal-image-loader-1.9.5.jar')
 
     compile 'com.github.glomadrian:Grav:1.1'
     compile 'com.andrognito.patternlockview:patternlockview-reactive:1.0.0'
-    compile 'com.squareup.retrofit2:retrofit:2.3.0'
-    compile 'com.squareup.okhttp3:logging-interceptor:3.8.1'
-    compile 'com.squareup.retrofit2:adapter-rxjava2:2.3.0'
+
     compile 'org.greenrobot:greendao:3.2.2'
     compile 'net.zetetic:android-database-sqlcipher:3.5.4'
     compile 'jp.wasabeef:recyclerview-animators:2.2.4'
@@ -75,11 +73,6 @@ dependencies {
     compile 'com.journeyapps:zxing-android-embedded:3.5.0'
     compile 'com.github.boxme:squarecamera:1.1.0'
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
-
-    compile 'com.github.GrenderG:Toasty:1.2.5'
-
-    debugCompile 'com.readystatesoftware.chuck:library:1.1.0'
-    releaseCompile 'com.readystatesoftware.chuck:library-no-op:1.1.0'
 
     debugCompile 'com.facebook.stetho:stetho:1.4.2'
 

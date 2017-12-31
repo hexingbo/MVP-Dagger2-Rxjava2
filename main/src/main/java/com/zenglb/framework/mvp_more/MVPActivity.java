@@ -19,7 +19,7 @@ import com.zenglb.framework.R;
 import com.zenglb.framework.activity.animal.SharedElementActivity;
 import com.zenglb.framework.activity.main.AreUSleepListAdapter;
 import com.zenglb.framework.mvp_base.BaseMVPActivity;
-import com.zenglb.framework.retrofit.result.JokesResult;
+import com.zenglb.framework.http.result.JokesResult;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -40,7 +40,7 @@ public class MVPActivity extends BaseMVPActivity<TaskPresenter, TasksRepository>
 
     private static final String ARG_PARAM1 = "param1";
     private TextView mEmptyTipsTxt;
-    private int page;
+    private int page=1;
     private String mParam1;
     private SpringView springView;
     private RecyclerView mRecyclerView = null;
@@ -104,6 +104,7 @@ public class MVPActivity extends BaseMVPActivity<TaskPresenter, TasksRepository>
 
     @Override
     protected void initViews() {
+
         setToolBarTitle("mvp&rxjava2 load local&remote data");
 
         mShowTxt = (TextView) findViewById(R.id.tips_txt);
@@ -154,6 +155,7 @@ public class MVPActivity extends BaseMVPActivity<TaskPresenter, TasksRepository>
     protected void onStart() {
         super.onStart();
         mPresenter.getCacheTasks();
+//        mPresenter.getRemoteTasks("expired", page);
     }
 
     /**

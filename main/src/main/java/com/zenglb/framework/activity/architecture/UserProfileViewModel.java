@@ -3,8 +3,7 @@ package com.zenglb.framework.activity.architecture;
 import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.ViewModel;
 
-import com.zenglb.framework.retrofit.result.JokesResult;
-import com.zenglb.framework.retrofit.result.StaffMsg;
+import com.zenglb.framework.http.result.JokesResult;
 
 import java.util.List;
 

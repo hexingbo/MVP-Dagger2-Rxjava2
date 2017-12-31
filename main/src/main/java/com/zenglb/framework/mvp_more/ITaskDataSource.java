@@ -1,7 +1,7 @@
 package com.zenglb.framework.mvp_more;
 
-import com.zenglb.framework.retrofit.core.HttpResponse;
-import com.zenglb.framework.retrofit.result.JokesResult;
+import com.zlb.httplib.core.HttpResponse;
+import com.zenglb.framework.http.result.JokesResult;
 
 import java.util.List;
 

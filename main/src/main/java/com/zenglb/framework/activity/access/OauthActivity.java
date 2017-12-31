@@ -13,16 +13,17 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.zenglb.baselib.base.BaseActivity;
-import com.zenglb.baselib.rxUtils.SwitchSchedulers;
+import com.zenglb.framework.base.BaseActivity;
+import com.zenglb.framework.http.HttpCall;
+import com.zlb.httplib.core.HttpRetrofit;
+import com.zlb.httplib.core.rxUtils.SwitchSchedulers;
 import com.zenglb.baselib.sharedpreferences.SharedPreferencesDao;
 import com.zenglb.framework.R;
-import com.zenglb.framework.config.SPKey;
+import com.zlb.httplib.core.SPKey;
 import com.zenglb.framework.navigation.MainActivityBottomNavi;
-import com.zenglb.framework.retrofit.core.HttpCall;
-import com.zenglb.framework.retrofit.param.LoginParams;
-import com.zenglb.framework.retrofit.result.LoginResult;
-import com.zenglb.framework.rxhttp.BaseObserver;
+import com.zenglb.framework.http.param.LoginParams;
+import com.zenglb.framework.http.result.LoginResult;
+import com.zlb.httplib.core.BaseObserver;
 
 import es.dmoral.toasty.Toasty;
 
@@ -98,7 +99,7 @@ public class OauthActivity extends BaseActivity {
             Toasty.error(this.getApplicationContext(), "请完整输入用户名和密码", Toast.LENGTH_SHORT).show();
             return;
         }
-        HttpCall.setToken("");
+        HttpRetrofit.setToken("");
 
         //1.需要改进，能否改进为链式写法
         LoginParams loginParams = new LoginParams();
@@ -135,7 +136,7 @@ public class OauthActivity extends BaseActivity {
         SharedPreferencesDao.getInstance().saveData(SPKey.KEY_ACCESS_TOKEN, "Bearer " + loginResult.getAccessToken());
         SharedPreferencesDao.getInstance().saveData(SPKey.KEY_REFRESH_TOKEN, loginResult.getRefreshToken());
         SharedPreferencesDao.getInstance().saveData(SPKey.KEY_LAST_ACCOUNT, etUsername.getText().toString().trim());
-        HttpCall.setToken(SharedPreferencesDao.getInstance().getData(SPKey.KEY_ACCESS_TOKEN, "", String.class));
+        HttpRetrofit.setToken(SharedPreferencesDao.getInstance().getData(SPKey.KEY_ACCESS_TOKEN, "", String.class));
 
         if (isFromLaunch) {
             Intent i2 = new Intent(OauthActivity.this, MainActivityBottomNavi.class);

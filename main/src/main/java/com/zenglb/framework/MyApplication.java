@@ -8,12 +8,14 @@ import android.util.Log;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 import com.squareup.leakcanary.LeakCanary;
-import com.zenglb.baselib.base.BaseApplication;
+import com.zenglb.framework.base.BaseApplication;
 import com.zenglb.baselib.sharedpreferences.SharedPreferencesDao;
 
 import com.zenglb.framework.database.dbmaster.DaoMaster;
 import com.zenglb.framework.database.dbmaster.DaoSession;
 import com.zenglb.framework.database.dbupdate.MySQLiteOpenHelper;
+import com.zenglb.framework.http.ApiService;
+import com.zlb.httplib.core.HttpRetrofit;
 
 import org.greenrobot.greendao.database.Database;
 
@@ -69,6 +71,7 @@ public class MyApplication extends BaseApplication {
         switch (processName) {
             case "com.zenglb.framework":
                 SdkManager.initDebugOrRelease(this);
+                HttpRetrofit.init(this);
                 setDaoSession(SharedPreferencesDao.getInstance().getData("Account", "DefDb", String.class));
                 refWatcher = LeakCanary.install(this);  //只管主进程的,其他的进程自保吧
 
