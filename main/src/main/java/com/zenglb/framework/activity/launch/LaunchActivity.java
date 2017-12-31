@@ -12,6 +12,7 @@ import android.telephony.gsm.GsmCellLocation;
 import android.text.TextUtils;
 import android.widget.Toast;
 
+import com.zenglb.framework.activity.demo.ConstraintLayoutActivity;
 import com.zenglb.framework.base.BaseActivity;
 import com.zenglb.baselib.sharedpreferences.SharedPreferencesDao;
 import com.zenglb.framework.R;
@@ -79,7 +80,7 @@ public class LaunchActivity extends BaseActivity {
                     } else {
                         Intent i1 = new Intent();
                         i1.setClass(LaunchActivity.this, MainActivityBottomNavi.class);
-//                        i1.setClass(LaunchActivity.this, MVPActivity.class);
+                        i1.setClass(LaunchActivity.this, ConstraintLayoutActivity.class);
                         startActivity(i1);
                         LaunchActivity.this.finish();
                     }
