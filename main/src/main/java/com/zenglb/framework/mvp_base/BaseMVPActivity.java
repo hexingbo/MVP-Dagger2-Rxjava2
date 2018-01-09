@@ -5,6 +5,8 @@ import android.support.annotation.Nullable;
 
 import com.zenglb.framework.base.BaseActivity;
 
+import dagger.android.AndroidInjection;
+
 /**
  * 并不要求所有的功能都用MVP, 如果不需要使用MVP 就直接extends BaseActivity
  *
@@ -35,6 +37,10 @@ public abstract class BaseMVPActivity<P extends BasePresenter, M extends BaseMod
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
+
+        //Base 里面就不要写任何和业务有关的逻辑了好不好
+        AndroidInjection.inject(this);
+
         super.onCreate(savedInstanceState);
 
         mPresenter = CreateObjUtil.getT(this, 0);

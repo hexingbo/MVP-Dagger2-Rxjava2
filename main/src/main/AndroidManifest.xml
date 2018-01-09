@@ -83,6 +83,7 @@
         </receiver>
         <activity android:name=".activity.demo.ConstraintLayoutActivity"></activity>
 
+        <activity android:name=".mvp.activity.MainActivity"></activity>
 
         <activity android:name=".activity.alarmManger.AlarmMangerActivity" />
         <activity android:name=".activity.architecture.ArchitectureActivity" />

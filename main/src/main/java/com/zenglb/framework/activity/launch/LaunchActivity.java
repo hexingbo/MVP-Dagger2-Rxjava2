@@ -16,6 +16,7 @@ import com.zenglb.framework.activity.demo.ConstraintLayoutActivity;
 import com.zenglb.framework.base.BaseActivity;
 import com.zenglb.baselib.sharedpreferences.SharedPreferencesDao;
 import com.zenglb.framework.R;
+import com.zenglb.framework.mvp.activity.MainActivity;
 import com.zenglb.framework.mvp_more.MVPActivity;
 import com.zlb.httplib.core.SPKey;
 import com.zenglb.framework.mvp_oauth.Oauth_MVP_Activity;
@@ -80,7 +81,7 @@ public class LaunchActivity extends BaseActivity {
                     } else {
                         Intent i1 = new Intent();
                         i1.setClass(LaunchActivity.this, MainActivityBottomNavi.class);
-                        i1.setClass(LaunchActivity.this, ConstraintLayoutActivity.class);
+                        i1.setClass(LaunchActivity.this, MainActivity.class);
                         startActivity(i1);
                         LaunchActivity.this.finish();
                     }

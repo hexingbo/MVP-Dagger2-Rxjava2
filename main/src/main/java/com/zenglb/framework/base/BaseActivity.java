@@ -10,6 +10,8 @@ import com.trello.rxlifecycle2.components.support.RxAppCompatActivity;
 import com.zenglb.commonlib.R;
 import com.zlb.httplib.core.HttpUiTips;
 
+import dagger.android.AndroidInjection;
+
 
 /**
  * 基类就只做基类的事情,不要把业务层面的代码写到这里来 ！！
@@ -30,8 +32,8 @@ public abstract class BaseActivity extends RxAppCompatActivity implements View.O
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         setContentView(setLayoutId());
+
 
         mContext = BaseActivity.this;
         mToolbar = (Toolbar) findViewById(R.id.toolbar);
