@@ -1,31 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/activity_main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context="com.zenglb.framework.activity.demo.DemoActivity">
+    android:orientation="vertical">
 
-    <include layout="@layout/basic_toolbar_layout"
+    <TextView
+        android:id="@+id/tv_content"
         android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize" />
-
-    <FrameLayout
+        android:layout_height="wrap_content" />
+    <TextView
+        android:onClick="requestHttp"
+        android:layout_marginTop="44dp"
+        android:text="请求Presenter"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-        <ImageView
-            android:id="@+id/message_txt"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
-
-        <WebView
-            android:id="@+id/webview"
-            android:background="@android:color/transparent"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
-
-    </FrameLayout>
-
+        android:layout_height="wrap_content" />
+    <TextView
+        android:onClick="gotoSecond"
+        android:layout_marginTop="44dp"
+        android:text="SecondActivity"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
 
 </LinearLayout>

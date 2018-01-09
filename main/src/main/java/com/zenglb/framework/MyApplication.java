@@ -14,6 +14,7 @@ import com.zenglb.baselib.sharedpreferences.SharedPreferencesDao;
 import com.zenglb.framework.database.dbmaster.DaoMaster;
 import com.zenglb.framework.database.dbmaster.DaoSession;
 import com.zenglb.framework.database.dbupdate.MySQLiteOpenHelper;
+import com.zenglb.framework.di.DaggerMyAppComponent;
 import com.zenglb.framework.http.ApiService;
 import com.zlb.httplib.core.HttpRetrofit;
 
@@ -40,6 +41,9 @@ public class MyApplication extends BaseApplication {
         Log.d(TAG, processName + "Application onCreate");
 
         myApplication=this;
+
+        DaggerMyAppComponent.create().inject(this);   //22222222
+
 
         // 很多的东西最好能放到一个IntentService 中去初始化
         // InitializeService.start(this);
