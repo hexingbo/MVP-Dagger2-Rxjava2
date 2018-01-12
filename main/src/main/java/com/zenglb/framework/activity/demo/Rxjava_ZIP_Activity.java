@@ -1,4 +1,4 @@
-package com.zenglb.framework.demo;
+package com.zenglb.framework.activity.demo;
 
 import android.graphics.Bitmap;
 import android.os.Bundle;

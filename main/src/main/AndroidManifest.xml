@@ -74,7 +74,7 @@
         </provider>
 
         <activity android:name=".activity.quick_input_things.QuickInputThingsActivity" />
-        <activity android:name=".activity.rxjava2.ZipActivity"></activity>
+        <activity android:name=".activity.demo.ZipActivity"></activity>
 
         <receiver android:name=".activity.alarmManger.AlarmReceiver">
             <intent-filter>
@@ -83,11 +83,16 @@
         </receiver>
         <activity android:name=".activity.demo.ConstraintLayoutActivity"></activity>
 
-        <activity android:name=".mvp.activity.MainActivity"></activity>
-
         <activity android:name=".activity.alarmManger.AlarmMangerActivity" />
         <activity android:name=".activity.architecture.ArchitectureActivity" />
-        <activity android:name=".demo.Rxjava_ZIP_Activity"></activity>
+        <activity android:name=".activity.demo.Rxjava_ZIP_Activity"></activity>
+
+
+        // 临时的Demo 区域啊
+        <activity android:name=".mvp.activity.MainActivity"></activity>
+        <activity android:name=".mvp.activity.SecondActivity"></activity>
+
+
     </application>
 
 </manifest>

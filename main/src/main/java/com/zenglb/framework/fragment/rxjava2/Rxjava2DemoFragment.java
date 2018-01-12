@@ -119,33 +119,33 @@ public class Rxjava2DemoFragment extends BaseFragment {
         loginParams.setUsername("18826562075");
         loginParams.setPassword("zxcv1234");
 
-        HttpCall.getApiService().goLoginByRxjavaObserver(loginParams)
-                .compose(SwitchSchedulers.applySchedulers())
-                .compose(bindToLifecycle())
-                .doOnNext(loginResult -> {
-                    if (loginResult.isSuccess()) {
-                        String token = "Bearer " + loginResult.getResult().getAccessToken();
-                        HttpRetrofit.setToken(token);
-                        SharedPreferencesDao.getInstance().saveData(SPKey.KEY_ACCESS_TOKEN, token);
-                        SharedPreferencesDao.getInstance().saveData(SPKey.KEY_REFRESH_TOKEN, loginResult.getResult().getRefreshToken());
-                    } else {
-                        //这里应该控制不要往下执行了！
-                    }
-                })
-                .observeOn(Schedulers.io())          //回到IO线程去发起获取信息的请求
-                .flatMap(new Function<HttpResponse<LoginResult>, ObservableSource<HttpResponse<StaffMsg>>>() {
-                    @Override
-                    public ObservableSource<HttpResponse<StaffMsg>> apply(@NonNull HttpResponse<LoginResult> loginResultHttpResponse) throws Exception {
-                        return HttpCall.getApiService().getStaffMsg();
-                    }
-                })
-                .observeOn(AndroidSchedulers.mainThread())  //回到主线程去处理请求个人信息的结果
-                .subscribe(new BaseObserver<StaffMsg>(getActivity(), true) {
-                    @Override
-                    public void onSuccess(StaffMsg staffMsg) {
-                        Log.e(TAG, staffMsg.toString());
-                    }
-                });
+//        HttpCall.getApiService().goLoginByRxjavaObserver(loginParams)
+//                .compose(SwitchSchedulers.applySchedulers())
+//                .compose(bindToLifecycle())
+//                .doOnNext(loginResult -> {
+//                    if (loginResult.isSuccess()) {
+//                        String token = "Bearer " + loginResult.getResult().getAccessToken();
+//                        HttpRetrofit.setToken(token);
+//                        SharedPreferencesDao.getInstance().saveData(SPKey.KEY_ACCESS_TOKEN, token);
+//                        SharedPreferencesDao.getInstance().saveData(SPKey.KEY_REFRESH_TOKEN, loginResult.getResult().getRefreshToken());
+//                    } else {
+//                        //这里应该控制不要往下执行了！
+//                    }
+//                })
+//                .observeOn(Schedulers.io())          //回到IO线程去发起获取信息的请求
+//                .flatMap(new Function<HttpResponse<LoginResult>, ObservableSource<HttpResponse<StaffMsg>>>() {
+//                    @Override
+//                    public ObservableSource<HttpResponse<StaffMsg>> apply(@NonNull HttpResponse<LoginResult> loginResultHttpResponse) throws Exception {
+//                        return HttpCall.getApiService().getStaffMsg();
+//                    }
+//                })
+//                .observeOn(AndroidSchedulers.mainThread())  //回到主线程去处理请求个人信息的结果
+//                .subscribe(new BaseObserver<StaffMsg>(getActivity(), true) {
+//                    @Override
+//                    public void onSuccess(StaffMsg staffMsg) {
+//                        Log.e(TAG, staffMsg.toString());
+//                    }
+//                });
     }
 
 

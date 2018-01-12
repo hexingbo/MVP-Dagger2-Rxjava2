@@ -1,12 +1,11 @@
-package com.zenglb.framework.database.dbupdate;
+package com.zenglb.framework.persistence.dbupdate;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
-import com.zenglb.framework.database.dbmaster.DaoMaster;
-import com.zenglb.framework.database.dbmaster.JokesResultDao;
-
+import com.zenglb.framework.persistence.dbmaster.DaoMaster;
+import com.zenglb.framework.persistence.dbmaster.JokesResultDao;
 
 /**
  * 数据库的升级策略，一般的只会增加一些字段和添加表，字段名 是很少修改的

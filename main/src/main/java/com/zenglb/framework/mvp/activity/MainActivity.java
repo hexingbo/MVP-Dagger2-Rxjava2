@@ -9,12 +9,12 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.zenglb.framework.R;
-import com.zenglb.framework.base.BaseActivity;
+import com.zenglb.framework.persistence.SPDao;
 import com.zenglb.framework.mvp.Student;
 import com.zenglb.framework.mvp.contract.MainContract;
 import com.zenglb.framework.mvp.presenter.MainPresenter;
 import com.zenglb.framework.mvp_base.BaseMVPActivity;
-import com.zenglb.framework.mvp_more.MVPActivity;
+import com.zenglb.framework.persistence.dbmaster.DaoSession;
 
 import javax.inject.Inject;
 import butterknife.BindView;
@@ -45,6 +45,14 @@ public class MainActivity extends BaseMVPActivity implements MainContract.View {
     @BindView(R.id.tv_content)
     TextView tvContent;
 
+
+    @Inject
+    SPDao spDao;
+
+    @Inject
+    DaoSession daoSession;
+
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,9 +60,14 @@ public class MainActivity extends BaseMVPActivity implements MainContract.View {
 
         ButterKnife.bind(this);
 
+        spDao.saveData("ALLISOVER","Module  带有构造方法并且参数被使用的情况下所产生的Component 是没有Create方法的");
+
         tvContent.setText(className + "\n" +
                 s2.toString() + "\n" +
-                s1.toString());
+                s1.toString()+ "\n" +
+                spDao.toString()+spDao.get("ALLISOVER","哈哈哈")+
+                daoSession.toString()
+        );
     }
 
 

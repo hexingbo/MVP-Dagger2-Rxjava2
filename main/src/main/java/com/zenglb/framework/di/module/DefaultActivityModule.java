@@ -1,7 +1,5 @@
 package com.zenglb.framework.di.module;
 
-import com.zenglb.framework.mvp.activity.SecondActivity;
-
 import dagger.Module;
 import dagger.Provides;
 
@@ -11,11 +9,11 @@ import dagger.Provides;
  *
  */
 @Module
-public abstract class SecondActivityModule {
+public abstract class DefaultActivityModule {
 
     @Provides
     static String provideName() {
-        return SecondActivity.class.getName();
+        return "NULL,It is DefaultActivityModule";
     }
 
 }

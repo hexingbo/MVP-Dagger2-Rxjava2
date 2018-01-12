@@ -12,24 +12,29 @@ import android.telephony.gsm.GsmCellLocation;
 import android.text.TextUtils;
 import android.widget.Toast;
 
-import com.zenglb.framework.activity.demo.ConstraintLayoutActivity;
 import com.zenglb.framework.base.BaseActivity;
 import com.zenglb.baselib.sharedpreferences.SharedPreferencesDao;
 import com.zenglb.framework.R;
-import com.zenglb.framework.mvp.activity.MainActivity;
-import com.zenglb.framework.mvp_more.MVPActivity;
+import com.zenglb.framework.persistence.SPDao;
+import com.zenglb.framework.persistence.dbmaster.DaoSession;
 import com.zlb.httplib.core.SPKey;
 import com.zenglb.framework.mvp_oauth.Oauth_MVP_Activity;
 import com.zenglb.framework.navigation.MainActivityBottomNavi;
 
+import javax.inject.Inject;
+
 /**
  * 启动页面的背景图放在不同的目录还会导致内存的占用大小不一样啊
- *
  */
 public class LaunchActivity extends BaseActivity {
-    private static final int FINISH_LAUNCHER=0;
-    private  Handler UiHandler=new MyHandler();
+    private static final int FINISH_LAUNCHER = 0;
+    private Handler UiHandler = new MyHandler();
 
+    @Inject
+    DaoSession daoSession;
+
+    @Inject
+    SPDao spDao;
 
     @Override
     protected int setLayoutId() {
@@ -46,6 +51,8 @@ public class LaunchActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         UiHandler.sendEmptyMessageDelayed(0, 2000);  //好假啊
+
+        daoSession.toString();
 //        Toast.makeText(this,NDKinterface.getAESDecrypt(NDKinterface.getAESEncrypt("如果不是乱码就是成功了")),
 //                Toast.LENGTH_LONG).show();     //测试加密解密是否有问题
     }
@@ -59,19 +66,20 @@ public class LaunchActivity extends BaseActivity {
 
     /**
      * 接受消息，处理消息 ，此Handler会与当前主线程一块运行
-     *
      */
     class MyHandler extends Handler {
         public MyHandler() {
         }
+
         public MyHandler(Looper L) {
             super(L);
         }
+
         // 子类必须重写此方法，接受数据
         public void handleMessage(Message msg) {
             switch (msg.what) {
                 case FINISH_LAUNCHER:
-                    String accessToken = SharedPreferencesDao.getInstance().getData(SPKey.KEY_ACCESS_TOKEN, "", String.class);
+                    String accessToken = spDao.getData(SPKey.KEY_ACCESS_TOKEN, "", String.class);
                     if (TextUtils.isEmpty(accessToken)) {
                         Intent i1 = new Intent();
                         i1.putExtra("isFromLaunch", true);
@@ -81,7 +89,7 @@ public class LaunchActivity extends BaseActivity {
                     } else {
                         Intent i1 = new Intent();
                         i1.setClass(LaunchActivity.this, MainActivityBottomNavi.class);
-                        i1.setClass(LaunchActivity.this, MainActivity.class);
+//                        i1.setClass(LaunchActivity.this, MainActivity.class);
                         startActivity(i1);
                         LaunchActivity.this.finish();
                     }

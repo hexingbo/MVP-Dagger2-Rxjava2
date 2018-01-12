@@ -1,38 +1,45 @@
 package com.zenglb.framework;
 
+import android.app.Activity;
+import android.content.Context;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
-import android.text.TextUtils;
 import android.util.Log;
-
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 import com.squareup.leakcanary.LeakCanary;
+import com.squareup.leakcanary.RefWatcher;
 import com.zenglb.framework.base.BaseApplication;
-import com.zenglb.baselib.sharedpreferences.SharedPreferencesDao;
-
-import com.zenglb.framework.database.dbmaster.DaoMaster;
-import com.zenglb.framework.database.dbmaster.DaoSession;
-import com.zenglb.framework.database.dbupdate.MySQLiteOpenHelper;
-import com.zenglb.framework.di.DaggerMyAppComponent;
-import com.zenglb.framework.http.ApiService;
+import com.zenglb.framework.di.AppModule;
+import com.zenglb.framework.di.DaggerMainComponent;
 import com.zlb.httplib.core.HttpRetrofit;
-
-import org.greenrobot.greendao.database.Database;
+import javax.inject.Inject;
+import dagger.android.AndroidInjector;
+import dagger.android.DispatchingAndroidInjector;
+import dagger.android.HasActivityInjector;
 
 /**
- * Thank you, Vanke Service;I have enough time to do my favourite
+ * 依赖注入还有的问题
+ *
+ * 1.在AllActivityModule 都要添加那默认的两行代码好烦人，manifest 中 OK ？
+ * 2.在非Activity 中注入XX 的问题
+ *
+ *
  *
  * Created by zenglb on 2017/3/15.
  */
-public class MyApplication extends BaseApplication {
+public class MyApplication extends BaseApplication implements HasActivityInjector {
     public static final String TAG = MyApplication.class.getSimpleName();
+    public static final String MAIN_PROCESS_NAME = "com.zenglb.framework";
+    public static final String WEB_PROCESS_NAME = "com.zenglb.framework:webprocess";
     private boolean isDebug = false;  //App 是否是调试模式
 
-    public static final boolean ENCRYPTED = false;
-    private DaoSession daoSession;
-
     private static MyApplication myApplication;
+    public RefWatcher refWatcher;
+
+    //依赖注入的核心原则：一个类不应该知道如何实现依赖注入。
+    @Inject
+    DispatchingAndroidInjector<Activity> dispatchingAndroidInjector;  //1111111111111
 
     @Override
     public void onCreate() {
@@ -40,15 +47,23 @@ public class MyApplication extends BaseApplication {
         String processName = getProcessName();
         Log.d(TAG, processName + "Application onCreate");
 
-        myApplication=this;
+        myApplication = this;
 
-        DaggerMyAppComponent.create().inject(this);   //22222222
-
+        //Module  带有构造方法并且参数被使用的情况下所产生的Component 是没有Create方法的
+//        DaggerMainComponent.create().inject(this);
+        DaggerMainComponent.builder().appModule(new AppModule(this)).build().inject(this); //22222222222222
 
         // 很多的东西最好能放到一个IntentService 中去初始化
         // InitializeService.start(this);
         isDebugCheck();
         initApplication();
+    }
+
+
+    //33333333333
+    @Override
+    public AndroidInjector<Activity> activityInjector() {
+        return dispatchingAndroidInjector;
     }
 
     public static MyApplication getInstance() {
@@ -73,20 +88,18 @@ public class MyApplication extends BaseApplication {
         String processName = getProcessName();
 
         switch (processName) {
-            case "com.zenglb.framework":
+            case MAIN_PROCESS_NAME:
                 SdkManager.initDebugOrRelease(this);
                 HttpRetrofit.init(this);
-                setDaoSession(SharedPreferencesDao.getInstance().getData("Account", "DefDb", String.class));
-                refWatcher = LeakCanary.install(this);  //只管主进程的,其他的进程自保吧
 
+                refWatcher = LeakCanary.install(this);  //只管主进程的,其他的进程自保吧
                 //创建默认的ImageLoader配置参数
                 ImageLoaderConfiguration configuration = ImageLoaderConfiguration.createDefault(this);
                 //Initialize ImageLoader with configuration.
                 ImageLoader.getInstance().init(configuration);
-
                 break;
 
-            case "com.zenglb.framework:webprocess":
+            case WEB_PROCESS_NAME:  //WebView 在单独的进程中
 
                 break;
 
@@ -97,36 +110,18 @@ public class MyApplication extends BaseApplication {
     }
 
 
-    @Override
-    public void onTerminate() {
-        super.onTerminate();
-    }
-
-
     /**
-     * 设置数据库操作对象
-     * 1.在Application 中设置一个默认的上传登陆的Session,在登录成功后创建一个新的Session
+     * 获取RefWatcher
      *
-     */
-    public void setDaoSession(String account) {
-        if (!TextUtils.isEmpty(account)) {
-            String DBName = ENCRYPTED ? account + "encrypted" : account;
-            MySQLiteOpenHelper helper = new MySQLiteOpenHelper(this, DBName, null);
-            Database db = ENCRYPTED ? helper.getEncryptedWritableDb("super-secret") : helper.getWritableDb();
-            daoSession = new DaoMaster(db).newSession();
-        } else {
-            Log.w(TAG, "Account is empty,init db failed");
-        }
-    }
-
-    /**
-     * 获取数据库操作对象
-     *
+     * @param context
      * @return
      */
-    public DaoSession getDaoSession() {
-        return daoSession;
+    public static RefWatcher getRefWatcher(Context context) {
+        MyApplication application = (MyApplication) context.getApplicationContext();
+        return application.refWatcher;
     }
+
+
 
     /**
      * 检查APP 是不是调试模式

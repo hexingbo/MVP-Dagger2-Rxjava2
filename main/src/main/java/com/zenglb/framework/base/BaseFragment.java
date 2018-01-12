@@ -7,6 +7,7 @@ import android.view.View;
 
 import com.squareup.leakcanary.RefWatcher;
 import com.trello.rxlifecycle2.components.support.RxFragment;
+import com.zenglb.framework.MyApplication;
 import com.zlb.httplib.core.HttpUiTips;
 
 /**
@@ -76,7 +77,7 @@ public abstract class BaseFragment extends RxFragment {
     public void onDestroy() {
         super.onDestroy();
 
-        RefWatcher refWatcher = BaseApplication.getRefWatcher(getActivity());
+        RefWatcher refWatcher = MyApplication.getRefWatcher(getActivity());
         refWatcher.watch(this);
 
         HttpUiTips.dismissDialog(getActivity());  // 非常的重要呢！！

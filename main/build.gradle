@@ -37,7 +37,7 @@ android {
     greendao {
         schemaVersion 7                  //修改这里的版本号，greenDAO会自动修改生成到DAOMaster中的版本号
         targetGenDir 'src/main/java'     //表示greenDAO生成的DAOMaster和DaoSession的位置
-        daoPackage 'com.zenglb.framework.database.dbmaster' //我觉得最好放在Entity 下面的目录！！！
+        daoPackage 'com.zenglb.framework.persistence.dbmaster' //我觉得最好放在Entity 下面的目录！！！
     }
 
     compileOptions {
@@ -82,10 +82,7 @@ dependencies {
     compile 'com.jakewharton.rxbinding2:rxbinding-support-v4:2.0.0'
     //'appcompat-v7' library bindings:
     compile 'com.jakewharton.rxbinding2:rxbinding-appcompat-v7:2.0.0'
-    //'design' library bindings:
-    compile 'com.jakewharton.rxbinding2:rxbinding-design:2.0.0'
-    //'recyclerview-v7' library bindings:
-    compile 'com.jakewharton.rxbinding2:rxbinding-recyclerview-v7:2.0.0'
+
 
     //For Lifecycles, LiveData, and ViewModel
     compile "android.arch.lifecycle:runtime:1.0.3"

@@ -37,10 +37,6 @@ public abstract class BaseMVPActivity<P extends BasePresenter, M extends BaseMod
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
-
-        //Base 里面就不要写任何和业务有关的逻辑了好不好
-        AndroidInjection.inject(this);
-
         super.onCreate(savedInstanceState);
 
         mPresenter = CreateObjUtil.getT(this, 0);

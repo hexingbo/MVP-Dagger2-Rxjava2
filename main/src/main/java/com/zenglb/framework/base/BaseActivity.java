@@ -15,7 +15,7 @@ import dagger.android.AndroidInjection;
 
 /**
  * 基类就只做基类的事情,不要把业务层面的代码写到这里来 ！！
- *
+ * <p>
  * <p>
  * FBI WARMING,不要为了方便，只有某几个Activity 才会用的（定位，Wi-Fi 数据收集啊，写在Base里面，那还抽象什么）
  * <p>
@@ -34,12 +34,16 @@ public abstract class BaseActivity extends RxAppCompatActivity implements View.O
         super.onCreate(savedInstanceState);
         setContentView(setLayoutId());
 
+        //一处声明，处处依赖注入
+        AndroidInjection.inject(this);
 
         mContext = BaseActivity.this;
         mToolbar = (Toolbar) findViewById(R.id.toolbar);
+
         if (mToolbar != null) {
             setSupportActionBar(mToolbar);
         }
+
         initViews();
 
     }
@@ -124,6 +128,8 @@ public abstract class BaseActivity extends RxAppCompatActivity implements View.O
     @Override
     public void onBackPressed() {
         super.onBackPressed();
+//        HttpUiTips.dismissDialog(mContext);  // Maybe Better
+
     }
 
 

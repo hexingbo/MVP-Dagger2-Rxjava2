@@ -7,6 +7,7 @@ package com.zenglb.framework.mvp_base;
  * @param <M>
  * @param <V>
  */
+@Deprecated
 public interface IPresenter<M extends IModel,V extends IView> {
 
     void attachModelAndView(M model,V view);

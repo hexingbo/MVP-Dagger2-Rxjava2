@@ -15,12 +15,21 @@ import android.widget.Toast;
 import com.zenglb.baselib.sharedpreferences.SharedPreferencesDao;
 import com.zenglb.framework.R;
 import com.zenglb.framework.activity.access.RegisterActivity;
+import com.zenglb.framework.di.AppModule;
+import com.zenglb.framework.persistence.SPDao;
+import com.zenglb.framework.persistence.dbmaster.DaoMaster;
+import com.zenglb.framework.persistence.dbmaster.DaoSession;
+import com.zenglb.framework.persistence.dbupdate.MySQLiteOpenHelper;
 import com.zlb.httplib.core.HttpRetrofit;
 import com.zlb.httplib.core.SPKey;
 import com.zenglb.framework.mvp_base.BaseMVPActivity;
 import com.zenglb.framework.navigation.MainActivityBottomNavi;
 import com.zenglb.framework.http.param.LoginParams;
 import com.zenglb.framework.http.result.LoginResult;
+
+import org.greenrobot.greendao.database.Database;
+
+import javax.inject.Inject;
 
 import es.dmoral.toasty.Toasty;
 
@@ -50,6 +59,12 @@ public class Oauth_MVP_Activity extends BaseMVPActivity<OauthPresenter, OauthMod
     Button oauthBtn;
     FloatingActionButton fabBtn;
 
+    @Inject
+    DaoSession daoSession;
+
+    @Inject
+    SPDao spDao;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -62,14 +77,29 @@ public class Oauth_MVP_Activity extends BaseMVPActivity<OauthPresenter, OauthMod
             logoutCustomComponent();
         }
 
+        daoSession.toString();
+
     }
 
+
+    /**
+     * DB  根据不同的账号分库分表
+     *
+     * @param account
+     * @return
+     */
+    private DaoSession getDaoSession(String account) {
+        String DBName = AppModule.ENCRYPTED ? account + "encrypted" : account;
+        MySQLiteOpenHelper helper = new MySQLiteOpenHelper(mContext, DBName, null);
+        Database db = AppModule.ENCRYPTED ? helper.getEncryptedWritableDb("super-secret") : helper.getWritableDb();
+        return new DaoMaster(db).newSession();
+    }
 
     /**
      * 登录的从新初始化，把数据
      */
     private void loginInit() {
-        SharedPreferencesDao.getInstance().saveData(SPKey.KEY_ACCESS_TOKEN, "");
+        spDao.saveData(SPKey.KEY_ACCESS_TOKEN, "");
         HttpRetrofit.setToken("");
     }
 
@@ -98,7 +128,7 @@ public class Oauth_MVP_Activity extends BaseMVPActivity<OauthPresenter, OauthMod
         fabBtn.setOnClickListener(this);
         oauthBtn.setOnClickListener(this);
 
-        etUsername.setText(SharedPreferencesDao.getInstance().getData(SPKey.KEY_LAST_ACCOUNT, "", String.class));
+        etUsername.setText(spDao.getData(SPKey.KEY_LAST_ACCOUNT, "", String.class));
         etPassword.setText(PW);
         etUsername.setText("18826562075");
     }
@@ -152,10 +182,12 @@ public class Oauth_MVP_Activity extends BaseMVPActivity<OauthPresenter, OauthMod
      * @param loginResult
      */
     public void loginSuccess(LoginResult loginResult) {
-        SharedPreferencesDao.getInstance().saveData(SPKey.KEY_ACCESS_TOKEN, "Bearer " + loginResult.getAccessToken());
-        SharedPreferencesDao.getInstance().saveData(SPKey.KEY_REFRESH_TOKEN, loginResult.getRefreshToken());
-        SharedPreferencesDao.getInstance().saveData(SPKey.KEY_LAST_ACCOUNT, etUsername.getText().toString().trim());
-        HttpRetrofit.setToken(SharedPreferencesDao.getInstance().getData(SPKey.KEY_ACCESS_TOKEN, "", String.class));
+        spDao.saveData(SPKey.KEY_ACCESS_TOKEN, "Bearer " + loginResult.getAccessToken());
+        spDao.saveData(SPKey.KEY_REFRESH_TOKEN, loginResult.getRefreshToken());
+        spDao.saveData(SPKey.KEY_LAST_ACCOUNT, etUsername.getText().toString().trim());
+        HttpRetrofit.setToken(spDao.getData(SPKey.KEY_ACCESS_TOKEN, "", String.class));
+
+        daoSession = getDaoSession(etUsername.getText().toString().trim());
 
         if (isFromLaunch) {
             Intent i2 = new Intent(Oauth_MVP_Activity.this, MainActivityBottomNavi.class);

@@ -82,7 +82,7 @@ public class HttpRetrofit {
                 public Response intercept(Chain chain) throws IOException {
                     Request originalRequest = chain.request();
                     if (TextUtils.isEmpty(TOKEN)) {
-                        TOKEN = SharedPreferencesDao.getInstance().getData(SPKey.KEY_ACCESS_TOKEN, "", String.class);
+//                        TOKEN = SPXXXXXXXXXXXXXXXX.getData(SPKey.KEY_ACCESS_TOKEN, "", String.class);
                     }
 
                     /**

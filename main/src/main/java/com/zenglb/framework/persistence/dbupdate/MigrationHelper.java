@@ -1,4 +1,4 @@
-package com.zenglb.framework.database.dbupdate;
+package com.zenglb.framework.persistence.dbupdate;
 
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
