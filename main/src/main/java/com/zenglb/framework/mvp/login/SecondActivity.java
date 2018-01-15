@@ -1,4 +1,4 @@
-package com.zenglb.framework.mvp.activity;
+package com.zenglb.framework.mvp.login;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -7,7 +7,7 @@ import android.widget.TextView;
 
 import com.zenglb.framework.R;
 import com.zenglb.framework.persistence.SPDao;
-import com.zenglb.framework.mvp_base.BaseMVPActivity;
+import com.zenglb.framework.mvp_base.old.BaseMVPActivity;
 
 import javax.inject.Inject;
 
@@ -15,7 +15,7 @@ import javax.inject.Inject;
  * Created by QingMei on 2017/7/31.
  * desc:
  */
-
+@Deprecated
 public class SecondActivity extends BaseMVPActivity {
 
     @Inject

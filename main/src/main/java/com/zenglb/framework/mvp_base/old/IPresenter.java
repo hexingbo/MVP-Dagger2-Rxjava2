@@ -1,8 +1,7 @@
-package com.zenglb.framework.mvp_base;
+package com.zenglb.framework.mvp_base.old;
 
 /**
  * 抽象出Presenter 接口
- *
  *
  * @param <M>
  * @param <V>

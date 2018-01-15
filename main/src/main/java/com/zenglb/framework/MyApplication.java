@@ -12,7 +12,7 @@ import com.squareup.leakcanary.RefWatcher;
 import com.zenglb.framework.base.BaseApplication;
 import com.zenglb.framework.di.AppModule;
 import com.zenglb.framework.di.DaggerMainComponent;
-import com.zlb.httplib.core.HttpRetrofit;
+import com.zenglb.framework.http.HttpRetrofit;
 import javax.inject.Inject;
 import dagger.android.AndroidInjector;
 import dagger.android.DispatchingAndroidInjector;
@@ -23,8 +23,7 @@ import dagger.android.HasActivityInjector;
  *
  * 1.在AllActivityModule 都要添加那默认的两行代码好烦人，manifest 中 OK ？
  * 2.在非Activity 中注入XX 的问题
- *
- *
+ * 3.
  *
  * Created by zenglb on 2017/3/15.
  */

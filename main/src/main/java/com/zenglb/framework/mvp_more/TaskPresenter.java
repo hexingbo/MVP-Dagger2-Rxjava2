@@ -1,9 +1,8 @@
 package com.zenglb.framework.mvp_more;
 
 import com.zlb.httplib.core.rxUtils.SwitchSchedulers;
-import com.zenglb.framework.MyApplication;
 import com.zenglb.framework.persistence.dbmaster.DaoSession;
-import com.zenglb.framework.mvp_base.BasePresenter;
+import com.zenglb.framework.mvp_base.old.MyBasePresenter;
 import com.zenglb.framework.http.result.JokesResult;
 import com.zlb.httplib.core.BaseObserver;
 
@@ -18,7 +17,7 @@ import io.reactivex.functions.Consumer;
  *
  * Created by zenglb on 2017/7/5.
  */
-public class TaskPresenter extends BasePresenter<TasksRepository,MVPActivity> implements TaskContract.TaskPresenter {
+public class TaskPresenter extends MyBasePresenter<TasksRepository,MVPActivity> implements TaskContract.TaskPresenter {
 
     @Inject
     DaoSession daoSession;

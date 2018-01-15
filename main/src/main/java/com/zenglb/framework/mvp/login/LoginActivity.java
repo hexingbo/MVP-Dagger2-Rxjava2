@@ -1,9 +1,10 @@
-package com.zenglb.framework.mvp_oauth;
+package com.zenglb.framework.mvp.login;
 
 import android.app.ActivityOptions;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.text.TextUtils;
 import android.view.KeyEvent;
@@ -14,43 +15,38 @@ import android.widget.Toast;
 
 import com.zenglb.framework.R;
 import com.zenglb.framework.activity.access.RegisterActivity;
-import com.zenglb.framework.di.AppModule;
-import com.zenglb.framework.persistence.SPDao;
-import com.zenglb.framework.persistence.dbmaster.DaoMaster;
-import com.zenglb.framework.persistence.dbmaster.DaoSession;
-import com.zenglb.framework.persistence.dbupdate.MySQLiteOpenHelper;
+import com.zenglb.framework.base.mvp.BaseMVPActivityNEW;
+import com.zenglb.framework.http.ApiService;
 import com.zenglb.framework.http.HttpRetrofit;
-import com.zlb.httplib.core.SPKey;
-import com.zenglb.framework.mvp_base.old.BaseMVPActivity;
-import com.zenglb.framework.navigation.MainActivityBottomNavi;
 import com.zenglb.framework.http.param.LoginParams;
 import com.zenglb.framework.http.result.LoginResult;
-
-import org.greenrobot.greendao.database.Database;
+import com.zenglb.framework.navigation.MainActivityBottomNavi;
+import com.zenglb.framework.persistence.SPDao;
+import com.zenglb.framework.persistence.dbmaster.DaoSession;
+import com.zlb.httplib.core.SPKey;
 
 import javax.inject.Inject;
-
+import butterknife.ButterKnife;
 import es.dmoral.toasty.Toasty;
 
-
 /**
- * 是不是感觉更加的复杂了，其实不是都要强制使用MVP 的,其他的模式可以extends
- * {@link com.zenglb.framework.base.BaseActivity}
- * <p>
- * 更多请参考Google【to-do-MVP（TasksDataSource）】，抽象后发现代码很不好写啊
- * extends BaseMVPActivity<OauthPresenter,OauthModel> implements OauthContract.OauthView
- * <p>
- * 这样子写我想理解应该不会有太大的问题，关键是写起来繁琐，我们从来不干重复性的事情，尝试写一个MVP 模版生成器
- * 比如OAUTH 功能，会自动的生产：
- * 1，OauthActivity / OauthFragment  和对应的布局文件
- * 2，OauthContract
- * 3，OauthModel
- * 4，OauthPresenter
- * 5，
+ * Demo
  *
- * @author anylife.zlb@gmail.com
+ *
  */
-public class Oauth_MVP_Activity extends BaseMVPActivity<OauthPresenter, OauthModel> implements OauthContract.OauthView {
+public class LoginActivity extends BaseMVPActivityNEW implements LoginContract.View {
+    @Inject
+    SPDao spDao;
+
+    @Inject
+    DaoSession daoSession;
+
+//    @Inject
+//    ApiService apiService;
+
+    @Inject
+    LoginPresenter loginPresenter;
+
     private static final String PW = "zxcv1234";  //FBI WARMING !!!!
     private boolean isFromLaunch = false;         //从哪里跳转来登录页面的
 
@@ -58,39 +54,20 @@ public class Oauth_MVP_Activity extends BaseMVPActivity<OauthPresenter, OauthMod
     Button oauthBtn;
     FloatingActionButton fabBtn;
 
-    @Inject
-    DaoSession daoSession;
-
-    @Inject
-    SPDao spDao;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        ButterKnife.bind(this);
 
         loginInit();
-
         //1,从Launcher 页面过来 2，用户主动退出 3，超时或其他页面退出（再次登录要回到那里去）
         isFromLaunch = getIntent().getBooleanExtra("isFromLaunch", false);
         if (!isFromLaunch) {
             logoutCustomComponent();
         }
-
     }
 
-
-    /**
-     * DB  根据不同的账号分库分表
-     *
-     * @param account
-     * @return
-     */
-    private DaoSession getDaoSession(String account) {
-        String DBName = AppModule.ENCRYPTED ? account + "encrypted" : account;
-        MySQLiteOpenHelper helper = new MySQLiteOpenHelper(mContext, DBName, null);
-        Database db = AppModule.ENCRYPTED ? helper.getEncryptedWritableDb("super-secret") : helper.getWritableDb();
-        return new DaoMaster(db).newSession();
-    }
 
     /**
      * 登录的从新初始化，把数据
@@ -109,10 +86,23 @@ public class Oauth_MVP_Activity extends BaseMVPActivity<OauthPresenter, OauthMod
 //        Clear Oautoken,在web 页面的时候怎么退出来
     }
 
-
     @Override
     protected int setLayoutId() {
-        return R.layout.activity_login;
+        return R.layout.activity_main;
+    }
+
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        //Bind view to the presenter which will signal for the presenter to load the task.
+        loginPresenter.takeView(this);
+    }
+
+    @Override
+    public void onPause() {
+        loginPresenter.dropView();
+        super.onPause();
     }
 
     @Override
@@ -151,7 +141,7 @@ public class Oauth_MVP_Activity extends BaseMVPActivity<OauthPresenter, OauthMod
         loginParams.setUsername(userName);
         loginParams.setPassword(password);
 
-        mPresenter.login2(loginParams);
+        loginPresenter.login(loginParams);
     }
 
 
@@ -184,18 +174,19 @@ public class Oauth_MVP_Activity extends BaseMVPActivity<OauthPresenter, OauthMod
         spDao.saveData(SPKey.KEY_LAST_ACCOUNT, etUsername.getText().toString().trim());
         HttpRetrofit.setToken(spDao.getData(SPKey.KEY_ACCESS_TOKEN, "", String.class));
 
-        daoSession = getDaoSession(etUsername.getText().toString().trim());
-
         if (isFromLaunch) {
-            Intent i2 = new Intent(Oauth_MVP_Activity.this, MainActivityBottomNavi.class);
+            Intent i2 = new Intent(LoginActivity.this, MainActivityBottomNavi.class);
             startActivity(i2);
-            Oauth_MVP_Activity.this.finish();
+            LoginActivity.this.finish();
         } else {//是来自Launcher启动的就跳转到主页面，否则从哪里来就到那里去
-            Oauth_MVP_Activity.this.finish();
+            LoginActivity.this.finish();
         }
 
     }
 
+    /**
+     * 跳转到注册®️
+     */
     public void goRegister() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(this, fabBtn, fabBtn.getTransitionName());
@@ -229,5 +220,22 @@ public class Oauth_MVP_Activity extends BaseMVPActivity<OauthPresenter, OauthMod
         return super.onKeyDown(keyCode, event);
     }
 
+
+
+
+
+
+
+//    public void gotoSecond(View view) {
+//        startActivity(new Intent(this, SecondActivity.class));
+//    }
+//
+//    public void requestHttp(View view) {
+//        presenter.requestHttp();
+//    }
+//
+//    public void onGetMessage(String message) {
+//        Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
+//    }
 
 }

@@ -1,13 +1,17 @@
-package com.zenglb.framework.mvp_base;
+package com.zenglb.framework.mvp_base.old;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 
-import com.zenglb.framework.base.BaseActivity;
-
-import dagger.android.AndroidInjection;
+import com.zenglb.framework.base.BaseDIActivity;
 
 /**
+ * 需要改写！！！！！！！
+ *
+ *
+ *
+ *
+ *
  * 并不要求所有的功能都用MVP, 如果不需要使用MVP 就直接extends BaseActivity
  *
  * implements IView 是为了抽象出统一的View 的操作，比如ShowDialog.ShowError.
@@ -21,8 +25,8 @@ import dagger.android.AndroidInjection;
  * mPresenter = CreateObjUtil.getT(this, 0);
  * mModel = CreateObjUtil.getT(this,1);
  *
- * 在P 中就只要通过{@link BasePresenter} 的 {@link BasePresenter#getIModel()}
- * 和{@link BasePresenter#getIView()} 来获取view 和 Model
+ * 在P 中就只要通过{@link MyBasePresenter} 的 {@link MyBasePresenter#getIModel()}
+ * 和{@link MyBasePresenter#getIView()} 来获取view 和 Model
  *
  * 当然问题getIView 要每次判断是否为null, 好烦啊，能不能对象为null 不执行方法啊？
  *
@@ -31,7 +35,9 @@ import dagger.android.AndroidInjection;
  *
  * Created by zlb on 2017/8/20.
  */
-public abstract class BaseMVPActivity<P extends BasePresenter, M extends BaseModel> extends BaseActivity implements IView {
+
+@Deprecated
+public abstract class BaseMVPActivity<P extends MyBasePresenter, M extends BaseModel> extends BaseDIActivity implements IView {
     protected P mPresenter;
     protected M mModel;
 

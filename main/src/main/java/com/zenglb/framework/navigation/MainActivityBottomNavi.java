@@ -34,8 +34,8 @@ public class MainActivityBottomNavi extends BaseActivity {
     private ViewPager viewPager;
     private MenuItem menuItem;
 
-    @Inject
-    DaoSession daoSession;
+//    @Inject
+//    DaoSession daoSession;
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -71,7 +71,6 @@ public class MainActivityBottomNavi extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setTitle("Main");
-        daoSession.toString();
 
     }
 

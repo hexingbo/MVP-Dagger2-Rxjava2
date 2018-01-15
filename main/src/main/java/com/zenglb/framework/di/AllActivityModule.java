@@ -3,11 +3,9 @@ package com.zenglb.framework.di;
 import com.zenglb.framework.activity.launch.LaunchActivity;
 import com.zenglb.framework.di.component.BaseActivityComponent;
 import com.zenglb.framework.di.module.DefaultActivityModule;
-import com.zenglb.framework.di.module.MainActivityModule;
-import com.zenglb.framework.di.module.SecondActivityModule;
+import com.zenglb.framework.di.module.LoginActivityModule;
 import com.zenglb.framework.di.scope.ActivityScope;
-import com.zenglb.framework.mvp.activity.MainActivity;
-import com.zenglb.framework.mvp.activity.SecondActivity;
+import com.zenglb.framework.mvp.login.LoginActivity;
 import com.zenglb.framework.mvp_more.MVPActivity;
 import com.zenglb.framework.mvp_oauth.Oauth_MVP_Activity;
 import com.zenglb.framework.navigation.MainActivityBottomNavi;
@@ -29,14 +27,22 @@ import dagger.android.ContributesAndroidInjector;
 })
 public abstract class AllActivityModule {
 
-    //2222222 新建了一个Activity 的并且需要inject 的只需要添加两行代码
     // TODO: 2018/1/12 这样是很方便了，然而并不是所有的Activity 都需要依赖注入的东西，继承了BaseActivity 就要写这个很烦人啊！
-    @ActivityScope
-    @ContributesAndroidInjector(modules = MainActivityModule.class)
-    abstract MainActivity contributeMainActivitytInjector();
 
-    @ContributesAndroidInjector(modules = SecondActivityModule.class)
-    abstract SecondActivity contributeSecondActivityInjector();
+    /**
+     * BaseActivity <- BaseDiActivity  <- BaseMVPActivity  这样的继承关系就好了，但是3个Base 啊! 只能接受2个
+     *
+     * 1 BaseActivity: 不要MVP模式，也不用DI 依赖注入（少写两行代码）就用这个吧
+     *
+     * 2 BaseDiActivity：不要MVP，但是要依赖注入用这个（同时在这里加两行代码）
+     *
+     * 3 BaseMVPActivity 要MVP 要DI ，要要要 嘛
+     */
+
+    //2222222 新建了一个Activity 的并且需要inject 的只需要添加两行代码
+    @ActivityScope
+    @ContributesAndroidInjector(modules = LoginActivityModule.class)
+    abstract LoginActivity contributeMainActivitytInjector();
 
     @ContributesAndroidInjector(modules = DefaultActivityModule.class)
     abstract LaunchActivity contributeLaunchActivityInjector();

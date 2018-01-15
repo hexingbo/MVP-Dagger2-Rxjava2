@@ -4,12 +4,7 @@
 
 # 关于本Demo
   一直在纠结在何种开发模式之中，重构希望能把关注点集中到代码结构、整体架构、可测试性、可维护性这四个方面
-  Rxjava2 + retrofit2 + MVP + Drager2 + xxx,应该是当前Android开发主流的框架 ，我们都会参考Google的官方框架https://github.com/googlesamples/android-architecture
-  但是现在 在MVP模式 中我们使用网络异步请求数据成功后需要更新UI 中的显示，但是你不知道对应的Activity／Fragment 等处于什么状态， 
-  此时当我们的异步调用面对无法预知的用户操作和系统处理的时候，什么问题都可能发生。
-    
-  总而言之，由于我们对于UI实时的状态做不到了如指掌，以至于对数据和逻辑的处理就无法尽善尽美。这是类似隐患得不到很好的解决根本原因。 
-  这个时候我们就会参考Google 的最新的项目架构组件https://github.com/googlesamples/android-architecture-components
+  Rxjava2 + retrofit2 + MVP + Drager2 + xxx,应该是当前Android开发主流的框架 ，我们都会参考Google的官方框架https://github.com/googlesamples/android-architecture 或者 Google 的最新的项目架构组件https://github.com/googlesamples/android-architecture-components
   
 
 # 关于Http网络请求 (Rxjava2+Retrofit2)
@@ -24,24 +19,8 @@
   已经是很流行的UI架构模型了。
   使用MVP多关注代码结构、整体架构、可测试性、可维护性这四个方面
 
-## 关于MVP
-  多参考Google官网的 + 这个：https://github.com/anylifezlb/android-guidelines
 
-  - View层
-  包含界面相关的功能（Activity,Fragment,View,Adapter）,专注用户的交互，实现设计师给出的界面，动画.View层
-  一般会持有Presenter 层的引用，或者也可以通过依赖注入(dragger/2)的方式获取Presenter 实例，非UI逻辑的操作
-  委托给Presenter.
-
-  - Presenter 逻辑控制层
-  充当中间人的角色，隔离model层和View层，该层从View 层剥离控制逻辑部分形成的，主要负责View层和Model 层的
-  交互。例如接收view 层的网络数据请求，并分发给对应的Model层处理，同时监听Model层的处理结果，最终反馈给
-  View 层，从而实现界面的刷新。
-
-  - Model 层
-  封装数据来源，一个程序的本质是处理各种数据，input data ,proces data,output data.例如Android 的网络数据
-  ，本地数据库数据，对Presenter 层提供简单易用的接口。
-
-
+  
 # 关于调试工具
  推荐Facebook stetho ，可以网络请求（抓包），不root查看DB 文件和sharepreference，甚至在4.4 以后webview
  可以远程调试；提高生产力的利器啊。

@@ -1,12 +1,12 @@
-package com.zenglb.framework.mvp_base;
+package com.zenglb.framework.mvp_base.old;
 
 import java.lang.reflect.ParameterizedType;
 
 /**
- * 感谢，少写了很多的重复性质的代码。
  *
  * Created by zhoufazhan on 2017/7/27.
  */
+@Deprecated
 public class CreateObjUtil {
 
     /**
@@ -16,6 +16,7 @@ public class CreateObjUtil {
      * @param <T>
      * @return
      */
+    @Deprecated
     public static <T> T getT(Object o, int i) {
 
         try {

@@ -1,10 +1,13 @@
 package com.zenglb.framework.di;
 
 import android.content.Context;
+
+import com.zenglb.framework.http.ApiService;
 import com.zenglb.framework.persistence.SPDao;
 import com.zenglb.framework.persistence.dbmaster.DaoMaster;
 import com.zenglb.framework.persistence.dbmaster.DaoSession;
 import com.zenglb.framework.persistence.dbupdate.MySQLiteOpenHelper;
+import com.zenglb.framework.http.HttpRetrofit;
 import com.zlb.httplib.core.SPKey;
 
 import org.greenrobot.greendao.database.Database;
@@ -39,11 +42,29 @@ public class AppModule {
     }
 
 
+    /**
+     * SharedPreferences 保存KEY VALUE 配置信息
+     *
+     * @return
+     */
     @Provides
     @Singleton
-    SPDao provideStudent() {
+    SPDao provideSPDao() {
         return new SPDao(mContext);
     }
+
+
+    /**
+     * 网络访问
+     *
+     * @return
+     */
+    @Provides
+    @Singleton
+    ApiService provideApiService(SPDao spDao){
+        return HttpRetrofit.getRetrofit(spDao).create(ApiService.class);
+    }
+
 
     /**
      * 数据库访问的DaoSession,登录的时候切换账号后怎么更换呢？
@@ -57,10 +78,8 @@ public class AppModule {
     DaoSession provideDaoSession(SPDao spDao) {
         String account = spDao.getData(SPKey.KEY_LAST_ACCOUNT, "default_error_db", String.class);
         String DBName = ENCRYPTED ? account + "encrypted" : account;
-
         MySQLiteOpenHelper helper = new MySQLiteOpenHelper(mContext, DBName, null);
         Database db = ENCRYPTED ? helper.getEncryptedWritableDb("super-secret") : helper.getWritableDb();
-
         return new DaoMaster(db).newSession();
     }
 

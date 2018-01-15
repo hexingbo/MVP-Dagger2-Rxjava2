@@ -1,10 +1,12 @@
-package com.zlb.httplib.core;
+package com.zenglb.framework.http;
 
 import android.app.Application;
 import android.text.TextUtils;
 import android.util.Log;
 
-import com.zenglb.baselib.sharedpreferences.SharedPreferencesDao;
+import com.zenglb.framework.persistence.SPDao;
+import com.zlb.httplib.core.MyHttpLoggingInterceptor;
+import com.zlb.httplib.core.SPKey;
 
 import java.io.IOException;
 import java.util.concurrent.TimeUnit;
@@ -54,7 +56,7 @@ public class HttpRetrofit {
      *
      * @return
      */
-    public static Retrofit getRetrofit() {
+    public static Retrofit getRetrofit(SPDao spDao) {
         if (retrofit == null) {
             //1.处理没有认证  http 401 Not Authorised
             Authenticator mAuthenticator2 = new Authenticator() {
@@ -82,7 +84,7 @@ public class HttpRetrofit {
                 public Response intercept(Chain chain) throws IOException {
                     Request originalRequest = chain.request();
                     if (TextUtils.isEmpty(TOKEN)) {
-//                        TOKEN = SPXXXXXXXXXXXXXXXX.getData(SPKey.KEY_ACCESS_TOKEN, "", String.class);
+                        TOKEN = spDao.getData(SPKey.KEY_ACCESS_TOKEN, "", String.class);
                     }
 
                     /**

@@ -49,6 +49,18 @@
             </intent-filter>
         </activity>
 
+
+        <activity
+            android:name=".mvp.login.LoginActivity"
+            android:launchMode="singleTop"
+            android:theme="@style/FullscreenTheme">
+            <intent-filter>
+                <category android:name="android.intent.category.DEFAULT" />
+                <action android:name="app.intent.action.LOGIN" />
+            </intent-filter>
+        </activity>
+
+
         <activity
             android:name=".activity.access.RegisterActivity"
             android:theme="@style/Translucent" />
@@ -76,21 +88,11 @@
         <activity android:name=".activity.quick_input_things.QuickInputThingsActivity" />
         <activity android:name=".activity.demo.ZipActivity"></activity>
 
-        <receiver android:name=".activity.alarmManger.AlarmReceiver">
-            <intent-filter>
-                <action android:name="com.zenglb.framework.alarm.clock" />
-            </intent-filter>
-        </receiver>
         <activity android:name=".activity.demo.ConstraintLayoutActivity"></activity>
 
-        <activity android:name=".activity.alarmManger.AlarmMangerActivity" />
         <activity android:name=".activity.architecture.ArchitectureActivity" />
         <activity android:name=".activity.demo.Rxjava_ZIP_Activity"></activity>
 
-
-        // 临时的Demo 区域啊
-        <activity android:name=".mvp.activity.MainActivity"></activity>
-        <activity android:name=".mvp.activity.SecondActivity"></activity>
 
 
     </application>

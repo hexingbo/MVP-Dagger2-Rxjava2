@@ -20,6 +20,7 @@ import com.dtr.settingview.lib.item.BasicItemViewH;
 import com.dtr.settingview.lib.item.SwitchItemView;
 import com.zenglb.framework.base.BaseFragment;
 import com.zenglb.framework.R;
+import com.zenglb.framework.mvp.login.LoginActivity;
 import com.zenglb.framework.mvp_oauth.Oauth_MVP_Activity;
 
 import java.util.ArrayList;
@@ -258,7 +259,7 @@ public class MeProfileFragment extends BaseFragment {
      */
     public void logout() {
         Intent intent = new Intent();
-        intent.setClass(mActivity, Oauth_MVP_Activity.class);
+        intent.setClass(mActivity, LoginActivity.class);
         mActivity.startActivity(intent);
     }
 

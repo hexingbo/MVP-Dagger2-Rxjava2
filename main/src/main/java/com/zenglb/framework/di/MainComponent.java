@@ -10,6 +10,7 @@ import dagger.android.support.AndroidSupportInjectionModule;
 
 /**
  * 全局的单例的东西提到这里来，比如SharedPrefence,Daosession 等等 ！
+ *
  */
 @Singleton
 @Component(modules = {

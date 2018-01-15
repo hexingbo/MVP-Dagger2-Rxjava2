@@ -4,7 +4,7 @@ import android.support.annotation.NonNull;
 
 import com.zenglb.framework.http.HttpCall;
 import com.zlb.httplib.core.rxUtils.SwitchSchedulers;
-import com.zenglb.framework.mvp_base.BaseModel;
+import com.zenglb.framework.mvp_base.old.BaseModel;
 import com.zlb.httplib.core.HttpResponse;
 import com.zenglb.framework.http.param.LoginParams;
 import com.zenglb.framework.http.result.LoginResult;
