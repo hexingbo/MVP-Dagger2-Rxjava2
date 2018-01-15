@@ -1,7 +1,7 @@
 package com.zenglb.framework.mvp_oauth;
 
 import com.zlb.httplib.core.rxUtils.SwitchSchedulers;
-import com.zenglb.framework.mvp_base.BasePresenter;
+import com.zenglb.framework.mvp_base.old.MyBasePresenter;
 import com.zenglb.framework.http.param.LoginParams;
 import com.zenglb.framework.http.result.LoginResult;
 import com.zlb.httplib.core.BaseObserver;
@@ -11,7 +11,7 @@ import com.zlb.httplib.core.BaseObserver;
  * <p>
  * Google 的最基本的todo MVP 中也是类似这样处理的
  */
-public class OauthPresenter extends BasePresenter<OauthModel, Oauth_MVP_Activity>
+public class OauthPresenter extends MyBasePresenter<OauthModel, Oauth_MVP_Activity>
         implements OauthContract.OauthPresenter {
 
     /**
@@ -30,15 +30,12 @@ public class OauthPresenter extends BasePresenter<OauthModel, Oauth_MVP_Activity
                     @Override
                     public void onSuccess(LoginResult loginResult) {
 
-
                         /**
                          * getIView() 可能出现是null 的情况，
                          */
                         if(isAttachView()){
                             getIView().loginSuccess(loginResult);
                         }
-
-
 
 //                        invokeMethod();  //把loginSuccess 放到里面去执行，不用判断isAttachView();
                     }

@@ -12,16 +12,12 @@ import android.widget.Toast;
 
 import com.zenglb.framework.base.BaseFragment;
 import com.zenglb.framework.http.HttpCall;
-import com.zlb.httplib.core.HttpRetrofit;
 import com.zlb.httplib.core.rxUtils.SwitchSchedulers;
-import com.zenglb.baselib.sharedpreferences.SharedPreferencesDao;
 import com.zenglb.framework.R;
 import com.zenglb.framework.activity.main.AreUSleepListAdapter;
-import com.zlb.httplib.core.SPKey;
 import com.zlb.httplib.core.HttpResponse;
 import com.zenglb.framework.http.param.LoginParams;
 import com.zenglb.framework.http.result.JokesResult;
-import com.zenglb.framework.http.result.LoginResult;
 import com.zenglb.framework.http.result.StaffMsg;
 import com.zlb.httplib.core.BaseObserver;
 
@@ -29,12 +25,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import io.reactivex.Observable;
-import io.reactivex.ObservableSource;
 import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.annotations.NonNull;
 import io.reactivex.functions.BiFunction;
 import io.reactivex.functions.Consumer;
-import io.reactivex.functions.Function;
 import io.reactivex.schedulers.Schedulers;
 
 /**
@@ -119,33 +112,33 @@ public class Rxjava2DemoFragment extends BaseFragment {
         loginParams.setUsername("18826562075");
         loginParams.setPassword("zxcv1234");
 
-        HttpCall.getApiService().goLoginByRxjavaObserver(loginParams)
-                .compose(SwitchSchedulers.applySchedulers())
-                .compose(bindToLifecycle())
-                .doOnNext(loginResult -> {
-                    if (loginResult.isSuccess()) {
-                        String token = "Bearer " + loginResult.getResult().getAccessToken();
-                        HttpRetrofit.setToken(token);
-                        SharedPreferencesDao.getInstance().saveData(SPKey.KEY_ACCESS_TOKEN, token);
-                        SharedPreferencesDao.getInstance().saveData(SPKey.KEY_REFRESH_TOKEN, loginResult.getResult().getRefreshToken());
-                    } else {
-                        //这里应该控制不要往下执行了！
-                    }
-                })
-                .observeOn(Schedulers.io())          //回到IO线程去发起获取信息的请求
-                .flatMap(new Function<HttpResponse<LoginResult>, ObservableSource<HttpResponse<StaffMsg>>>() {
-                    @Override
-                    public ObservableSource<HttpResponse<StaffMsg>> apply(@NonNull HttpResponse<LoginResult> loginResultHttpResponse) throws Exception {
-                        return HttpCall.getApiService().getStaffMsg();
-                    }
-                })
-                .observeOn(AndroidSchedulers.mainThread())  //回到主线程去处理请求个人信息的结果
-                .subscribe(new BaseObserver<StaffMsg>(getActivity(), true) {
-                    @Override
-                    public void onSuccess(StaffMsg staffMsg) {
-                        Log.e(TAG, staffMsg.toString());
-                    }
-                });
+//        HttpCall.getApiService().goLoginByRxjavaObserver(loginParams)
+//                .compose(SwitchSchedulers.applySchedulers())
+//                .compose(bindToLifecycle())
+//                .doOnNext(loginResult -> {
+//                    if (loginResult.isSuccess()) {
+//                        String token = "Bearer " + loginResult.getResult().getAccessToken();
+//                        HttpRetrofit.setToken(token);
+//                        SharedPreferencesDao.getInstance().saveData(SPKey.KEY_ACCESS_TOKEN, token);
+//                        SharedPreferencesDao.getInstance().saveData(SPKey.KEY_REFRESH_TOKEN, loginResult.getResult().getRefreshToken());
+//                    } else {
+//                        //这里应该控制不要往下执行了！
+//                    }
+//                })
+//                .observeOn(Schedulers.io())          //回到IO线程去发起获取信息的请求
+//                .flatMap(new Function<HttpResponse<LoginResult>, ObservableSource<HttpResponse<StaffMsg>>>() {
+//                    @Override
+//                    public ObservableSource<HttpResponse<StaffMsg>> apply(@NonNull HttpResponse<LoginResult> loginResultHttpResponse) throws Exception {
+//                        return HttpCall.getApiService().getStaffMsg();
+//                    }
+//                })
+//                .observeOn(AndroidSchedulers.mainThread())  //回到主线程去处理请求个人信息的结果
+//                .subscribe(new BaseObserver<StaffMsg>(getActivity(), true) {
+//                    @Override
+//                    public void onSuccess(StaffMsg staffMsg) {
+//                        Log.e(TAG, staffMsg.toString());
+//                    }
+//                });
     }
 
 

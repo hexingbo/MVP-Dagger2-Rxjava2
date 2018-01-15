@@ -1,23 +1,26 @@
 package com.zenglb.framework.mvp_more;
 
-import com.zenglb.framework.MyApplication;
-import com.zenglb.framework.database.dbmaster.JokesResultDao;
+import com.zenglb.framework.persistence.dbmaster.DaoSession;
+import com.zenglb.framework.persistence.dbmaster.JokesResultDao;
 import com.zenglb.framework.http.HttpCall;
-import com.zenglb.framework.mvp_base.BaseModel;
+import com.zenglb.framework.mvp_base.old.BaseModel;
 import com.zlb.httplib.core.HttpResponse;
 import com.zenglb.framework.http.result.JokesResult;
-
 import java.util.List;
-
+import javax.inject.Inject;
 import io.reactivex.Maybe;
 import io.reactivex.Observable;
 import io.reactivex.Single;
 
 /**
+ *
  * Created by zlb on 2017/9/13.
  */
-
 public class TasksRepository extends BaseModel implements ITaskDataSource {
+
+    @Inject
+    DaoSession daoSession;
+
     /**
      * 获取缓存的数据,测试1，这样子还是在主线程读取的数据库啊！
      * XXXXXXXX
@@ -28,7 +31,7 @@ public class TasksRepository extends BaseModel implements ITaskDataSource {
     public Maybe<List<JokesResult>> getCacheTasks22() {
         String threadName = Thread.currentThread().getName(); //  这里线程的切换并没有成功
 
-        JokesResultDao jokesResultDao = MyApplication.getInstance().getDaoSession().getJokesResultDao();
+        JokesResultDao jokesResultDao = daoSession.getJokesResultDao();
         List<JokesResult> jokesResultList = jokesResultDao.loadAll();
         return jokesResultList.isEmpty() ? Maybe.empty() : Maybe.just(jokesResultList);
     }
@@ -44,7 +47,7 @@ public class TasksRepository extends BaseModel implements ITaskDataSource {
         return Single.create(emitter -> {
             String threadName = Thread.currentThread().getName();  // 这里一定不是主线程，也就是在这里打断点并不会影响UI
 
-            JokesResultDao jokesResultDao = MyApplication.getInstance().getDaoSession().getJokesResultDao();
+            JokesResultDao jokesResultDao = daoSession.getJokesResultDao();
             List<JokesResult> jokesResultList = jokesResultDao.loadAll();
             emitter.onSuccess(jokesResultList);
         });

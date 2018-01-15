@@ -18,15 +18,16 @@ import com.zenglb.baselib.utils.TransitionHelper;
 import com.zenglb.framework.R;
 import com.zenglb.framework.activity.animal.SharedElementActivity;
 import com.zenglb.framework.activity.main.AreUSleepListAdapter;
-import com.zenglb.framework.mvp_base.BaseMVPActivity;
+import com.zenglb.framework.mvp_base.old.BaseMVPActivity;
 import com.zenglb.framework.http.result.JokesResult;
+import com.zenglb.framework.persistence.dbmaster.DaoSession;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.inject.Inject;
+
 /**
- *
- *
  *
  *
  */
@@ -47,9 +48,13 @@ public class MVPActivity extends BaseMVPActivity<TaskPresenter, TasksRepository>
     private AreUSleepListAdapter areUSleepListAdapter;
     private List<JokesResult> data = new ArrayList<>();
 
+    @Inject
+    DaoSession daoSession;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        daoSession.toString();
     }
 
     /**

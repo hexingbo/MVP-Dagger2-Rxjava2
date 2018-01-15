@@ -1,13 +1,14 @@
 package com.zenglb.framework.mvp_more;
 
 import com.zlb.httplib.core.rxUtils.SwitchSchedulers;
-import com.zenglb.framework.MyApplication;
-import com.zenglb.framework.database.dbmaster.DaoSession;
-import com.zenglb.framework.mvp_base.BasePresenter;
+import com.zenglb.framework.persistence.dbmaster.DaoSession;
+import com.zenglb.framework.mvp_base.old.MyBasePresenter;
 import com.zenglb.framework.http.result.JokesResult;
 import com.zlb.httplib.core.BaseObserver;
 
 import java.util.List;
+
+import javax.inject.Inject;
 
 import io.reactivex.annotations.NonNull;
 import io.reactivex.functions.Consumer;
@@ -16,7 +17,11 @@ import io.reactivex.functions.Consumer;
  *
  * Created by zenglb on 2017/7/5.
  */
-public class TaskPresenter extends BasePresenter<TasksRepository,MVPActivity> implements TaskContract.TaskPresenter {
+public class TaskPresenter extends MyBasePresenter<TasksRepository,MVPActivity> implements TaskContract.TaskPresenter {
+
+    @Inject
+    DaoSession daoSession;
+
 
     /**
      * 获取缓存的最新的20条数据
@@ -54,7 +59,6 @@ public class TaskPresenter extends BasePresenter<TasksRepository,MVPActivity> im
                         // TODO: 2017/9/14 操作数据库放到非UI 线程里面去做吧
                         //DB 保存最新的Page == 1 的20条数据
                         if (page == 1) {
-                            DaoSession daoSession = MyApplication.getInstance().getDaoSession();
                             daoSession.getJokesResultDao().deleteAll();
                             daoSession.getJokesResultDao().insertOrReplaceInTx(jokesResults);
                         }
