@@ -1,6 +1,7 @@
 package com.zenglb.framework.http;
 
 import android.app.Application;
+import android.content.Context;
 import android.text.TextUtils;
 import android.util.Log;
 
@@ -35,8 +36,6 @@ public class HttpRetrofit {
      * 当apiService对象调用getXxxx方法时会被动态代理拦截，然后调用Proxy.newProxyInstance方法中的InvocationHandler对象，
      * 它的invoke方法会传入3个参数：{@link Retrofit}
      */
-    private static Application application;
-
     private static Retrofit retrofit;
 
     public static void setToken(String token) {
@@ -44,19 +43,19 @@ public class HttpRetrofit {
     }
 
 
-    /**
-     * 在Application 中 初始化
-     */
-    public static void init(final Application app){
-        application=app;
-    }
+//    /**
+//     * 在Application 中 初始化
+//     */
+//    public static void init(final Application app){
+//        application=app;
+//    }
 
     /**
      * 每次都要invoke 这个方法不是很繁琐吗？
      *
      * @return
      */
-    public static Retrofit getRetrofit(SPDao spDao) {
+    public static Retrofit getRetrofit(SPDao spDao, Context mContext) {
         if (retrofit == null) {
             //1.处理没有认证  http 401 Not Authorised
             Authenticator mAuthenticator2 = new Authenticator() {

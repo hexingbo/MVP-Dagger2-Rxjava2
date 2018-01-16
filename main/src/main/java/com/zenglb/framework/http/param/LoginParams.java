@@ -5,9 +5,10 @@ package com.zenglb.framework.http.param;
  * Created by zenglb on 2016/7/4.
  */
 public class LoginParams {
-    private String grant_type;
-    private String client_id;
-    private String client_secret;
+    // FBI WARMING ！！！
+    private String grant_type="password";
+    private String client_id="5e96eac06151d0ce2dd9554d7ee167ce";
+    private String client_secret="aCE34n89Y277n3829S7PcMN8qANF8Fh";
     private String username;
     private String refresh_token;
     private String password;

@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".activity.setHeadImg.SetHeadImgActivity">
+    tools:context=".demo.setHeadImg.SetHeadImgActivity">
     <include layout="@layout/basic_toolbar_layout"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"

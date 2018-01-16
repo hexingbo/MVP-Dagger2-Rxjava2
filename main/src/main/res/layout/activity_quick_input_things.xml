@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.zenglb.framework.activity.quick_input_things.QuickInputThingsActivity">
+    tools:context="com.zenglb.framework.demo.quick_input_things.QuickInputThingsActivity">
 
     <include layout="@layout/basic_toolbar_layout"/>
 

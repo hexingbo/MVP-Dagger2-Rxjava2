@@ -1,7 +1,10 @@
 package com.zenglb.framework.di;
 
+import android.app.Application;
 import android.content.Context;
 
+import com.squareup.leakcanary.LeakCanary;
+import com.squareup.leakcanary.RefWatcher;
 import com.zenglb.framework.http.ApiService;
 import com.zenglb.framework.persistence.SPDao;
 import com.zenglb.framework.persistence.dbmaster.DaoMaster;
@@ -9,11 +12,8 @@ import com.zenglb.framework.persistence.dbmaster.DaoSession;
 import com.zenglb.framework.persistence.dbupdate.MySQLiteOpenHelper;
 import com.zenglb.framework.http.HttpRetrofit;
 import com.zlb.httplib.core.SPKey;
-
 import org.greenrobot.greendao.database.Database;
-
 import javax.inject.Singleton;
-
 import dagger.Module;
 import dagger.Provides;
 
@@ -30,17 +30,36 @@ import dagger.Provides;
 public class AppModule {
 
     public static final boolean ENCRYPTED = false;
-    Context mContext;
+    Application mContext;
 
     /**
      * Module  带有构造方法并且参数被使用的情况下所产生的Component 是没有Create方法的
      *
      * @param mContext
      */
-    public AppModule(Context mContext) {
+    public AppModule(Application mContext) {
         this.mContext = mContext;
     }
 
+
+    /***
+     * @return
+     */
+    @Provides
+    @Singleton
+    Context providemContext() {
+        return mContext;
+    }
+
+
+    /***
+     * @return
+     */
+    @Provides
+    @Singleton
+    RefWatcher provideRefWatcher(Application mContext) {
+        return LeakCanary.install(mContext);  //只管主进程的,其他的进程自保吧
+    }
 
     /**
      * SharedPreferences 保存KEY VALUE 配置信息
@@ -61,8 +80,8 @@ public class AppModule {
      */
     @Provides
     @Singleton
-    ApiService provideApiService(SPDao spDao){
-        return HttpRetrofit.getRetrofit(spDao).create(ApiService.class);
+    ApiService provideApiService(SPDao spDao,Context mContext){
+        return HttpRetrofit.getRetrofit(spDao,mContext).create(ApiService.class);
     }
 
 

@@ -15,7 +15,6 @@ import javax.inject.Inject;
  *
  */
 public class LoginPresenter implements LoginContract.Presenter {
-
     ApiService apiService;
 
     LoginContract.View mLoginView;
@@ -29,7 +28,7 @@ public class LoginPresenter implements LoginContract.Presenter {
     public void login(LoginParams loginParams) {
         apiService.goLoginByRxjavaObserver(loginParams)
                 .compose(SwitchSchedulers.applySchedulers())
-                .subscribe(new BaseObserver<LoginResult>(null) {
+                .subscribe(new BaseObserver<LoginResult>((Activity)mLoginView) {
                     @Override
                     public void onSuccess(LoginResult loginResult) {
                         mLoginView.loginSuccess(loginResult);
@@ -60,18 +59,5 @@ public class LoginPresenter implements LoginContract.Presenter {
 
     }
 
-
-    //    private final LoginActivity view;
-//    private final LoginModel model;
-//
-//    @Inject
-//    public LoginPresenter(LoginActivity view, LoginModel model) {
-//        this.view = view;
-//        this.model = model;
-//    }
-//
-//    public void requestHttp() {
-//        view.onGetMessage(model.returnMessage());
-//    }
 
 }

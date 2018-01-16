@@ -99,6 +99,7 @@ public abstract class BaseObserver<T> implements Observer<HttpResponse<T>> {
      */
     @Override
     public final void onError(Throwable t) {
+        Log.e(TAG,t.toString());
         HttpUiTips.dismissDialog(mContext);
         if (t instanceof HttpException) {
             HttpException httpException = (HttpException) t;

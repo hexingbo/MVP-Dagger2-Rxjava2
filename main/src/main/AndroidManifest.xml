@@ -4,7 +4,6 @@
     package="com.zenglb.framework">
 
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
-    //有时间需要弄一下这个！
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <uses-permission android:name="android.permission.VIBRATE" />
@@ -28,8 +27,9 @@
         android:supportsRtl="true"
         android:theme="@style/MyAppTheme"
         tools:replace="android:theme">
+
         <activity
-            android:name=".activity.launch.LaunchActivity"
+            android:name=".demo.launch.LaunchActivity"
             android:launchMode="singleTop"
             android:theme="@style/FullscreenTheme">
             <intent-filter>
@@ -38,17 +38,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-        <activity
-            android:name=".mvp_oauth.Oauth_MVP_Activity"
-            android:launchMode="singleTop"
-            android:theme="@style/FullscreenTheme">
-            <intent-filter>
-                <category android:name="android.intent.category.DEFAULT" />
-                <action android:name="app.intent.action.LOGIN" />
-            </intent-filter>
-        </activity>
-
 
         <activity
             android:name=".mvp.login.LoginActivity"
@@ -60,20 +49,22 @@
             </intent-filter>
         </activity>
 
+        <activity
+            android:name=".demo.access.RegisterActivity"
+            android:theme="@style/Translucent" />
 
         <activity
-            android:name=".activity.access.RegisterActivity"
-            android:theme="@style/Translucent" />
-        <activity
-            android:name=".activity.main.AreUSleepListActivity"
+            android:name=".demo.main.AreUSleepListActivity"
             android:launchMode="singleTask" />
+
         <activity
             android:name=".navigation.MainActivityBottomNavi"
             android:label="@string/title_activity_main_bottom_navi"
             android:launchMode="singleTask" />
-        <activity android:name=".activity.animal.SharedElementActivity" />
-        <activity android:name=".activity.animal.AnimalMainActivity" />
-        <activity android:name=".mvp_more.MVPActivity" />
+
+        <activity android:name=".demo.animal.SharedElementActivity" />
+        <activity android:name=".demo.animal.AnimalMainActivity" />
+        <activity android:name=".mvp.mvp_more.MVPOLdActivity" />
 
         <provider
             android:name="android.support.v4.content.FileProvider"
@@ -85,14 +76,12 @@
                 android:resource="@xml/file_paths" />
         </provider>
 
-        <activity android:name=".activity.quick_input_things.QuickInputThingsActivity" />
-        <activity android:name=".activity.demo.ZipActivity"></activity>
+        <activity android:name=".demo.quick_input_things.QuickInputThingsActivity" />
 
-        <activity android:name=".activity.demo.ConstraintLayoutActivity"></activity>
-
-        <activity android:name=".activity.architecture.ArchitectureActivity" />
-        <activity android:name=".activity.demo.Rxjava_ZIP_Activity"></activity>
-
+        <activity android:name=".demo.demo.ZipActivity"></activity>
+        <activity android:name=".demo.demo.ConstraintLayoutActivity"></activity>
+        <activity android:name=".demo.architecture.ArchitectureActivity" />
+        <activity android:name=".demo.demo.Rxjava_ZIP_Activity"></activity>
 
 
     </application>
