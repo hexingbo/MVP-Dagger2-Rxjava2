@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="#88aaccaa"
-    tools:context="com.zenglb.framework.activity.demo.ConstraintLayoutActivity">
+    tools:context="com.zenglb.framework.demo.demo.ConstraintLayoutActivity">
 
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/head_image"

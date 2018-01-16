@@ -5,7 +5,7 @@
     android:id="@+id/activity_launch"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activity.launch.LaunchActivity">
+    tools:context=".demo.launch.LaunchActivity">
 
 
 </RelativeLayout>

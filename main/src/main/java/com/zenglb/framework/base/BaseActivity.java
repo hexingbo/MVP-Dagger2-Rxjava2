@@ -8,14 +8,14 @@ import android.view.View;
 
 import com.trello.rxlifecycle2.components.support.RxAppCompatActivity;
 import com.zenglb.commonlib.R;
-import com.zenglb.framework.mvp_base.old.BaseMVPActivity;
+import com.zenglb.framework.mvp_base.old.BaseMVPActivityOLD;
 import com.zlb.httplib.core.HttpUiTips;
 
 
 /**
  * 基类就只做基类的事情,不要把业务层面的代码写到这里来
  *
- * 简单的功能页面没有必要使用MVP{@link BaseMVPActivity}）模型，还是使用MVC{@link BaseActivity}就够了
+ * 简单的功能页面没有必要使用MVP{@link BaseMVPActivityOLD}）模型，还是使用MVC{@link BaseActivity}就够了
  * 因为MVP 会生成大量的代码，支持混合的模式很重要。
  *
  *
@@ -35,9 +35,6 @@ public abstract class BaseActivity extends RxAppCompatActivity implements View.O
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(setLayoutId());
-
-//        //一处声明，处处依赖注入
-//        AndroidInjection.inject(this);
 
         mContext = BaseActivity.this;
         mToolbar = (Toolbar) findViewById(R.id.toolbar);

@@ -14,9 +14,8 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.zenglb.framework.R;
-import com.zenglb.framework.activity.access.RegisterActivity;
-import com.zenglb.framework.base.mvp.BaseMVPActivityNEW;
-import com.zenglb.framework.http.ApiService;
+import com.zenglb.framework.demo.access.RegisterActivity;
+import com.zenglb.framework.base.mvp.BaseMVPActivity;
 import com.zenglb.framework.http.HttpRetrofit;
 import com.zenglb.framework.http.param.LoginParams;
 import com.zenglb.framework.http.result.LoginResult;
@@ -30,30 +29,24 @@ import butterknife.ButterKnife;
 import es.dmoral.toasty.Toasty;
 
 /**
- * Demo
+ * 登录页面，简单的MVP 和Dagger demo
  *
  *
  */
-public class LoginActivity extends BaseMVPActivityNEW implements LoginContract.View {
-    @Inject
-    SPDao spDao;
-
-    @Inject
-    DaoSession daoSession;
-
-//    @Inject
-//    ApiService apiService;
-
-    @Inject
-    LoginPresenter loginPresenter;
-
+public class LoginActivity extends BaseMVPActivity implements LoginContract.View {
     private static final String PW = "zxcv1234";  //FBI WARMING !!!!
     private boolean isFromLaunch = false;         //从哪里跳转来登录页面的
+
+    @Inject
+    SPDao spDao;
+    @Inject
+    DaoSession daoSession;
+    @Inject
+    LoginPresenter loginPresenter;
 
     EditText etUsername, etPassword;
     Button oauthBtn;
     FloatingActionButton fabBtn;
-
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -66,6 +59,7 @@ public class LoginActivity extends BaseMVPActivityNEW implements LoginContract.V
         if (!isFromLaunch) {
             logoutCustomComponent();
         }
+
     }
 
 
@@ -88,7 +82,7 @@ public class LoginActivity extends BaseMVPActivityNEW implements LoginContract.V
 
     @Override
     protected int setLayoutId() {
-        return R.layout.activity_main;
+        return R.layout.activity_login;
     }
 
 
@@ -96,12 +90,12 @@ public class LoginActivity extends BaseMVPActivityNEW implements LoginContract.V
     protected void onResume() {
         super.onResume();
         //Bind view to the presenter which will signal for the presenter to load the task.
-        loginPresenter.takeView(this);
+        loginPresenter.takeView(this);  //NEED base
     }
 
     @Override
     public void onPause() {
-        loginPresenter.dropView();
+        loginPresenter.dropView();  //Need BASE
         super.onPause();
     }
 
@@ -120,9 +114,9 @@ public class LoginActivity extends BaseMVPActivityNEW implements LoginContract.V
         etUsername.setText("18826562075");
     }
 
-
     /**
      * Login ,普通的登录和使用Rxjava 的方式都可以
+     *
      */
     public void mvpLogin() {
         String userName = etUsername.getText().toString().trim();
@@ -135,9 +129,6 @@ public class LoginActivity extends BaseMVPActivityNEW implements LoginContract.V
 
         //1.需要改进，能否改进为链式写法
         LoginParams loginParams = new LoginParams();
-        loginParams.setClient_id("5e96eac06151d0ce2dd9554d7ee167ce");
-        loginParams.setClient_secret("aCE34n89Y277n3829S7PcMN8qANF8Fh");
-        loginParams.setGrant_type("password");
         loginParams.setUsername(userName);
         loginParams.setPassword(password);
 
@@ -191,7 +182,6 @@ public class LoginActivity extends BaseMVPActivityNEW implements LoginContract.V
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(this, fabBtn, fabBtn.getTransitionName());
             startActivity(new Intent(this, RegisterActivity.class), options.toBundle());
-
         } else {
             startActivity(new Intent(this, RegisterActivity.class));
         }
@@ -220,22 +210,5 @@ public class LoginActivity extends BaseMVPActivityNEW implements LoginContract.V
         return super.onKeyDown(keyCode, event);
     }
 
-
-
-
-
-
-
-//    public void gotoSecond(View view) {
-//        startActivity(new Intent(this, SecondActivity.class));
-//    }
-//
-//    public void requestHttp(View view) {
-//        presenter.requestHttp();
-//    }
-//
-//    public void onGetMessage(String message) {
-//        Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
-//    }
 
 }

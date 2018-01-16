@@ -14,9 +14,10 @@ public class HttpCall {
      * 获取Service
      * @return
      */
+    @Deprecated
     public static ApiService getApiService() {
         if(apiService==null){
-            apiService=HttpRetrofit.getRetrofit(null).create(ApiService.class);
+            apiService=HttpRetrofit.getRetrofit(null,null).create(ApiService.class);
         }
 
         return apiService;

@@ -7,7 +7,7 @@
     android:layout_marginLeft="10dp"
     android:layout_marginRight="10dp"
     android:layout_marginTop="@dimen/cardview_pad_top"
-    tools:context=".activity.main.AreUSleepListActivity"
+    tools:context=".demo.main.AreUSleepListActivity"
     android:foreground="@drawable/card_foreground"
     card_view:cardCornerRadius="3dp"
     card_view:cardBackgroundColor="@android:color/white"

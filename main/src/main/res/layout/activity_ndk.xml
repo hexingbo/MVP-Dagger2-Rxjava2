@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.zenglb.framework.activity.ndk.NDKActivity">
+    tools:context="com.zenglb.framework.demo.ndk.NDKActivity">
     <include
         layout="@layout/basic_toolbar_layout"
         android:layout_width="match_parent"

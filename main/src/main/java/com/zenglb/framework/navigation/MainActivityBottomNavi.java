@@ -9,17 +9,13 @@ import android.view.KeyEvent;
 import android.view.MenuItem;
 import android.widget.Toast;
 
-import com.zenglb.framework.base.BaseActivity;
 import com.zenglb.framework.R;
-import com.zenglb.framework.activity.main.AreUSleepFragmentList;
-import com.zenglb.framework.fragment.mainfragment.MeProfileFragment;
-import com.zenglb.framework.fragment.others.DemoFragment;
-import com.zenglb.framework.fragment.rxjava2.Rxjava2DemoFragment;
-import com.zenglb.framework.persistence.SPDao;
-import com.zenglb.framework.persistence.dbmaster.DaoSession;
-
+import com.zenglb.framework.demo.main.AreUSleepFragmentList;
+import com.zenglb.framework.base.mvp.BaseMVPActivity;
+import com.zenglb.framework.navigation.fragment.DemoFragment;
+import com.zenglb.framework.navigation.fragment.MeProfileFragment;
+import com.zenglb.framework.navigation.fragment.Rxjava2DemoFragment;
 import javax.inject.Inject;
-
 import es.dmoral.toasty.Toasty;
 
 /**
@@ -30,12 +26,21 @@ import es.dmoral.toasty.Toasty;
  * It also doesn't allow populating the Bottom Navigation View with more than five items - as per the design spec
  * (it throws an IllegalArgumentException if you try to).
  */
-public class MainActivityBottomNavi extends BaseActivity {
+public class MainActivityBottomNavi extends BaseMVPActivity {
     private ViewPager viewPager;
     private MenuItem menuItem;
 
-//    @Inject
-//    DaoSession daoSession;
+    @Inject
+    DemoFragment demoFragment;  // Lazy<DemoFragment>
+
+    @Inject
+    AreUSleepFragmentList areUSleepFragmentList;
+
+    @Inject
+    Rxjava2DemoFragment rxjava2DemoFragment;
+
+    @Inject
+    MeProfileFragment meProfileFragment;
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -47,20 +52,22 @@ public class MainActivityBottomNavi extends BaseActivity {
                     viewPager.setCurrentItem(0);
                     setTitle("主页");
                     return true;
+
                 case R.id.navigation_dashboard:
                     viewPager.setCurrentItem(1);
-                    setTitle("Webview");
-
+                    setTitle("I will be confirm");
                     return true;
+
                 case R.id.navigation_notifications:
                     viewPager.setCurrentItem(2);
                     setTitle("消息");
-
                     return true;
+
                 case R.id.navigation_set:
                     viewPager.setCurrentItem(3);
                     setTitle("设置");
                     return true;
+
             }
             return false;
         }
@@ -137,10 +144,10 @@ public class MainActivityBottomNavi extends BaseActivity {
 
     private void setupViewPager(ViewPager viewPager) {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
-        adapter.addFragment(DemoFragment.newInstance("demo"));
-        adapter.addFragment(AreUSleepFragmentList.newInstance("expired"));
-        adapter.addFragment(Rxjava2DemoFragment.newInstance("done"));
-        adapter.addFragment(MeProfileFragment.newInstance("MeProfile", "333"));
+        adapter.addFragment(demoFragment);
+        adapter.addFragment(areUSleepFragmentList);
+        adapter.addFragment(rxjava2DemoFragment);
+        adapter.addFragment(meProfileFragment);
 
         viewPager.setAdapter(adapter);
     }
@@ -148,7 +155,6 @@ public class MainActivityBottomNavi extends BaseActivity {
     protected boolean isShowBacking() {
         return false;
     }
-
 
     /**
      * 快速按2次退出
