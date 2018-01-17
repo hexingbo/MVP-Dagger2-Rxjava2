@@ -8,6 +8,9 @@ import java.lang.reflect.Field;
 
 /**
  * 利用反射，改变 item 中 mShiftingMode 的值
+ *
+ * 一般的来说，利用反射是很危险的，不要使用黑科技
+ *  Created by anylife.zlb@gmail.com on 2017/3/24.
  */
 public class BottomNavigationViewHelper {
 

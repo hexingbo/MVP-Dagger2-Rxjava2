@@ -11,6 +11,7 @@ import java.io.File;
  * Created by Fsh on 2016/12/28.
  */
 public class FileStorage {
+
     private File file;
 
     /**

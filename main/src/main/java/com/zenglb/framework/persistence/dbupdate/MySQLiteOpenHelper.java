@@ -10,7 +10,7 @@ import com.zenglb.framework.persistence.dbmaster.JokesResultDao;
 /**
  * 数据库的升级策略，一般的只会增加一些字段和添加表，字段名 是很少修改的
  *
- * Created by zenglb on 2017/1/3.
+ * Created by anylife.zlb@gmail.com on 2017/1/3.
  */
 public class MySQLiteOpenHelper extends DaoMaster.OpenHelper {
 

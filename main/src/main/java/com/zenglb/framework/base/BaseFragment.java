@@ -78,7 +78,7 @@ public abstract class BaseFragment extends RxFragment implements HasSupportFragm
 
     @Override
     public void onAttach(Context context) {
-        AndroidSupportInjection.inject(this);
+        AndroidSupportInjection.inject(this);  //使用的Fragment 是V4 包中的，不然就是AndroidInjection.inject(this)
         super.onAttach(context);
         this.mActivity = (Activity) context;
     }

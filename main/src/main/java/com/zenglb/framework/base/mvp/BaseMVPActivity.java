@@ -12,7 +12,7 @@ import dagger.android.HasFragmentInjector;
 import dagger.android.support.HasSupportFragmentInjector;
 
 /**
- * 需要改写！！！！！！！ BaseDI 的部分功能放进来会不会好点？
+ * 需要依赖注入extends this ，其实可以不要这么多的Base 吧，难以维护 ...
  *
  *
  * Created by zlb on 2017/8/20.

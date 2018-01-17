@@ -1,25 +1,13 @@
-package com.zenglb.framework.di.scope;
+package com.zenglb.framework.dagger.scope;
 
 import java.lang.annotation.Documented;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
-
 import javax.inject.Scope;
-
-import static java.lang.annotation.RetentionPolicy.RUNTIME;
-
-///**
-// *
-// */
-//@Scope
-//@Retention(RUNTIME)
-//public @interface ActivityScope {
-//}
-
 
 /**
  * In Dagger, an unscoped component cannot depend on a scoped component. As
- * {@link com.zenglb.framework.di.MainComponent} is a scoped component ({@code @Singleton}, we create a custom
+ * {@link com.zenglb.framework.dagger.MainComponent} is a scoped component ({@code @Singleton}, we create a custom
  * scope to be used by all fragment components. Additionally, a component with a specific scope
  * cannot have a sub component with the same scope.
  */
@@ -27,4 +15,5 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 @Scope
 @Retention(RetentionPolicy.RUNTIME)
 public @interface ActivityScope {
+
 }

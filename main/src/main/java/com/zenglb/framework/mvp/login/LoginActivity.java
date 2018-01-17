@@ -31,7 +31,7 @@ import es.dmoral.toasty.Toasty;
 /**
  * 登录页面，简单的MVP 和Dagger demo
  *
- *
+ * Created by anylife.zlb@gmail.com on 2018/1/11.
  */
 public class LoginActivity extends BaseMVPActivity implements LoginContract.View {
     private static final String PW = "zxcv1234";  //FBI WARMING !!!!

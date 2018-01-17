@@ -17,15 +17,13 @@ import android.widget.Toast;
 import com.liaoinstan.springview.container.DefaultFooter;
 import com.liaoinstan.springview.container.DefaultHeader;
 import com.liaoinstan.springview.widget.SpringView;
-import com.squareup.leakcanary.RefWatcher;
 import com.zenglb.framework.base.BaseFragment;
-import com.zenglb.framework.di.scope.ActivityScope;
+import com.zenglb.framework.dagger.scope.ActivityScope;
 import com.zenglb.framework.http.ApiService;
 import com.zlb.httplib.core.rxUtils.SwitchSchedulers;
 import com.zenglb.baselib.utils.TransitionHelper;
 import com.zenglb.framework.R;
 import com.zenglb.framework.demo.animal.SharedElementActivity;
-import com.zenglb.framework.MyApplication;
 import com.zenglb.framework.http.result.JokesResult;
 import com.zlb.httplib.core.BaseObserver;
 

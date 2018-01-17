@@ -12,7 +12,7 @@ import javax.inject.Inject;
 
 /**
  * Login Presenter
- *
+ * Created by anylife.zlb@gmail.com on 2018/1/11.
  */
 public class LoginPresenter implements LoginContract.Presenter {
     ApiService apiService;

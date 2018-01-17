@@ -20,7 +20,7 @@ import com.dtr.settingview.lib.item.BasicItemViewH;
 import com.dtr.settingview.lib.item.SwitchItemView;
 import com.zenglb.framework.base.BaseFragment;
 import com.zenglb.framework.R;
-import com.zenglb.framework.di.scope.ActivityScope;
+import com.zenglb.framework.dagger.scope.ActivityScope;
 import com.zenglb.framework.mvp.login.LoginActivity;
 
 import java.util.ArrayList;

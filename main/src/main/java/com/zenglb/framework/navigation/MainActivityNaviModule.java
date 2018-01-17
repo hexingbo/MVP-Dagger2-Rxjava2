@@ -1,7 +1,7 @@
-package com.zenglb.framework.di.module;
+package com.zenglb.framework.navigation;
 
 import com.zenglb.framework.demo.main.AreUSleepFragmentList;
-import com.zenglb.framework.di.scope.FragmentScope;
+import com.zenglb.framework.dagger.scope.FragmentScope;
 import com.zenglb.framework.navigation.fragment.MeProfileFragment;
 import com.zenglb.framework.navigation.fragment.Rxjava2DemoFragment;
 
@@ -10,20 +10,13 @@ import dagger.android.ContributesAndroidInjector;
 
 /**
  *
- *
+ * anylife.zlb@gmail.com
  */
 @Module
 public abstract class MainActivityNaviModule {
-    // Rather than having the activity deal with getting the intent extra and passing it to the presenter
-    // we will provide the taskId directly into the AddEditTaskActivitySubcomponent
-    // which is what gets generated for us by Dagger.Android.
-    // We can then inject our TaskId and state into our Presenter without having pass through dependency from
-    // the Activity. Each UI object gets the dependency it needs and nothing else.
-
-//    @Provides
-//    static AreUSleepFragmentList provideAreUSleepFragment(){
-//        return new AreUSleepFragmentList();
-//    };
+    //NOTE:  IF you want to have something be only in the Fragment scope but not activity mark a
+    //@provides or @Binds method as @FragmentScoped.  Use case is when there are multiple fragments
+    //in an activity but you do not want them to share all the same objects.
 
     @FragmentScope
     @ContributesAndroidInjector
@@ -32,7 +25,6 @@ public abstract class MainActivityNaviModule {
     @FragmentScope
     @ContributesAndroidInjector
     abstract Rxjava2DemoFragment provideRxjava2DemoFragment();
-
 
     @FragmentScope
     @ContributesAndroidInjector
@@ -52,12 +44,14 @@ public abstract class MainActivityNaviModule {
 //        return activity.isDataMissing();
 //    }
 
+    // Rather than having the activity deal with getting the intent extra and passing it to the presenter
+    // we will provide the taskId directly into the AddEditTaskActivitySubcomponent
+    // which is what gets generated for us by Dagger.Android.
+    // We can then inject our TaskId and state into our Presenter without having pass through dependency from
+    // the Activity. Each UI object gets the dependency it needs and nothing else.
 
 //    @ActivityScope
 //    @Binds
 //    abstract AddEditTaskContract.Presenter taskPresenter(AddEditTaskPresenter presenter);
 
-    //NOTE:  IF you want to have something be only in the Fragment scope but not activity mark a
-    //@provides or @Binds method as @FragmentScoped.  Use case is when there are multiple fragments
-    //in an activity but you do not want them to share all the same objects.
 }

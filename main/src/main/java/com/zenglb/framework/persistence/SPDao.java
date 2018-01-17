@@ -9,8 +9,7 @@ import android.util.Log;
 /**
  * 存储key-value 数据，支持加密
  * SharedPreferencesDao 就是操作SP
- * <p>
- * Created by zenglb on 2016/11/8.
+ * Created by anylife.zlb@gmail.com on 2016/11/8.
  */
 
 // TODO: 2018/1/12  最好还是和不同的账号分开来，和DAOSession 一样 

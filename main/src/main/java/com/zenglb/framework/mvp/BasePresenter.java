@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.zenglb.framework.mvp_base;
+package com.zenglb.framework.mvp;
 
 
 public interface BasePresenter<T> {

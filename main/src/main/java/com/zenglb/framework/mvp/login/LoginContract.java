@@ -2,12 +2,12 @@ package com.zenglb.framework.mvp.login;
 
 import com.zenglb.framework.http.param.LoginParams;
 import com.zenglb.framework.http.result.LoginResult;
-import com.zenglb.framework.mvp_base.BasePresenter;
-import com.zenglb.framework.mvp_base.BaseView;
+import com.zenglb.framework.mvp.BasePresenter;
+import com.zenglb.framework.mvp.BaseView;
 
 /**
- * Created by QingMei on 2017/8/16.
- * desc:
+ *
+ *  * Created by anylife.zlb@gmail.com on 2018/1/11.
  */
 
 public interface LoginContract {

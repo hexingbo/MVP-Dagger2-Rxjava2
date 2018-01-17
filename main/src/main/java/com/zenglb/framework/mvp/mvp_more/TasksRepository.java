@@ -1,8 +1,8 @@
 package com.zenglb.framework.mvp.mvp_more;
 
+import com.zenglb.framework.http.ApiService;
 import com.zenglb.framework.persistence.dbmaster.DaoSession;
 import com.zenglb.framework.persistence.dbmaster.JokesResultDao;
-import com.zenglb.framework.http.HttpCall;
 import com.zenglb.framework.mvp_base.old.BaseModel;
 import com.zlb.httplib.core.HttpResponse;
 import com.zenglb.framework.http.result.JokesResult;
@@ -20,6 +20,9 @@ public class TasksRepository extends BaseModel implements ITaskDataSource {
 
     @Inject
     DaoSession daoSession;
+
+    @Inject
+    ApiService apiService;
 
     /**
      * 获取缓存的数据,测试1，这样子还是在主线程读取的数据库啊！
@@ -65,7 +68,7 @@ public class TasksRepository extends BaseModel implements ITaskDataSource {
     public Observable<HttpResponse<List<JokesResult>>> getRemoteTasks(String type, int page) {
         String threadName = Thread.currentThread().getName();
 
-        return HttpCall.getApiService().getAreuSleepByObserver(type, page);
+        return apiService.getAreuSleepByObserver(type, page);
     }
 
 }

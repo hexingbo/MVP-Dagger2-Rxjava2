@@ -10,9 +10,8 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.zenglb.framework.base.BaseFragment;
-import com.zenglb.framework.di.scope.ActivityScope;
+import com.zenglb.framework.dagger.scope.ActivityScope;
 import com.zenglb.framework.http.ApiService;
-import com.zenglb.framework.http.HttpCall;
 import com.zlb.httplib.core.rxUtils.SwitchSchedulers;
 import com.zenglb.framework.R;
 import com.zenglb.framework.demo.main.AreUSleepListAdapter;
@@ -121,7 +120,7 @@ public class Rxjava2DemoFragment extends BaseFragment {
         loginParams.setUsername("18826562075");
         loginParams.setPassword("zxcv1234");
 
-//        HttpCall.getApiService().goLoginByRxjavaObserver(loginParams)
+//        apiService.goLoginByRxjavaObserver(loginParams)
 //                .compose(SwitchSchedulers.applySchedulers())
 //                .compose(bindToLifecycle())
 //                .doOnNext(loginResult -> {
@@ -157,10 +156,10 @@ public class Rxjava2DemoFragment extends BaseFragment {
      */
     private void zip() {
         Observable<HttpResponse<List<JokesResult>>> observable1 =
-                HttpCall.getApiService().getJokes("expired", 1).subscribeOn(Schedulers.io());
+                apiService.getJokes("expired", 1).subscribeOn(Schedulers.io());
 
         Observable<HttpResponse<StaffMsg>> observable2 =
-                HttpCall.getApiService().getStaffMsg().subscribeOn(Schedulers.io());
+                apiService.getStaffMsg().subscribeOn(Schedulers.io());
 
         Observable.zip(observable1, observable2,
                 new BiFunction<HttpResponse<List<JokesResult>>, HttpResponse<StaffMsg>, StaffMsg>() {
