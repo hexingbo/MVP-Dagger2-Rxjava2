@@ -21,6 +21,10 @@ import dagger.android.HasServiceInjector;
 /**
  * Beta 项目，项目组没有3个以上的Android 开发不建议使用Dagger XXX
  *
+ * 内存中Graphics占用比过高 ！
+ *
+ * 使用Glide 等第三方框架最好再封装一层，那一天你用Glide ++  了呢
+ *
  * Created by anylife.zlb@gmail.com on 2017/3/15.
  */
 public class MyApplication extends BaseApplication implements HasActivityInjector,HasServiceInjector {
@@ -79,7 +83,7 @@ public class MyApplication extends BaseApplication implements HasActivityInjecto
             case MAIN_PROCESS_NAME:
                 SdkManager.initDebugOrRelease(this);
 
-                //Module  带有构造方法并且参数被使用的情况下所产生的Component 是没有Create方法的
+                //Module  带有构造方法并且参数被使用的情况下所产生的DaggerXXComponent 是没有Create方法的
 //                DaggerMainComponent.create().inject(this);
                 DaggerMainComponent.builder().mainModule(new MainModule(this)).build().inject(this);
 

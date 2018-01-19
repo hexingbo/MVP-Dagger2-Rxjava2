@@ -9,7 +9,7 @@ import dagger.android.AndroidInjectionModule;
 import dagger.android.support.AndroidSupportInjectionModule;
 
 /**
- * 全局的单例的东西提到这里来，比如SharedPrefence,Daosession 等等 ！
+ * 全局的单例的东西提到这里来，比如SharedPrefenced,DaoSession 等等 ！
  *
  * Created by anylife.zlb@gmail.com on 2018/1/11.
  */
@@ -22,11 +22,9 @@ import dagger.android.support.AndroidSupportInjectionModule;
         // 一般把AndroidInjectionModule放在ApplicationComponent中，其他的Component依赖Application即可
 
         AndroidSupportInjectionModule.class,  //使用的Fragment 是V4 包中的？不然就只需要AndroidInjectionModule
-
 })
 
-// DaggerMainComponent.create().inject(this);   //在MyApplication 中 XXX.inject(this) 了已经
-// 带有构造方法并且参数被使用的情况下所产生的Component 是没有Create方法的
+//YourApplicationComponent
 public interface MainComponent {
 
     void inject(MyApplication application);

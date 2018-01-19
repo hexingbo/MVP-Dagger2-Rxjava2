@@ -59,7 +59,7 @@
             android:launchMode="singleTask" />
         <activity android:name=".demo.animal.SharedElementActivity" />
         <activity android:name=".demo.animal.AnimalMainActivity" />
-        <activity android:name=".mvp.mvp_more.MVPOLdActivity" />
+        <activity android:name=".mvp.task.TaskMVPActivity" />
 
         <provider
             android:name="android.support.v4.content.FileProvider"

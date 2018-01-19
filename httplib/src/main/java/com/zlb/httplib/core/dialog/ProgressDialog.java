@@ -49,7 +49,6 @@ public class ProgressDialog extends Dialog {
 
     @Override
     protected void onStop() {
-        // TODO Auto-generated method stub
         super.onStop();
     }
 

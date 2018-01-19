@@ -18,7 +18,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingBottom="22dp"
-            android:text="mvp+rxjava2 load local+remote data"
+            android:text="mvp+rxjava2+dagger2.android"
             android:textColor="@color/colorPrimary"
             android:textSize="18sp" />
 

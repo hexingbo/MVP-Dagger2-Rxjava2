@@ -19,7 +19,7 @@ import com.zenglb.framework.demo.animal.AnimalMainActivity;
 import com.zenglb.framework.demo.quick_input_things.QuickInputThingsActivity;
 import com.zenglb.framework.dagger.scope.ActivityScope;
 import com.zenglb.framework.http.ApiService;
-import com.zenglb.framework.mvp.mvp_more.MVPOLdActivity;
+import com.zenglb.framework.mvp.task.TaskMVPActivity;
 import com.zenglb.framework.http.result.CustomWeatherResult;
 
 import javax.inject.Inject;
@@ -115,7 +115,7 @@ public class DemoFragment extends Fragment {
          * mvp
          */
         rootView.findViewById(R.id.mvp).setOnClickListener(v -> {
-            ((BaseActivity) getActivity()).startActivity(MVPOLdActivity.class);
+            ((BaseActivity) getActivity()).startActivity(TaskMVPActivity.class);
         });
 
         /**

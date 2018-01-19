@@ -3,10 +3,11 @@ package com.zenglb.framework.dagger;
 import com.zenglb.framework.demo.launch.LaunchActivity;
 import com.zenglb.framework.dagger.component.BaseActivityComponent;
 import com.zenglb.framework.dagger.module.DefaultActivityModule;
+import com.zenglb.framework.mvp.task.MVPActivityModule;
 import com.zenglb.framework.navigation.MainActivityNaviModule;
 import com.zenglb.framework.dagger.scope.ActivityScope;
 import com.zenglb.framework.mvp.login.LoginActivity;
-import com.zenglb.framework.mvp.mvp_more.MVPOLdActivity;
+import com.zenglb.framework.mvp.task.TaskMVPActivity;
 import com.zenglb.framework.navigation.MainActivityBottomNavi;
 import com.zenglb.framework.service.MyIntentService1;
 
@@ -59,8 +60,8 @@ public abstract class AllActivityModule {
     abstract MainActivityBottomNavi contribute2Injector();
 
     @ActivityScope
-    @ContributesAndroidInjector(modules = DefaultActivityModule.class)
-    abstract MVPOLdActivity contribute3Injector();
+    @ContributesAndroidInjector(modules = MVPActivityModule.class)
+    abstract TaskMVPActivity contribute3Injector();
 
 
 

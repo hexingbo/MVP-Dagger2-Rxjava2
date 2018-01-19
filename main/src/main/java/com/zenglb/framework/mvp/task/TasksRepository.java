@@ -1,4 +1,4 @@
-package com.zenglb.framework.mvp.mvp_more;
+package com.zenglb.framework.mvp.task;
 
 import com.zenglb.framework.http.ApiService;
 import com.zenglb.framework.persistence.dbmaster.DaoSession;
@@ -13,10 +13,11 @@ import io.reactivex.Observable;
 import io.reactivex.Single;
 
 /**
+ * Just A Demo
  *
  * Created by zlb on 2017/9/13.
  */
-public class TasksRepository extends BaseModel implements ITaskDataSource {
+public class TasksRepository  implements ITaskDataSource {
 
     @Inject
     DaoSession daoSession;
@@ -24,21 +25,10 @@ public class TasksRepository extends BaseModel implements ITaskDataSource {
     @Inject
     ApiService apiService;
 
-    /**
-     * 获取缓存的数据,测试1，这样子还是在主线程读取的数据库啊！
-     * XXXXXXXX
-     *
-     * @return
-     */
-    @Deprecated
-    public Maybe<List<JokesResult>> getCacheTasks22() {
-        String threadName = Thread.currentThread().getName(); //  这里线程的切换并没有成功
 
-        JokesResultDao jokesResultDao = daoSession.getJokesResultDao();
-        List<JokesResult> jokesResultList = jokesResultDao.loadAll();
-        return jokesResultList.isEmpty() ? Maybe.empty() : Maybe.just(jokesResultList);
+    @Inject
+    public TasksRepository() {
     }
-
 
     /**
      * 获取缓存的数据,测试2，OK

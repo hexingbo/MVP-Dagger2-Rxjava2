@@ -33,7 +33,7 @@ import es.dmoral.toasty.Toasty;
  *
  * Created by anylife.zlb@gmail.com on 2018/1/11.
  */
-public class LoginActivity extends BaseMVPActivity implements LoginContract.View {
+public class LoginActivity extends BaseMVPActivity implements LoginContract.LoginView {
     private static final String PW = "zxcv1234";  //FBI WARMING !!!!
     private boolean isFromLaunch = false;         //从哪里跳转来登录页面的
 
@@ -41,6 +41,7 @@ public class LoginActivity extends BaseMVPActivity implements LoginContract.View
     SPDao spDao;
     @Inject
     DaoSession daoSession;
+
     @Inject
     LoginPresenter loginPresenter;
 
@@ -90,12 +91,12 @@ public class LoginActivity extends BaseMVPActivity implements LoginContract.View
     protected void onResume() {
         super.onResume();
         //Bind view to the presenter which will signal for the presenter to load the task.
-        loginPresenter.takeView(this);  //NEED base
+        loginPresenter.takeView(this);
     }
 
     @Override
     public void onPause() {
-        loginPresenter.dropView();  //Need BASE
+        loginPresenter.dropView();
         super.onPause();
     }
 
