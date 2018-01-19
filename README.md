@@ -22,7 +22,7 @@
   以前在使用dagger2的时候感觉理解绕，而且也违背依赖注入的核心原则：一个类不应该知道如何实现依赖注入；它要求注射类型知道  
   其注射器; 即使这是通过接口而不是具体类型完成的。dagger.android 出来后还大大的减少了模版代码😄, 不用在需要Inject 的地方写xx.build().inject(this);
   
-  如果没有Dagger.android 我是不推荐使用dagger2 了。写下面的类似代码实在太多了
+  如果没有Dagger.android 我是不想使用dagger2的。写下面的类似代码实在太多了
   
   More：https://google.github.io/dagger//android.html
   
@@ -33,6 +33,7 @@
     @Override
     public void onCreate(Bundle savedInstanceState) {
       super.onCreate(savedInstanceState);
+      
       // DO THIS FIRST. Otherwise frombulator might be null!
       ((SomeApplicationBaseType) getContext().getApplicationContext())
           .getApplicationComponent()
@@ -41,8 +42,10 @@
           .build()
           .inject(this);
       // ... now you can write the exciting code
+      
     }
   }
+ 
  ```
   
 # 关于调试工具
@@ -68,6 +71,7 @@
   https://realm.io/cn/news/kau-felipe-lima-adopting-rxjava-airbnb-android/
 
 # 项目中包含的基本的通用模块
+- Dagger.android 大大的优化Dagger 在android 中的使用，
 - Toolbar 的处理
 - Fragment 的懒加载
 - 通用的BaseActivity 和BaseFragment的封装（跳转PV打点，事件打点，不放和base 无关的东西）

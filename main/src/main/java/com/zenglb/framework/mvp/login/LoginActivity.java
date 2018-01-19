@@ -8,11 +8,9 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.text.TextUtils;
 import android.view.KeyEvent;
-import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
-
 import com.zenglb.framework.R;
 import com.zenglb.framework.demo.access.RegisterActivity;
 import com.zenglb.framework.base.mvp.BaseMVPActivity;
@@ -23,9 +21,9 @@ import com.zenglb.framework.navigation.MainActivityBottomNavi;
 import com.zenglb.framework.persistence.SPDao;
 import com.zenglb.framework.persistence.dbmaster.DaoSession;
 import com.zlb.httplib.core.SPKey;
-
 import javax.inject.Inject;
-import butterknife.ButterKnife;
+import butterknife.BindView;
+import butterknife.OnClick;
 import es.dmoral.toasty.Toasty;
 
 /**
@@ -34,35 +32,40 @@ import es.dmoral.toasty.Toasty;
  * Created by anylife.zlb@gmail.com on 2018/1/11.
  */
 public class LoginActivity extends BaseMVPActivity implements LoginContract.LoginView {
-    private static final String PW = "zxcv1234";  //FBI WARMING !!!!
-    private boolean isFromLaunch = false;         //从哪里跳转来登录页面的
+    private boolean isFromLaunch = false; //从哪里跳转来登录页面的
 
     @Inject
     SPDao spDao;
+
     @Inject
     DaoSession daoSession;
 
     @Inject
     LoginPresenter loginPresenter;
 
-    EditText etUsername, etPassword;
+    @BindView(R.id.et_username)
+    EditText etUsername;
+
+    @BindView(R.id.et_password)
+    EditText etPassword;
+
+    @BindView(R.id.login_btn)
     Button oauthBtn;
+
+    @BindView(R.id.fab_btn)
     FloatingActionButton fabBtn;
+
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        ButterKnife.bind(this);
-
         loginInit();
         //1,从Launcher 页面过来 2，用户主动退出 3，超时或其他页面退出（再次登录要回到那里去）
         isFromLaunch = getIntent().getBooleanExtra("isFromLaunch", false);
         if (!isFromLaunch) {
             logoutCustomComponent();
         }
-
     }
-
 
     /**
      * 登录的从新初始化，把数据
@@ -86,7 +89,6 @@ public class LoginActivity extends BaseMVPActivity implements LoginContract.Logi
         return R.layout.activity_login;
     }
 
-
     @Override
     protected void onResume() {
         super.onResume();
@@ -102,16 +104,8 @@ public class LoginActivity extends BaseMVPActivity implements LoginContract.Logi
 
     @Override
     protected void initViews() {
-        etUsername = (EditText) findViewById(R.id.et_username);
-        etPassword = (EditText) findViewById(R.id.et_password);
-        oauthBtn = (Button) findViewById(R.id.login_btn);
-        fabBtn = (FloatingActionButton) findViewById(R.id.fab_btn);
-
-        fabBtn.setOnClickListener(this);
-        oauthBtn.setOnClickListener(this);
-
         etUsername.setText(spDao.getData(SPKey.KEY_LAST_ACCOUNT, "", String.class));
-        etPassword.setText(PW);
+        etPassword.setText("zxcv1234");
         etUsername.setText("18826562075");
     }
 
@@ -119,6 +113,7 @@ public class LoginActivity extends BaseMVPActivity implements LoginContract.Logi
      * Login ,普通的登录和使用Rxjava 的方式都可以
      *
      */
+    @OnClick(R.id.login_btn)
     public void mvpLogin() {
         String userName = etUsername.getText().toString().trim();
         String password = etPassword.getText().toString().trim();
@@ -136,24 +131,10 @@ public class LoginActivity extends BaseMVPActivity implements LoginContract.Logi
         loginPresenter.login(loginParams);
     }
 
-
-    public void onClick(View view) {
-        switch (view.getId()) {
-            case R.id.fab_btn:
-                goRegister();
-                break;
-            case R.id.login_btn:
-                mvpLogin();
-                break;
-        }
-    }
-
-
     @Override
     public void loginFail(String failMsg) {
         Toasty.error(this.getApplicationContext(), "登录失败" + failMsg, Toast.LENGTH_SHORT).show();
     }
-
 
     /**
      * 登录成功
@@ -179,6 +160,7 @@ public class LoginActivity extends BaseMVPActivity implements LoginContract.Logi
     /**
      * 跳转到注册®️
      */
+    @OnClick(R.id.fab_btn)
     public void goRegister() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(this, fabBtn, fabBtn.getTransitionName());
@@ -187,7 +169,6 @@ public class LoginActivity extends BaseMVPActivity implements LoginContract.Logi
             startActivity(new Intent(this, RegisterActivity.class));
         }
     }
-
 
     /**
      * 登录页面不允许返回，之前返回Home
@@ -210,6 +191,5 @@ public class LoginActivity extends BaseMVPActivity implements LoginContract.Logi
         }
         return super.onKeyDown(keyCode, event);
     }
-
 
 }

@@ -19,11 +19,8 @@ import dagger.android.support.HasSupportFragmentInjector;
  * Created by zlb on 2017/8/20.
  */
 public abstract class BaseMVPActivity extends BaseActivity implements  HasSupportFragmentInjector {
-
     @Inject
     DispatchingAndroidInjector<Fragment> supportFragmentInjector;
-
-    BasePresenter basePresenter;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -37,17 +34,13 @@ public abstract class BaseMVPActivity extends BaseActivity implements  HasSuppor
         return supportFragmentInjector;
     }
 
-
     @Override
     protected void onResume() {
         super.onResume();
-        //Bind view to the presenter which will signal for the presenter to load the task.
-        basePresenter.takeView(this);  //NEED base
     }
 
     @Override
     public void onPause() {
-        basePresenter.dropView();  //Need BASE
         super.onPause();
     }
 

@@ -22,6 +22,8 @@ import com.zenglb.framework.base.BaseFragment;
 import com.zenglb.framework.R;
 import com.zenglb.framework.dagger.scope.ActivityScope;
 import com.zenglb.framework.mvp.login.LoginActivity;
+import com.zenglb.framework.persistence.SPDao;
+import com.zlb.httplib.core.SPKey;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -54,6 +56,9 @@ public class MeProfileFragment extends BaseFragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+
+    @Inject
+    SPDao spDao;
 
     @Inject
     public MeProfileFragment() {
@@ -264,6 +269,8 @@ public class MeProfileFragment extends BaseFragment {
      * 加上mAnimaltion
      */
     public void logout() {
+        spDao.saveData(SPKey.KEY_ACCESS_TOKEN, "");
+
         Intent intent = new Intent();
         intent.setClass(mActivity, LoginActivity.class);
         mActivity.startActivity(intent);
