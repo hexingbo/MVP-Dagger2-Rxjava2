@@ -13,6 +13,9 @@ import java.nio.channels.FileChannel;
  * 导出DB 文件到getExternalStorageDirectory 目录去！
  * 使用facebook 的调试工具吧！
  *
+ * 假如需要只能在测试环境使用！
+ *
+ *
  * Created by zenglb on 2016/12/27.
  */
 @Deprecated

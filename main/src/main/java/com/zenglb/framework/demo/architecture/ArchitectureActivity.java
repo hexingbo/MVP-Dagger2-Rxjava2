@@ -5,7 +5,9 @@ import android.os.Bundle;
 import android.util.Log;
 
 import com.zenglb.framework.R;
-import com.zenglb.framework.http.HttpCall;
+import com.zenglb.framework.http.ApiService;
+
+import javax.inject.Inject;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -16,6 +18,8 @@ import retrofit2.Response;
  *
  */
 public class ArchitectureActivity extends AppCompatActivity {
+    @Inject
+    ApiService apiService;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,7 +41,7 @@ public class ArchitectureActivity extends AppCompatActivity {
 
     private void test(){
         String url = "http://localhost:8080/hello";
-        Call<String> test = HttpCall.getApiService().getUserProfile(url);
+        Call<String> test = apiService.getUserProfile(url);
         //上面的实现是非常的精巧  http://www.jianshu.com/p/c1a3a881a144
 
         test.enqueue(new Callback<String>() {

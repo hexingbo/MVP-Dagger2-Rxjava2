@@ -1,4 +1,4 @@
-package com.zenglb.framework.mvp.mvp_more;
+package com.zenglb.framework.mvp.task;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -16,9 +16,9 @@ import com.liaoinstan.springview.container.DefaultHeader;
 import com.liaoinstan.springview.widget.SpringView;
 import com.zenglb.baselib.utils.TransitionHelper;
 import com.zenglb.framework.R;
+import com.zenglb.framework.base.mvp.BaseMVPActivity;
 import com.zenglb.framework.demo.animal.SharedElementActivity;
 import com.zenglb.framework.demo.main.AreUSleepListAdapter;
-import com.zenglb.framework.mvp_base.old.BaseMVPActivityOLD;
 import com.zenglb.framework.http.result.JokesResult;
 import com.zenglb.framework.persistence.dbmaster.DaoSession;
 
@@ -31,13 +31,13 @@ import javax.inject.Inject;
  *
  *
  */
-public class MVPOLdActivity extends BaseMVPActivityOLD<TaskPresenter, TasksRepository> implements TaskContract.TaskView {
+public class TaskMVPActivity extends BaseMVPActivity implements TaskContract.TaskView {
     /**
      * 接收view 层的网络数据请求，并分发给对应的Model层处理，同时监听Model层的处理结果，
      * 最终反馈给View 层，从而实现界面的刷新
      */
     private TextView mShowTxt;
-    private String TAG = MVPOLdActivity.class.getSimpleName();
+    private String TAG = TaskMVPActivity.class.getSimpleName();
 
     private static final String ARG_PARAM1 = "param1";
     private TextView mEmptyTipsTxt;
@@ -50,11 +50,27 @@ public class MVPOLdActivity extends BaseMVPActivityOLD<TaskPresenter, TasksRepos
 
     @Inject
     DaoSession daoSession;
+    @Inject
+    TaskPresenter mPresenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         daoSession.toString();
+    }
+
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        //Bind view to the presenter which will signal for the presenter to load the task.
+        mPresenter.takeView(this);  //NEED base
+    }
+
+    @Override
+    public void onPause() {
+        mPresenter.dropView();  //Need BASE
+        super.onPause();
     }
 
     /**
@@ -106,11 +122,9 @@ public class MVPOLdActivity extends BaseMVPActivityOLD<TaskPresenter, TasksRepos
         return R.layout.activity_mvp;
     }
 
-
     @Override
     protected void initViews() {
-
-        setToolBarTitle("mvp&rxjava2 load local&remote data");
+        setToolBarTitle("mvp+rxjava2+dagger2.android");
 
         mShowTxt = (TextView) findViewById(R.id.tips_txt);
 

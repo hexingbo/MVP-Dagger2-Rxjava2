@@ -1,6 +1,7 @@
 package com.zenglb.framework;
 
 import android.app.Activity;
+import android.app.Service;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.util.Log;
@@ -9,23 +10,24 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 import com.squareup.leakcanary.LeakCanary;
 import com.zenglb.framework.base.BaseApplication;
-import com.zenglb.framework.di.AppModule;
-import com.zenglb.framework.di.DaggerMainComponent;
+import com.zenglb.framework.dagger.MainModule;
+import com.zenglb.framework.dagger.DaggerMainComponent;
 import javax.inject.Inject;
 import dagger.android.AndroidInjector;
 import dagger.android.DispatchingAndroidInjector;
 import dagger.android.HasActivityInjector;
+import dagger.android.HasServiceInjector;
 
 /**
- * 依赖注入还有的问题
- * <p>
- * 1.在AllActivityModule 都要添加那默认的两行代码好烦人，manifest 中 OK ？
- * 2.在非Activity 中注入XX 的问题
- * 3.
- * <p>
- * Created by zenglb on 2017/3/15.
+ * Beta 项目，项目组没有3个以上的Android 开发不建议使用Dagger XXX
+ *
+ * 内存中Graphics占用比过高 ！
+ *
+ * 使用Glide 等第三方框架最好再封装一层，那一天你用Glide ++  了呢
+ *
+ * Created by anylife.zlb@gmail.com on 2017/3/15.
  */
-public class MyApplication extends BaseApplication implements HasActivityInjector {
+public class MyApplication extends BaseApplication implements HasActivityInjector,HasServiceInjector {
     public static final String TAG = MyApplication.class.getSimpleName();
     public static final String MAIN_PROCESS_NAME = "com.zenglb.framework";
     public static final String WEB_PROCESS_NAME = "com.zenglb.framework:webprocess";
@@ -33,7 +35,10 @@ public class MyApplication extends BaseApplication implements HasActivityInjecto
 
     //依赖注入的核心原则：一个类不应该知道如何实现依赖注入。
     @Inject
-    DispatchingAndroidInjector<Activity> dispatchingAndroidInjector;  //1111111111111
+    DispatchingAndroidInjector<Activity> dispatchingAndroidInjector;
+
+    @Inject
+    DispatchingAndroidInjector<Service> dispatchingServiceInjector;
 
     @Override
     public void onCreate() {
@@ -47,13 +52,15 @@ public class MyApplication extends BaseApplication implements HasActivityInjecto
         initApplication();
     }
 
-    //33333333333
     @Override
     public AndroidInjector<Activity> activityInjector() {
-
         return dispatchingAndroidInjector;
     }
 
+    @Override
+    public AndroidInjector<Service> serviceInjector() {
+        return dispatchingServiceInjector;
+    }
 
     /**
      * 根据不同的进程来初始化不同的东西
@@ -76,9 +83,9 @@ public class MyApplication extends BaseApplication implements HasActivityInjecto
             case MAIN_PROCESS_NAME:
                 SdkManager.initDebugOrRelease(this);
 
-                //Module  带有构造方法并且参数被使用的情况下所产生的Component 是没有Create方法的
+                //Module  带有构造方法并且参数被使用的情况下所产生的DaggerXXComponent 是没有Create方法的
 //                DaggerMainComponent.create().inject(this);
-                DaggerMainComponent.builder().appModule(new AppModule(this)).build().inject(this); //22222222222222
+                DaggerMainComponent.builder().mainModule(new MainModule(this)).build().inject(this);
 
                 //创建默认的ImageLoader配置参数
                 ImageLoaderConfiguration configuration = ImageLoaderConfiguration.createDefault(this);

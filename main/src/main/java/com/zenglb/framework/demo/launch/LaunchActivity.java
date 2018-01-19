@@ -7,7 +7,6 @@ import android.os.Looper;
 import android.os.Message;
 import android.text.TextUtils;
 import com.zenglb.framework.R;
-import com.zenglb.framework.demo.demo.Rxjava_ZIP_Activity;
 import com.zenglb.framework.base.mvp.BaseMVPActivity;
 import com.zenglb.framework.mvp.login.LoginActivity;
 import com.zenglb.framework.persistence.SPDao;
@@ -18,6 +17,7 @@ import javax.inject.Inject;
 /**
  * 启动页，并使所有的UI 的模型都需要MVP，复杂的才用
  *
+ *  Created by anylife.zlb@gmail.com on 2017/1/11.
  */
 public class LaunchActivity extends BaseMVPActivity {
     private static final int FINISH_LAUNCHER = 0;
@@ -69,6 +69,8 @@ public class LaunchActivity extends BaseMVPActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         UiHandler.sendEmptyMessageDelayed(0, 2000);  //好假啊
+
+        spDao.toString();
 
 //        String idCard = "42900417865218093X";
 //        System.out.println(idCard.replaceAll("(\\d{6})\\d{8}(\\w{4})","$1********$2"));

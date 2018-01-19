@@ -1,5 +1,6 @@
 package com.zenglb.framework.navigation;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
@@ -15,30 +16,35 @@ import com.zenglb.framework.base.mvp.BaseMVPActivity;
 import com.zenglb.framework.navigation.fragment.DemoFragment;
 import com.zenglb.framework.navigation.fragment.MeProfileFragment;
 import com.zenglb.framework.navigation.fragment.Rxjava2DemoFragment;
+import com.zenglb.framework.persistence.SPDao;
+import com.zenglb.framework.service.MyIntentService1;
+
 import javax.inject.Inject;
 import es.dmoral.toasty.Toasty;
 
 /**
- *
+ * 这里应该就是一个App 的主控区域，是灵魂吧，优化主要是这里
  *
  * 本来挺好的，但是4/5 个bottom navi 的时候 不能定制样式啊，反射XX
  * Sadly, there isn't any way to force enable or disable this behaviour which may not work with every design.
  * It also doesn't allow populating the Bottom Navigation View with more than five items - as per the design spec
  * (it throws an IllegalArgumentException if you try to).
+ *
+ *  Created by anylife.zlb@gmail.com on 2017/3/24.
  */
 public class MainActivityBottomNavi extends BaseMVPActivity {
     private ViewPager viewPager;
     private MenuItem menuItem;
 
     @Inject
-    DemoFragment demoFragment;  // Lazy<DemoFragment>
+    SPDao spDao;
 
+    @Inject
+    DemoFragment demoFragment;  // Lazy<DemoFragment>
     @Inject
     AreUSleepFragmentList areUSleepFragmentList;
-
     @Inject
     Rxjava2DemoFragment rxjava2DemoFragment;
-
     @Inject
     MeProfileFragment meProfileFragment;
 
@@ -78,6 +84,12 @@ public class MainActivityBottomNavi extends BaseMVPActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setTitle("Main");
+
+        spDao.toString();
+
+
+        Intent myIntentService1=new Intent(this,MyIntentService1.class);
+        startService(myIntentService1);
 
     }
 

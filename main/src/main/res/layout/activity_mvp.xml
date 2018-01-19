@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
-    tools:context=".mvp.mvp_more.MVPOLdActivity">
+    tools:context=".mvp.task.TaskMVPActivity">
 
     <include layout="@layout/basic_toolbar_layout"/>
 

@@ -12,12 +12,12 @@ import javax.inject.Inject;
 
 /**
  * Login Presenter
- *
+ * Created by anylife.zlb@gmail.com on 2018/1/11.
  */
-public class LoginPresenter implements LoginContract.Presenter {
-    ApiService apiService;
+public class LoginPresenter implements LoginContract.LoginPresenter {
 
-    LoginContract.View mLoginView;
+    ApiService apiService;
+    LoginContract.LoginView mLoginView;  // 需要抽象出来
 
     @Inject
     public LoginPresenter(ApiService apiService) {
@@ -50,13 +50,13 @@ public class LoginPresenter implements LoginContract.Presenter {
      * @param view the view associated with this presenter
      */
     @Override
-    public void takeView(LoginContract.View view) {
+    public void takeView(LoginContract.LoginView view) {
         mLoginView=view;
     }
 
     @Override
     public void dropView() {
-
+        //?????????????
     }
 
 

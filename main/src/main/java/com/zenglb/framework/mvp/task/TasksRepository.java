@@ -1,8 +1,8 @@
-package com.zenglb.framework.mvp.mvp_more;
+package com.zenglb.framework.mvp.task;
 
+import com.zenglb.framework.http.ApiService;
 import com.zenglb.framework.persistence.dbmaster.DaoSession;
 import com.zenglb.framework.persistence.dbmaster.JokesResultDao;
-import com.zenglb.framework.http.HttpCall;
 import com.zenglb.framework.mvp_base.old.BaseModel;
 import com.zlb.httplib.core.HttpResponse;
 import com.zenglb.framework.http.result.JokesResult;
@@ -13,29 +13,22 @@ import io.reactivex.Observable;
 import io.reactivex.Single;
 
 /**
+ * Just A Demo
  *
  * Created by zlb on 2017/9/13.
  */
-public class TasksRepository extends BaseModel implements ITaskDataSource {
+public class TasksRepository  implements ITaskDataSource {
 
     @Inject
     DaoSession daoSession;
 
-    /**
-     * 获取缓存的数据,测试1，这样子还是在主线程读取的数据库啊！
-     * XXXXXXXX
-     *
-     * @return
-     */
-    @Deprecated
-    public Maybe<List<JokesResult>> getCacheTasks22() {
-        String threadName = Thread.currentThread().getName(); //  这里线程的切换并没有成功
+    @Inject
+    ApiService apiService;
 
-        JokesResultDao jokesResultDao = daoSession.getJokesResultDao();
-        List<JokesResult> jokesResultList = jokesResultDao.loadAll();
-        return jokesResultList.isEmpty() ? Maybe.empty() : Maybe.just(jokesResultList);
+
+    @Inject
+    public TasksRepository() {
     }
-
 
     /**
      * 获取缓存的数据,测试2，OK
@@ -65,7 +58,7 @@ public class TasksRepository extends BaseModel implements ITaskDataSource {
     public Observable<HttpResponse<List<JokesResult>>> getRemoteTasks(String type, int page) {
         String threadName = Thread.currentThread().getName();
 
-        return HttpCall.getApiService().getAreuSleepByObserver(type, page);
+        return apiService.getAreuSleepByObserver(type, page);
     }
 
 }

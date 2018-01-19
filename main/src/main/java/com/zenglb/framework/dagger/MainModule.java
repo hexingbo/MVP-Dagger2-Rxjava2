@@ -1,4 +1,4 @@
-package com.zenglb.framework.di;
+package com.zenglb.framework.dagger;
 
 import android.app.Application;
 import android.content.Context;
@@ -21,13 +21,11 @@ import dagger.Provides;
  * 在这里提供全局的并且是唯一的东西，SharedPrefence,DB,HTTP,etc
  * <p>
  * <p>
- * Created by zlb on 2018/1/11.
+ * Created by anylife.zlb@gmail.com on 2018/1/11.
  */
-
 // TODO: 2018/1/12 怎样的去保证这里的东西是全局@Singleton ？替换了以后又怎么能动态修改呢？比如DaoSession
-
 @Module
-public class AppModule {
+public class MainModule {
 
     public static final boolean ENCRYPTED = false;
     Application mContext;
@@ -37,7 +35,7 @@ public class AppModule {
      *
      * @param mContext
      */
-    public AppModule(Application mContext) {
+    public MainModule(Application mContext) {
         this.mContext = mContext;
     }
 
@@ -52,6 +50,18 @@ public class AppModule {
     }
 
 
+    /**
+     * SharedPreferences 保存KEY VALUE 配置信息
+     *
+     * @return
+     */
+    @Provides
+    @Singleton   //在这加了Singleton 的注解就是单例的了，打出内存地址查看一下
+    SPDao provideSPDao() {
+        return new SPDao(mContext);
+    }
+
+
     /***
      * @return
      */
@@ -61,16 +71,6 @@ public class AppModule {
         return LeakCanary.install(mContext);  //只管主进程的,其他的进程自保吧
     }
 
-    /**
-     * SharedPreferences 保存KEY VALUE 配置信息
-     *
-     * @return
-     */
-    @Provides
-    @Singleton
-    SPDao provideSPDao() {
-        return new SPDao(mContext);
-    }
 
 
     /**

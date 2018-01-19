@@ -1,6 +1,5 @@
 # FBI WARMIMNG:api 仅供交流，不要外传 ！
 
-# 请先升级到Android Studio 3 以上版本 ！
 
 # 关于本Demo
   一直在纠结在何种开发模式之中，重构希望能把关注点集中到代码结构、整体架构、可测试性、可维护性这四个方面
@@ -20,7 +19,34 @@
   使用MVP多关注代码结构、整体架构、可测试性、可维护性这四个方面
 
 # 关于Dagger
-  以前在使用dagger2的时候感觉理解绕，而且也违背依赖注入的核心原则：一个类不应该知道如何实现依赖注入；它要求注射类型知道其注射器; 即使这是通过接口而不是具体类型完成的。dagger-android 出来后还大大的减少了模版代码😄
+  以前在使用dagger2的时候感觉理解绕，而且也违背依赖注入的核心原则：一个类不应该知道如何实现依赖注入；它要求注射类型知道  
+  其注射器; 即使这是通过接口而不是具体类型完成的。dagger.android 出来后还大大的减少了模版代码😄, 不用在需要Inject 的地方写xx.build().inject(this);
+  
+  如果没有Dagger.android 我是不想使用dagger2的。写下面的类似代码实在太多了
+  
+  More：https://google.github.io/dagger//android.html
+  
+  ```
+  public class FrombulationActivity extends Activity {
+    @Inject Frombulator frombulator;
+  
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+      super.onCreate(savedInstanceState);
+      
+      // DO THIS FIRST. Otherwise frombulator might be null!
+      ((SomeApplicationBaseType) getContext().getApplicationContext())
+          .getApplicationComponent()
+          .newActivityComponentBuilder()
+          .activity(this)
+          .build()
+          .inject(this);
+      // ... now you can write the exciting code
+      
+    }
+  }
+ 
+ ```
   
 # 关于调试工具
  推荐Facebook stetho ，可以网络请求（抓包），不root查看DB 文件和sharepreference，甚至在4.4 以后webview
@@ -45,6 +71,7 @@
   https://realm.io/cn/news/kau-felipe-lima-adopting-rxjava-airbnb-android/
 
 # 项目中包含的基本的通用模块
+- Dagger.android 大大的优化Dagger 在android 中的使用，
 - Toolbar 的处理
 - Fragment 的懒加载
 - 通用的BaseActivity 和BaseFragment的封装（跳转PV打点，事件打点，不放和base 无关的东西）

@@ -11,6 +11,8 @@ import com.zenglb.commonlib.R;
 import com.zenglb.framework.mvp_base.old.BaseMVPActivityOLD;
 import com.zlb.httplib.core.HttpUiTips;
 
+import butterknife.ButterKnife;
+
 
 /**
  * 基类就只做基类的事情,不要把业务层面的代码写到这里来
@@ -23,6 +25,7 @@ import com.zlb.httplib.core.HttpUiTips;
  * <p>
  * 1.toolbar 的封装
  * 2.页面之间的跳转
+ * 3.
  *
  * @author zenglb 20170301
  */
@@ -35,6 +38,8 @@ public abstract class BaseActivity extends RxAppCompatActivity implements View.O
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(setLayoutId());
+
+        ButterKnife.bind(this);  //全局使用ButterKnife
 
         mContext = BaseActivity.this;
         mToolbar = (Toolbar) findViewById(R.id.toolbar);

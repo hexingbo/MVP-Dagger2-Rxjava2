@@ -1,6 +1,9 @@
-package com.zenglb.framework.mvp.mvp_more;
+package com.zenglb.framework.mvp.task;
 
 import com.zenglb.framework.http.result.JokesResult;
+import com.zenglb.framework.mvp.BasePresenter;
+import com.zenglb.framework.mvp.BaseView;
+
 import java.util.List;
 
 /**
@@ -13,9 +16,11 @@ public class TaskContract {
 
     /**
      * 对UI 的操作的接口有哪些，一看就只明白了
+     *
      */
-    public interface TaskView {
+    public interface TaskView extends BaseView<TaskPresenter> {
         void showTasks(List<JokesResult> jokesResults);
+        void showCacheTasks(List<JokesResult> jokesResults);
         void getTaskFailed(String message);
     }
 
@@ -23,7 +28,7 @@ public class TaskContract {
     /**
      * View 层对Presenter 的请求
      */
-    public interface TaskPresenter {
+    public interface TaskPresenter extends BasePresenter<TaskView> {
         void getRemoteTasks(String type, int page);
         void getCacheTasks();
     }

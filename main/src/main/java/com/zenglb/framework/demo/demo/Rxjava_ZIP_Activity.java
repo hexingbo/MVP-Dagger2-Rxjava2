@@ -5,7 +5,7 @@ import android.os.Bundle;
 import android.view.View;
 
 import com.zenglb.framework.R;
-import com.zenglb.framework.mvp.mvp_more.MVPOLdActivity;
+import com.zenglb.framework.base.mvp.BaseMVPActivity;
 
 import io.reactivex.Observable;
 import io.reactivex.ObservableEmitter;
@@ -15,7 +15,7 @@ import io.reactivex.ObservableOnSubscribe;
  * 练习使用ZIP 操作符从网络异步获取4张图片然后ZIP 合成一张图片
  *
  */
-public class Rxjava_ZIP_Activity extends MVPOLdActivity {
+public class Rxjava_ZIP_Activity extends BaseMVPActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

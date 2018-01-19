@@ -1,13 +1,15 @@
-package com.zenglb.framework.di;
+package com.zenglb.framework.dagger;
 
 import com.zenglb.framework.demo.launch.LaunchActivity;
-import com.zenglb.framework.di.component.BaseActivityComponent;
-import com.zenglb.framework.di.module.DefaultActivityModule;
-import com.zenglb.framework.di.module.MainActivityNaviModule;
-import com.zenglb.framework.di.scope.ActivityScope;
+import com.zenglb.framework.dagger.component.BaseActivityComponent;
+import com.zenglb.framework.dagger.module.DefaultActivityModule;
+import com.zenglb.framework.mvp.task.MVPActivityModule;
+import com.zenglb.framework.navigation.MainActivityNaviModule;
+import com.zenglb.framework.dagger.scope.ActivityScope;
 import com.zenglb.framework.mvp.login.LoginActivity;
-import com.zenglb.framework.mvp.mvp_more.MVPOLdActivity;
+import com.zenglb.framework.mvp.task.TaskMVPActivity;
 import com.zenglb.framework.navigation.MainActivityBottomNavi;
+import com.zenglb.framework.service.MyIntentService1;
 
 import dagger.Module;
 import dagger.android.ContributesAndroidInjector;
@@ -15,6 +17,8 @@ import dagger.android.ContributesAndroidInjector;
 /**
  * 全部放在这里来统一的管理 ！
  * 新建了一个Activity 的并且需要inject 的只需要添加两行代码
+ *
+ *
  * <p>
  * 对个人而言，这样的好处在于：
  * 1.每次不再需要额外声明一个SubCompoent，再次减少模板代码
@@ -22,7 +26,7 @@ import dagger.android.ContributesAndroidInjector;
  * 3.每个Activity所单独需要的依赖，依然由各自的Module进行管理和实例化，依然没有任何耦合
  */
 @Module(subcomponents = {
-        BaseActivityComponent.class  //1111111111 subcomponent
+        BaseActivityComponent.class  //1111111111 subcomponent=BaseActivityComponent
 })
 
 public abstract class AllActivityModule {
@@ -38,6 +42,11 @@ public abstract class AllActivityModule {
      */
 
     //2222222 新建了一个Activity 的并且需要inject 的只需要添加两行代码
+
+    @ActivityScope
+    @ContributesAndroidInjector(modules = DefaultActivityModule.class)
+    abstract MyIntentService1 contributeServiceInjector();
+
     @ActivityScope
     @ContributesAndroidInjector(modules = DefaultActivityModule.class)
     abstract LoginActivity contributeMainActivitytInjector();
@@ -51,8 +60,10 @@ public abstract class AllActivityModule {
     abstract MainActivityBottomNavi contribute2Injector();
 
     @ActivityScope
-    @ContributesAndroidInjector(modules = DefaultActivityModule.class)
-    abstract MVPOLdActivity contribute3Injector();
+    @ContributesAndroidInjector(modules = MVPActivityModule.class)
+    abstract TaskMVPActivity contribute3Injector();
+
+
 
 
 //    Pro-tip: If your subcomponent and its builder have no other methods or supertypes than the ones mentioned in step #2, you can use @ContributesAndroidInjector to generate them for you. Instead of steps 2 and 3, add an abstract module method that returns your activity, annotate it with @ContributesAndroidInjector, and specify the modules you want to install into the subcomponent. If the subcomponent needs scopes, apply the scope annotations to the method as well.

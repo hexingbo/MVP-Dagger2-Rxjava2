@@ -17,9 +17,9 @@ import com.zenglb.baselib.utils.TransitionHelper;
 import com.zenglb.framework.R;
 import com.zenglb.framework.demo.animal.AnimalMainActivity;
 import com.zenglb.framework.demo.quick_input_things.QuickInputThingsActivity;
-import com.zenglb.framework.di.scope.ActivityScope;
-import com.zenglb.framework.http.HttpCall;
-import com.zenglb.framework.mvp.mvp_more.MVPOLdActivity;
+import com.zenglb.framework.dagger.scope.ActivityScope;
+import com.zenglb.framework.http.ApiService;
+import com.zenglb.framework.mvp.task.TaskMVPActivity;
 import com.zenglb.framework.http.result.CustomWeatherResult;
 
 import javax.inject.Inject;
@@ -35,6 +35,9 @@ import retrofit2.Response;
  */
 @ActivityScope
 public class DemoFragment extends Fragment {
+
+    @Inject
+    ApiService apiService;
 
     @Inject
     public DemoFragment() {
@@ -89,7 +92,7 @@ public class DemoFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 String url = "http://www.sojson.com/open/api/weather/json.shtml";
-                Call<CustomWeatherResult> news = HttpCall.getApiService().getWeather(url, "深圳");
+                Call<CustomWeatherResult> news = apiService.getWeather(url, "深圳");
                 //上面的实现是非常的精巧  http://www.jianshu.com/p/c1a3a881a144
 
                 news.enqueue(new Callback<CustomWeatherResult>() {
@@ -112,7 +115,7 @@ public class DemoFragment extends Fragment {
          * mvp
          */
         rootView.findViewById(R.id.mvp).setOnClickListener(v -> {
-            ((BaseActivity) getActivity()).startActivity(MVPOLdActivity.class);
+            ((BaseActivity) getActivity()).startActivity(TaskMVPActivity.class);
         });
 
         /**

@@ -27,7 +27,6 @@
         android:supportsRtl="true"
         android:theme="@style/MyAppTheme"
         tools:replace="android:theme">
-
         <activity
             android:name=".demo.launch.LaunchActivity"
             android:launchMode="singleTop"
@@ -38,33 +37,29 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity
             android:name=".mvp.login.LoginActivity"
             android:launchMode="singleTop"
             android:theme="@style/FullscreenTheme">
             <intent-filter>
                 <category android:name="android.intent.category.DEFAULT" />
+
                 <action android:name="app.intent.action.LOGIN" />
             </intent-filter>
         </activity>
-
         <activity
             android:name=".demo.access.RegisterActivity"
             android:theme="@style/Translucent" />
-
         <activity
             android:name=".demo.main.AreUSleepListActivity"
             android:launchMode="singleTask" />
-
         <activity
             android:name=".navigation.MainActivityBottomNavi"
             android:label="@string/title_activity_main_bottom_navi"
             android:launchMode="singleTask" />
-
         <activity android:name=".demo.animal.SharedElementActivity" />
         <activity android:name=".demo.animal.AnimalMainActivity" />
-        <activity android:name=".mvp.mvp_more.MVPOLdActivity" />
+        <activity android:name=".mvp.task.TaskMVPActivity" />
 
         <provider
             android:name="android.support.v4.content.FileProvider"
@@ -77,13 +72,18 @@
         </provider>
 
         <activity android:name=".demo.quick_input_things.QuickInputThingsActivity" />
-
-        <activity android:name=".demo.demo.ZipActivity"></activity>
-        <activity android:name=".demo.demo.ConstraintLayoutActivity"></activity>
+        <activity android:name=".demo.demo.ZipActivity" />
+        <activity android:name=".demo.demo.ConstraintLayoutActivity" />
         <activity android:name=".demo.architecture.ArchitectureActivity" />
-        <activity android:name=".demo.demo.Rxjava_ZIP_Activity"></activity>
+        <activity android:name=".demo.demo.Rxjava_ZIP_Activity" />
 
-
+        <service
+            android:name=".service.MyService1"
+            android:enabled="true"
+            android:exported="true" />
+        <service
+            android:name=".service.MyIntentService1"
+            android:exported="false"></service>
     </application>
 
 </manifest>
