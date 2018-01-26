@@ -19,7 +19,7 @@ import dagger.android.HasActivityInjector;
 import dagger.android.HasServiceInjector;
 
 /**
- * Beta 项目，项目组没有3个以上的Android 开发不建议使用Dagger XXX
+ * 参考{@link dagger.android.DaggerApplication}Beta 项目，项目组没有3个以上的Android 开发不建议使用Dagger XXX
  *
  * 内存中Graphics占用比过高 ！
  *

@@ -21,7 +21,6 @@ public class Rxjava_ZIP_Activity extends BaseMVPActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setTitle("ZIP 异步合成图像");
-
         test();
     }
 

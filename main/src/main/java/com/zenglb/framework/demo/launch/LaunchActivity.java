@@ -8,7 +8,9 @@ import android.os.Message;
 import android.text.TextUtils;
 import com.zenglb.framework.R;
 import com.zenglb.framework.base.mvp.BaseMVPActivity;
+import com.zenglb.framework.demo.demo.Rxjava_ZIP_Activity;
 import com.zenglb.framework.mvp.login.LoginActivity;
+import com.zenglb.framework.mvp.task.TaskMVPActivity;
 import com.zenglb.framework.persistence.SPDao;
 import com.zlb.httplib.core.SPKey;
 import com.zenglb.framework.navigation.MainActivityBottomNavi;
@@ -48,12 +50,13 @@ public class LaunchActivity extends BaseMVPActivity {
                         Intent i1 = new Intent();
                         i1.putExtra("isFromLaunch", true);
                         i1.setClass(LaunchActivity.this, LoginActivity.class);
+//                        i1.setClass(LaunchActivity.this, TaskMVPActivity.class);
                         startActivity(i1);
                         LaunchActivity.this.finish();
                     } else {
                         Intent i1 = new Intent();
                         i1.setClass(LaunchActivity.this, MainActivityBottomNavi.class);
-//                        i1.setClass(LaunchActivity.this, Rxjava_ZIP_Activity.class);
+//                        i1.setClass(LaunchActivity.this, TaskMVPActivity.class);
                         startActivity(i1);
                         LaunchActivity.this.finish();
                     }
@@ -70,7 +73,7 @@ public class LaunchActivity extends BaseMVPActivity {
         super.onCreate(savedInstanceState);
         UiHandler.sendEmptyMessageDelayed(0, 2000);  //好假啊
 
-        spDao.toString();
+        spDao.toString();  //Android Profile
 
 //        String idCard = "42900417865218093X";
 //        System.out.println(idCard.replaceAll("(\\d{6})\\d{8}(\\w{4})","$1********$2"));

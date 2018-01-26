@@ -22,9 +22,9 @@
   以前在使用dagger2的时候感觉理解绕，而且也违背依赖注入的核心原则：一个类不应该知道如何实现依赖注入；它要求注射类型知道  
   其注射器; 即使这是通过接口而不是具体类型完成的。dagger.android 出来后还大大的减少了模版代码😄, 不用在需要Inject 的地方写xx.build().inject(this);
   
-  如果没有Dagger.android 我是不想使用dagger2的。写下面的类似代码实在太多了
+  如果没有[Dagger.android](https://google.github.io/dagger//android.html) 我是不想使用dagger2的。写下面的类似代码实在太多了
   
-  More：https://google.github.io/dagger//android.html
+  More：https://www.jianshu.com/p/879e0fe4ef36
   
   ```
   public class FrombulationActivity extends Activity {

@@ -11,6 +11,7 @@ import android.view.KeyEvent;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+
 import com.zenglb.framework.R;
 import com.zenglb.framework.demo.access.RegisterActivity;
 import com.zenglb.framework.base.mvp.BaseMVPActivity;
@@ -21,14 +22,16 @@ import com.zenglb.framework.navigation.MainActivityBottomNavi;
 import com.zenglb.framework.persistence.SPDao;
 import com.zenglb.framework.persistence.dbmaster.DaoSession;
 import com.zlb.httplib.core.SPKey;
+
 import javax.inject.Inject;
+
 import butterknife.BindView;
 import butterknife.OnClick;
 import es.dmoral.toasty.Toasty;
 
 /**
  * 登录页面，简单的MVP 和Dagger demo
- *
+ * <p>
  * Created by anylife.zlb@gmail.com on 2018/1/11.
  */
 public class LoginActivity extends BaseMVPActivity implements LoginContract.LoginView {
@@ -111,7 +114,6 @@ public class LoginActivity extends BaseMVPActivity implements LoginContract.Logi
 
     /**
      * Login ,普通的登录和使用Rxjava 的方式都可以
-     *
      */
     @OnClick(R.id.login_btn)
     public void mvpLogin() {

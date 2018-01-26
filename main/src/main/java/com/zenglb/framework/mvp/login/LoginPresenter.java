@@ -21,14 +21,14 @@ public class LoginPresenter implements LoginContract.LoginPresenter {
 
     @Inject
     public LoginPresenter(ApiService apiService) {
-        this.apiService=apiService;
+        this.apiService = apiService;
     }
 
     @Override
     public void login(LoginParams loginParams) {
         apiService.goLoginByRxjavaObserver(loginParams)
                 .compose(SwitchSchedulers.applySchedulers())
-                .subscribe(new BaseObserver<LoginResult>((Activity)mLoginView) {
+                .subscribe(new BaseObserver<LoginResult>((Activity) mLoginView) {
                     @Override
                     public void onSuccess(LoginResult loginResult) {
                         mLoginView.loginSuccess(loginResult);
@@ -43,7 +43,6 @@ public class LoginPresenter implements LoginContract.LoginPresenter {
     }
 
 
-
     /**
      * 这下面的两行能不能 Base化解
      *
@@ -51,7 +50,7 @@ public class LoginPresenter implements LoginContract.LoginPresenter {
      */
     @Override
     public void takeView(LoginContract.LoginView view) {
-        mLoginView=view;
+        mLoginView = view;
     }
 
     @Override

@@ -83,7 +83,9 @@
             android:exported="true" />
         <service
             android:name=".service.MyIntentService1"
-            android:exported="false"></service>
+            android:exported="false" />
+
+        <activity android:name=".demo.custom_view.CustomViewActivity"></activity>
     </application>
 
 </manifest>

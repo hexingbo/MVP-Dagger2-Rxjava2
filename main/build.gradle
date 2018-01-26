@@ -72,7 +72,6 @@ dependencies {
 
     debugCompile 'com.facebook.stetho:stetho:1.4.2'
 
-
     //Platform bindings:
     compile 'com.jakewharton.rxbinding2:rxbinding:2.0.0'
     //'support-v4' library bindings:

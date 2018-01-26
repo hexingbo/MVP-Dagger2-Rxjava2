@@ -1,7 +1,8 @@
 package com.zenglb.framework.dagger;
 
+import com.zenglb.framework.demo.demo.Rxjava_ZIP_Activity;
 import com.zenglb.framework.demo.launch.LaunchActivity;
-import com.zenglb.framework.dagger.component.BaseActivityComponent;
+import com.zenglb.framework.dagger.component.AllBaseActivityComponent;
 import com.zenglb.framework.dagger.module.DefaultActivityModule;
 import com.zenglb.framework.mvp.task.MVPActivityModule;
 import com.zenglb.framework.navigation.MainActivityNaviModule;
@@ -26,10 +27,10 @@ import dagger.android.ContributesAndroidInjector;
  * 3.每个Activity所单独需要的依赖，依然由各自的Module进行管理和实例化，依然没有任何耦合
  */
 @Module(subcomponents = {
-        BaseActivityComponent.class  //1111111111 subcomponent=BaseActivityComponent
+        AllBaseActivityComponent.class  //1111111111 subcomponent=BaseActivityComponent
 })
 
-public abstract class AllActivityModule {
+public abstract class AllDefaultActivityModule {
 
     // TODO: 2018/1/12 这样是很方便了，然而并不是所有的Activity 都需要依赖注入的东西，继承了BaseActivity 就要写这个很烦人啊！
 
@@ -62,6 +63,11 @@ public abstract class AllActivityModule {
     @ActivityScope
     @ContributesAndroidInjector(modules = MVPActivityModule.class)
     abstract TaskMVPActivity contribute3Injector();
+
+
+    @ActivityScope
+    @ContributesAndroidInjector(modules = DefaultActivityModule.class)
+    abstract Rxjava_ZIP_Activity contribute4Injector();
 
 
 
