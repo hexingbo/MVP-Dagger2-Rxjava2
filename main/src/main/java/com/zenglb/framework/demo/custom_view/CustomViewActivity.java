@@ -5,6 +5,11 @@ import android.os.Bundle;
 
 import com.zenglb.framework.R;
 
+/**
+ * onDispatchTouch-->onIntercept-->onTouch
+ *
+ *
+ */
 public class CustomViewActivity extends AppCompatActivity {
 
     @Override
@@ -12,4 +17,8 @@ public class CustomViewActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_custom_view);
     }
+
+
+
+
 }

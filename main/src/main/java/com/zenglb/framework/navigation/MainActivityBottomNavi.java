@@ -87,8 +87,8 @@ public class MainActivityBottomNavi extends BaseMVPActivity {
         super.onCreate(savedInstanceState);
         setTitle("Main");
 
+        //test
         spDao.toString();
-
         Intent myIntentService1 = new Intent(this, MyIntentService1.class);
         startService(myIntentService1);
     }
@@ -120,13 +120,10 @@ public class MainActivityBottomNavi extends BaseMVPActivity {
         viewPager = (ViewPager) findViewById(R.id.viewpager);
         viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
-            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-                Log.e("sss", position + " =");
-            }
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {}
 
             @Override
             public void onPageSelected(int position) {
-                //setTitle(position),
                 if (menuItem != null) {
                     menuItem.setChecked(false);
                 } else {
@@ -137,16 +134,12 @@ public class MainActivityBottomNavi extends BaseMVPActivity {
             }
 
             @Override
-            public void onPageScrollStateChanged(int state) {
-
-            }
-
+            public void onPageScrollStateChanged(int state) {}
         });
 
         viewPager.setOnTouchListener((v, event) -> false); //禁止ViewPager滑动
-
         setupViewPager(viewPager);
-        viewPager.setOffscreenPageLimit(1);
+        viewPager.setOffscreenPageLimit(3);
     }
 
     private void setupViewPager(ViewPager viewPager) {
@@ -158,7 +151,6 @@ public class MainActivityBottomNavi extends BaseMVPActivity {
 
         viewPager.setAdapter(adapter);
     }
-
 
     /**
      * 快速按2次退出

@@ -19,6 +19,7 @@ import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 
 /**
+ *
  * Created by zenglb on 2017/4/20.
  */
 public class SwitchSchedulers {
@@ -71,22 +72,6 @@ public class SwitchSchedulers {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     /**
      *  切换到Main 线程
      */
@@ -115,8 +100,6 @@ public class SwitchSchedulers {
             }
         };
     }
-
-
 
 
 //    /**

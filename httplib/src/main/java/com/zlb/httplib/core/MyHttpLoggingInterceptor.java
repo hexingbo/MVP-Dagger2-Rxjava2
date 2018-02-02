@@ -139,16 +139,16 @@ public final class MyHttpLoggingInterceptor implements Interceptor {
      * @param request
      */
     public void logInterceptorHeaders(Request request) {
-        Log.i("OkhttpLogheader", "========   开始打印  Header===========\n");
+        Log.w("OKhttp ", " ========   开始打印  Header===========\n");
         Headers headers = request.headers();
         for (int i = 0, count = headers.size(); i < count; i++) {
             String name = headers.name(i);
             // Skip headers from the request body as they are explicitly logged above.
             if (!"Content-Type".equalsIgnoreCase(name) && !"Content-Length".equalsIgnoreCase(name)) {
-                Log.e("OkhttpLogheader", name + ": " + headers.value(i));
+                Log.i("OKhttp: "+i+" ", name + ": " + headers.value(i));
             }
         }
-        Log.i("OkhttpLogheader", "========   完成打印  Header  =========  \n");
+        Log.w("OKhttp ", " ========   完成打印  Header  =========  \n");
     }
 
 

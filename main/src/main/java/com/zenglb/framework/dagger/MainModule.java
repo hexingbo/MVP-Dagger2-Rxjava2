@@ -23,7 +23,6 @@ import dagger.Provides;
  * <p>
  * Created by anylife.zlb@gmail.com on 2018/1/11.
  */
-// TODO: 2018/1/12 怎样的去保证这里的东西是全局@Singleton ？替换了以后又怎么能动态修改呢？比如DaoSession
 @Module
 public class MainModule {
 
@@ -88,7 +87,7 @@ public class MainModule {
     /**
      * 数据库访问的DaoSession,登录的时候切换账号后怎么更换呢？
      * <p>
-     * 这个Daosession 和SP 还不一样
+     * 这个DaoSession 和SP 还不一样
      *
      * @param spDao return
      */

@@ -1,5 +1,6 @@
 package com.zenglb.framework.dagger;
 
+import com.zenglb.framework.demo.MemoryLeakTest;
 import com.zenglb.framework.demo.demo.Rxjava_ZIP_Activity;
 import com.zenglb.framework.demo.launch.LaunchActivity;
 import com.zenglb.framework.dagger.component.AllBaseActivityComponent;
@@ -17,7 +18,7 @@ import dagger.android.ContributesAndroidInjector;
 
 /**
  * 全部放在这里来统一的管理 ！
- * 新建了一个Activity 的并且需要inject 的只需要添加两行代码
+ * 新建了一个Activity 的并且需要inject 的只需要添加两行代码,那么问题就来了，是不是这里也可以不写呢？
  *
  *
  * <p>
@@ -32,7 +33,7 @@ import dagger.android.ContributesAndroidInjector;
 
 public abstract class AllDefaultActivityModule {
 
-    // TODO: 2018/1/12 这样是很方便了，然而并不是所有的Activity 都需要依赖注入的东西，继承了BaseActivity 就要写这个很烦人啊！
+    // TODO: 2018/1/12 可以不用写这两行代码就好了
 
     /**
      * BaseActivity  <- BaseMVPActivity  这样的继承关系就好了
@@ -69,11 +70,14 @@ public abstract class AllDefaultActivityModule {
     @ContributesAndroidInjector(modules = DefaultActivityModule.class)
     abstract Rxjava_ZIP_Activity contribute4Injector();
 
-
+    @ActivityScope
+    @ContributesAndroidInjector(modules = DefaultActivityModule.class)
+    abstract MemoryLeakTest contribute5Injector();
 
 
 //    Pro-tip: If your subcomponent and its builder have no other methods or supertypes than the ones mentioned in step #2, you can use @ContributesAndroidInjector to generate them for you. Instead of steps 2 and 3, add an abstract module method that returns your activity, annotate it with @ContributesAndroidInjector, and specify the modules you want to install into the subcomponent. If the subcomponent needs scopes, apply the scope annotations to the method as well.
-//
+
+
 //    @ActivityScope
 //    @ContributesAndroidInjector(modules = { /* modules to install into the subcomponent */ })
 //    abstract YourActivity contributeYourActivityInjector();

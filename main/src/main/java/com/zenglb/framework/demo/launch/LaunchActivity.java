@@ -8,6 +8,8 @@ import android.os.Message;
 import android.text.TextUtils;
 import com.zenglb.framework.R;
 import com.zenglb.framework.base.mvp.BaseMVPActivity;
+import com.zenglb.framework.demo.MemoryLeakTest;
+import com.zenglb.framework.demo.custom_view.CustomViewActivity;
 import com.zenglb.framework.demo.demo.Rxjava_ZIP_Activity;
 import com.zenglb.framework.mvp.login.LoginActivity;
 import com.zenglb.framework.mvp.task.TaskMVPActivity;
@@ -50,13 +52,12 @@ public class LaunchActivity extends BaseMVPActivity {
                         Intent i1 = new Intent();
                         i1.putExtra("isFromLaunch", true);
                         i1.setClass(LaunchActivity.this, LoginActivity.class);
-//                        i1.setClass(LaunchActivity.this, TaskMVPActivity.class);
                         startActivity(i1);
                         LaunchActivity.this.finish();
                     } else {
                         Intent i1 = new Intent();
                         i1.setClass(LaunchActivity.this, MainActivityBottomNavi.class);
-//                        i1.setClass(LaunchActivity.this, TaskMVPActivity.class);
+//                        i1.setClass(LaunchActivity.this, MemoryLeakTest.class);
                         startActivity(i1);
                         LaunchActivity.this.finish();
                     }
@@ -71,7 +72,7 @@ public class LaunchActivity extends BaseMVPActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        UiHandler.sendEmptyMessageDelayed(0, 2000);  //好假啊
+        UiHandler.sendEmptyMessageDelayed(FINISH_LAUNCHER, 2000);  //测试内存泄漏
 
         spDao.toString();  //Android Profile
 

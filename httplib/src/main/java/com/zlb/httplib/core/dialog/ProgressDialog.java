@@ -2,15 +2,11 @@ package com.zlb.httplib.core.dialog;
 
 import android.app.Dialog;
 import android.content.Context;
-import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.TextView;
-
 import com.zlb.httplib.R;
-
 
 /**
  * 自定义Dialog
@@ -28,21 +24,14 @@ public class ProgressDialog extends Dialog {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        View view = null;
-        TextView tv_wait = null;
-        ImageView iv_wait = null;
-        if (!TextUtils.isEmpty(msg)) {
-            view = View.inflate(context, R.layout.custom_wait_dialog_have_message, null);
-            iv_wait = (ImageView) view.findViewById(R.id.iv_wait);
-            tv_wait = (TextView) view.findViewById(R.id.tv_MyDialog);
-            tv_wait.setText(msg);
-        } else {
-            view = View.inflate(context, R.layout.custom_wait_dialog_no_message, null);
-            iv_wait = (ImageView) view.findViewById(R.id.iv_wait);
-        }
+        View view ;
+        TextView textView ;
+        view = View.inflate(context, R.layout.custom_wait_dialog, null);
+        textView = (TextView) view.findViewById(R.id.tv_MyDialog);
 
-        AnimationDrawable animationDrawable = (AnimationDrawable) iv_wait.getDrawable();
-        animationDrawable.start();
+        if (!TextUtils.isEmpty(msg)) {
+            textView.setText(msg);
+        }
         setContentView(view);
     }
 

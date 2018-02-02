@@ -24,7 +24,7 @@
   
   如果没有[Dagger.android](https://google.github.io/dagger//android.html) 我是不想使用dagger2的。写下面的类似代码实在太多了
   
-  More：https://www.jianshu.com/p/879e0fe4ef36
+  我自己翻译的官方的链接：https://www.jianshu.com/p/879e0fe4ef36
   
   ```
   public class FrombulationActivity extends Activity {

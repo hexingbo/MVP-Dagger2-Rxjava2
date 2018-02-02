@@ -3,6 +3,7 @@ package com.zenglb.framework.base;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 
@@ -29,7 +30,7 @@ import butterknife.ButterKnife;
  *
  * @author zenglb 20170301
  */
-public abstract class BaseActivity extends RxAppCompatActivity implements View.OnClickListener {
+public abstract class BaseActivity extends AppCompatActivity implements View.OnClickListener {
     private static final String TAG = BaseActivity.class.getSimpleName();
     private Toolbar mToolbar;
     public Context mContext;
@@ -125,7 +126,16 @@ public abstract class BaseActivity extends RxAppCompatActivity implements View.O
         }
     }
 
-
+    /**
+     * 防止内存泄漏需要：
+     *
+     * 1.移除消息队列中MessageQueue 中的所有的消息
+     * 2.监听器注册的取消
+     * 3.停止异步任务
+     * 4.静态的变量置 null
+     *
+     *
+     */
     @Override
     protected void onDestroy() {
         super.onDestroy();

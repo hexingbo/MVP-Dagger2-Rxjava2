@@ -23,7 +23,7 @@ import dagger.android.HasServiceInjector;
  *
  * 内存中Graphics占用比过高 ！
  *
- * 使用Glide 等第三方框架最好再封装一层，那一天你用Glide ++  了呢
+ * 使用Glide 等第三方框架最好再封装一层，那一天你用Glide ++  了呢   bindToLifecycle();  内存泄漏
  *
  * Created by anylife.zlb@gmail.com on 2017/3/15.
  */
@@ -47,7 +47,7 @@ public class MyApplication extends BaseApplication implements HasActivityInjecto
         Log.d(TAG, processName + "Application onCreate");
 
         // 很多的东西最好能放到一个IntentService 中去初始化
-        // InitializeService.start(this);
+        // InitializeService.start(this);  //不要在过多的线程去切换
         isDebugCheck();
         initApplication();
     }
@@ -75,6 +75,7 @@ public class MyApplication extends BaseApplication implements HasActivityInjecto
             // You should not init your app in this process.
             return;
         }
+        LeakCanary.install(this);
 
         //部分 初始化服务最好能新开一个IntentService 去处理,bugly 在两个进程都有初始化
         String processName = getProcessName();

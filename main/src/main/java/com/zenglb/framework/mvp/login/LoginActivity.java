@@ -21,12 +21,14 @@ import com.zenglb.framework.http.result.LoginResult;
 import com.zenglb.framework.navigation.MainActivityBottomNavi;
 import com.zenglb.framework.persistence.SPDao;
 import com.zenglb.framework.persistence.dbmaster.DaoSession;
+import com.zlb.httplib.core.HttpUiTips;
 import com.zlb.httplib.core.SPKey;
 
 import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.OnClick;
+import butterknife.OnLongClick;
 import es.dmoral.toasty.Toasty;
 
 /**
@@ -58,7 +60,6 @@ public class LoginActivity extends BaseMVPActivity implements LoginContract.Logi
     @BindView(R.id.fab_btn)
     FloatingActionButton fabBtn;
 
-
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -68,6 +69,8 @@ public class LoginActivity extends BaseMVPActivity implements LoginContract.Logi
         if (!isFromLaunch) {
             logoutCustomComponent();
         }
+
+//        HttpUiTips.showDialog(this,"测试中");
     }
 
     /**
@@ -77,7 +80,6 @@ public class LoginActivity extends BaseMVPActivity implements LoginContract.Logi
         spDao.saveData(SPKey.KEY_ACCESS_TOKEN, "");
         HttpRetrofit.setToken("");
     }
-
 
     /**
      * 集成的IM 等第三方系统需要单独的退出来,因为
@@ -97,6 +99,7 @@ public class LoginActivity extends BaseMVPActivity implements LoginContract.Logi
         super.onResume();
         //Bind view to the presenter which will signal for the presenter to load the task.
         loginPresenter.takeView(this);
+//        HttpUiTips.showDialog(mContext, null);
     }
 
     @Override
@@ -110,6 +113,13 @@ public class LoginActivity extends BaseMVPActivity implements LoginContract.Logi
         etUsername.setText(spDao.getData(SPKey.KEY_LAST_ACCOUNT, "", String.class));
         etPassword.setText("zxcv1234");
         etUsername.setText("18826562075");
+    }
+
+
+    @OnLongClick (R.id.login_btn)
+    public boolean mvpLogin2() {
+        HttpUiTips.showDialog(this,"测试中");
+        return true;
     }
 
     /**
