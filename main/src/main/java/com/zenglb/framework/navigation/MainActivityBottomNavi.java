@@ -8,6 +8,8 @@ import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.MenuItem;
+import android.view.MotionEvent;
+import android.view.View;
 import android.widget.Toast;
 
 import com.zenglb.framework.R;
@@ -20,17 +22,18 @@ import com.zenglb.framework.persistence.SPDao;
 import com.zenglb.framework.service.MyIntentService1;
 
 import javax.inject.Inject;
+
 import es.dmoral.toasty.Toasty;
 
 /**
  * 这里应该就是一个App 的主控区域，是灵魂吧，优化主要是这里
- *
+ * <p>
  * 本来挺好的，但是4/5 个bottom navi 的时候 不能定制样式啊，反射XX
  * Sadly, there isn't any way to force enable or disable this behaviour which may not work with every design.
  * It also doesn't allow populating the Bottom Navigation View with more than five items - as per the design spec
  * (it throws an IllegalArgumentException if you try to).
- *
- *  Created by anylife.zlb@gmail.com on 2017/3/24.
+ * <p>
+ * Created by anylife.zlb@gmail.com on 2017/3/24.
  */
 public class MainActivityBottomNavi extends BaseMVPActivity {
     private ViewPager viewPager;
@@ -38,7 +41,6 @@ public class MainActivityBottomNavi extends BaseMVPActivity {
 
     @Inject
     SPDao spDao;
-
     @Inject
     DemoFragment demoFragment;  // Lazy<DemoFragment>
     @Inject
@@ -85,12 +87,10 @@ public class MainActivityBottomNavi extends BaseMVPActivity {
         super.onCreate(savedInstanceState);
         setTitle("Main");
 
+        //test
         spDao.toString();
-
-
-        Intent myIntentService1=new Intent(this,MyIntentService1.class);
+        Intent myIntentService1 = new Intent(this, MyIntentService1.class);
         startService(myIntentService1);
-
     }
 
     @Override
@@ -109,24 +109,21 @@ public class MainActivityBottomNavi extends BaseMVPActivity {
     }
 
     public void initViews() {
-        getToolbar().setNavigationIcon(null);
+        getToolbar().setNavigationIcon(null); //没有返回按钮
 
         final BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
         BottomNavigationViewHelper.disableShiftMode(navigation);
+//        navigation.setAccessibilityLiveRegion(BottomNavigationView.ACCESSIBILITY_LIVE_REGION_ASSERTIVE);
 
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
-        navigation.setAccessibilityLiveRegion(BottomNavigationView.ACCESSIBILITY_LIVE_REGION_ASSERTIVE);
 
         viewPager = (ViewPager) findViewById(R.id.viewpager);
         viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
-            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-                Log.e("sss",position+" =");
-            }
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {}
 
             @Override
             public void onPageSelected(int position) {
-                //setTitle(position),
                 if (menuItem != null) {
                     menuItem.setChecked(false);
                 } else {
@@ -137,21 +134,12 @@ public class MainActivityBottomNavi extends BaseMVPActivity {
             }
 
             @Override
-            public void onPageScrollStateChanged(int state) {
-
-            }
+            public void onPageScrollStateChanged(int state) {}
         });
 
-        //禁止ViewPager滑动
-//        viewPager.setOnTouchListener(new View.OnTouchListener() {
-//            @Override
-//            public boolean onTouch(View v, MotionEvent event) {
-//                return true;
-//            }
-//        });
-
+        viewPager.setOnTouchListener((v, event) -> false); //禁止ViewPager滑动
         setupViewPager(viewPager);
-        viewPager.setOffscreenPageLimit(3); //123456789--97534567
+        viewPager.setOffscreenPageLimit(3);
     }
 
     private void setupViewPager(ViewPager viewPager) {
@@ -164,15 +152,11 @@ public class MainActivityBottomNavi extends BaseMVPActivity {
         viewPager.setAdapter(adapter);
     }
 
-    protected boolean isShowBacking() {
-        return false;
-    }
-
     /**
      * 快速按2次退出
-     *
      */
     private long exitTime = 0;
+
     @Override
     public boolean dispatchKeyEvent(KeyEvent event) {
         if (event.getKeyCode() == KeyEvent.KEYCODE_BACK && event.getAction() == KeyEvent.ACTION_DOWN) {
@@ -188,5 +172,8 @@ public class MainActivityBottomNavi extends BaseMVPActivity {
         }
     }
 
+    protected boolean isShowBacking() {
+        return false;
+    }
 
 }

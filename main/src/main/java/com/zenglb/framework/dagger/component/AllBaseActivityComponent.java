@@ -5,7 +5,7 @@ import dagger.android.AndroidInjectionModule;
 import dagger.android.AndroidInjector;
 
 /**
- * 在 AllActivityModule 中被使用
+ * 在 {@link com.zenglb.framework.dagger.AllDefaultActivityModule} 中被使用
  * 不要在每个Activity 中建立一个ActivitySubComponent，麻烦而且重复的无聊代码
  *
  * Created by anylife.zlb@gmail.com on 2018/1/11.
@@ -14,7 +14,7 @@ import dagger.android.AndroidInjector;
         AndroidInjectionModule.class,
 })
 
-public interface BaseActivityComponent extends AndroidInjector<BaseMVPActivity> {
+public interface AllBaseActivityComponent extends AndroidInjector<BaseMVPActivity> {
 
     //每一个继承BaseActivity的Activity，都共享同一个SubComponent
     @Subcomponent.Builder

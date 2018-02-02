@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
+ *
  * Created by zenglb on 2016/10/25.
  */
 public class AreUSleepListAdapter extends RecyclerView.Adapter<AreUSleepListAdapter.ViewHolder> {

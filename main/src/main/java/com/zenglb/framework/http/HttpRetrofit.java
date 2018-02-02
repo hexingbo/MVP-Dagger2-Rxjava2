@@ -1,14 +1,11 @@
 package com.zenglb.framework.http;
 
-import android.app.Application;
 import android.content.Context;
 import android.text.TextUtils;
 import android.util.Log;
-
 import com.zenglb.framework.persistence.SPDao;
 import com.zlb.httplib.core.MyHttpLoggingInterceptor;
 import com.zlb.httplib.core.SPKey;
-
 import java.io.IOException;
 import java.util.concurrent.TimeUnit;
 import okhttp3.Authenticator;
@@ -28,7 +25,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
  */
 public class HttpRetrofit {
     private static final String TAG = HttpRetrofit.class.getSimpleName()+"OKHTTP";
-    private static final String baseUrl = "http://test.4009515151.com/";  // WARMING-just for test !
+    private static final String baseUrl = "https://test.4009515151.com/";  // WARMING-just for test !
     private static String TOKEN;
 
     /**
@@ -41,7 +38,6 @@ public class HttpRetrofit {
     public static void setToken(String token) {
         TOKEN = token;
     }
-
 
 //    /**
 //     * 在Application 中 初始化

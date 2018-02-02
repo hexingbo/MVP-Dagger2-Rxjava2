@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.util.Pair;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,12 +16,19 @@ import android.widget.Toast;
 import com.zenglb.framework.base.BaseActivity;
 import com.zenglb.baselib.utils.TransitionHelper;
 import com.zenglb.framework.R;
+import com.zenglb.framework.demo.MemoryLeakTest;
 import com.zenglb.framework.demo.animal.AnimalMainActivity;
 import com.zenglb.framework.demo.quick_input_things.QuickInputThingsActivity;
 import com.zenglb.framework.dagger.scope.ActivityScope;
 import com.zenglb.framework.http.ApiService;
+import com.zenglb.framework.http.result.JokesResult;
+import com.zenglb.framework.http.result.StaffMsg;
 import com.zenglb.framework.mvp.task.TaskMVPActivity;
 import com.zenglb.framework.http.result.CustomWeatherResult;
+import com.zlb.httplib.core.BaseObserver;
+import com.zlb.httplib.core.rxUtils.SwitchSchedulers;
+
+import java.util.List;
 
 import javax.inject.Inject;
 
@@ -128,8 +136,7 @@ public class DemoFragment extends Fragment {
          * jni jni
          */
         rootView.findViewById(R.id.jni).setOnClickListener(v -> {
-//            ((BaseActivity) getActivity()).startActivity(NDKActivity.class);
-//            TestRxIntentService.start(getActivity());
+            ((BaseActivity) getActivity()).startActivity(MemoryLeakTest.class);
         });
 
 
@@ -139,7 +146,6 @@ public class DemoFragment extends Fragment {
         rootView.findViewById(R.id.dragger).setOnClickListener(v -> {
 //            ((BaseActivity) getActivity()).startActivity(DraggerActivity.class);
         });
-
 
     }
 

@@ -11,6 +11,7 @@ import android.view.KeyEvent;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+
 import com.zenglb.framework.R;
 import com.zenglb.framework.demo.access.RegisterActivity;
 import com.zenglb.framework.base.mvp.BaseMVPActivity;
@@ -20,15 +21,19 @@ import com.zenglb.framework.http.result.LoginResult;
 import com.zenglb.framework.navigation.MainActivityBottomNavi;
 import com.zenglb.framework.persistence.SPDao;
 import com.zenglb.framework.persistence.dbmaster.DaoSession;
+import com.zlb.httplib.core.HttpUiTips;
 import com.zlb.httplib.core.SPKey;
+
 import javax.inject.Inject;
+
 import butterknife.BindView;
 import butterknife.OnClick;
+import butterknife.OnLongClick;
 import es.dmoral.toasty.Toasty;
 
 /**
  * 登录页面，简单的MVP 和Dagger demo
- *
+ * <p>
  * Created by anylife.zlb@gmail.com on 2018/1/11.
  */
 public class LoginActivity extends BaseMVPActivity implements LoginContract.LoginView {
@@ -55,7 +60,6 @@ public class LoginActivity extends BaseMVPActivity implements LoginContract.Logi
     @BindView(R.id.fab_btn)
     FloatingActionButton fabBtn;
 
-
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -65,6 +69,8 @@ public class LoginActivity extends BaseMVPActivity implements LoginContract.Logi
         if (!isFromLaunch) {
             logoutCustomComponent();
         }
+
+//        HttpUiTips.showDialog(this,"测试中");
     }
 
     /**
@@ -74,7 +80,6 @@ public class LoginActivity extends BaseMVPActivity implements LoginContract.Logi
         spDao.saveData(SPKey.KEY_ACCESS_TOKEN, "");
         HttpRetrofit.setToken("");
     }
-
 
     /**
      * 集成的IM 等第三方系统需要单独的退出来,因为
@@ -94,6 +99,7 @@ public class LoginActivity extends BaseMVPActivity implements LoginContract.Logi
         super.onResume();
         //Bind view to the presenter which will signal for the presenter to load the task.
         loginPresenter.takeView(this);
+//        HttpUiTips.showDialog(mContext, null);
     }
 
     @Override
@@ -109,9 +115,15 @@ public class LoginActivity extends BaseMVPActivity implements LoginContract.Logi
         etUsername.setText("18826562075");
     }
 
+
+    @OnLongClick (R.id.login_btn)
+    public boolean mvpLogin2() {
+        HttpUiTips.showDialog(this,"测试中");
+        return true;
+    }
+
     /**
      * Login ,普通的登录和使用Rxjava 的方式都可以
-     *
      */
     @OnClick(R.id.login_btn)
     public void mvpLogin() {

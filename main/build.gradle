@@ -58,7 +58,8 @@ dependencies {
     compile project(':baseLib')
     compile project(':settingViewLib')
 
-    compile 'org.greenrobot:greendao:3.2.2'
+    compile 'org.greenrobot:greendao:3.2.2' //https://github.com/objectbox/objectbox-java
+
     compile 'net.zetetic:android-database-sqlcipher:3.5.4'
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
 
@@ -71,7 +72,6 @@ dependencies {
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
 
     debugCompile 'com.facebook.stetho:stetho:1.4.2'
-
 
     //Platform bindings:
     compile 'com.jakewharton.rxbinding2:rxbinding:2.0.0'
@@ -96,7 +96,7 @@ dependencies {
     //For Lifecycles, LiveData, and ViewModel
     compile "android.arch.lifecycle:runtime:1.0.3"
     annotationProcessor "android.arch.lifecycle:compiler:1.0.0"
-    compile "android.arch.lifecycle:extensions:1.0.0" //添加ext 依赖
+    compile "android.arch.lifecycle:extensions:1.0.0"     //添加ext 依赖
 
     compile 'com.github.florent37:singledateandtimepicker:1.2.2'  //高仿IOS 时间选择
     compile 'com.feezu.liuli:timeselector:1.1.3'

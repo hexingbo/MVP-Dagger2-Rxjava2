@@ -13,8 +13,8 @@ import dagger.android.DispatchingAndroidInjector;
 import dagger.android.support.HasSupportFragmentInjector;
 
 /**
- * 需要依赖注入extends this ，其实可以不要这么多的Base 吧，难以维护 ...
- *
+ * 需要依赖注入extends this ，其实可以不要这么多Base, 在
+ * Application 中完成所有的就好了，是不是 ！～
  *
  * Created by zlb on 2017/8/20.
  */
