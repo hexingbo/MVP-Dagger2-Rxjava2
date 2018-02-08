@@ -6,12 +6,17 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.util.Log;
 
+import com.kingja.loadsir.core.LoadSir;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 import com.squareup.leakcanary.LeakCanary;
 import com.zenglb.framework.base.BaseApplication;
 import com.zenglb.framework.dagger.MainModule;
 import com.zenglb.framework.dagger.DaggerMainComponent;
+import com.zenglb.framework.status_callback.EmptyCallback;
+import com.zenglb.framework.status_callback.ErrorCallback;
+import com.zenglb.framework.status_callback.LoadingCallback;
+
 import javax.inject.Inject;
 import dagger.android.AndroidInjector;
 import dagger.android.DispatchingAndroidInjector;
@@ -75,6 +80,7 @@ public class MyApplication extends BaseApplication implements HasActivityInjecto
             // You should not init your app in this process.
             return;
         }
+
         LeakCanary.install(this);
 
         //部分 初始化服务最好能新开一个IntentService 去处理,bugly 在两个进程都有初始化
@@ -83,6 +89,17 @@ public class MyApplication extends BaseApplication implements HasActivityInjecto
         switch (processName) {
             case MAIN_PROCESS_NAME:
                 SdkManager.initDebugOrRelease(this);
+
+
+                LoadSir.beginBuilder()
+                        .addCallback(new ErrorCallback())//添加各种状态页
+                        .addCallback(new EmptyCallback())
+//                        .addCallback(new LoadingCallback())
+//                        .addCallback(new TimeoutCallback())
+//                        .addCallback(new CustomCallback())
+                        .setDefaultCallback(LoadingCallback.class)//设置默认状态页
+                        .commit();
+
 
                 //Module  带有构造方法并且参数被使用的情况下所产生的DaggerXXComponent 是没有Create方法的
 //                DaggerMainComponent.create().inject(this);

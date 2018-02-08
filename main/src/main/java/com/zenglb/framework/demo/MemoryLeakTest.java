@@ -19,6 +19,7 @@ import com.zenglb.framework.navigation.MainActivityBottomNavi;
 import com.zenglb.framework.persistence.SPDao;
 import com.zlb.httplib.core.BaseObserver;
 import com.zlb.httplib.core.SPKey;
+import com.zlb.httplib.core.dialog.ProgressDialog;
 import com.zlb.httplib.core.rxUtils.SwitchSchedulers;
 
 import java.util.List;
@@ -36,7 +37,7 @@ import io.reactivex.schedulers.Schedulers;
 
 /**
  * RX 内存泄漏测试
- *
+ * https://www.jianshu.com/p/0076cb510372
  *
  */
 public class MemoryLeakTest extends BaseMVPActivity {
@@ -45,11 +46,13 @@ public class MemoryLeakTest extends BaseMVPActivity {
     SPDao spDao;
 
     @Inject
-    ApiService apiService;
+    ApiService apiService;  //
+
+    static ProgressDialog progressDialog;  //000000000， 这种是会永远的无法释放的内存泄漏，
 
     private static final int FINISH_LAUNCHER = 0;
 
-    //可能会造成内存无法及时的释放？
+    //可能会造成内存无法及时的释放，但是消息队列中没有消息以后就可以释放了
     private Handler UiHandler = new Handler(){
         // 子类必须重写此方法，接受数据
         public void handleMessage(Message msg) {
@@ -114,6 +117,7 @@ public class MemoryLeakTest extends BaseMVPActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 //        UiHandler.sendEmptyMessageDelayed(FINISH_LAUNCHER, 100);  //测试内存泄漏
+        progressDialog=new ProgressDialog(this, com.zlb.httplib.R.style.CustomHttpWaitDialog,"test");
      }
 
 
@@ -126,7 +130,6 @@ public class MemoryLeakTest extends BaseMVPActivity {
     protected void initViews() {
 
     }
-
 
     @Override
     protected void onDestroy() {
@@ -148,7 +151,7 @@ public class MemoryLeakTest extends BaseMVPActivity {
     int time=0;
     private void initData() {
 
-        //222222 会导致内存泄漏还是内存无法及时的释放
+        //222222 内存无法及时的释放，无法及时的释放
         apiService.getJokes("expired", 1)
                 .compose(SwitchSchedulers.applySchedulers())
                 .subscribe(new BaseObserver<List<JokesResult>>(this) {

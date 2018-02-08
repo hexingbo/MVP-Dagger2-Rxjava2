@@ -90,6 +90,16 @@
             android:textColor="@color/colorPrimary"
             android:textSize="18sp" />
 
+
+        <TextView
+            android:id="@+id/memory_leak"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingTop="22dp"
+            android:text="内存泄漏 以及 内存无法及时释放"
+            android:textColor="@color/colorPrimary"
+            android:textSize="18sp" />
+
         <ImageView
             android:layout_width="88dp"
             android:layout_height="88dp"

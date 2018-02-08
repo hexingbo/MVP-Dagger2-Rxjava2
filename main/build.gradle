@@ -11,7 +11,8 @@ android {
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
-        vectorDrawables.useSupportLibrary = true
+
+        vectorDrawables.useSupportLibrary = true  //支持VectorDrawable
     }
 
     sourceSets {
@@ -42,11 +43,13 @@ android {
         targetCompatibility project.ext.targetCompatibility
     }
 
+
+
 }
 
 
 dependencies {
-    implementation 'com.android.support:support-v4:26.1.0'
+
     compile fileTree(dir: 'libs', include: ['*.jar'])
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
@@ -58,10 +61,13 @@ dependencies {
     compile project(':baseLib')
     compile project(':settingViewLib')
 
+//    compile "com.android.support:appcompat-v7:$project.ext.supportLibraryVersion"
+//    implementation "com.android.support:support-v4:$project.ext.supportLibraryVersion"
+
     compile 'org.greenrobot:greendao:3.2.2' //https://github.com/objectbox/objectbox-java
 
     compile 'net.zetetic:android-database-sqlcipher:3.5.4'
-    compile 'com.android.support.constraint:constraint-layout:1.0.2'
+    compile 'com.android.support.constraint:constraint-layout:1.1.0-beta1'
 
     compile 'com.google.dagger:dagger-android:2.13'
     compile 'com.google.dagger:dagger-android-support:2.13' // if you use the support libraries
@@ -85,7 +91,7 @@ dependencies {
     compile 'com.github.glomadrian:Grav:1.1'
     compile 'com.andrognito.patternlockview:patternlockview-reactive:1.0.0'
 
-    compile 'jp.wasabeef:recyclerview-animators:2.2.4'
+    compile 'jp.wasabeef:recyclerview-animators:2.2.4' //白色太难看 https://github.com/sharish/ShimmerRecyclerView
     compile 'com.yqritc:recyclerview-flexibledivider:1.4.0'
     compile 'zlc.season:rxdownload2:2.0.0-beta4'
     compile 'com.zhy:percent-support-extends:1.1.1'
@@ -103,5 +109,14 @@ dependencies {
     compile 'com.contrarywind:Android-PickerView:3.2.7'
 
     compile 'de.hdodenhof:circleimageview:2.2.0'  //CircleImageView
+
+    compile 'com.tbruyelle.rxpermissions2:rxpermissions:0.9.5@aar'  //RxPermission   (Rxjava2)
+
+    implementation 'pub.devrel:easypermissions:1.1.3'               //EasyPermission (Google)
+
+    compile("com.github.hotchemi:permissionsdispatcher:3.1.0")      //PermissionsDispatcher (注解)
+    annotationProcessor "com.github.hotchemi:permissionsdispatcher-processor:3.1.0"
+
+    compile 'com.kingja.loadsir:loadsir:1.3.5' //
 
 }

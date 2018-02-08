@@ -11,6 +11,7 @@ import com.zenglb.framework.base.mvp.BaseMVPActivity;
 import com.zenglb.framework.demo.MemoryLeakTest;
 import com.zenglb.framework.demo.custom_view.CustomViewActivity;
 import com.zenglb.framework.demo.demo.Rxjava_ZIP_Activity;
+import com.zenglb.framework.demo.permissions.PermissionTestActivity;
 import com.zenglb.framework.mvp.login.LoginActivity;
 import com.zenglb.framework.mvp.task.TaskMVPActivity;
 import com.zenglb.framework.persistence.SPDao;
@@ -48,6 +49,12 @@ public class LaunchActivity extends BaseMVPActivity {
             switch (msg.what) {
                 case FINISH_LAUNCHER:
                     String accessToken = spDao.getData(SPKey.KEY_ACCESS_TOKEN, "", String.class);
+
+//                    Intent i1 = new Intent();
+//                    i1.setClass(LaunchActivity.this, PermissionTestActivity.class);
+//                    startActivity(i1);
+//                    LaunchActivity.this.finish();
+
                     if (TextUtils.isEmpty(accessToken)) {
                         Intent i1 = new Intent();
                         i1.putExtra("isFromLaunch", true);
@@ -57,7 +64,7 @@ public class LaunchActivity extends BaseMVPActivity {
                     } else {
                         Intent i1 = new Intent();
                         i1.setClass(LaunchActivity.this, MainActivityBottomNavi.class);
-//                        i1.setClass(LaunchActivity.this, MemoryLeakTest.class);
+                        i1.setClass(LaunchActivity.this, PermissionTestActivity.class);
                         startActivity(i1);
                         LaunchActivity.this.finish();
                     }
