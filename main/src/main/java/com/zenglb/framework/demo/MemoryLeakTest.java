@@ -104,7 +104,6 @@ public class MemoryLeakTest extends BaseMVPActivity {
                 case FINISH_LAUNCHER:
                     String accessToken = spDao.getData(SPKey.KEY_ACCESS_TOKEN, "", String.class);
                     finish();
-
                     break;
                 default:
                     break;
@@ -118,6 +117,8 @@ public class MemoryLeakTest extends BaseMVPActivity {
         super.onCreate(savedInstanceState);
 //        UiHandler.sendEmptyMessageDelayed(FINISH_LAUNCHER, 100);  //测试内存泄漏
         progressDialog=new ProgressDialog(this, com.zlb.httplib.R.style.CustomHttpWaitDialog,"test");
+
+        setToolBarTitle("内存泄漏检测");
      }
 
 

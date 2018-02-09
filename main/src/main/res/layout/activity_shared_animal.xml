@@ -6,7 +6,7 @@
     android:orientation="vertical"
     tools:context="com.zenglb.framework.demo.animal.SharedElementActivity">
 
-    <include layout="@layout/basic_toolbar_layout" />
+    <!--<include layout="@layout/basic_toolbar_layout" />-->
 
     <LinearLayout
         android:id="@+id/shared_item"

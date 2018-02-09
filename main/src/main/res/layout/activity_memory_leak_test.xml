@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     tools:context="com.zenglb.framework.demo.MemoryLeakTest">
 
-    <include layout="@layout/basic_toolbar_layout"/>
+    <!--<include layout="@layout/basic_toolbar_layout"/>-->
 
     <ImageView
         android:layout_width="wrap_content"

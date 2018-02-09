@@ -7,7 +7,7 @@
     android:orientation="vertical"
     tools:context=".mvp.task.TaskMVPActivity">
 
-    <include layout="@layout/basic_toolbar_layout"/>
+    <!--<include layout="@layout/basic_toolbar_layout"/>-->
 
     <FrameLayout
         android:layout_width="match_parent"
