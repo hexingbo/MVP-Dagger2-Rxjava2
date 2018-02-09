@@ -76,8 +76,8 @@
 
 # 项目中包含的基本的通用模块
 - Dagger.android 大大的优化Dagger 在android 中的使用，
-- Toolbar 的处理
-- Fragment 的懒加载
+- BaseActivity 中Toolbar 的处理
+- 进行网络请求时候的Error，empty,Loading,timeout等通用场景处理，Demo中一处Root注入，处处可用
 - 通用的BaseActivity 和BaseFragment的封装（跳转PV打点，事件打点，不放和base 无关的东西）
 - 通用的Lib module 的封装
 - Http (Rxjava2+Retrofit2)的闭环处理

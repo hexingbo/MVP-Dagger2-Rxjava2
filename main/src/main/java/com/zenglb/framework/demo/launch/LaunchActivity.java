@@ -1,6 +1,7 @@
 package com.zenglb.framework.demo.launch;
 
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -70,11 +71,11 @@ public class LaunchActivity extends BaseMVPActivity {
 //    }
 
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        UiHandler.sendEmptyMessageDelayed(FINISH_LAUNCHER, 2000);  //测试内存泄漏
+        hideBottomUIMenu();
+        UiHandler.sendEmptyMessageDelayed(FINISH_LAUNCHER, 2500);  //测试内存泄漏
 
         spDao.toString();  //Android Profile
 
@@ -85,7 +86,10 @@ public class LaunchActivity extends BaseMVPActivity {
 //                Toast.LENGTH_LONG).show();     //测试加密解密是否有问题
     }
 
-
+    /**
+     * 换成注解吧，写的烦死了
+     * @return
+     */
     @Override
     protected int getLayoutId() {
         return R.layout.activity_launch;
@@ -96,11 +100,29 @@ public class LaunchActivity extends BaseMVPActivity {
 
     }
 
-
     @Override
     protected void onDestroy() {
         super.onDestroy();
         UiHandler.removeCallbacksAndMessages(null);
+    }
+
+
+    /**
+     * 隐藏虚拟按键，并且全屏
+     *
+     */
+    protected void hideBottomUIMenu() {
+        //隐藏虚拟按键，并且全屏
+        if (Build.VERSION.SDK_INT > 11 && Build.VERSION.SDK_INT < 19) { // lower api
+            View v = this.getWindow().getDecorView();
+            v.setSystemUiVisibility(View.GONE);
+        } else if (Build.VERSION.SDK_INT >= 19) {
+            //for new api versions.
+            View decorView = getWindow().getDecorView();
+            int uiOptions = View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
+                    | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY | View.SYSTEM_UI_FLAG_FULLSCREEN;
+            decorView.setSystemUiVisibility(uiOptions);
+        }
     }
 
 

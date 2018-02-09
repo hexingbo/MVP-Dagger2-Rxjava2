@@ -92,6 +92,10 @@ public class MyApplication extends BaseApplication implements HasActivityInjecto
             case MAIN_PROCESS_NAME:
                 SdkManager.initDebugOrRelease(this);
 
+                //Module  带有构造方法并且参数被使用的情况下所产生的DaggerXXComponent 是没有Create方法的
+//                DaggerMainComponent.create().inject(this);
+                DaggerMainComponent.builder().mainModule(new MainModule(this)).build().inject(this);
+
 
                 LoadSir.beginBuilder()
                         .addCallback(new ErrorCallback())//添加各种状态页
@@ -102,15 +106,12 @@ public class MyApplication extends BaseApplication implements HasActivityInjecto
                         .setDefaultCallback(LoadingCallback.class)//设置默认状态页
                         .commit();
 
-
-                //Module  带有构造方法并且参数被使用的情况下所产生的DaggerXXComponent 是没有Create方法的
-//                DaggerMainComponent.create().inject(this);
-                DaggerMainComponent.builder().mainModule(new MainModule(this)).build().inject(this);
-
                 //创建默认的ImageLoader配置参数
                 ImageLoaderConfiguration configuration = ImageLoaderConfiguration.createDefault(this);
                 //Initialize ImageLoader with configuration.
                 ImageLoader.getInstance().init(configuration);
+
+
                 break;
 
             case WEB_PROCESS_NAME:  //WebView 在单独的进程中

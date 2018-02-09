@@ -30,6 +30,8 @@ public class RegisterActivity extends BaseActivity {
                 animateRevealClose();
             }
         });
+
+        setToolBarVisible(View.GONE);  //设置toolbar 是否是可见的
     }
 
     @Override
