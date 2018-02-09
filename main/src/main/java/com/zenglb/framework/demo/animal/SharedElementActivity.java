@@ -29,7 +29,7 @@ public class SharedElementActivity extends BaseActivity {
     }
 
     @Override
-    protected int setLayoutId() {
+    protected int getLayoutId() {
         return R.layout.activity_shared_animal;
     }
 

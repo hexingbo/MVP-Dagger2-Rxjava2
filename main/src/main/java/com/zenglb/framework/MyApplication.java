@@ -13,9 +13,11 @@ import com.squareup.leakcanary.LeakCanary;
 import com.zenglb.framework.base.BaseApplication;
 import com.zenglb.framework.dagger.MainModule;
 import com.zenglb.framework.dagger.DaggerMainComponent;
+import com.zenglb.framework.status_callback.CustomCallback;
 import com.zenglb.framework.status_callback.EmptyCallback;
 import com.zenglb.framework.status_callback.ErrorCallback;
 import com.zenglb.framework.status_callback.LoadingCallback;
+import com.zenglb.framework.status_callback.TimeoutCallback;
 
 import javax.inject.Inject;
 import dagger.android.AndroidInjector;
@@ -94,9 +96,9 @@ public class MyApplication extends BaseApplication implements HasActivityInjecto
                 LoadSir.beginBuilder()
                         .addCallback(new ErrorCallback())//添加各种状态页
                         .addCallback(new EmptyCallback())
-//                        .addCallback(new LoadingCallback())
-//                        .addCallback(new TimeoutCallback())
-//                        .addCallback(new CustomCallback())
+                        .addCallback(new LoadingCallback())
+                        .addCallback(new TimeoutCallback())
+                        .addCallback(new CustomCallback())
                         .setDefaultCallback(LoadingCallback.class)//设置默认状态页
                         .commit();
 
@@ -135,13 +137,13 @@ public class MyApplication extends BaseApplication implements HasActivityInjecto
      * 检查是不是Debug 模式
      */
     private void isDebugCheck() {
-        try {
-            PackageInfo info = getPackageManager().getPackageInfo(
-                    this.getPackageName(), PackageManager.GET_META_DATA);
-            isDebug = info.applicationInfo.metaData.getBoolean("APP_DEBUG");
-        } catch (PackageManager.NameNotFoundException e) {
-            e.printStackTrace();
-        }
+//        try {
+//            PackageInfo info = getPackageManager().getPackageInfo(
+//                    this.getPackageName(), PackageManager.GET_META_DATA);
+//            isDebug = info.applicationInfo.metaData.getBoolean("APP_DEBUG");
+//        } catch (PackageManager.NameNotFoundException e) {
+//            e.printStackTrace();
+//        }
     }
 
 }

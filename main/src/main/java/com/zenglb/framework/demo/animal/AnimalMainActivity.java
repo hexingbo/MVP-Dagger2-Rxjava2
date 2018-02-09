@@ -22,7 +22,7 @@ public class AnimalMainActivity extends BaseActivity {
 
 
     @Override
-    protected int setLayoutId() {
+    protected int getLayoutId() {
         return R.layout.activity_animal_main;
     }
 

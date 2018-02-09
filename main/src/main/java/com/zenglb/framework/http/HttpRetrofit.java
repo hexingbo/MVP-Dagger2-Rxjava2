@@ -120,6 +120,7 @@ public class HttpRetrofit {
             OkHttpClient okHttpClient = new OkHttpClient.Builder()
                     .retryOnConnectionFailure(true)
                     .connectTimeout(11, TimeUnit.SECONDS)
+                    .readTimeout(11,TimeUnit.SECONDS)
                     .addNetworkInterceptor(mRequestInterceptor)
                     .authenticator(mAuthenticator2)
                     .addInterceptor(loggingInterceptor)

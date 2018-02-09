@@ -3,6 +3,7 @@ package com.zenglb.framework.dagger;
 import android.app.Application;
 import android.content.Context;
 
+import com.kingja.loadsir.core.LoadSir;
 import com.squareup.leakcanary.LeakCanary;
 import com.squareup.leakcanary.RefWatcher;
 import com.zenglb.framework.http.ApiService;
@@ -11,6 +12,10 @@ import com.zenglb.framework.persistence.dbmaster.DaoMaster;
 import com.zenglb.framework.persistence.dbmaster.DaoSession;
 import com.zenglb.framework.persistence.dbupdate.MySQLiteOpenHelper;
 import com.zenglb.framework.http.HttpRetrofit;
+import com.zenglb.framework.status_callback.EmptyCallback;
+import com.zenglb.framework.status_callback.ErrorCallback;
+import com.zenglb.framework.status_callback.LoadingCallback;
+import com.zenglb.framework.status_callback.TimeoutCallback;
 import com.zlb.httplib.core.SPKey;
 import org.greenrobot.greendao.database.Database;
 import javax.inject.Singleton;
@@ -81,6 +86,24 @@ public class MainModule {
     @Singleton
     ApiService provideApiService(SPDao spDao,Context mContext){
         return HttpRetrofit.getRetrofit(spDao,mContext).create(ApiService.class);
+    }
+
+
+
+    /**
+     * 增加Error，empty,Loading,timeout,等通用的场景处理，一处Root注入，处处可用
+     *
+     * @return
+     */
+    @Provides
+    @Singleton
+    LoadSir provideCommonStatusService(SPDao spDao, Context mContext){
+        return  new LoadSir.Builder()
+//                .addCallback(new LoadingCallback())
+                .addCallback(new EmptyCallback())
+                .addCallback(new ErrorCallback())
+                .addCallback(new TimeoutCallback())
+                .build();
     }
 
 

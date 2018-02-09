@@ -54,6 +54,11 @@
         <activity
             android:name=".demo.main.AreUSleepListActivity"
             android:launchMode="singleTask" />
+
+        <activity
+            android:name=".demo.status_view.StatusNormalErrorEmptyActivity"
+            android:launchMode="singleTask" />
+
         <activity
             android:name=".navigation.MainActivityBottomNavi"
             android:label="@string/title_activity_main_bottom_navi"

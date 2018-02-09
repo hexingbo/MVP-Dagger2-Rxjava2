@@ -57,7 +57,7 @@ public class Rxjava_ZIP_Activity extends BaseMVPActivity {
 
 
     @Override
-    protected int setLayoutId() {
+    protected int getLayoutId() {
         return R.layout.activity_rxjava__zip_;
     }
 

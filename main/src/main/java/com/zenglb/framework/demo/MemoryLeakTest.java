@@ -122,7 +122,7 @@ public class MemoryLeakTest extends BaseMVPActivity {
 
 
     @Override
-    protected int setLayoutId() {
+    protected int getLayoutId() {
         return R.layout.activity_memory_leak_test;
     }
 

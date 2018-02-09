@@ -118,7 +118,7 @@ public class TaskMVPActivity extends BaseMVPActivity implements TaskContract.Tas
     }
 
     @Override
-    protected int setLayoutId() {
+    protected int getLayoutId() {
         return R.layout.activity_mvp;
     }
 
