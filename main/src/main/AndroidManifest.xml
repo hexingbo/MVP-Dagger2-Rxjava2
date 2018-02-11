@@ -63,6 +63,7 @@
             android:name=".navigation.MainActivityBottomNavi"
             android:label="@string/title_activity_main_bottom_navi"
             android:launchMode="singleTask" />
+
         <activity android:name=".demo.animal.SharedElementActivity" />
         <activity android:name=".demo.animal.AnimalMainActivity" />
         <activity android:name=".mvp.task.TaskMVPActivity" />
@@ -93,7 +94,8 @@
 
         <activity android:name=".demo.custom_view.CustomViewActivity" />
         <activity android:name=".demo.MemoryLeakTest" />
-        <activity android:name=".demo.permissions.PermissionTestActivity"></activity>
+        <activity android:name=".demo.permissions.PermissionTestActivity"/>
+
     </application>
 
 </manifest>

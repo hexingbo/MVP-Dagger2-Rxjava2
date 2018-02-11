@@ -97,7 +97,7 @@ public class MainModule {
      */
     @Provides
     @Singleton
-    LoadSir provideCommonStatusService(SPDao spDao, Context mContext){
+    LoadSir provideCommonStatusService(){
         return  new LoadSir.Builder()
 //                .addCallback(new LoadingCallback())
                 .addCallback(new EmptyCallback())

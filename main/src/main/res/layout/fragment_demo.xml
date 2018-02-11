@@ -101,11 +101,11 @@
             android:textSize="18sp" />
 
         <ImageView
-            android:layout_width="88dp"
-            android:layout_height="88dp"
+            android:layout_width="111dp"
+            android:layout_height="111dp"
             android:layout_gravity="center"
             android:layout_marginTop="33dp"
-            android:src="@drawable/logo" />
+            android:src="@drawable/wechat" />
 
     </LinearLayout>
 

@@ -12,6 +12,7 @@ import com.zenglb.framework.R;
 import com.zenglb.framework.base.mvp.BaseMVPActivity;
 import com.zenglb.framework.demo.status_view.StatusNormalErrorEmptyActivity;
 import com.zenglb.framework.mvp.login.LoginActivity;
+import com.zenglb.framework.mvp.task.TaskMVPActivity;
 import com.zenglb.framework.persistence.SPDao;
 import com.zlb.httplib.core.SPKey;
 import com.zenglb.framework.navigation.MainActivityBottomNavi;
@@ -51,7 +52,7 @@ public class LaunchActivity extends BaseMVPActivity {
                     } else {
                         Intent i1 = new Intent();
                         i1.setClass(LaunchActivity.this, MainActivityBottomNavi.class);
-//                        i1.setClass(LaunchActivity.this, StatusNormalErrorEmptyActivity.class);
+//                        i1.setClass(LaunchActivity.this, TaskMVPActivity.class);
                         startActivity(i1);
                         LaunchActivity.this.finish();
                     }
@@ -74,7 +75,6 @@ public class LaunchActivity extends BaseMVPActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        hideBottomUIMenu();
         UiHandler.sendEmptyMessageDelayed(FINISH_LAUNCHER, 2500);  //测试内存泄漏
 
         spDao.toString();  //Android Profile
@@ -106,6 +106,11 @@ public class LaunchActivity extends BaseMVPActivity {
         UiHandler.removeCallbacksAndMessages(null);
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        hideBottomUIMenu();
+    }
 
     /**
      * 隐藏虚拟按键，并且全屏
