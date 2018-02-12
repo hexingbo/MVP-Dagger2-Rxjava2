@@ -133,7 +133,6 @@ public abstract class BaseObserver<T> implements Observer<HttpResponse<T>> {
     }
 
 
-
     /**
      * 简单的把Dialog 处理掉
      */

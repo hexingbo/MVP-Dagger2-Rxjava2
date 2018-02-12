@@ -33,7 +33,7 @@ public abstract class BaseActivity extends AppCompatActivity implements View.OnC
     private Toolbar mToolbar;
     public Context mContext;
 
-    public LoadService mBaseLoadService; //状态管理器
+    public LoadService mBaseLoadService; //Http Error，empty,Loading,timeout状态管理器
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,6 +67,7 @@ public abstract class BaseActivity extends AppCompatActivity implements View.OnC
             flContent.addView(content, params);
             ButterKnife.bind(this, rootView);   //ButterKnife 绑定
 
+            //增加Error，empty,Loading,timeout,等通用的场景处理
             mBaseLoadService = LoadSir.getDefault().register(content, new Callback.OnReloadListener() {
                 @Override
                 public void onReload(View v) {
@@ -76,6 +77,7 @@ public abstract class BaseActivity extends AppCompatActivity implements View.OnC
         }
         return rootView;
     }
+
 
     /**
      * 点击按钮的监听
@@ -103,7 +105,6 @@ public abstract class BaseActivity extends AppCompatActivity implements View.OnC
     protected abstract int getLayoutId(); //获取相应的布局啊
 
     protected abstract void initViews();
-
 
     /*
      * Activity的跳转，太简单了
