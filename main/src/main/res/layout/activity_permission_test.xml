@@ -4,23 +4,32 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.zenglb.framework.demo.MemoryLeakTest">
+    tools:context="com.zenglb.framework.demo.permissions.PermissionTestActivity">
 
-    <!--<include layout="@layout/basic_toolbar_layout"/>-->
 
-    <ImageView
+    <TextView
+        android:id="@+id/EasyPermission"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
+
+        android:text="EasyPermissionTest"/>
+
+
+
+
+
+
+    <ImageView
+        android:id="@+id/statues"
+        android:layout_width="55dp"
+        android:layout_height="55dp"
+        android:layout_marginBottom="18dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:background="@drawable/logo"
+        app:srcCompat="@drawable/ic_error_outline_24dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/guideline2"
+        app:layout_constraintStart_toStartOf="@+id/guideline"
         app:layout_constraintTop_toTopOf="parent" />
-
-
 
 </android.support.constraint.ConstraintLayout>

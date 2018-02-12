@@ -8,13 +8,12 @@
     tools:context="com.zenglb.framework.demo.animal.AnimalMainActivity">
 
     <android.support.v7.widget.Toolbar
-        android:id="@+id/toolbar"
+        android:id="@+id/myToolbar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         android:background="?attr/colorPrimary"
-        app:navigationIcon="?attr/homeAsUpIndicator"
+        app:navigationIcon="@drawable/ic_back_copy"
         app:subtitleTextColor="@color/light_white"
-        app:title=""
         app:titleTextColor="@android:color/white">
 
         <TextView
@@ -28,7 +27,6 @@
             android:text="title" />
 
     </android.support.v7.widget.Toolbar>
-
 
 
 

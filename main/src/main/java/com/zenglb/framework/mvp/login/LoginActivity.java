@@ -8,6 +8,7 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.text.TextUtils;
 import android.view.KeyEvent;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -70,6 +71,9 @@ public class LoginActivity extends BaseMVPActivity implements LoginContract.Logi
             logoutCustomComponent();
         }
 
+        setToolBarVisible(View.GONE);  //这里是不需要Toolbar 的
+
+
 //        HttpUiTips.showDialog(this,"测试中");
     }
 
@@ -90,7 +94,7 @@ public class LoginActivity extends BaseMVPActivity implements LoginContract.Logi
     }
 
     @Override
-    protected int setLayoutId() {
+    protected int getLayoutId() {
         return R.layout.activity_login;
     }
 

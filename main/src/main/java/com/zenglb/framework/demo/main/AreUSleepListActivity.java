@@ -43,7 +43,7 @@ public class AreUSleepListActivity extends BaseActivity implements TabLayout.OnT
 
 
     @Override
-    protected int setLayoutId() {
+    protected int getLayoutId() {
         return R.layout.act_are_u_sleep_list;
     }
 

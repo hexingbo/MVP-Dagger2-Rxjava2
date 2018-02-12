@@ -55,7 +55,7 @@ public class QuickInputThingsActivity extends BaseActivity {
 
 
     @Override
-    protected int setLayoutId() {
+    protected int getLayoutId() {
         return R.layout.activity_quick_input_things;
     }
 

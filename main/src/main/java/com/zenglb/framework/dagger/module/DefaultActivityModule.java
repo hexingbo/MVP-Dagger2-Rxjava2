@@ -11,6 +11,10 @@ import dagger.Provides;
 @Module
 public abstract class DefaultActivityModule {
 
+    /**
+     * 这是测试性质的提供一个String
+     * @return
+     */
     @Provides
     static String provideName() {
         return "NULL,It is DefaultActivityModule";

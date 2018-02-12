@@ -6,24 +6,22 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
-
-import com.trello.rxlifecycle2.components.support.RxAppCompatActivity;
+import android.widget.FrameLayout;
+import com.kingja.loadsir.callback.Callback;
+import com.kingja.loadsir.core.LoadService;
+import com.kingja.loadsir.core.LoadSir;
 import com.zenglb.commonlib.R;
-import com.zenglb.framework.mvp_base.old.BaseMVPActivityOLD;
 import com.zlb.httplib.core.HttpUiTips;
-
 import butterknife.ButterKnife;
 
 
 /**
- * 基类就只做基类的事情,不要把业务层面的代码写到这里来
- *
- * 简单的功能页面没有必要使用MVP{@link BaseMVPActivityOLD}）模型，还是使用MVC{@link BaseActivity}就够了
- * 因为MVP 会生成大量的代码，支持混合的模式很重要。
+ * 基类就只做基类的事情,不要把业务层面的代码写到这里来，
+ * 增加Error，empty,Loading,timeout,等通用的场景处理，一处Root注入，处处可用
  *
  *
  * FBI WARMING,不要为了方便，只有某几个Activity 才会用的（定位，Wi-Fi 数据收集啊，写在Base里面，那还抽象什么）
- * <p>
+ *
  * 1.toolbar 的封装
  * 2.页面之间的跳转
  * 3.
@@ -35,35 +33,82 @@ public abstract class BaseActivity extends AppCompatActivity implements View.OnC
     private Toolbar mToolbar;
     public Context mContext;
 
+    public LoadService mBaseLoadService; //Http Error，empty,Loading,timeout状态管理器
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(setLayoutId());
-
-        ButterKnife.bind(this);  //全局使用ButterKnife
-
         mContext = BaseActivity.this;
-        mToolbar = (Toolbar) findViewById(R.id.toolbar);
 
+        View rootView=customContentView(View.inflate(this, R.layout.activity_base, null));
+        setContentView(rootView);
+
+        initViews();
+        initHttp();  //在这里进行Http 的请求
+    }
+
+
+    /**
+     * 定制Custom View，Content 区域先留空，后面再动态的添加，同时
+     * 增加Error，empty,Loading,timeout,等通用的场景处理，一处Root注入，处处可用
+     *
+     */
+    private View customContentView(View rootView) {
+        mToolbar = (Toolbar) findViewById(R.id.toolbar);
         if (mToolbar != null) {
             setSupportActionBar(mToolbar);
         }
 
-        initViews();
+        View content = View.inflate(this, getLayoutId(), null);
+        if (content != null) {
+            FrameLayout flContent = (FrameLayout) rootView.findViewById(R.id.fl_content);
+            FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT,
+                    FrameLayout.LayoutParams.MATCH_PARENT);
+            flContent.addView(content, params);
+            ButterKnife.bind(this, rootView);   //ButterKnife 绑定
 
+            //增加Error，empty,Loading,timeout,等通用的场景处理
+            mBaseLoadService = LoadSir.getDefault().register(content, new Callback.OnReloadListener() {
+                @Override
+                public void onReload(View v) {
+                    onHttpReload(v);
+                }
+            });
+        }
+        return rootView;
     }
 
 
-    protected abstract int setLayoutId();
-
-    protected abstract void initViews();
-
+    /**
+     * 点击按钮的监听
+     * @param view
+     */
     public void onClick(View view) {
 
     }
 
+    /**
+     * 如果没有重写，说明那个页面不需要Http 请求，直接是成功
+     *
+     */
+    protected  void initHttp(){
+        mBaseLoadService.showSuccess();
+    }
+
+    /**
+     * Http 请求的重新加载
+     */
+    protected  void onHttpReload(View v){
+
+    }
+
+    protected abstract int getLayoutId(); //获取相应的布局啊
+
+    protected abstract void initViews();
+
     /*
-     * Activity的跳转
+     * Activity的跳转，太简单了
+     *
 	 */
     public final void startActivity(Class<?> cla) {
         Intent intent = new Intent();
@@ -85,7 +130,6 @@ public abstract class BaseActivity extends AppCompatActivity implements View.OnC
         return (Toolbar) findViewById(R.id.toolbar);
     }
 
-
     /**
      * 设置头部标题
      *
@@ -93,6 +137,17 @@ public abstract class BaseActivity extends AppCompatActivity implements View.OnC
      */
     public void setToolBarTitle(CharSequence title) {
         getToolbar().setTitle(title);
+        setSupportActionBar(getToolbar());
+    }
+
+
+    /**
+     * 设置ToolBar 是否是可见的，默认是可见的
+     *
+     * @param visible
+     */
+    public void setToolBarVisible(int visible) {
+        getToolbar().setVisibility(visible);
         setSupportActionBar(getToolbar());
     }
 

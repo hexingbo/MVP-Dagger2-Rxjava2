@@ -71,7 +71,7 @@ public class TaskPresenter implements TaskContract.TaskPresenter {
                     @Override
                     public void onFailure(int code, String message) {
                         super.onFailure(code, message);
-                        taskView.getTaskFailed(message);
+                        taskView.getTaskFailed(code,message);
                     }
                 });
     }

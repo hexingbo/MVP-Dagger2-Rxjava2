@@ -11,6 +11,9 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.kingja.loadsir.callback.Callback;
+import com.kingja.loadsir.core.LoadService;
+import com.kingja.loadsir.core.LoadSir;
 import com.liaoinstan.springview.container.DefaultFooter;
 import com.liaoinstan.springview.container.DefaultHeader;
 import com.liaoinstan.springview.widget.SpringView;
@@ -21,6 +24,7 @@ import com.zenglb.framework.demo.animal.SharedElementActivity;
 import com.zenglb.framework.demo.main.AreUSleepListAdapter;
 import com.zenglb.framework.http.result.JokesResult;
 import com.zenglb.framework.persistence.dbmaster.DaoSession;
+import com.zenglb.framework.status_callback.EmptyCallback;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -38,9 +42,7 @@ public class TaskMVPActivity extends BaseMVPActivity implements TaskContract.Tas
      */
     private TextView mShowTxt;
     private String TAG = TaskMVPActivity.class.getSimpleName();
-
     private static final String ARG_PARAM1 = "param1";
-    private TextView mEmptyTipsTxt;
     private int page=1;
     private String mParam1;
     private SpringView springView;
@@ -53,12 +55,19 @@ public class TaskMVPActivity extends BaseMVPActivity implements TaskContract.Tas
     @Inject
     TaskPresenter mPresenter;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         daoSession.toString();
     }
 
+
+    @Override
+    protected void onHttpReload(View v) {
+        super.onHttpReload(v);
+        mPresenter.getRemoteTasks("expired", 1); //重新加载
+    }
 
     @Override
     protected void onResume() {
@@ -81,6 +90,7 @@ public class TaskMVPActivity extends BaseMVPActivity implements TaskContract.Tas
 
         if (jokesResultList != null) {
             if (page <= 1) data.clear();
+
             if (jokesResultList != null && jokesResultList.size() != 0) {
                 data.addAll(jokesResultList);
                 page++; //自动 的加1
@@ -90,16 +100,21 @@ public class TaskMVPActivity extends BaseMVPActivity implements TaskContract.Tas
             }
         }
 
+        /**
+         * mBaseLoadService，很方便的就能展示空啊什么的；
+         *
+         */
         if (data == null || data.size() == 0) {
-            mEmptyTipsTxt.setVisibility(View.VISIBLE);
+            mBaseLoadService.showCallback(EmptyCallback.class);
         } else {
-            mEmptyTipsTxt.setVisibility(View.GONE);
+            mBaseLoadService.showSuccess();
         }
     }
 
     @Override
-    public void getTaskFailed(String message) {
-        springView.onFinishFreshAndLoad();  //
+    public void getTaskFailed(int code,String message) {
+        springView.onFinishFreshAndLoad();
+        showTasks(null);
     }
 
 
@@ -110,15 +125,15 @@ public class TaskMVPActivity extends BaseMVPActivity implements TaskContract.Tas
         if (jokesResultList != null && jokesResultList.size() != 0) {
             data.addAll(jokesResultList);
             areUSleepListAdapter.notifyDataSetChanged();
-            mEmptyTipsTxt.setVisibility(View.GONE);
+//            mEmptyTipsTxt.setVisibility(View.GONE);
         } else {
-            mEmptyTipsTxt.setVisibility(View.VISIBLE);
+//            mEmptyTipsTxt.setVisibility(View.VISIBLE);
             Log.d(TAG, "No Cache data !");
         }
     }
 
     @Override
-    protected int setLayoutId() {
+    protected int getLayoutId() {
         return R.layout.activity_mvp;
     }
 
@@ -150,7 +165,8 @@ public class TaskMVPActivity extends BaseMVPActivity implements TaskContract.Tas
             @Override
             public void onRefresh() {
                 page = 1;
-                mPresenter.getRemoteTasks("expired", page);
+                int pageTemp=11111;   //只是为了测试方便
+                mPresenter.getRemoteTasks("expired", pageTemp);
             }
 
             @Override
@@ -159,9 +175,6 @@ public class TaskMVPActivity extends BaseMVPActivity implements TaskContract.Tas
             }
 
         });
-
-        mEmptyTipsTxt = (TextView) findViewById(R.id.tips_txt);
-        mEmptyTipsTxt.setOnClickListener(view -> springView.callFresh());
 
         springView.setHeader(new DefaultHeader(this));
         springView.setFooter(new DefaultFooter(this));
@@ -173,7 +186,7 @@ public class TaskMVPActivity extends BaseMVPActivity implements TaskContract.Tas
     @Override
     protected void onStart() {
         super.onStart();
-        mPresenter.getCacheTasks();
+//        mPresenter.getCacheTasks();
 //        mPresenter.getRemoteTasks("expired", page);
     }
 

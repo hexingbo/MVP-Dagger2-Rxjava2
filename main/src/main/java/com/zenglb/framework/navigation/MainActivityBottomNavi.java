@@ -58,22 +58,22 @@ public class MainActivityBottomNavi extends BaseMVPActivity {
             switch (item.getItemId()) {
                 case R.id.navigation_home:
                     viewPager.setCurrentItem(0);
-                    setTitle("主页");
+                    setToolBarTitle("主页");
                     return true;
 
                 case R.id.navigation_dashboard:
                     viewPager.setCurrentItem(1);
-                    setTitle("I will be confirm");
+                    setToolBarTitle("I will be confirm");
                     return true;
 
                 case R.id.navigation_notifications:
                     viewPager.setCurrentItem(2);
-                    setTitle("消息");
+                    setToolBarTitle("消息");
                     return true;
 
                 case R.id.navigation_set:
                     viewPager.setCurrentItem(3);
-                    setTitle("设置");
+                    setToolBarTitle("设置");
                     return true;
 
             }
@@ -85,7 +85,7 @@ public class MainActivityBottomNavi extends BaseMVPActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setTitle("Main");
+        setToolBarTitle("Main");
 
         //test
         spDao.toString();
@@ -104,7 +104,7 @@ public class MainActivityBottomNavi extends BaseMVPActivity {
     }
 
     @Override
-    protected int setLayoutId() {
+    protected int getLayoutId() {
         return R.layout.activity_main_bottom_navi;
     }
 

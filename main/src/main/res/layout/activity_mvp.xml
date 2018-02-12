@@ -7,17 +7,12 @@
     android:orientation="vertical"
     tools:context=".mvp.task.TaskMVPActivity">
 
-    <include layout="@layout/basic_toolbar_layout"/>
-
-    <FrameLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+    <!--<include layout="@layout/basic_toolbar_layout"/>-->
 
         <com.liaoinstan.springview.widget.SpringView
             android:id="@+id/springview"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_weight="1"
             android:background="@color/bg_common">
 
             <android.support.v7.widget.RecyclerView
@@ -30,18 +25,6 @@
                 android:layout_marginBottom="5dp"
                 />
         </com.liaoinstan.springview.widget.SpringView>
-
-        <TextView
-            android:id="@+id/tips_txt"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="center"
-            android:text="点击屏幕，重新加载"
-            android:textSize="15sp"
-            android:textColor="@color/common_gray"
-            android:visibility="visible"/>
-
-    </FrameLayout>
 
 
 </LinearLayout>

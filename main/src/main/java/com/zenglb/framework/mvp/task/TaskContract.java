@@ -21,7 +21,7 @@ public class TaskContract {
     public interface TaskView extends BaseView<TaskPresenter> {
         void showTasks(List<JokesResult> jokesResults);
         void showCacheTasks(List<JokesResult> jokesResults);
-        void getTaskFailed(String message);
+        void getTaskFailed(int code,String message);
     }
 
 

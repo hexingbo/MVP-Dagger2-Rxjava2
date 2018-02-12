@@ -136,8 +136,18 @@ public class DemoFragment extends Fragment {
          * jni jni
          */
         rootView.findViewById(R.id.jni).setOnClickListener(v -> {
+//            ((BaseActivity) getActivity()).startActivity(MemoryLeakTest.class);
+        });
+
+
+        /**
+         * 内存泄漏 以及 内存无法及时释放
+         * https://www.jianshu.com/p/0076cb510372
+         */
+        rootView.findViewById(R.id.memory_leak).setOnClickListener(v -> {
             ((BaseActivity) getActivity()).startActivity(MemoryLeakTest.class);
         });
+
 
 
         /**

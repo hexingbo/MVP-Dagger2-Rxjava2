@@ -30,10 +30,12 @@ public class RegisterActivity extends BaseActivity {
                 animateRevealClose();
             }
         });
+
+        setToolBarVisible(View.GONE);  //设置toolbar 是否是可见的
     }
 
     @Override
-    protected int setLayoutId() {
+    protected int getLayoutId() {
         return R.layout.activity_register;
     }
 
