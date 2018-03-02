@@ -34,6 +34,9 @@ import es.dmoral.toasty.Toasty;
 
 /**
  * 登录页面，简单的MVP 和Dagger demo
+ *
+ * 【ButterKnife znif的使用】 https://www.jianshu.com/p/94eb3cc1852a
+ *
  * <p>
  * Created by anylife.zlb@gmail.com on 2018/1/11.
  */
@@ -72,7 +75,6 @@ public class LoginActivity extends BaseMVPActivity implements LoginContract.Logi
         }
 
         setToolBarVisible(View.GONE);  //这里是不需要Toolbar 的
-
 
 //        HttpUiTips.showDialog(this,"测试中");
     }

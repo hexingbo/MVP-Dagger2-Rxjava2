@@ -31,13 +31,17 @@ public class LoginPresenter implements LoginContract.LoginPresenter {
                 .subscribe(new BaseObserver<LoginResult>((Activity) mLoginView) {
                     @Override
                     public void onSuccess(LoginResult loginResult) {
-                        mLoginView.loginSuccess(loginResult);
+                        if(null!=mLoginView){
+                            mLoginView.loginSuccess(loginResult); //页面关闭了怎么办？
+                        }
                     }
 
                     @Override
                     public void onFailure(int code, String message) {
                         super.onFailure(code, message);
-                        mLoginView.loginFail(message);
+                        if(null!=mLoginView){
+                            mLoginView.loginFail(message);
+                        }
                     }
                 });
     }
@@ -53,9 +57,14 @@ public class LoginPresenter implements LoginContract.LoginPresenter {
         mLoginView = view;
     }
 
+
+    /**
+     * 防止异步请求回来后View 已经不在了
+     *
+     */
     @Override
     public void dropView() {
-        //?????????????
+        mLoginView=null;  //f
     }
 
 

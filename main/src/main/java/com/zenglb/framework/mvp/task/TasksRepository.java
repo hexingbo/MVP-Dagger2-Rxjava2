@@ -3,12 +3,10 @@ package com.zenglb.framework.mvp.task;
 import com.zenglb.framework.http.ApiService;
 import com.zenglb.framework.persistence.dbmaster.DaoSession;
 import com.zenglb.framework.persistence.dbmaster.JokesResultDao;
-import com.zenglb.framework.mvp_base.old.BaseModel;
 import com.zlb.httplib.core.HttpResponse;
 import com.zenglb.framework.http.result.JokesResult;
 import java.util.List;
 import javax.inject.Inject;
-import io.reactivex.Maybe;
 import io.reactivex.Observable;
 import io.reactivex.Single;
 

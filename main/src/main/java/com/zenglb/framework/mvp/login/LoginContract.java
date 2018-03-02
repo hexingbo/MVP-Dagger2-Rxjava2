@@ -25,6 +25,7 @@ public interface LoginContract {
     interface LoginPresenter extends BasePresenter<LoginView> {
         void login(LoginParams loginParams);    // Model层面拿回数据后通过回调通知Presenter 再通知View
     }
+
 }
 
 
