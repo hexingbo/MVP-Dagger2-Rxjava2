@@ -87,9 +87,11 @@ public class TaskPresenter implements TaskContract.TaskPresenter {
         taskView=view;
     }
 
+
+
     @Override
     public void dropView() {
-        //?????????????
+        taskView=null;
     }
 
 

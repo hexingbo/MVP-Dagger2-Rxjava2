@@ -3,6 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.zenglb.framework">
 
+    <uses-permission android:name="android.permission.GET_TASKS" />
+    <uses-permission android:name="android.permission.BLUETOOTH" />
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
@@ -20,6 +22,8 @@
     <uses-permission android:name="android.permission.READ_CALENDAR" />
     <uses-permission android:name="android.permission.WRITE_CALENDAR" />
 
+
+
     <application
         android:name=".MyApplication"
         android:allowBackup="true"
@@ -29,6 +33,12 @@
         android:supportsRtl="true"
         android:theme="@style/MyAppTheme"
         tools:replace="android:theme">
+
+        <meta-data
+            android:name="BaiduMobAd_STAT_ID"
+            android:value="62170a9290" />
+
+
         <activity
             android:name=".demo.launch.LaunchActivity"
             android:theme="@style/FullscreenTheme">

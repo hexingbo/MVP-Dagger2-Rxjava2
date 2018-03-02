@@ -16,15 +16,12 @@ import butterknife.ButterKnife;
 
 
 /**
- * 基类就只做基类的事情,不要把业务层面的代码写到这里来，
- * 增加Error，empty,Loading,timeout,等通用的场景处理，一处Root注入，处处可用
+ * [FBI WARMING] 不要为了方便，只有某几个Activity 才会用的（定位，Wi-Fi 数据收集啊，写在Base里面，那还抽象什么）
+ * 基类就只做基类的事情,不要把业务层面的代码写到这里来
  *
  *
- * FBI WARMING,不要为了方便，只有某几个Activity 才会用的（定位，Wi-Fi 数据收集啊，写在Base里面，那还抽象什么）
- *
- * 1.toolbar 的封装
- * 2.页面之间的跳转
- * 3.
+ * 1.toolbar 的处理封装
+ * 2.增加Error，empty,Loading,timeout,等通用的场景处理，一处Root注入，处处可用
  *
  * @author zenglb 20170301
  */
@@ -65,7 +62,7 @@ public abstract class BaseActivity extends AppCompatActivity implements View.OnC
             FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT,
                     FrameLayout.LayoutParams.MATCH_PARENT);
             flContent.addView(content, params);
-            ButterKnife.bind(this, rootView);   //ButterKnife 绑定
+            ButterKnife.bind(this, rootView);   //ButterKnife 绑定,只要在这一处地方写好就可以了
 
             //增加Error，empty,Loading,timeout,等通用的场景处理
             mBaseLoadService = LoadSir.getDefault().register(content, new Callback.OnReloadListener() {
@@ -188,7 +185,7 @@ public abstract class BaseActivity extends AppCompatActivity implements View.OnC
      * 2.监听器注册的取消
      * 3.停止异步任务
      * 4.静态的变量置 null
-     *
+     * 5.
      *
      */
     @Override

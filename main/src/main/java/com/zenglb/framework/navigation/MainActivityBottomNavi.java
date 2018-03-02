@@ -12,6 +12,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Toast;
 
+import com.baidu.mobstat.StatService;
 import com.zenglb.framework.R;
 import com.zenglb.framework.demo.main.AreUSleepFragmentList;
 import com.zenglb.framework.base.mvp.BaseMVPActivity;
@@ -86,6 +87,10 @@ public class MainActivityBottomNavi extends BaseMVPActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setToolBarTitle("Main");
+
+        // 由于多进程等可能造成Application多次执行，建议此代码不要埋点在Application中，否则可能造成启动次数偏高
+        // 建议此代码埋点在统计路径触发的第一个页面中，若可能存在多个则建议都埋点
+        StatService.start(this);  //百度统计的SDK
 
         //test
         spDao.toString();

@@ -4,7 +4,7 @@
   一直在纠结在何种开发模式之中，重构希望能把关注点集中到代码结构、整体架构、可测试性、可维护性这四个方面
   Rxjava2 + retrofit2 + MVP + Drager2 + xxx,应该是当前Android开发主流的框架 ，我们都会参考Google的官方框架https://github.com/googlesamples/android-architecture 或者 Google 的最新的项目架构组件https://github.com/googlesamples/android-architecture-components
   
-# （New）增加Error，empty,Loading,timeout等通用的场景处理，一处Root注入，处处可用
+# [New]增加Error，empty,Loading,timeout等通用的场景处理，一处Root注入，处处可用
    项目中的toolbar几乎每个页面都要使用，每个Layout 都写？NONONO
    进行网络请求时候的Error，empty,Loading,timeout等通用场景也是必须要处理的，Demo中一处Root注入，处处可用(Power by Loadsir）
 
@@ -66,22 +66,15 @@
  在Android热修复的三大领域：代码修复、资源修复、SO修复方面，以及方案的安全性和易用性方面，Sophix都做到了业界领先，可是要收费](https://mp.weixin.qq.com/s?__biz=MzAxMTI4MTkwNQ==&mid=2650823404&idx=1&sn=c56458a97561f54b893b33a80635d399&chksm=80b78e72b7c00764b26972bd21cd3e4fe5bb075a8d80890340b2a7a0a565779add0757b161e8&mpshare=1&scene=1&srcid=0704C7XraNsOGvDsgN9bCNii&pass_ticket=AZhM9mvZM8BzU28oFsdChz0QSuCBcgFEhhet1%2FD2hXnrM%2FSkdWA5TsZ06l%2F%2Fhbwm#rd)
 
 # Rxjava2
-  目前只是在http 请求的时候用了Rxjava2+retrofit2,没有侵入UI，打好基础才是王道
-  读取数据库等IO操作还在主线程，虽然影响不大，还是会卡一下的，坐等GreenDao 支持Rxjava2
-  这样UI就会更加的流畅起来啊
-
-  https://realm.io/cn/news/kau-felipe-lima-adopting-rxjava-airbnb-android/
+  谁用谁知道，勇敢的开始使用吧
 
 # 项目中包含的基本的通用模块
 - Dagger.android 大大的优化Dagger 在android 中的使用，
 - BaseActivity 中Toolbar 的处理
 - 进行网络请求时候的Error，empty,Loading,timeout等通用场景处理，Demo中一处Root注入，处处可用
 - 通用的BaseActivity 和BaseFragment的封装（跳转PV打点，事件打点，不放和base 无关的东西）
-- 通用的Lib module 的封装
 - Http (Rxjava2+Retrofit2)的闭环处理
 - Proguard 混淆 打包优化
-- BaseWebView 的 处理（未完善，Android 的坑很多）
-- support lib 和 动画
 - [混淆压缩打包优化 Proguard　proguard-android-optimize　和 proguard-android 区别 ？](https://github.com/D-clock/Doc/blob/master/Android/Gradle/4_AndroidStudio%E4%B8%8BProGuard%E6%B7%B7%E6%B7%86%E6%89%93%E5%8C%85.md)
 
 

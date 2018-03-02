@@ -50,7 +50,7 @@ public class QuickInputThingsActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setTitle("防止快速输入");
+        setToolBarTitle("防止快速输入");
     }
 
 
