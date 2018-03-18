@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.widget.FrameLayout;
 import com.kingja.loadsir.callback.Callback;
@@ -26,6 +27,7 @@ import butterknife.ButterKnife;
  * @author zenglb 20170301
  */
 public abstract class BaseActivity extends AppCompatActivity implements View.OnClickListener {
+    private static final String LIFE_CYCLER_TAG = "lifecycler";
     private static final String TAG = BaseActivity.class.getSimpleName();
     private Toolbar mToolbar;
     public Context mContext;
@@ -34,6 +36,7 @@ public abstract class BaseActivity extends AppCompatActivity implements View.OnC
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        Log.e(LIFE_CYCLER_TAG,"onCreate");
         super.onCreate(savedInstanceState);
         mContext = BaseActivity.this;
 

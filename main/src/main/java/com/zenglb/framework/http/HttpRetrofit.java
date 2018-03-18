@@ -25,7 +25,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
  */
 public class HttpRetrofit {
     private static final String TAG = HttpRetrofit.class.getSimpleName()+"OKHTTP";
-    private static final String baseUrl = "https://test.4009515151.com/";  // WARMING-just for test !
+    private static final String baseUrl = "https://uat.4009515151.com/";  // WARMING-just for test !
     private static String TOKEN;
 
     /**
@@ -119,8 +119,8 @@ public class HttpRetrofit {
 
             OkHttpClient okHttpClient = new OkHttpClient.Builder()
                     .retryOnConnectionFailure(true)
-                    .connectTimeout(11, TimeUnit.SECONDS)
-                    .readTimeout(11,TimeUnit.SECONDS)
+                    .connectTimeout(22, TimeUnit.SECONDS)
+                    .readTimeout(33,TimeUnit.SECONDS)
                     .addNetworkInterceptor(mRequestInterceptor)
                     .authenticator(mAuthenticator2)
                     .addInterceptor(loggingInterceptor)

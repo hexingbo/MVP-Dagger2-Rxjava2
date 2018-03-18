@@ -33,11 +33,11 @@ import butterknife.OnLongClick;
 import es.dmoral.toasty.Toasty;
 
 /**
- * 登录页面，简单的MVP 和Dagger demo
+ * 简单的登录页面，简单的MVP 和Dagger demo
  *
  * 【ButterKnife znif的使用】 https://www.jianshu.com/p/94eb3cc1852a
  *
- * <p>
+ * <
  * Created by anylife.zlb@gmail.com on 2018/1/11.
  */
 public class LoginActivity extends BaseMVPActivity implements LoginContract.LoginView {
@@ -75,8 +75,6 @@ public class LoginActivity extends BaseMVPActivity implements LoginContract.Logi
         }
 
         setToolBarVisible(View.GONE);  //这里是不需要Toolbar 的
-
-//        HttpUiTips.showDialog(this,"测试中");
     }
 
     /**
@@ -88,7 +86,8 @@ public class LoginActivity extends BaseMVPActivity implements LoginContract.Logi
     }
 
     /**
-     * 集成的IM 等第三方系统需要单独的退出来,因为
+     * 集成的IM 等第三方系统需要单独的退出来,因为账号体系不能联动的
+     *
      */
     private void logoutCustomComponent() {
 //        RongyunIM.logout();

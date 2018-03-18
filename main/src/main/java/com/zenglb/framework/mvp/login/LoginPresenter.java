@@ -19,6 +19,15 @@ public class LoginPresenter implements LoginContract.LoginPresenter {
     ApiService apiService;
     LoginContract.LoginView mLoginView;  // 需要抽象出来
 
+    /**
+     * 构造方法被  @Inject  注解标注了
+     *
+     *     @Inject
+     *     LoginPresenter loginPresenter;
+     * 在  Activity 中很方便的依赖注入
+     *
+     * @param apiService
+     */
     @Inject
     public LoginPresenter(ApiService apiService) {
         this.apiService = apiService;

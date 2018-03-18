@@ -92,8 +92,14 @@ public class TaskMVPActivity extends BaseMVPActivity implements TaskContract.Tas
             if (page <= 1) data.clear();
 
             if (jokesResultList != null && jokesResultList.size() != 0) {
+                for(int i=0;i<jokesResultList.size();i++){
+                    jokesResultList.get(i).setTopic(" # "+i+" #"+jokesResultList.get(i).getTopic());
+                }
+
+
                 data.addAll(jokesResultList);
                 page++; //自动 的加1
+
                 areUSleepListAdapter.notifyDataSetChanged();
             } else {
                 Toast.makeText(this.getApplicationContext(), "暂无数据，请稍后再试！", Toast.LENGTH_SHORT).show();
@@ -147,12 +153,14 @@ public class TaskMVPActivity extends BaseMVPActivity implements TaskContract.Tas
         areUSleepListAdapter.setOnItemClickListener(new AreUSleepListAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(AreUSleepListAdapter.ViewHolder view, int position) {
-                transitionToActivity(SharedElementActivity.class, view, data.get(position));
+                data.remove(position);//删除数据源
+                areUSleepListAdapter.notifyItemRemoved(position);//刷新被删除的地方
             }
 
             @Override
             public void onItemLongClick(AreUSleepListAdapter.ViewHolder view, int position) {
-
+                //测试动画
+                transitionToActivity(SharedElementActivity.class, view, data.get(position));
             }
         });
 
@@ -165,8 +173,8 @@ public class TaskMVPActivity extends BaseMVPActivity implements TaskContract.Tas
             @Override
             public void onRefresh() {
                 page = 1;
-                int pageTemp=11111;   //只是为了测试方便
-                mPresenter.getRemoteTasks("expired", pageTemp);
+//                int pageTemp=11111;   //只是为了测试方便
+                mPresenter.getRemoteTasks("expired", page);
             }
 
             @Override
