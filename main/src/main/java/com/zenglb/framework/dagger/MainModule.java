@@ -17,8 +17,11 @@ import com.zenglb.framework.status_callback.ErrorCallback;
 import com.zenglb.framework.status_callback.LoadingCallback;
 import com.zenglb.framework.status_callback.TimeoutCallback;
 import com.zlb.httplib.core.SPKey;
+
 import org.greenrobot.greendao.database.Database;
+
 import javax.inject.Singleton;
+
 import dagger.Module;
 import dagger.Provides;
 
@@ -49,7 +52,7 @@ public class MainModule {
      */
     @Provides
     @Singleton
-    Context providemContext() {
+    Context provideContext() {
         return mContext;
     }
 
@@ -60,7 +63,8 @@ public class MainModule {
      * @return
      */
     @Provides
-    @Singleton   //在这加了Singleton 的注解就是单例的了，打出内存地址查看一下
+    @Singleton
+    //在这加了Singleton 的注解就是单例的了，打出内存地址查看一下
     SPDao provideSPDao() {
         return new SPDao(mContext);
     }
@@ -76,7 +80,6 @@ public class MainModule {
     }
 
 
-
     /**
      * 网络访问
      *
@@ -84,10 +87,10 @@ public class MainModule {
      */
     @Provides
     @Singleton
-    ApiService provideApiService(SPDao spDao,Context mContext){
-        return HttpRetrofit.getRetrofit(spDao,mContext).create(ApiService.class);
+    ApiService provideApiService(SPDao spDao, Context mContext) {
+        //Retrofit 的create 真是精华所在啊！
+        return HttpRetrofit.getRetrofit(spDao, mContext).create(ApiService.class);
     }
-
 
 
     /**
@@ -97,8 +100,8 @@ public class MainModule {
      */
     @Provides
     @Singleton
-    LoadSir provideCommonStatusService(){
-        return  new LoadSir.Builder()
+    LoadSir provideCommonStatusService() {
+        return new LoadSir.Builder()
 //                .addCallback(new LoadingCallback())
                 .addCallback(new EmptyCallback())
                 .addCallback(new ErrorCallback())
@@ -106,13 +109,8 @@ public class MainModule {
                 .build();
     }
 
-
     /**
-     * 数据库访问的DaoSession,登录的时候切换账号后怎么更换呢？
-     * <p>
-     * 这个DaoSession 和SP 还不一样
-     *
-     * @param spDao return
+     * 数据库访问的DaoSession,因为是分账号分库，那么切换账号后怎么更换DaoSession链接的数据库DB呢？
      */
     @Provides
 //    @Singleton //这个怎么能够动态的替换呢DB 链接的a

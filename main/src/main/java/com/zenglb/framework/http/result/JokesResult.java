@@ -19,9 +19,7 @@ public class JokesResult implements Parcelable {
     @Unique
     private String id;
 
-    Boolean TEST;
-
-
+    boolean selected;
 
     public String getTopic() {
         return topic;
@@ -47,12 +45,12 @@ public class JokesResult implements Parcelable {
         this.id = id;
     }
 
-    public Boolean getTEST() {
-        return TEST;
+    public boolean isSelected() {
+        return selected;
     }
 
-    public void setTEST(Boolean TEST) {
-        this.TEST = TEST;
+    public void setSelected(boolean selected) {
+        this.selected = selected;
     }
 
     @Override
@@ -65,7 +63,11 @@ public class JokesResult implements Parcelable {
         dest.writeString(this.topic);
         dest.writeString(this.start_time);
         dest.writeString(this.id);
-        dest.writeValue(this.TEST);
+        dest.writeByte(this.selected ? (byte) 1 : (byte) 0);
+    }
+
+    public boolean getSelected() {
+        return this.selected;
     }
 
     public JokesResult() {
@@ -75,15 +77,16 @@ public class JokesResult implements Parcelable {
         this.topic = in.readString();
         this.start_time = in.readString();
         this.id = in.readString();
-        this.TEST = (Boolean) in.readValue(Boolean.class.getClassLoader());
+        this.selected = in.readByte() != 0;
     }
 
-    @Generated(hash = 1535105717)
-    public JokesResult(String topic, String start_time, String id, Boolean TEST) {
+    @Generated(hash = 1244182622)
+    public JokesResult(String topic, String start_time, String id,
+            boolean selected) {
         this.topic = topic;
         this.start_time = start_time;
         this.id = id;
-        this.TEST = TEST;
+        this.selected = selected;
     }
 
     public static final Creator<JokesResult> CREATOR = new Creator<JokesResult>() {

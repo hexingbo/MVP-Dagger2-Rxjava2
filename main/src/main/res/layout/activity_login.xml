@@ -112,7 +112,7 @@
                     android:background="@drawable/bt_shape"
                     android:stateListAnimator="@drawable/state_list_animator_z"
                     android:text="@string/go"
-                    android:textColor="#ff0000" />
+                    android:textColor="#2fa881" />
             </RelativeLayout>
 
             <TextView

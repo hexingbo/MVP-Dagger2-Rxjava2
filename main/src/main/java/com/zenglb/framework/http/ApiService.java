@@ -29,12 +29,11 @@ import retrofit2.http.Url;
  * Method对象，调用各个接口和解析器，最终生成一个Request，包含api 的域名、path、http请求方法、请求头、
  * 是有body、是否是multipart等等。最后返回一个Call对象，Retrofit2中Call接口的默认实现是OkHttpCall，
  * 它默认使用OkHttp3作为底层http请求client。
- * <p>
- * <p>
- * <p>
+ *
+ *
  * Created by zenglb on 2017/3/17.
  */
-public interface ApiService{
+public interface ApiService {
     /**
      * 第三方动态 url 访问
      * 测试在同一个系统下访问外部URL
@@ -56,10 +55,8 @@ public interface ApiService{
     Observable<HttpResponse<StaffMsg>> getStaffMsg();
 
 
-
     @GET("api/lebang/night_school/{type}")
     Observable<HttpResponse<List<JokesResult>>> getJokes(@Path("type") String type, @Query("page") int page);
-
 
 
     @GET("api/lebang/night_school/{type}")

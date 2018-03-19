@@ -97,7 +97,6 @@ public class MyApplication extends BaseApplication implements HasActivityInjecto
 //                DaggerMainComponent.create().inject(this);
                 DaggerMainComponent.builder().mainModule(new MainModule(this)).build().inject(this);
 
-
                 LoadSir.beginBuilder()
                         .addCallback(new ErrorCallback())//添加各种状态页
                         .addCallback(new EmptyCallback())
@@ -111,7 +110,6 @@ public class MyApplication extends BaseApplication implements HasActivityInjecto
                 ImageLoaderConfiguration configuration = ImageLoaderConfiguration.createDefault(this);
                 //Initialize ImageLoader with configuration.
                 ImageLoader.getInstance().init(configuration);
-
 
                 break;
 

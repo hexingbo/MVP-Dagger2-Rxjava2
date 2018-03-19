@@ -19,7 +19,6 @@ import com.zenglb.framework.status_callback.EmptyCallback;
 import com.zenglb.framework.status_callback.LoadingCallback;
 import com.zenglb.framework.status_callback.PostUtil;
 
-
 /**
  * 状态测试页面
  *

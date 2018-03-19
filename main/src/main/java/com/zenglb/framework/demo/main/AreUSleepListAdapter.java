@@ -1,7 +1,9 @@
 package com.zenglb.framework.demo.main;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,7 +25,13 @@ public class AreUSleepListAdapter extends RecyclerView.Adapter<AreUSleepListAdap
     private LayoutInflater mLayoutInflater;
     private List<JokesResult> data = new ArrayList<>();
 
-	public interface OnItemClickListener {
+    int lastSelected =-1;
+
+    public int getLastSelected() {
+        return lastSelected;
+    }
+
+    public interface OnItemClickListener {
 		void onItemClick(ViewHolder view, int position);
 		void onItemLongClick(ViewHolder view, int position);
 	}
@@ -70,20 +78,88 @@ public class AreUSleepListAdapter extends RecyclerView.Adapter<AreUSleepListAdap
         return new ViewHolder(mLayoutInflater.inflate(R.layout.areusleep_list_item, parent, false));
     }
 
+
+//    @Override
+//    public void onBindViewHolder(ViewHolder viewHolder, final int position, List<Object> payloads) {
+//        super.onBindViewHolder(viewHolder, position, payloads);
+//        if (payloads.isEmpty()){
+//            //全部刷新
+//            JokesResult bean = data.get(position);
+//            viewHolder.itemView.setClickable(true);
+//
+//            viewHolder.topic.setText(bean.getTopic().trim());
+//            viewHolder.time.setText(bean.getStart_time());
+//
+//            viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View v) {
+//                    checkedIndex = viewHolder.getLayoutPosition();
+//
+//                    if(mOnItemClickListener!=null){
+//                        mOnItemClickListener.onItemClick(viewHolder,checkedIndex);
+//                    }
+//
+//                }
+//            });
+//
+//            viewHolder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
+//                @Override
+//                public boolean onLongClick(View v) {
+////                    data.remove(position);//删除数据源
+////                    notifyItemRemoved(position);//刷新被删除的地方
+////                    notifyItemRangeChanged(position, getItemCount()); //刷新被删除数据，以及其后面的数据
+//
+//                    checkedIndex = viewHolder.getLayoutPosition();
+//                    if(mOnItemClickListener!=null){
+//                        mOnItemClickListener.onItemLongClick(viewHolder,checkedIndex);
+//                    }
+//                    return true;
+//                }
+//            });
+//        }else {
+//            //局部刷新
+//        }
+//    }
+
+
+    /**
+     * http://blog.csdn.net/jing85432373/article/details/51980774
+     *
+     * @param viewHolder
+     * @param position
+     */
     @Override
     public void onBindViewHolder(final ViewHolder viewHolder, final int position) {
+
+        Log.e("PPP","onBindViewHolder: "+position);
+
         JokesResult bean = data.get(position);
         viewHolder.itemView.setClickable(true);
 
-        viewHolder.topic.setText(bean.getTopic().trim());
+        viewHolder.topic.setText(position+bean.getTopic().trim());
         viewHolder.time.setText(bean.getStart_time());
+
+        if(bean.isSelected()){
+            viewHolder.topic.setTextColor(mContext.getResources().getColor(R.color.squarecamera__pressed_red));
+        }else{
+            viewHolder.topic.setTextColor(Color.BLACK);
+        }
 
         viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                checkedIndex = viewHolder.getLayoutPosition();
+//                if(-1!=checkedIndex){
+//                    data.get(checkedIndex).setSelected(false); //
+//                    lastSelected=checkedIndex;
+//                }
 
+                checkedIndex = viewHolder.getLayoutPosition();
+                if (-1==checkedIndex){
+                    return;
+                }
                 if(mOnItemClickListener!=null){
+                    Log.e("PPP","checkedIndex: "+checkedIndex);
+                    data.get(checkedIndex).setSelected(true);
                     mOnItemClickListener.onItemClick(viewHolder,checkedIndex);
                 }
 
@@ -93,7 +169,10 @@ public class AreUSleepListAdapter extends RecyclerView.Adapter<AreUSleepListAdap
         viewHolder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {
-
+                    checkedIndex = viewHolder.getLayoutPosition();
+                    if(mOnItemClickListener!=null){
+                        mOnItemClickListener.onItemLongClick(viewHolder,checkedIndex);
+                    }
                 return true;
             }
         });

@@ -9,6 +9,7 @@ import android.text.TextUtils;
 import android.view.View;
 
 import com.zenglb.framework.R;
+import com.zenglb.framework.Test;
 import com.zenglb.framework.base.mvp.BaseMVPActivity;
 import com.zenglb.framework.demo.status_view.StatusNormalErrorEmptyActivity;
 import com.zenglb.framework.mvp.login.LoginActivity;
@@ -16,6 +17,10 @@ import com.zenglb.framework.mvp.task.TaskMVPActivity;
 import com.zenglb.framework.persistence.SPDao;
 import com.zlb.httplib.core.SPKey;
 import com.zenglb.framework.navigation.MainActivityBottomNavi;
+
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.inject.Inject;
 
 /**
@@ -31,7 +36,7 @@ public class LaunchActivity extends BaseMVPActivity {
     SPDao spDao;
 
     /**
-     * 接受消息，处理消息 ，此Handler会与当前主线程一块运行
+     * 接受消息，处理消息 ，此Handler会与当前主线程一块运行，，只为测试只为测试只为测试只为测试
      *
      */
     class MyHandler extends Handler {
@@ -71,19 +76,23 @@ public class LaunchActivity extends BaseMVPActivity {
 //        mBaseLoadService.showSuccess();
 //    }
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        UiHandler.sendEmptyMessageDelayed(FINISH_LAUNCHER, 2500);  //测试内存泄漏
-
-        spDao.toString();  //Android Profile
+        UiHandler.sendEmptyMessageDelayed(FINISH_LAUNCHER, 2500);  //测试内存泄漏,只为测试
 
         setToolBarTitle("It is test");
         setToolBarVisible(View.GONE);  //这里是不需要Toolbar 的
 
 //        Toast.makeText(this,NDKinterface.getAESDecrypt(NDKinterface.getAESEncrypt("如果不是乱码就是成功了")),
 //                Toast.LENGTH_LONG).show();     //测试加密解密是否有问题
+
+//        List<String> list = new ArrayList<String>();
+//        list.add("1");
+//        list.add("2");
+//        list.add("3");
+//        Test test = new Test();
+//        List<String> listTemp = test.m2(list);
     }
 
     /**
