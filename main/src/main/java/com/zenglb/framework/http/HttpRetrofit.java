@@ -26,7 +26,6 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class HttpRetrofit {
     private static final String TAG = HttpRetrofit.class.getSimpleName()+"OKHTTP";
     private static final String baseUrl = "https://uat.4009515151.com/";  // WARMING-just for test !
-    private static String TOKEN;
 
     /**
      * 下面apiService对象其实是一个动态代理对象，并不是一个真正的ApiService接口的implements产生的对象，
@@ -35,6 +34,7 @@ public class HttpRetrofit {
      */
     private static Retrofit retrofit;
 
+    private static String TOKEN;
     public static void setToken(String token) {
         TOKEN = token;
     }
@@ -125,7 +125,6 @@ public class HttpRetrofit {
                     .authenticator(mAuthenticator2)
                     .addInterceptor(loggingInterceptor)
                     .build();
-
 
             retrofit = new Retrofit.Builder()
                     .baseUrl(baseUrl)
