@@ -1,3 +1,4 @@
-include ':settingViewLib',':main', ':baseLib', ':httplib'
-//include ':retrofit2'
+include ':main', ':httplib'
+
+//, ':baseLib'
 

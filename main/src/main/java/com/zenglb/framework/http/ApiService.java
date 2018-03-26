@@ -5,6 +5,7 @@ import com.zenglb.framework.http.result.CustomWeatherResult;
 import com.zenglb.framework.http.result.JokesResult;
 import com.zenglb.framework.http.result.LoginResult;
 import com.zenglb.framework.http.result.StaffMsg;
+import com.zenglb.framework.mvp.handylife.HandyLifeResultBean;
 import com.zlb.httplib.core.HttpResponse;
 
 import java.util.List;
@@ -34,6 +35,10 @@ import retrofit2.http.Url;
  * Created by zenglb on 2017/3/17.
  */
 public interface ApiService {
+
+    @GET("https://zhihu.0x01.site/articles/test1")
+    Observable<HttpResponse<List<HandyLifeResultBean>>> getHandyLifeData(@Query("type") String type, @Query("page") int page);
+
     /**
      * 第三方动态 url 访问
      * 测试在同一个系统下访问外部URL
@@ -41,10 +46,15 @@ public interface ApiService {
     @GET
     Call<CustomWeatherResult> getWeather(@Url String url, @Query("city") String city);
 
+
+    @GET("api/lebang/night_school/{type}")
+    Observable<HttpResponse<List<JokesResult>>> getJokes(@Path("type") String type, @Query("page") int page);
+
+
     /**
      * Login ,尝试使用Flowable 来处理，
      */
-    @Headers("NoNeedAuthFlag: NoNeedAuthFlag")
+    @Headers("NeedOauthFlag: NeedOauthFlag")
     @POST("api/lebang/oauth/access_token")
     Observable<HttpResponse<LoginResult>> goLoginByRxjavaObserver(@Body LoginParams loginRequest);
 
@@ -56,12 +66,7 @@ public interface ApiService {
 
 
     @GET("api/lebang/night_school/{type}")
-    Observable<HttpResponse<List<JokesResult>>> getJokes(@Path("type") String type, @Query("page") int page);
-
-
-    @GET("api/lebang/night_school/{type}")
     Observable<HttpResponse<List<JokesResult>>> getAreuSleepByObserver(@Path("type") String type, @Query("page") int page);
-
 
     /**
      * this request after login/oauth before logout
@@ -70,22 +75,19 @@ public interface ApiService {
      * @param loginParams
      */
     @POST("api/lebang/oauth/access_token")
-    @Headers("NoNeedAuthFlag: NoNeedAuthFlag")
+    @Headers("NeedOauthFlag: noNeed")
     Call<HttpResponse<LoginResult>> refreshToken(@Body LoginParams loginParams);
-
 
     /**
      * Login ,尝试使用Flowable 来处理，
      */
     @Deprecated
-    @Headers("NoNeedAuthFlag: NoNeedAuthFlag")
+    @Headers("NeedOauthFlag: noNeed")
     @POST("api/lebang/oauth/access_token")
     Flowable<HttpResponse<LoginResult>> goLoginByRxjavaFlowable(@Body LoginParams loginRequest);
 
-
     @GET()
     Call<String> getUserProfile(@Url String url);
-
 
 }
 

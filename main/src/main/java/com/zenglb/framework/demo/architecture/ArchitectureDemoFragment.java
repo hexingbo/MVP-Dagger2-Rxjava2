@@ -51,6 +51,9 @@ public class ArchitectureDemoFragment extends BaseFragment {
         outState.putParcelableArrayList("dataArray", data);
     }
 
+
+
+
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
