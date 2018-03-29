@@ -9,14 +9,14 @@ import java.util.List;
  * 合约，一个功能的基本只要看这个类就知道功能纲要了
  * Created by zlb on 2018/3/23.
  */
-public class HandyLifeContract {
+public class AnyLifeContract {
 
     /**
      * 对UI 的操作的接口有哪些，一看就只明白了
      *
      */
     public interface HandyLifeView extends BaseView<HandyLifePresenter> {
-        void showHandyLifeData(List<HandyLifeResultBean> tabsResultBeans);
+        void showHandyLifeData(List<AnyLifeResultBean> tabsResultBeans);
         void getHandyLifeDataFailed(int code, String message);
         boolean isActive();
     }

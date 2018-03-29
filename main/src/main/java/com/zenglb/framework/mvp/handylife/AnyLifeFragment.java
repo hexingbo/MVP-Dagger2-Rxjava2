@@ -22,17 +22,17 @@ import javax.inject.Inject;
  * Created by zlb on 2018/3/23.
  */
 @ActivityScope
-public class HandyLifeFragment extends BaseStatusFragment implements HandyLifeContract.HandyLifeView {
+public class AnyLifeFragment extends BaseStatusFragment implements AnyLifeContract.HandyLifeView {
     private static final int perPageSize = 20;
     private static final String ARG_DATA_TYPE = "data_type";  //data type {cityguide,shop,eat}
 
     private int page = 1;   //假设我们的Page 都是从1开始
     private RecyclerView mRecyclerView = null;
-    private HandyLifeAdapter handyLifeAdapter;
+    private AnyLifeAdapter handyLifeAdapter;
     private SwipeRefreshLayout mSwipeRefreshLayout;
-    private List<HandyLifeResultBean> handyLifeResultBeans = new ArrayList<>();
+    private List<AnyLifeResultBean> handyLifeResultBeans = new ArrayList<>();
     @Inject
-    HandyLifePresenter mPresenter;  //dagger
+    AnyLifePresenter mPresenter;  //dagger
 
     /**
      * 显示数据
@@ -40,7 +40,7 @@ public class HandyLifeFragment extends BaseStatusFragment implements HandyLifeCo
      * @param tabsResultBeansTemp
      */
     @Override
-    public void showHandyLifeData(List<HandyLifeResultBean> tabsResultBeansTemp) {
+    public void showHandyLifeData(List<AnyLifeResultBean> tabsResultBeansTemp) {
         page++; //next page for simple
         mBaseLoadService.showSuccess();          //ui status
         handyLifeResultBeans.addAll(tabsResultBeansTemp);
@@ -77,7 +77,7 @@ public class HandyLifeFragment extends BaseStatusFragment implements HandyLifeCo
         }
     }
 
-    public HandyLifeFragment() {
+    public AnyLifeFragment() {
 
     }
 
@@ -85,8 +85,8 @@ public class HandyLifeFragment extends BaseStatusFragment implements HandyLifeCo
      * Returns a new instance of this fragment for the given section
      * number.
      */
-    public static HandyLifeFragment newInstance(String dataType) {
-        HandyLifeFragment fragment = new HandyLifeFragment();
+    public static AnyLifeFragment newInstance(String dataType) {
+        AnyLifeFragment fragment = new AnyLifeFragment();
         Bundle args = new Bundle();
         args.putString(ARG_DATA_TYPE, dataType);
         fragment.setArguments(args);
@@ -95,7 +95,7 @@ public class HandyLifeFragment extends BaseStatusFragment implements HandyLifeCo
 
     @Override
     protected int onCreateFragmentView() {
-        return R.layout.fragment_handy_life;
+        return R.layout.fragment_any_life;
     }
 
     /**
@@ -130,7 +130,7 @@ public class HandyLifeFragment extends BaseStatusFragment implements HandyLifeCo
      */
     @Override
     protected void initViews(View rootView) {
-        handyLifeAdapter = new HandyLifeAdapter(getContext(), handyLifeResultBeans);
+        handyLifeAdapter = new AnyLifeAdapter(getContext(), handyLifeResultBeans);
         mRecyclerView = (RecyclerView) rootView.findViewById(R.id.recyclerView);
         mRecyclerView.setAdapter(handyLifeAdapter);
 

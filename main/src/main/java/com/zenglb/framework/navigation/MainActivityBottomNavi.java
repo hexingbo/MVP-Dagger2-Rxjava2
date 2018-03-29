@@ -1,6 +1,5 @@
 package com.zenglb.framework.navigation;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
@@ -12,6 +11,7 @@ import android.widget.Toast;
 import com.zenglb.framework.R;
 import com.zenglb.framework.demo.main.AreUSleepFragmentList;
 import com.zenglb.framework.base.mvp.BaseMVPActivity;
+import com.zenglb.framework.mvp.handylife.AnyLifeFragment;
 import com.zenglb.framework.navigation.fragment.DemoFragment;
 import com.zenglb.framework.navigation.fragment.Rxjava2DemoFragment;
 import com.zenglb.framework.persistence.SPDao;
@@ -64,10 +64,10 @@ public class MainActivityBottomNavi extends BaseMVPActivity {
                     setToolBarTitle("消息");
                     return true;
 
-//                case R.id.navigation_set:
-//                    viewPager.setCurrentItem(3);
-//                    setToolBarTitle("设置");
-//                    return true;
+                case R.id.navigation_set:
+                    viewPager.setCurrentItem(3);
+                    setToolBarTitle("设置");
+                    return true;
 
             }
             return false;
@@ -134,10 +134,9 @@ public class MainActivityBottomNavi extends BaseMVPActivity {
     private void setupViewPager(ViewPager viewPager) {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
         adapter.addFragment(demoFragment);
-        adapter.addFragment(areUSleepFragmentList);
+        adapter.addFragment(AnyLifeFragment.newInstance("eat"));
         adapter.addFragment(rxjava2DemoFragment);
-//        adapter.addFragment(rxjava2DemoFragment);
-
+        adapter.addFragment(areUSleepFragmentList);
         viewPager.setAdapter(adapter);
     }
 

@@ -84,7 +84,7 @@
         <activity android:name=".demo.custom_view.CustomViewActivity" />
         <activity android:name=".demo.MemoryLeakTest" />
         <activity
-            android:name=".mvp.handylife.HandyLifeActivity"
+            android:name=".mvp.handylife.AnyLifeActivity"
             android:label="@string/title_activity_tabs"
             android:theme="@style/MyAppTheme"></activity>
     </application>

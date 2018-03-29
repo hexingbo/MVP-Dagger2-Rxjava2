@@ -5,8 +5,8 @@ import com.zenglb.framework.demo.demo.Rxjava_ZIP_Activity;
 import com.zenglb.framework.demo.launch.LaunchActivity;
 import com.zenglb.framework.dagger.component.AllBaseActivityComponent;
 import com.zenglb.framework.dagger.module.DefaultActivityModule;
-import com.zenglb.framework.mvp.handylife.HandyLifeActivity;
-import com.zenglb.framework.mvp.handylife.HandyLifeFragment;
+import com.zenglb.framework.mvp.handylife.AnyLifeActivity;
+import com.zenglb.framework.mvp.handylife.AnyLifeFragment;
 import com.zenglb.framework.mvp.task.MVPActivityModule;
 import com.zenglb.framework.navigation.MainActivityNaviModule;
 import com.zenglb.framework.dagger.scope.ActivityScope;
@@ -46,7 +46,7 @@ public abstract class AllDefaultActivityModule {
 
     @ActivityScope
     @ContributesAndroidInjector(modules = DefaultActivityModule.class)
-    abstract HandyLifeFragment contributeTabsFragmentInjector();
+    abstract AnyLifeFragment contributeTabsFragmentInjector();
 
     @ActivityScope
     @ContributesAndroidInjector(modules = DefaultActivityModule.class)
@@ -75,7 +75,7 @@ public abstract class AllDefaultActivityModule {
 
     @ActivityScope
     @ContributesAndroidInjector(modules = DefaultActivityModule.class)
-    abstract HandyLifeActivity contributeTabsActivityInjector();
+    abstract AnyLifeActivity contributeTabsActivityInjector();
 
 
 //    Pro-tip: If your subcomponent and its builder have no other methods or supertypes than the ones mentioned in step #2, you can use @ContributesAndroidInjector to generate them for you. Instead of steps 2 and 3, add an abstract module method that returns your activity, annotate it with @ContributesAndroidInjector, and specify the modules you want to install into the subcomponent. If the subcomponent needs scopes, apply the scope annotations to the method as well.

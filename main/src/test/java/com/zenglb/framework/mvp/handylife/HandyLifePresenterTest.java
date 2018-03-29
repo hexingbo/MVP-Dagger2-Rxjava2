@@ -6,7 +6,6 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
 import org.junit.Before;
-import org.junit.Rule;
 import org.junit.Test;
 import org.mockito.ArgumentCaptor;
 import org.mockito.Captor;
@@ -22,28 +21,28 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 /**
- * Unit tests for the implementation of {@link HandyLifePresenter}
+ * Unit tests for the implementation of {@link AnyLifePresenter}
  * HandyLifePresenter 的单元测试
  * <p>
  * Created by zlb on 2018/3/23.
  */
 public class HandyLifePresenterTest {
-    private static List<HandyLifeResultBean> mHandyLifeResultList;  // mHandyLifeResultList for static json String
+    private static List<AnyLifeResultBean> mHandyLifeResultList;  // mHandyLifeResultList for static json String
 
     @Mock
-    private HandyLifeRepository mHandyLifeRepository;
+    private AnyLifeRepository mHandyLifeRepository;
 
     @Mock
-    private HandyLifeContract.HandyLifeView mHandyLifeView; //The V of the MVP
+    private AnyLifeContract.HandyLifeView mHandyLifeView; //The V of the MVP
 
-    private HandyLifePresenter mHandyLifePresenter;
+    private AnyLifePresenter mHandyLifePresenter;
 
     /**
      * {@link ArgumentCaptor} is a powerful Mockito API to capture argument values and use them to
      * perform further actions or assertions on them.
      */
     @Captor
-    private ArgumentCaptor<IHandyLifeDataSource.LoadHandyLifeDataCallback> mLoadHandyLifeDataCallbackCaptor;
+    private ArgumentCaptor<IAnyLifeDataSource.LoadHandyLifeDataCallback> mLoadHandyLifeDataCallbackCaptor;
 
     /**
      * Call before every test function
@@ -56,7 +55,7 @@ public class HandyLifePresenterTest {
         MockitoAnnotations.initMocks(this);
 
         // Get a reference to the class under test
-        mHandyLifePresenter = new HandyLifePresenter(mHandyLifeRepository);
+        mHandyLifePresenter = new AnyLifePresenter(mHandyLifeRepository);
         mHandyLifePresenter.takeView(mHandyLifeView);
 
         // The presenter won't update the view unless it's active.
@@ -65,7 +64,7 @@ public class HandyLifePresenterTest {
         // mHandyLifeResultList for static json String
         try {
             mHandyLifeResultList = new Gson().fromJson(StaticJSON.jsonStr,
-                    new TypeToken<List<HandyLifeResultBean>>() {
+                    new TypeToken<List<AnyLifeResultBean>>() {
                     }.getType());
         } catch (Exception e) {
             Log.e("JSON Exception", e.toString());

@@ -15,7 +15,7 @@ import java.util.List;
  *
  * Created by zlb on 2018/3/23.
  */
-public class HandyLifeAdapter  extends BaseMultiItemQuickAdapter<HandyLifeResultBean, BaseViewHolder> {
+public class AnyLifeAdapter extends BaseMultiItemQuickAdapter<AnyLifeResultBean, BaseViewHolder> {
 
     /**
      * 构造方法
@@ -23,10 +23,10 @@ public class HandyLifeAdapter  extends BaseMultiItemQuickAdapter<HandyLifeResult
      * @param context
      * @param data
      */
-    public HandyLifeAdapter(Context context, List<HandyLifeResultBean> data) {
+    public AnyLifeAdapter(Context context, List<AnyLifeResultBean> data) {
         super(data);
-        addItemType(HandyLifeResultBean.DEFAULT, R.layout.handylife_list_item);
-        addItemType(HandyLifeResultBean.IMG_ONLY, R.layout.handylife_list_item_only_image);
+        addItemType(AnyLifeResultBean.DEFAULT, R.layout.handylife_list_item);
+        addItemType(AnyLifeResultBean.IMG_ONLY, R.layout.handylife_list_item_only_image);
     }
 
 
@@ -37,15 +37,15 @@ public class HandyLifeAdapter  extends BaseMultiItemQuickAdapter<HandyLifeResult
      * @param item
      */
     @Override
-    protected void convert(BaseViewHolder helper, HandyLifeResultBean item) {
+    protected void convert(BaseViewHolder helper, AnyLifeResultBean item) {
         switch (helper.getItemViewType()) {
-            case HandyLifeResultBean.DEFAULT:
+            case AnyLifeResultBean.DEFAULT:
                 helper.setText(R.id.topic, item.getTilte());
                 helper.setText(R.id.description, item.getDescription());
                 // TODO: 2018/3/24  加载网络图片,应该再封装一层的，防止以后换图片加载库，
                 Glide.with(mContext).load(item.getImage()).into((ImageView) helper.getView(R.id.image));
                 break;
-            case HandyLifeResultBean.IMG_ONLY:
+            case AnyLifeResultBean.IMG_ONLY:
                 // TODO: 2018/3/24  加载网络图片,应该再封装一层的，防止以后换图片加载库，
                 Glide.with(mContext).load(item.getImage()).into((ImageView) helper.getView(R.id.image));
                 break;

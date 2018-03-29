@@ -10,13 +10,13 @@ import javax.inject.Inject;
  * <p>
  * Created by zlb on 2018/3/23.
  */
-public class HandyLifePresenter implements HandyLifeContract.HandyLifePresenter {
+public class AnyLifePresenter implements AnyLifeContract.HandyLifePresenter {
 
-    HandyLifeRepository mHandyLifeRepository;       //
-    HandyLifeContract.HandyLifeView mHandyLifeView; //The V of the MVP
+    AnyLifeRepository mHandyLifeRepository;       //
+    AnyLifeContract.HandyLifeView mHandyLifeView; //The V of the MVP
 
     @Inject
-    public HandyLifePresenter(HandyLifeRepository mHandyLifeRepository) {
+    public AnyLifePresenter(AnyLifeRepository mHandyLifeRepository) {
         this.mHandyLifeRepository = mHandyLifeRepository;
     }
 
@@ -30,9 +30,9 @@ public class HandyLifePresenter implements HandyLifeContract.HandyLifePresenter 
     @Override
     public void getHandyLifeData(String type, int page) {
 
-        mHandyLifeRepository.getHandyLifeData(type, page, new IHandyLifeDataSource.LoadHandyLifeDataCallback() {
+        mHandyLifeRepository.getHandyLifeData(type, page, new IAnyLifeDataSource.LoadHandyLifeDataCallback() {
             @Override
-            public void onHandyLifeDataSuccess(List<HandyLifeResultBean> handyLifeResultBeans) {
+            public void onHandyLifeDataSuccess(List<AnyLifeResultBean> handyLifeResultBeans) {
                 if (null != mHandyLifeView) {
                     mHandyLifeView.showHandyLifeData(handyLifeResultBeans);
                 }
@@ -53,7 +53,7 @@ public class HandyLifePresenter implements HandyLifeContract.HandyLifePresenter 
      * @param view the view associated with this presenter
      */
     @Override
-    public void takeView(HandyLifeContract.HandyLifeView view) {
+    public void takeView(AnyLifeContract.HandyLifeView view) {
         mHandyLifeView = view;
     }
 

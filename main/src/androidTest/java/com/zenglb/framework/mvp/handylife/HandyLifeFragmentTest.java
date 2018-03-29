@@ -45,8 +45,8 @@ public class HandyLifeFragmentTest {
      * blocks of Junit tests.
      */
     @Rule
-    public ActivityTestRule<HandyLifeActivity> mTasksActivityTestRule =
-            new ActivityTestRule<HandyLifeActivity>(HandyLifeActivity.class) {
+    public ActivityTestRule<AnyLifeActivity> mTasksActivityTestRule =
+            new ActivityTestRule<AnyLifeActivity>(AnyLifeActivity.class) {
                 /**
                  * do something before each test.
                  */

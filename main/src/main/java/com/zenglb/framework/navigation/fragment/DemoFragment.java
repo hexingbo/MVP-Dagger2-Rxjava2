@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.util.Pair;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,8 +20,7 @@ import com.zenglb.framework.demo.quick_input_things.QuickInputThingsActivity;
 import com.zenglb.framework.dagger.scope.ActivityScope;
 import com.zenglb.framework.http.ApiService;
 
-import com.zenglb.framework.mvp.handylife.HandyLifeActivity;
-import com.zenglb.framework.mvp.task.TaskMVPActivity;
+import com.zenglb.framework.mvp.handylife.AnyLifeActivity;
 import com.zenglb.framework.http.result.CustomWeatherResult;
 
 import javax.inject.Inject;
@@ -118,7 +116,7 @@ public class DemoFragment extends Fragment {
          * mvp
          */
         rootView.findViewById(R.id.mvp).setOnClickListener(v -> {
-            ((BaseActivity) getActivity()).startActivity(HandyLifeActivity.class);
+            ((BaseActivity) getActivity()).startActivity(AnyLifeActivity.class);
         });
 
         /**

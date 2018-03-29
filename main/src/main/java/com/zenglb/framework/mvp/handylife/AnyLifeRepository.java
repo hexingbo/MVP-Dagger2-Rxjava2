@@ -2,7 +2,6 @@ package com.zenglb.framework.mvp.handylife;
 
 import com.zenglb.framework.http.ApiService;
 import com.zlb.httplib.core.BaseObserver;
-import com.zlb.httplib.core.rxUtils.SwitchSchedulers;
 
 import java.util.List;
 
@@ -16,18 +15,18 @@ import io.reactivex.schedulers.Schedulers;
  * <p>
  * Created by zlb on 2018/3/23.
  */
-public class HandyLifeRepository implements IHandyLifeDataSource {
+public class AnyLifeRepository implements IAnyLifeDataSource {
 
     // Get the ApiService from dagger。 用dagger 来注入 ApiService
     @Inject
     ApiService apiService;
 
     @Inject
-    public HandyLifeRepository() {
+    public AnyLifeRepository() {
 
     }
 
-    public HandyLifeRepository(ApiService apiService){
+    public AnyLifeRepository(ApiService apiService){
         this.apiService=apiService;
     }
 
@@ -45,9 +44,9 @@ public class HandyLifeRepository implements IHandyLifeDataSource {
 //                .compose(SwitchSchedulers.applySchedulers())
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new BaseObserver<List<HandyLifeResultBean>>(null) {
+                .subscribe(new BaseObserver<List<AnyLifeResultBean>>(null) {
                     @Override
-                    public void onSuccess(List<HandyLifeResultBean> lifeResultBeans) {
+                    public void onSuccess(List<AnyLifeResultBean> lifeResultBeans) {
                         if (null != loadHandyLifeDataCallback) {
                             loadHandyLifeDataCallback.onHandyLifeDataSuccess(lifeResultBeans);
                         }

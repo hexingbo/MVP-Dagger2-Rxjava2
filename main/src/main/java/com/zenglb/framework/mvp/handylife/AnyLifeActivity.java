@@ -19,7 +19,7 @@ import com.zenglb.framework.base.mvp.BaseMVPActivity;
  * 代码仅供阅读，不可用于任何形式的发布，传播，拷贝或其他的商业用途
  * Created by zlb on 2018/3/23.
  */
-public class HandyLifeActivity extends BaseMVPActivity implements TabLayout.OnTabSelectedListener {
+public class AnyLifeActivity extends BaseMVPActivity implements TabLayout.OnTabSelectedListener {
 
     /**
      * The {@link android.support.v4.view.PagerAdapter} that will provide
@@ -80,7 +80,7 @@ public class HandyLifeActivity extends BaseMVPActivity implements TabLayout.OnTa
 
     @Override
     protected int getLayoutId() {
-        return R.layout.activity_handy_life;
+        return R.layout.activity_any_life;
     }
 
     @Override
@@ -109,7 +109,7 @@ public class HandyLifeActivity extends BaseMVPActivity implements TabLayout.OnTa
         public Fragment getItem(int position) {
             // getItem is called to instantiate the fragment for the given page.
             // Return a TabsFragment that load tabsDataTypeTitle[position] type data
-            return HandyLifeFragment.newInstance(tabsDataTypeTitle[position]);
+            return AnyLifeFragment.newInstance(tabsDataTypeTitle[position]);
         }
 
         @Override

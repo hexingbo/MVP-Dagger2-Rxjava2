@@ -7,7 +7,7 @@ import com.chad.library.adapter.base.entity.MultiItemEntity;
 /**
  * https://github.com/CymChad/BaseRecyclerViewAdapterHelper
  */
-public class HandyLifeResultBean implements MultiItemEntity {
+public class AnyLifeResultBean implements MultiItemEntity {
     public static final int DEFAULT = 1;
     public static final int IMG_ONLY = 2;
 

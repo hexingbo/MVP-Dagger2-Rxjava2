@@ -28,9 +28,9 @@ import static org.mockito.Mockito.when;
  * Created by zlb on 2018/3/24.
  */
 public class HandyLifeRepositoryTest {
-    private static List<HandyLifeResultBean> mHandyLifeResultList;  // mHandyLifeResultList for static json String
+    private static List<AnyLifeResultBean> mHandyLifeResultList;  // mHandyLifeResultList for static json String
 
-    private HandyLifeRepository mHandyLifeRepository;
+    private AnyLifeRepository mHandyLifeRepository;
 
     @Rule
     public RxJavaTestSchedulerRule rule = new RxJavaTestSchedulerRule();
@@ -39,14 +39,14 @@ public class HandyLifeRepositoryTest {
     private ApiService mApiService;  //........
 
     @Mock
-    private IHandyLifeDataSource.LoadHandyLifeDataCallback loadHandyLifeDataCallback;
+    private IAnyLifeDataSource.LoadHandyLifeDataCallback loadHandyLifeDataCallback;
 
     /**
      * {@link ArgumentCaptor} is a powerful Mockito API to capture argument values and use them to
      * perform further actions or assertions on them.
      */
     @Captor
-    private ArgumentCaptor<IHandyLifeDataSource.LoadHandyLifeDataCallback> loadHandyLifeDataCallbackArgumentCaptor;
+    private ArgumentCaptor<IAnyLifeDataSource.LoadHandyLifeDataCallback> loadHandyLifeDataCallbackArgumentCaptor;
 
 
     @Before
@@ -59,13 +59,13 @@ public class HandyLifeRepositoryTest {
         Rxjava2UnitTestUtils.asyncToSync();
 
         // Get a reference to the class under test
-        mHandyLifeRepository = new HandyLifeRepository(mApiService);
+        mHandyLifeRepository = new AnyLifeRepository(mApiService);
 
 
         // mHandyLifeResultList for static json String
         try {
             mHandyLifeResultList = new Gson().fromJson(StaticJSON.jsonStr,
-                    new TypeToken<List<HandyLifeResultBean>>() {
+                    new TypeToken<List<AnyLifeResultBean>>() {
                     }.getType());
         } catch (Exception e) {
             Log.e("JSON Exception", e.toString());
@@ -78,7 +78,7 @@ public class HandyLifeRepositoryTest {
 
     @Test
     public void getHandyLifeData() throws Exception {
-        HttpResponse<List<HandyLifeResultBean>> httpResponse=new HttpResponse<>();
+        HttpResponse<List<AnyLifeResultBean>> httpResponse=new HttpResponse<>();
         httpResponse.setCode(0);
         httpResponse.setResult(mHandyLifeResultList);
 

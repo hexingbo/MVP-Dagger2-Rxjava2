@@ -10,7 +10,6 @@ import android.view.View;
 
 import com.zenglb.framework.R;
 import com.zenglb.framework.base.mvp.BaseMVPActivity;
-import com.zenglb.framework.mvp.handylife.HandyLifeActivity;
 import com.zenglb.framework.mvp.login.LoginActivity;
 import com.zenglb.framework.persistence.SPDao;
 import com.zlb.httplib.core.SPKey;

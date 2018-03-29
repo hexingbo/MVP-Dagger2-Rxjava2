@@ -9,7 +9,7 @@ import java.util.List;
  *
  * Created by zlb on 2018/3/23.
  */
-public interface IHandyLifeDataSource {
+public interface IAnyLifeDataSource {
 
     void getHandyLifeData(String type, int page,LoadHandyLifeDataCallback loadHandyLifeDataCallback) ;
 
@@ -18,7 +18,7 @@ public interface IHandyLifeDataSource {
      *  the callback of getHandyLifeData
      */
     interface LoadHandyLifeDataCallback {
-        void onHandyLifeDataSuccess(List<HandyLifeResultBean> handyLifeResultBeans);
+        void onHandyLifeDataSuccess(List<AnyLifeResultBean> handyLifeResultBeans);
         void onHandyLifeDataFailed(int code,String message);
     }
 

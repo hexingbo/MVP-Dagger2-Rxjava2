@@ -5,7 +5,7 @@ import com.zenglb.framework.http.result.CustomWeatherResult;
 import com.zenglb.framework.http.result.JokesResult;
 import com.zenglb.framework.http.result.LoginResult;
 import com.zenglb.framework.http.result.StaffMsg;
-import com.zenglb.framework.mvp.handylife.HandyLifeResultBean;
+import com.zenglb.framework.mvp.handylife.AnyLifeResultBean;
 import com.zlb.httplib.core.HttpResponse;
 
 import java.util.List;
@@ -37,7 +37,7 @@ import retrofit2.http.Url;
 public interface ApiService {
 
     @GET("https://zhihu.0x01.site/articles/test1")
-    Observable<HttpResponse<List<HandyLifeResultBean>>> getHandyLifeData(@Query("type") String type, @Query("page") int page);
+    Observable<HttpResponse<List<AnyLifeResultBean>>> getHandyLifeData(@Query("type") String type, @Query("page") int page);
 
     /**
      * 第三方动态 url 访问
