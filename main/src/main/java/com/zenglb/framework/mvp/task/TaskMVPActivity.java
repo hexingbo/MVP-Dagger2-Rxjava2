@@ -11,20 +11,15 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.kingja.loadsir.callback.Callback;
-import com.kingja.loadsir.core.LoadService;
-import com.kingja.loadsir.core.LoadSir;
 import com.liaoinstan.springview.container.DefaultFooter;
 import com.liaoinstan.springview.container.DefaultHeader;
 import com.liaoinstan.springview.widget.SpringView;
-import com.zenglb.baselib.utils.TransitionHelper;
 import com.zenglb.framework.R;
 import com.zenglb.framework.base.mvp.BaseMVPActivity;
-import com.zenglb.framework.demo.animal.SharedElementActivity;
 import com.zenglb.framework.demo.main.AreUSleepListAdapter;
 import com.zenglb.framework.http.result.JokesResult;
 import com.zenglb.framework.persistence.dbmaster.DaoSession;
-import com.zenglb.framework.status_callback.EmptyCallback;
+import com.zenglb.framework.UIStatus.EmptyCallback;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -160,7 +155,7 @@ public class TaskMVPActivity extends BaseMVPActivity implements TaskContract.Tas
             @Override
             public void onItemLongClick(AreUSleepListAdapter.ViewHolder view, int position) {
                 //测试动画
-                transitionToActivity(SharedElementActivity.class, view, data.get(position));
+//                transitionToActivity(SharedElementActivity.class, view, data.get(position));
             }
         });
 
@@ -206,11 +201,11 @@ public class TaskMVPActivity extends BaseMVPActivity implements TaskContract.Tas
      * @param jokesResult
      */
     private void transitionToActivity(Class target, AreUSleepListAdapter.ViewHolder viewHolder, JokesResult jokesResult) {
-        final Pair<View, String>[] pairs = TransitionHelper.createSafeTransitionParticipants(this, true,
-                new Pair<>(viewHolder.getTopic(), mContext.getString(R.string.shared_name)),
-                new Pair<>(viewHolder.getTime(), mContext.getString(R.string.shared_time)));
-
-        startActivity(target, pairs, jokesResult);
+//        final Pair<View, String>[] pairs = TransitionHelper.createSafeTransitionParticipants(this, true,
+//                new Pair<>(viewHolder.getTopic(), mContext.getString(R.string.shared_name)),
+//                new Pair<>(viewHolder.getTime(), mContext.getString(R.string.shared_time)));
+//
+//        startActivity(target, pairs, jokesResult);
     }
 
 

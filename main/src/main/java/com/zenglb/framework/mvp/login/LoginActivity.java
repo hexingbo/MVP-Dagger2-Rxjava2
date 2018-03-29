@@ -116,8 +116,11 @@ public class LoginActivity extends BaseMVPActivity implements LoginContract.Logi
     @Override
     protected void initViews() {
         etUsername.setText(spDao.getData(SPKey.KEY_LAST_ACCOUNT, "", String.class));
-        etPassword.setText("zxcv1234");
-        etUsername.setText("18826562075");
+//        etPassword.setText("zxcv1234");
+//        etUsername.setText("18826562075");
+
+        etPassword.setText("hl123456");
+        etUsername.setText("13619169002");
     }
 
 

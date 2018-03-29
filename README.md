@@ -1,16 +1,8 @@
-## FBI WARMIMNG: API 仅供交流!
-![May you success](http://upload-images.jianshu.io/upload_images/2376786-eb650ac290d59491.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240 "在这里输入图片标题")
+# FBI WARMIMNG:api 仅供交流，不要外传 ！
 
 # 关于本Demo
-  一直在纠结在何种开发模式之中，重构希望能把关注点集中到代码结构、整体架构、可测试性、可维护性这四个方面.
-  Rxjava2 + retrofit2 + MVP + Drager2 + xxx,应该是当前Android开发主流的框架 ，我们也可能会参考[Google的官方框架](https://github.com/googlesamples/android-architecture) 或者 [Google 的最新的项目架构组件](https://github.com/googlesamples/android-architecture-components).
-  
-本Demo 将演示以下几个点，欢迎大家交流：
-- 增加Error，empty,Loading,timeout等通用的场景处理，一处Root注入，处处可用
-- Rxjava2+Retrofit2 封装项目中的Http 请求和错误的统一处理等
-- 不只是使用Dagger2，还使用了专门为Android设计的dagger,android
-- UI架构模型，简单的MVP
-- 部分Rxjava2  的演示
+  一直在纠结在何种开发模式之中，重构希望能把关注点集中到代码结构、整体架构、可测试性、可维护性这四个方面
+  Rxjava2 + retrofit2 + MVP + Drager2 + xxx,应该是当前Android开发主流的框架 ，我们都会参考Google的官方框架https://github.com/googlesamples/android-architecture 或者 Google 的最新的项目架构组件https://github.com/googlesamples/android-architecture-components
   
 # [New]增加Error，empty,Loading,timeout等通用的场景处理，一处Root注入，处处可用
    项目中的toolbar几乎每个页面都要使用，每个Layout 都写？NONONO
@@ -20,6 +12,7 @@
   应该没有比Retrofit2 更好的了吧？不过api 不是restful 就需要再封装一下了，网路模块就是数据命脉，做好了
   整个app 的结构会简化很多，结合Rxjava2不是更快哉;配合RxLifeCycle 控制生命周期;
   BaseObserver 中getErrorMsg(HttpException httpException) 方法中的处理和我们的Api  结构有关，请知悉。可以在Activity，fragment，service，broadcast 等发起http请求。
+
 
 # UI架构模型
   Android应用的UI架构模型经历了MVC,MVP 和 MVVM 的演变过程。MVC中View 层（Activity，Fragment/自定义的View）
@@ -83,6 +76,11 @@
 - Http (Rxjava2+Retrofit2)的闭环处理
 - Proguard 混淆 打包优化
 - [混淆压缩打包优化 Proguard　proguard-android-optimize　和 proguard-android 区别 ？](https://github.com/D-clock/Doc/blob/master/Android/Gradle/4_AndroidStudio%E4%B8%8BProGuard%E6%B7%B7%E6%B7%86%E6%89%93%E5%8C%85.md)
+
+
+
+
+
 
 
 

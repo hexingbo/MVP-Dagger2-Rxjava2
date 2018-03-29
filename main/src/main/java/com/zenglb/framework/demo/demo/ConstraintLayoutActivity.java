@@ -10,9 +10,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import com.nostra13.universalimageloader.core.DisplayImageOptions;
-import com.nostra13.universalimageloader.core.ImageLoader;
-import com.nostra13.universalimageloader.core.display.FadeInBitmapDisplayer;
 import com.zenglb.framework.R;
 import java.util.ArrayList;
 import java.util.List;
@@ -62,15 +59,6 @@ public class ConstraintLayoutActivity extends AppCompatActivity {
         private LayoutInflater mLayoutInflater;
         private List<String> data = new ArrayList<>();
 
-        private DisplayImageOptions options = new DisplayImageOptions.Builder()
-                .showImageForEmptyUri(R.drawable.ic_launcher)
-                .showImageOnFail(R.drawable.ic_launcher)
-                .showImageOnLoading(R.drawable.ic_launcher)
-                .displayer(new FadeInBitmapDisplayer(300))
-                .cacheInMemory(true)
-                .cacheOnDisk(true)
-                .build();
-
 
         /**
          * @param mContext
@@ -92,7 +80,7 @@ public class ConstraintLayoutActivity extends AppCompatActivity {
         public void onBindViewHolder(final ViewHolder viewHolder, final int position) {
             Log.e("TAG",data.get(position));
 
-            ImageLoader.getInstance().displayImage(data.get(position), viewHolder.imageView, options);
+//            ImageLoader.getInstance().displayImage(data.get(position), viewHolder.imageView, options);
 //            viewHolder.imageView.setImageResource(R.drawable.logo);
         }
 
