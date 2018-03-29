@@ -18,7 +18,7 @@ rootProject.ext {
     //4.support Lib Version ,最好全部使用同一个版本号
     supportLibraryVersion = '27.1.0'
 
-    // App dependencies
+    // UNIT TEST dependencies
     junitVersion = '4.12'
     mockitoVersion = '1.10.19'
     powerMockito = '1.6.2'

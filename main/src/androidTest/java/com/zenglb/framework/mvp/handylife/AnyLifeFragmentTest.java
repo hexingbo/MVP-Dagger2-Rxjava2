@@ -37,7 +37,7 @@ import static org.hamcrest.CoreMatchers.is;
  */
 @RunWith(AndroidJUnit4.class)
 @LargeTest
-public class HandyLifeFragmentTest {
+public class AnyLifeFragmentTest {
     /**
      * {@link ActivityTestRule} is a JUnit {@link Rule @Rule} to launch your activity under test.
      * <p>

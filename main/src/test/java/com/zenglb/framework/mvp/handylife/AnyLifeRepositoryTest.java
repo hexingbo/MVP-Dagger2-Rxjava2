@@ -27,7 +27,7 @@ import static org.mockito.Mockito.when;
  *
  * Created by zlb on 2018/3/24.
  */
-public class HandyLifeRepositoryTest {
+public class AnyLifeRepositoryTest {
     private static List<AnyLifeResultBean> mHandyLifeResultList;  // mHandyLifeResultList for static json String
 
     private AnyLifeRepository mHandyLifeRepository;
