@@ -2,24 +2,18 @@ package com.zenglb.framework;
 
 import android.app.Activity;
 import android.app.Service;
-import android.content.pm.PackageInfo;
-import android.content.pm.PackageManager;
 import android.util.Log;
 
-import com.baidu.mobstat.StatService;
 import com.kingja.loadsir.core.LoadSir;
-import com.nostra13.universalimageloader.core.ImageLoader;
-import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 import com.squareup.leakcanary.LeakCanary;
 import com.zenglb.framework.base.BaseApplication;
 import com.zenglb.framework.dagger.MainModule;
 import com.zenglb.framework.dagger.DaggerMainComponent;
-import com.zenglb.framework.status_callback.CustomCallback;
-import com.zenglb.framework.status_callback.EmptyCallback;
-import com.zenglb.framework.status_callback.ErrorCallback;
-import com.zenglb.framework.status_callback.LoadingCallback;
-import com.zenglb.framework.status_callback.TimeoutCallback;
-
+import com.zenglb.framework.UIStatus.CustomCallback;
+import com.zenglb.framework.UIStatus.EmptyCallback;
+import com.zenglb.framework.UIStatus.ErrorCallback;
+import com.zenglb.framework.UIStatus.LoadingCallback;
+import com.zenglb.framework.UIStatus.TimeoutCallback;
 import javax.inject.Inject;
 import dagger.android.AndroidInjector;
 import dagger.android.DispatchingAndroidInjector;
@@ -28,10 +22,6 @@ import dagger.android.HasServiceInjector;
 
 /**
  * 参考{@link dagger.android.DaggerApplication}Beta 项目，项目组没有3个以上的Android 开发不建议使用Dagger XXX
- *
- * 内存中Graphics占用比过高 ！
- *
- * 使用Glide 等第三方框架最好再封装一层，那一天你用Glide ++  了呢   bindToLifecycle();  内存泄漏
  *
  * Created by anylife.zlb@gmail.com on 2017/3/15.
  */
@@ -51,12 +41,6 @@ public class MyApplication extends BaseApplication implements HasActivityInjecto
     @Override
     public void onCreate() {
         super.onCreate();
-        String processName = getProcessName();
-        Log.d(TAG, processName + "Application onCreate");
-
-        // 很多的东西最好能放到一个IntentService 中去初始化
-        // InitializeService.start(this);  //不要在过多的线程去切换
-        isDebugCheck();
         initApplication();
     }
 
@@ -83,20 +67,14 @@ public class MyApplication extends BaseApplication implements HasActivityInjecto
             // You should not init your app in this process.
             return;
         }
-
         LeakCanary.install(this);
-
         //部分 初始化服务最好能新开一个IntentService 去处理,bugly 在两个进程都有初始化
         String processName = getProcessName();
-
         switch (processName) {
             case MAIN_PROCESS_NAME:
-                SdkManager.initDebugOrRelease(this);
-
                 //Module  带有构造方法并且参数被使用的情况下所产生的DaggerXXComponent 是没有Create方法的
 //                DaggerMainComponent.create().inject(this);
                 DaggerMainComponent.builder().mainModule(new MainModule(this)).build().inject(this);
-
                 LoadSir.beginBuilder()
                         .addCallback(new ErrorCallback())//添加各种状态页
                         .addCallback(new EmptyCallback())
@@ -105,45 +83,15 @@ public class MyApplication extends BaseApplication implements HasActivityInjecto
                         .addCallback(new CustomCallback())
                         .setDefaultCallback(LoadingCallback.class)//设置默认状态页
                         .commit();
-
-                //创建默认的ImageLoader配置参数
-                ImageLoaderConfiguration configuration = ImageLoaderConfiguration.createDefault(this);
-                //Initialize ImageLoader with configuration.
-                ImageLoader.getInstance().init(configuration);
-
                 break;
 
             case WEB_PROCESS_NAME:  //WebView 在单独的进程中
 
                 break;
 
-            default:
-                Log.e(TAG, "what a fatal error!");
-                break;
         }
     }
 
 
-    /**
-     * 检查APP 是不是调试模式
-     *
-     * @return
-     */
-    public boolean isDebug() {
-        return isDebug;
-    }
-
-    /**
-     * 检查是不是Debug 模式
-     */
-    private void isDebugCheck() {
-//        try {
-//            PackageInfo info = getPackageManager().getPackageInfo(
-//                    this.getPackageName(), PackageManager.GET_META_DATA);
-//            isDebug = info.applicationInfo.metaData.getBoolean("APP_DEBUG");
-//        } catch (PackageManager.NameNotFoundException e) {
-//            e.printStackTrace();
-//        }
-    }
 
 }

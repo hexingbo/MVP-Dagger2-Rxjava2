@@ -4,7 +4,6 @@ import android.content.Context;
 import android.os.Bundle;
 import android.os.SystemClock;
 import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.TextView;
 
@@ -14,10 +13,9 @@ import com.kingja.loadsir.core.LoadSir;
 import com.kingja.loadsir.core.Transport;
 import com.zenglb.framework.R;
 import com.zenglb.framework.base.BaseActivity;
-import com.zenglb.framework.base.mvp.BaseMVPActivity;
-import com.zenglb.framework.status_callback.EmptyCallback;
-import com.zenglb.framework.status_callback.LoadingCallback;
-import com.zenglb.framework.status_callback.PostUtil;
+import com.zenglb.framework.UIStatus.EmptyCallback;
+import com.zenglb.framework.UIStatus.LoadingCallback;
+import com.zenglb.framework.UIStatus.PostUtil;
 
 /**
  * 状态测试页面

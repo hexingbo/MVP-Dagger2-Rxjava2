@@ -1,10 +1,11 @@
 apply plugin: 'com.android.library'
 
 android {
-    compileSdkVersion project.ext.compileSdkVersion
+
+    compileSdkVersion rootProject.ext.compileSdkVersion
     defaultConfig {
-        minSdkVersion project.ext.minSdkVersion
-        targetSdkVersion project.ext.targetSdkVersion
+        minSdkVersion rootProject.ext.minSdkVersion
+        targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
@@ -19,8 +20,8 @@ android {
 
 
     compileOptions {
-        sourceCompatibility project.ext.sourceCompatibility
-        targetCompatibility project.ext.targetCompatibility
+        sourceCompatibility rootProject.ext.sourceCompatibility
+        targetCompatibility rootProject.ext.targetCompatibility
     }
 
 }
@@ -28,12 +29,10 @@ android {
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
-    implementation 'com.android.support:appcompat-v7:26.1.0'
-    testImplementation 'junit:junit:4.12'
-    androidTestImplementation 'com.android.support.test:runner:1.0.1'
-    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
-    compile project(':baseLib')
-
+//    implementation "com.android.support:appcompat-v7:$rootProject.ext.supportLibraryVersion"
+//    testImplementation 'junit:junit:4.12'
+//    androidTestImplementation 'com.android.support.test:runner:1.0.1'
+//    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
 
     compile 'com.squareup.retrofit2:retrofit:2.3.0'
     compile 'com.squareup.okhttp3:logging-interceptor:3.8.1'
@@ -41,14 +40,11 @@ dependencies {
     compile 'com.squareup.retrofit2:converter-gson:2.3.0'
 
     compile 'com.trello.rxlifecycle2:rxlifecycle-components:2.1.0'
-    compile 'io.reactivex.rxjava2:rxjava:2.1.7'
+    compile 'io.reactivex.rxjava2:rxjava:2.1.8'
     compile 'io.reactivex.rxjava2:rxandroid:2.0.1'
 
     compile 'com.github.GrenderG:Toasty:1.2.5'
     compile 'com.google.code.gson:gson:2.8.2'
 
     debugCompile 'com.readystatesoftware.chuck:library:1.1.0'
-
-
-
 }

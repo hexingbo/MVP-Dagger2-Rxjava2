@@ -2,7 +2,6 @@ package com.zenglb.framework.navigation;
 
 import com.zenglb.framework.demo.main.AreUSleepFragmentList;
 import com.zenglb.framework.dagger.scope.FragmentScope;
-import com.zenglb.framework.navigation.fragment.MeProfileFragment;
 import com.zenglb.framework.navigation.fragment.Rxjava2DemoFragment;
 
 import dagger.Module;
@@ -26,9 +25,9 @@ public abstract class MainActivityNaviModule {
     @ContributesAndroidInjector
     abstract Rxjava2DemoFragment provideRxjava2DemoFragment();
 
-    @FragmentScope
-    @ContributesAndroidInjector
-    abstract MeProfileFragment provideMeProfileFragment();
+//    @FragmentScope
+//    @ContributesAndroidInjector
+//    abstract MeProfileFragment provideMeProfileFragment();
 
 
 //    @Provides
