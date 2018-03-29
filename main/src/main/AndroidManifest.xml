@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.zenglb.framework">
 
+    <uses-permission android:name="android.permission.GET_TASKS" />
     <uses-permission android:name="android.permission.BLUETOOTH" />
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
     <uses-permission android:name="android.permission.INTERNET" />
@@ -17,8 +18,11 @@
     <!-- 在SD卡中创建与删除文件权限 -->
     <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+
     <uses-permission android:name="android.permission.READ_CALENDAR" />
     <uses-permission android:name="android.permission.WRITE_CALENDAR" />
+
+
 
     <application
         android:name=".MyApplication"
@@ -29,6 +33,11 @@
         android:supportsRtl="true"
         android:theme="@style/MyAppTheme"
         tools:replace="android:theme">
+
+        <meta-data
+            android:name="BaiduMobAd_STAT_ID"
+            android:value="62170a9290" />
+
 
         <activity
             android:name=".demo.launch.LaunchActivity"
@@ -55,13 +64,16 @@
         <activity
             android:name=".demo.main.AreUSleepListActivity"
             android:launchMode="singleTask" />
+
         <activity
             android:name=".demo.status_view.StatusNormalErrorEmptyActivity"
             android:launchMode="singleTask" />
+
         <activity
             android:name=".navigation.MainActivityBottomNavi"
             android:label="@string/title_activity_main_bottom_navi"
             android:launchMode="singleTask" />
+
         <activity android:name=".demo.animal.SharedElementActivity" />
         <activity android:name=".demo.animal.AnimalMainActivity" />
         <activity android:name=".mvp.task.TaskMVPActivity" />
@@ -77,16 +89,23 @@
         </provider>
 
         <activity android:name=".demo.quick_input_things.QuickInputThingsActivity" />
+        <activity android:name=".demo.demo.ZipActivity" />
         <activity android:name=".demo.demo.ConstraintLayoutActivity" />
         <activity android:name=".demo.architecture.ArchitectureActivity" />
         <activity android:name=".demo.demo.Rxjava_ZIP_Activity" />
 
+        <service
+            android:name=".service.MyService1"
+            android:enabled="true"
+            android:exported="true" />
+        <service
+            android:name=".service.MyIntentService1"
+            android:exported="false" />
+
         <activity android:name=".demo.custom_view.CustomViewActivity" />
         <activity android:name=".demo.MemoryLeakTest" />
-        <activity
-            android:name=".mvp.handylife.HandyLifeActivity"
-            android:label="@string/title_activity_tabs"
-            android:theme="@style/MyAppTheme"></activity>
+        <activity android:name=".demo.permissions.PermissionTestActivity"/>
+
     </application>
 
 </manifest>

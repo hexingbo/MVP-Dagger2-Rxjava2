@@ -1,0 +1,12 @@
+<resources>
+
+    <!--&lt;!&ndash; toolbar菜单样式   http://blog.csdn.net/cnpath/article/details/47980871 &ndash;&gt;-->
+    <!--<style name="ToolbarTheme" parent="@style/ThemeOverlay.AppCompat.ActionBar">-->
+        <!--<item name="actionMenuTextColor">@android:color/white</item>-->
+    <!--</style>-->
+    <!--&lt;!&ndash; toolbar标题样式 &ndash;&gt;-->
+    <!--<style name="ToolbarTitle" parent="@style/TextAppearance.Widget.AppCompat.Toolbar.Title">-->
+        <!--<item name="android:textSize">16sp</item>-->
+    <!--</style>-->
+
+</resources>

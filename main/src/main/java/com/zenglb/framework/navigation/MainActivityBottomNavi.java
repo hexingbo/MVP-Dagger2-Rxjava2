@@ -5,16 +5,22 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.MenuItem;
+import android.view.MotionEvent;
+import android.view.View;
 import android.widget.Toast;
 
+import com.baidu.mobstat.StatService;
 import com.zenglb.framework.R;
 import com.zenglb.framework.demo.main.AreUSleepFragmentList;
 import com.zenglb.framework.base.mvp.BaseMVPActivity;
 import com.zenglb.framework.navigation.fragment.DemoFragment;
+import com.zenglb.framework.navigation.fragment.MeProfileFragment;
 import com.zenglb.framework.navigation.fragment.Rxjava2DemoFragment;
 import com.zenglb.framework.persistence.SPDao;
+import com.zenglb.framework.service.MyIntentService1;
 
 import javax.inject.Inject;
 
@@ -42,6 +48,8 @@ public class MainActivityBottomNavi extends BaseMVPActivity {
     AreUSleepFragmentList areUSleepFragmentList;
     @Inject
     Rxjava2DemoFragment rxjava2DemoFragment;
+    @Inject
+    MeProfileFragment meProfileFragment;
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -64,10 +72,10 @@ public class MainActivityBottomNavi extends BaseMVPActivity {
                     setToolBarTitle("消息");
                     return true;
 
-//                case R.id.navigation_set:
-//                    viewPager.setCurrentItem(3);
-//                    setToolBarTitle("设置");
-//                    return true;
+                case R.id.navigation_set:
+                    viewPager.setCurrentItem(3);
+                    setToolBarTitle("设置");
+                    return true;
 
             }
             return false;
@@ -80,6 +88,14 @@ public class MainActivityBottomNavi extends BaseMVPActivity {
         super.onCreate(savedInstanceState);
         setToolBarTitle("Main");
 
+        // 由于多进程等可能造成Application多次执行，建议此代码不要埋点在Application中，否则可能造成启动次数偏高
+        // 建议此代码埋点在统计路径触发的第一个页面中，若可能存在多个则建议都埋点
+        StatService.start(this);  //百度统计的SDK
+
+        //test
+        spDao.toString();
+        Intent myIntentService1 = new Intent(this, MyIntentService1.class);
+        startService(myIntentService1);
     }
 
     @Override
@@ -128,7 +144,7 @@ public class MainActivityBottomNavi extends BaseMVPActivity {
 
         viewPager.setOnTouchListener((v, event) -> false); //禁止ViewPager滑动
         setupViewPager(viewPager);
-        viewPager.setOffscreenPageLimit(2);
+        viewPager.setOffscreenPageLimit(3);
     }
 
     private void setupViewPager(ViewPager viewPager) {
@@ -136,7 +152,7 @@ public class MainActivityBottomNavi extends BaseMVPActivity {
         adapter.addFragment(demoFragment);
         adapter.addFragment(areUSleepFragmentList);
         adapter.addFragment(rxjava2DemoFragment);
-//        adapter.addFragment(rxjava2DemoFragment);
+        adapter.addFragment(meProfileFragment);
 
         viewPager.setAdapter(adapter);
     }

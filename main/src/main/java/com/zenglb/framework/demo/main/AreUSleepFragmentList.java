@@ -21,6 +21,7 @@ import com.zenglb.framework.base.BaseFragment;
 import com.zenglb.framework.dagger.scope.ActivityScope;
 import com.zenglb.framework.http.ApiService;
 import com.zlb.httplib.core.rxUtils.SwitchSchedulers;
+import com.zenglb.baselib.utils.TransitionHelper;
 import com.zenglb.framework.R;
 import com.zenglb.framework.demo.animal.SharedElementActivity;
 import com.zenglb.framework.http.result.JokesResult;
@@ -122,11 +123,11 @@ public class AreUSleepFragmentList extends BaseFragment {
      * @param jokesResult
      */
     private void transitionToActivity(Class target, AreUSleepListAdapter.ViewHolder viewHolder, JokesResult jokesResult) {
-//        final Pair<View, String>[] pairs = TransitionHelper.createSafeTransitionParticipants(getActivity(), true,
-//                new Pair<>(viewHolder.getTopic(), getActivity().getString(R.string.shared_name)),
-//                new Pair<>(viewHolder.getTime(), getActivity().getString(R.string.shared_time)));
-//
-//        startActivity(target, pairs, jokesResult);
+        final Pair<View, String>[] pairs = TransitionHelper.createSafeTransitionParticipants(getActivity(), true,
+                new Pair<>(viewHolder.getTopic(), getActivity().getString(R.string.shared_name)),
+                new Pair<>(viewHolder.getTime(), getActivity().getString(R.string.shared_time)));
+
+        startActivity(target, pairs, jokesResult);
     }
 
 

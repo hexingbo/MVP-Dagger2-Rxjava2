@@ -19,7 +19,7 @@ import dagger.Provides;
 public abstract class DefaultActivityModule {
 
     /**
-     * 这是测试性质的提供一个String,实际上并不会使用的
+     * 这是测试性质的提供一个String
      * @return
      */
     @Provides
