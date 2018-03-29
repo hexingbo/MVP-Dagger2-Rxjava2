@@ -9,7 +9,7 @@
     <ImageView
      android:layout_marginBottom="4dp"
         android:layout_width="100dp"
-        android:layout_height="80dp"
+        android:layout_height="100dp"
         android:background="@drawable/logo"/>
 
     <TextView

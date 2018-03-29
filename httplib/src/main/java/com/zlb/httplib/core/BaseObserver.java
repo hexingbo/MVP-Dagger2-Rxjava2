@@ -33,7 +33,7 @@ public abstract class BaseObserver<T> implements Observer<HttpResponse<T>> {
     public final static String Thread_Main="main";
 
     private final int RESPONSE_CODE_OK = 0;       //自定义的业务逻辑，成功返回积极数据
-    private final int RESPONSE_FATAL_EOR = -1;  //返回数据失败,严重的错误
+    private final int RESPONSE_FATAL_EOR = -1;    //返回数据失败,严重的错误
 
     private Context mContext;
     private static Gson gson = new Gson();
@@ -72,7 +72,6 @@ public abstract class BaseObserver<T> implements Observer<HttpResponse<T>> {
 
     @Override
     public final void onSubscribe(Disposable d) {
-//        d.dispose(); //disable() 将会使得订阅关系断开，不再接收到事件,使用Rxlife 后不断开也行吧，开销是什么？
         disposable=d;
     }
 
@@ -85,6 +84,8 @@ public abstract class BaseObserver<T> implements Observer<HttpResponse<T>> {
         }
 
         if (response.getCode() == RESPONSE_CODE_OK) {
+            // 这里拦截一下使用测试
+
             onSuccess(response.getResult());
         } else {
             onFailure(response.getCode(), response.getError());
@@ -94,12 +95,10 @@ public abstract class BaseObserver<T> implements Observer<HttpResponse<T>> {
     /**
      * 通用异常错误的处理，不能弹出一样的东西出来
      *
-     *
      * @param t
      */
     @Override
     public final void onError(Throwable t) {
-        Log.e(TAG,t.toString());
         HttpUiTips.dismissDialog(mContext);
         if (t instanceof HttpException) {
             HttpException httpException = (HttpException) t;
@@ -118,12 +117,14 @@ public abstract class BaseObserver<T> implements Observer<HttpResponse<T>> {
         } else if (t instanceof UnknownServiceException) {
             errorCode = RESPONSE_FATAL_EOR;
             errorMsg = "未知的服务器错误";
-        } else if (t instanceof IOException) {  //飞行模式等
+        } else if (t instanceof IOException) {   //飞行模式等
             errorCode = RESPONSE_FATAL_EOR;
             errorMsg = "没有网络，请检查网络连接";
         } else if (t instanceof NetworkOnMainThreadException) {//主线程不能网络请求，这个很容易发现
             errorCode = RESPONSE_FATAL_EOR;
             errorMsg = "主线程不能网络请求";
+
+            // ... ...
         } else if (t instanceof RuntimeException) { //很多的错误都是extends RuntimeException
             errorCode = RESPONSE_FATAL_EOR;
             errorMsg = "运行时错误";
