@@ -140,7 +140,7 @@ public class AreUSleepListAdapter extends RecyclerView.Adapter<AreUSleepListAdap
         viewHolder.time.setText(bean.getStart_time());
 
         if(bean.isSelected()){
-            viewHolder.topic.setTextColor(mContext.getResources().getColor(R.color.common_green));
+            viewHolder.topic.setTextColor(mContext.getResources().getColor(R.color.squarecamera__pressed_red));
         }else{
             viewHolder.topic.setTextColor(Color.BLACK);
         }

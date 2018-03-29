@@ -9,18 +9,23 @@ import android.text.TextUtils;
 import android.view.View;
 
 import com.zenglb.framework.R;
+import com.zenglb.framework.Test;
 import com.zenglb.framework.base.mvp.BaseMVPActivity;
-import com.zenglb.framework.mvp.handylife.HandyLifeActivity;
+import com.zenglb.framework.demo.status_view.StatusNormalErrorEmptyActivity;
 import com.zenglb.framework.mvp.login.LoginActivity;
+import com.zenglb.framework.mvp.task.TaskMVPActivity;
 import com.zenglb.framework.persistence.SPDao;
 import com.zlb.httplib.core.SPKey;
 import com.zenglb.framework.navigation.MainActivityBottomNavi;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.inject.Inject;
 
 /**
  * 启动页，并使所有的UI 的模型都需要MVP，复杂的才用
- * <p>
+ *
  * Created by anylife.zlb@gmail.com on 2017/1/11.
  */
 public class LaunchActivity extends BaseMVPActivity {
@@ -32,12 +37,11 @@ public class LaunchActivity extends BaseMVPActivity {
 
     /**
      * 接受消息，处理消息 ，此Handler会与当前主线程一块运行，，只为测试只为测试只为测试只为测试
+     *
      */
     class MyHandler extends Handler {
         public MyHandler() {
-
         }
-
         // 子类必须重写此方法，接受数据
         public void handleMessage(Message msg) {
             switch (msg.what) {
@@ -53,7 +57,7 @@ public class LaunchActivity extends BaseMVPActivity {
                     } else {
                         Intent i1 = new Intent();
                         i1.setClass(LaunchActivity.this, MainActivityBottomNavi.class);
-//                        i1.setClass(LaunchActivity.this, HandyLifeActivity.class);
+//                        i1.setClass(LaunchActivity.this, TaskMVPActivity.class);
                         startActivity(i1);
                         LaunchActivity.this.finish();
                     }
@@ -93,7 +97,6 @@ public class LaunchActivity extends BaseMVPActivity {
 
     /**
      * 换成注解吧，写的烦死了
-     *
      * @return
      */
     @Override
@@ -120,6 +123,7 @@ public class LaunchActivity extends BaseMVPActivity {
 
     /**
      * 隐藏虚拟按键，并且全屏
+     *
      */
     protected void hideBottomUIMenu() {
         //隐藏虚拟按键，并且全屏

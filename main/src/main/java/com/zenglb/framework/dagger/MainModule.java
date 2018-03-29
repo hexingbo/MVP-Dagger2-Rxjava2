@@ -12,9 +12,10 @@ import com.zenglb.framework.persistence.dbmaster.DaoMaster;
 import com.zenglb.framework.persistence.dbmaster.DaoSession;
 import com.zenglb.framework.persistence.dbupdate.MySQLiteOpenHelper;
 import com.zenglb.framework.http.HttpRetrofit;
-import com.zenglb.framework.UIStatus.EmptyCallback;
-import com.zenglb.framework.UIStatus.ErrorCallback;
-import com.zenglb.framework.UIStatus.TimeoutCallback;
+import com.zenglb.framework.status_callback.EmptyCallback;
+import com.zenglb.framework.status_callback.ErrorCallback;
+import com.zenglb.framework.status_callback.LoadingCallback;
+import com.zenglb.framework.status_callback.TimeoutCallback;
 import com.zlb.httplib.core.SPKey;
 
 import org.greenrobot.greendao.database.Database;

@@ -110,6 +110,7 @@ public class HttpRetrofit {
 
             /**
              * 如果不喜欢系统的Http 的打印方式，可以自己去实现Interceptor 接口
+             *
              * 但是统一拦截的header 是无法打印的，因为是在请求发出后统一拦截打印的。
              *
              */
@@ -118,9 +119,8 @@ public class HttpRetrofit {
 
             OkHttpClient okHttpClient = new OkHttpClient.Builder()
                     .retryOnConnectionFailure(true)
-                    .connectTimeout(10, TimeUnit.SECONDS)
-                    .readTimeout(22,TimeUnit.SECONDS)
-                    .writeTimeout(22,TimeUnit.SECONDS)
+                    .connectTimeout(22, TimeUnit.SECONDS)
+                    .readTimeout(33,TimeUnit.SECONDS)
                     .addNetworkInterceptor(mRequestInterceptor)
                     .authenticator(mAuthenticator2)
                     .addInterceptor(loggingInterceptor)
@@ -153,7 +153,7 @@ public class HttpRetrofit {
     }
 
     /**
-     * check if already has oauth header
+     * check if already has auth header
      *
      * @param originalRequest
      */
@@ -172,7 +172,7 @@ public class HttpRetrofit {
      * @param originalRequest
      */
     private static boolean noNeedAuth(Request originalRequest) {
-        if (originalRequest.headers().toString().contains("NeedOauthFlag")) {
+        if (originalRequest.headers().toString().contains("NoNeedAuthFlag")) {
             Log.d("WW", "no need auth !");
             return true;
         }

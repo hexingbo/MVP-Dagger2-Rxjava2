@@ -18,7 +18,7 @@
 
         <item name="actionMenuTextColor">@color/white</item> <!--  敲定颜色-->
         <item name="android:textSize">14sp</item> <!--  搞掂字体大小-->
-        <item name="android:textColor">@color/colorPrimary</item> <!--  搞掂字体大小-->
+        <item name="android:textColor">@color/squarecamera__red</item> <!--  搞掂字体大小-->
         <item name="android:windowContentTransitions">true</item>
 
     </style>
@@ -58,9 +58,5 @@
     <style name="FullscreenActionBarStyle" parent="android:Widget.Holo.ActionBar">
         <item name="android:background">@color/black_overlay</item>
     </style>
-
-    <style name="MyAppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
-
-    <style name="MyAppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
 </resources>

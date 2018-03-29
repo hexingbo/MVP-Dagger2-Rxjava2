@@ -14,16 +14,21 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.zenglb.framework.base.BaseActivity;
+import com.zenglb.baselib.utils.TransitionHelper;
 import com.zenglb.framework.R;
 import com.zenglb.framework.demo.MemoryLeakTest;
 import com.zenglb.framework.demo.animal.AnimalMainActivity;
 import com.zenglb.framework.demo.quick_input_things.QuickInputThingsActivity;
 import com.zenglb.framework.dagger.scope.ActivityScope;
 import com.zenglb.framework.http.ApiService;
-
-import com.zenglb.framework.mvp.handylife.HandyLifeActivity;
+import com.zenglb.framework.http.result.JokesResult;
+import com.zenglb.framework.http.result.StaffMsg;
 import com.zenglb.framework.mvp.task.TaskMVPActivity;
 import com.zenglb.framework.http.result.CustomWeatherResult;
+import com.zlb.httplib.core.BaseObserver;
+import com.zlb.httplib.core.rxUtils.SwitchSchedulers;
+
+import java.util.List;
 
 import javax.inject.Inject;
 
@@ -118,7 +123,7 @@ public class DemoFragment extends Fragment {
          * mvp
          */
         rootView.findViewById(R.id.mvp).setOnClickListener(v -> {
-            ((BaseActivity) getActivity()).startActivity(HandyLifeActivity.class);
+            ((BaseActivity) getActivity()).startActivity(TaskMVPActivity.class);
         });
 
         /**
@@ -156,10 +161,10 @@ public class DemoFragment extends Fragment {
 
 
     private void transitionToActivity(Class target, TextView textView, String title) {
-//        final Pair<View, String>[] pairs = TransitionHelper.createSafeTransitionParticipants(getActivity(), true,
-//                new Pair<>(textView, getActivity().getString(R.string.shared_name)));
-//
-//        startActivity(target, pairs, title);
+        final Pair<View, String>[] pairs = TransitionHelper.createSafeTransitionParticipants(getActivity(), true,
+                new Pair<>(textView, getActivity().getString(R.string.shared_name)));
+
+        startActivity(target, pairs, title);
     }
 
 

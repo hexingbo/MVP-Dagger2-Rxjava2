@@ -2,15 +2,16 @@ apply plugin: 'com.android.application'
 apply plugin: 'org.greenrobot.greendao'  //for greenDao
 
 android {
-    compileSdkVersion rootProject.ext.compileSdkVersion
+    compileSdkVersion project.ext.compileSdkVersion
 
     defaultConfig {
         applicationId "com.zenglb.framework"
-        minSdkVersion rootProject.ext.minSdkVersion
-        targetSdkVersion rootProject.ext.targetSdkVersion
+        minSdkVersion project.ext.minSdkVersion
+        targetSdkVersion project.ext.targetSdkVersion
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
         vectorDrawables.useSupportLibrary = true  //支持VectorDrawable
     }
 
@@ -38,8 +39,8 @@ android {
     }
 
     compileOptions {
-        sourceCompatibility rootProject.ext.sourceCompatibility
-        targetCompatibility rootProject.ext.targetCompatibility
+        sourceCompatibility project.ext.sourceCompatibility
+        targetCompatibility project.ext.targetCompatibility
     }
 
 }
@@ -52,91 +53,68 @@ dependencies {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
 
+    testCompile 'junit:junit:4.12'
+
     compile project(':httplib')
+    compile project(':baseLib')
+    compile project(':settingViewLib')
 
-    compile 'com.github.bumptech.glide:glide:4.6.1'
-    annotationProcessor 'com.github.bumptech.glide:compiler:4.6.1'
+//    compile "com.android.support:appcompat-v7:$project.ext.supportLibraryVersion"
+//    implementation "com.android.support:support-v4:$project.ext.supportLibraryVersion"
 
-    //以源码的形式存放在工程中，修改retrofit 的代码玩一下
-    compile "com.android.support:appcompat-v7:$rootProject.ext.supportLibraryVersion"
-    compile "com.android.support:design:$rootProject.ext.supportLibraryVersion"
-    compile "com.android.support:support-v4:$rootProject.ext.supportLibraryVersion"
-    compile "com.android.support:support-annotations:$rootProject.ext.supportLibraryVersion"
-    compile "com.android.support:cardview-v7:$rootProject.ext.supportLibraryVersion"
+    compile 'org.greenrobot:greendao:3.2.2' //https://github.com/objectbox/objectbox-java
 
-    //dagger & dagger.android
-    compile "com.google.dagger:dagger-android:$rootProject.ext.daggerVersion"
-    compile "com.google.dagger:dagger-android-support:$rootProject.ext.daggerVersion"  // if you use the support libraries
-    annotationProcessor "com.google.dagger:dagger-compiler:$rootProject.ext.daggerVersion"
-    annotationProcessor "com.google.dagger:dagger-android-processor:$rootProject.ext.daggerVersion"
+    compile 'net.zetetic:android-database-sqlcipher:3.5.4'
+    compile 'com.android.support.constraint:constraint-layout:1.1.0-beta5'
 
-    //butterknife
+    compile 'com.google.dagger:dagger-android:2.13'
+    compile 'com.google.dagger:dagger-android-support:2.13' // if you use the support libraries
+    annotationProcessor 'com.google.dagger:dagger-compiler:2.13'
+    annotationProcessor 'com.google.dagger:dagger-android-processor:2.13'
+
     compile 'com.jakewharton:butterknife:8.8.1'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
 
-    debugCompile 'com.squareup.leakcanary:leakcanary-android:1.5.4'
-    releaseCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.5.4'
+    debugCompile 'com.facebook.stetho:stetho:1.4.2'
 
-    compile 'org.greenrobot:greendao:3.2.2' //ORM DB
-    compile 'net.zetetic:android-database-sqlcipher:3.5.4'
-
-    compile 'com.jakewharton.rxbinding2:rxbinding:2.0.0'     //Platform bindings
+    //Platform bindings:
+    compile 'com.jakewharton.rxbinding2:rxbinding:2.0.0'
+    //'support-v4' library bindings:
     compile 'com.jakewharton.rxbinding2:rxbinding-support-v4:2.0.0'
+    //'appcompat-v7' library bindings:
     compile 'com.jakewharton.rxbinding2:rxbinding-appcompat-v7:2.0.0'
+
+    compile files('libs/universal-image-loader-1.9.5.jar')
+
+    compile 'com.github.glomadrian:Grav:1.1'
+    compile 'com.andrognito.patternlockview:patternlockview-reactive:1.0.0'
+
+    compile 'jp.wasabeef:recyclerview-animators:2.2.4' //白色太难看 https://github.com/sharish/ShimmerRecyclerView
+    compile 'com.yqritc:recyclerview-flexibledivider:1.4.0'
+    compile 'zlc.season:rxdownload2:2.0.0-beta4'
+    compile 'com.zhy:percent-support-extends:1.1.1'
+    compile 'com.google.zxing:core:3.3.0'
+    compile 'com.journeyapps:zxing-android-embedded:3.5.0'
+    compile 'com.github.boxme:squarecamera:1.1.0'
 
     //For Lifecycles, LiveData, and ViewModel
     compile "android.arch.lifecycle:runtime:1.1.0"
     annotationProcessor "android.arch.lifecycle:compiler:1.1.0"
-    compile "android.arch.lifecycle:extensions:1.1.0"
+    compile "android.arch.lifecycle:extensions:1.1.0"     //添加ext 依赖
 
-    compile 'com.github.florent37:singledateandtimepicker:1.2.2'    //高仿IOS 时间选择
-    compile 'de.hdodenhof:circleimageview:2.2.0'                    //CircleImageView
-    compile 'com.android.support.constraint:constraint-layout:1.1.0-beta5'
-    compile 'com.liaoinstan.springview:library:1.3.2' //refresh and load more data
-    compile 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.30'
+    compile 'com.github.florent37:singledateandtimepicker:1.2.2'  //高仿IOS 时间选择
+    compile 'com.feezu.liuli:timeselector:1.1.3'
+    compile 'com.contrarywind:Android-PickerView:3.2.7'
 
-    compile 'jp.wasabeef:recyclerview-animators:2.2.4'       //RecyclerView animal
-    compile 'com.yqritc:recyclerview-flexibledivider:1.4.0'
-    compile 'com.kingja.loadsir:loadsir:1.3.5'        //增加Error，empty,Loading,timeout,等通用的场景处理
-    debugCompile 'com.facebook.stetho:stetho:1.4.2'
+    compile 'de.hdodenhof:circleimageview:2.2.0'  //CircleImageView
 
+    compile 'com.baidu.mobstat:mtj-sdk:3.8.2.1'
+//    compile 'com.baidu.mobstat:mtj-sdk-circle:3.8.2.2'
 
+    compile 'com.tbruyelle.rxpermissions2:rxpermissions:0.9.5@aar'  //RxPermission   (Rxjava2)
+    implementation 'pub.devrel:easypermissions:1.1.3'               //EasyPermission (Google)
+    compile("com.github.hotchemi:permissionsdispatcher:3.1.0")      //PermissionsDispatcher (注解)
+    annotationProcessor "com.github.hotchemi:permissionsdispatcher-processor:3.1.0"
 
-
-
-    //robolectric
-    testCompile "org.robolectric:robolectric:3.5.1"
-
-    // Dependencies for local unit tests
-    testCompile 'junit:junit:4.12'
-    testCompile "junit:junit:$rootProject.ext.junitVersion"
-    testCompile "org.mockito:mockito-all:$rootProject.ext.mockitoVersion"
-    testCompile "org.hamcrest:hamcrest-all:$rootProject.ext.hamcrestVersion"
-
-    // Android Testing Support Library's runner and rules
-    androidTestCompile "com.android.support.test:runner:$rootProject.ext.runnerVersion"
-    androidTestCompile "com.android.support.test:rules:$rootProject.ext.rulesVersion"
-
-    androidTestCompile "android.arch.persistence.room:testing:$rootProject.roomVersion"
-
-    // Dependencies for Android unit tests
-    androidTestCompile "junit:junit:$rootProject.ext.junitVersion"
-    androidTestCompile "org.mockito:mockito-core:$rootProject.ext.mockitoVersion"
-    androidTestCompile "com.google.dexmaker:dexmaker:$rootProject.ext.dexmakerVersion"
-    androidTestCompile "com.google.dexmaker:dexmaker-mockito:$rootProject.ext.dexmakerVersion"
-
-    // Espresso UI Testing
-    androidTestCompile "com.android.support.test.espresso:espresso-core:$rootProject.espressoVersion"
-    androidTestCompile "com.android.support.test.espresso:espresso-contrib:$rootProject.espressoVersion"
-    androidTestCompile "com.android.support.test.espresso:espresso-intents:$rootProject.espressoVersion"
-    androidTestCompile "com.android.support.test.espresso.idling:idling-concurrent:$rootProject.espressoVersion"
-    compile "com.android.support.test.espresso:espresso-idling-resource:$rootProject.espressoVersion"
-
-    // Resolve conflicts between main and test APK:
-    androidTestCompile "com.android.support:support-annotations:$rootProject.supportLibraryVersion"
-    androidTestCompile "com.android.support:support-v4:$rootProject.supportLibraryVersion"
-    androidTestCompile "com.android.support:recyclerview-v7:$rootProject.supportLibraryVersion"
-    androidTestCompile "com.android.support:appcompat-v7:$rootProject.supportLibraryVersion"
-    androidTestCompile "com.android.support:design:$rootProject.supportLibraryVersion"
-
+    compile 'com.kingja.loadsir:loadsir:1.3.5' //
 }

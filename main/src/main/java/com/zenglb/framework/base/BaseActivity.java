@@ -11,7 +11,7 @@ import android.widget.FrameLayout;
 import com.kingja.loadsir.callback.Callback;
 import com.kingja.loadsir.core.LoadService;
 import com.kingja.loadsir.core.LoadSir;
-import com.zenglb.framework.R;
+import com.zenglb.commonlib.R;
 import com.zlb.httplib.core.HttpUiTips;
 import butterknife.ButterKnife;
 
@@ -27,6 +27,7 @@ import butterknife.ButterKnife;
  * @author zenglb 20170301
  */
 public abstract class BaseActivity extends AppCompatActivity implements View.OnClickListener {
+    private static final String LIFE_CYCLER_TAG = "lifecycler";
     private static final String TAG = BaseActivity.class.getSimpleName();
     private Toolbar mToolbar;
     public Context mContext;
@@ -35,6 +36,7 @@ public abstract class BaseActivity extends AppCompatActivity implements View.OnC
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        Log.e(LIFE_CYCLER_TAG,"onCreate");
         super.onCreate(savedInstanceState);
         mContext = BaseActivity.this;
 
@@ -42,7 +44,7 @@ public abstract class BaseActivity extends AppCompatActivity implements View.OnC
         setContentView(rootView);
 
         initViews();
-        loadHttp();  //在这里进行Http 的请求
+        initHttp();  //在这里进行Http 的请求
     }
 
 
@@ -89,7 +91,7 @@ public abstract class BaseActivity extends AppCompatActivity implements View.OnC
      * 如果没有重写，说明那个页面不需要Http 请求，直接是成功
      *
      */
-    protected  void loadHttp(){
+    protected  void initHttp(){
         mBaseLoadService.showSuccess();
     }
 
@@ -97,6 +99,7 @@ public abstract class BaseActivity extends AppCompatActivity implements View.OnC
      * Http 请求的重新加载
      */
     protected  void onHttpReload(View v){
+
     }
 
     protected abstract int getLayoutId(); //获取相应的布局啊
@@ -112,6 +115,7 @@ public abstract class BaseActivity extends AppCompatActivity implements View.OnC
         intent.setClass(this, cla);
         startActivity(intent);
     }
+
 
     public Context getContext() {
         return mContext;
@@ -193,9 +197,12 @@ public abstract class BaseActivity extends AppCompatActivity implements View.OnC
         HttpUiTips.dismissDialog(mContext);  // 非常的重要呢！！
     }
 
+
     @Override
     public void onBackPressed() {
         super.onBackPressed();
+//        HttpUiTips.dismissDialog(mContext);  // Maybe Better
     }
+
 
 }
