@@ -84,7 +84,7 @@ dependencies {
 
     //For Lifecycle, LiveData, and ViewModel
     implementation "android.arch.lifecycle:runtime:1.1.1"
-    annotationProcessor "android.arch.lifecycle:compiler:1.1.0"
+    annotationProcessor "android.arch.lifecycle:compiler:1.1.1"
     implementation "android.arch.lifecycle:extensions:1.1.1"
 
     implementation 'com.github.florent37:singledateandtimepicker:1.2.2'    //高仿IOS 时间选择
