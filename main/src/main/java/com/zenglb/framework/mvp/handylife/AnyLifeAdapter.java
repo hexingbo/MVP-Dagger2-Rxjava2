@@ -29,7 +29,6 @@ public class AnyLifeAdapter extends BaseMultiItemQuickAdapter<AnyLifeResultBean,
         addItemType(AnyLifeResultBean.IMG_ONLY, R.layout.handylife_list_item_only_image);
     }
 
-
     /**
      * data --> UI
      *
@@ -42,10 +41,10 @@ public class AnyLifeAdapter extends BaseMultiItemQuickAdapter<AnyLifeResultBean,
             case AnyLifeResultBean.DEFAULT:
                 helper.setText(R.id.topic, item.getTilte());
                 helper.setText(R.id.description, item.getDescription());
-                // TODO: 2018/3/24  加载网络图片,应该再封装一层的，防止以后换图片加载库，
                 Glide.with(mContext).load(item.getImage()).into((ImageView) helper.getView(R.id.image));
                 break;
             case AnyLifeResultBean.IMG_ONLY:
+
                 // TODO: 2018/3/24  加载网络图片,应该再封装一层的，防止以后换图片加载库，
                 Glide.with(mContext).load(item.getImage()).into((ImageView) helper.getView(R.id.image));
                 break;

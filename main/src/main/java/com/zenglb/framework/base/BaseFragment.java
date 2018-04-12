@@ -2,25 +2,12 @@ package com.zenglb.framework.base;
 
 import android.app.Activity;
 import android.content.Context;
-import android.os.Bundle;
 import android.support.annotation.CallSuper;
-import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
-
-import com.kingja.loadsir.callback.Callback;
-import com.kingja.loadsir.core.LoadService;
-import com.kingja.loadsir.core.LoadSir;
-import com.squareup.leakcanary.RefWatcher;
 import com.trello.rxlifecycle2.components.support.RxFragment;
-import com.zenglb.framework.MyApplication;
 import com.zlb.httplib.core.HttpUiTips;
-
 import javax.inject.Inject;
-
-import butterknife.ButterKnife;
 import dagger.android.AndroidInjector;
 import dagger.android.DispatchingAndroidInjector;
 import dagger.android.support.AndroidSupportInjection;
@@ -28,7 +15,7 @@ import dagger.android.support.HasSupportFragmentInjector;
 
 /**
  * Base Fragment , Dagger fragment ok
- *
+ * <p>
  * Created by zenglb on 2017/1/5.
  */
 @Deprecated
@@ -38,7 +25,6 @@ public abstract class BaseFragment extends RxFragment implements HasSupportFragm
 
     /**
      * 一定要super，放在最后面的一行代码来Super!
-     *
      */
     @CallSuper
     protected void initViews(View rootView) {

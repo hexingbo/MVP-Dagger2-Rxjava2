@@ -3,11 +3,14 @@ package com.zenglb.framework.http;
 import android.content.Context;
 import android.text.TextUtils;
 import android.util.Log;
+
 import com.zenglb.framework.persistence.SPDao;
 import com.zlb.httplib.core.MyHttpLoggingInterceptor;
 import com.zlb.httplib.core.SPKey;
+
 import java.io.IOException;
 import java.util.concurrent.TimeUnit;
+
 import okhttp3.Authenticator;
 import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
@@ -19,12 +22,12 @@ import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 /**
- *
+ * HTTP 请求Retrofit 配置
  *
  * Created by Anylife.zlb@gmail.com on 2017/3/16.
  */
 public class HttpRetrofit {
-    private static final String TAG = HttpRetrofit.class.getSimpleName()+"OKHTTP";
+    private static final String TAG = HttpRetrofit.class.getSimpleName() + "OKHTTP";
     private static final String baseUrl = "https://uat.4009515151.com/";  // WARMING-just for test !
 
     /**
@@ -35,16 +38,10 @@ public class HttpRetrofit {
     private static Retrofit retrofit;
 
     private static String TOKEN;
+
     public static void setToken(String token) {
         TOKEN = token;
     }
-
-//    /**
-//     * 在Application 中 初始化
-//     */
-//    public static void init(final Application app){
-//        application=app;
-//    }
 
     /**
      * 每次都要invoke 这个方法不是很繁琐吗？
@@ -95,7 +92,8 @@ public class HttpRetrofit {
 
                     Request authorisedRequest = originalRequest.newBuilder()
                             .header("Authorization", TOKEN)
-                            .header("Connection", "Keep-Alive") //新添加，time-out默认是多少呢？
+                            .header("Connection", "Keep-Alive")  //新添加，time-out默认是多少呢？
+                            .header("Content-Encoding", "gzip")  //使用GZIP 压缩内容，接收不用设置啥吧
                             .build();
 
                     Response originalResponse = chain.proceed(authorisedRequest);
@@ -103,8 +101,7 @@ public class HttpRetrofit {
                     //把统一拦截的header 打印出来
                     new MyHttpLoggingInterceptor().logInterceptorHeaders(authorisedRequest);
 
-                    return originalResponse.newBuilder()
-                            .build();
+                    return originalResponse.newBuilder().build();
                 }
             };
 
@@ -119,8 +116,8 @@ public class HttpRetrofit {
             OkHttpClient okHttpClient = new OkHttpClient.Builder()
                     .retryOnConnectionFailure(true)
                     .connectTimeout(10, TimeUnit.SECONDS)
-                    .readTimeout(22,TimeUnit.SECONDS)
-                    .writeTimeout(22,TimeUnit.SECONDS)
+                    .readTimeout(22, TimeUnit.SECONDS)
+                    .writeTimeout(22, TimeUnit.SECONDS)
                     .addNetworkInterceptor(mRequestInterceptor)
                     .authenticator(mAuthenticator2)
                     .addInterceptor(loggingInterceptor)
@@ -178,7 +175,6 @@ public class HttpRetrofit {
         }
         return false;
     }
-
 
 
 //    /**

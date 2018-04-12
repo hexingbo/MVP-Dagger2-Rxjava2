@@ -21,7 +21,17 @@
         <item name="android:textColor">@color/colorPrimary</item> <!--  搞掂字体大小-->
         <item name="android:windowContentTransitions">true</item>
 
+        <item name="android:alertDialogTheme">@style/AlertDialogTheme</item> //AlertDialog
+
     </style>
+
+    <style name="AlertDialogTheme" parent="Theme.AppCompat.Light.Dialog.Alert">
+        <!-- Used for the title and text -->
+        <item name="android:textColorPrimary">#000000</item>
+        <!-- Used for the buttons -->
+        <item name="colorAccent">#000000</item>
+    </style>
+
 
 
     <style name="Translucent" parent="Theme.AppCompat.Light.NoActionBar">
@@ -62,5 +72,17 @@
     <style name="MyAppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
     <style name="MyAppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
+    <declare-styleable name="TextViewDrawable">
+        <attr name="drawableLeftWidth" format="dimension"/>
+        <attr name="drawableTopWidth" format="dimension"/>
+        <attr name="drawableRightWidth" format="dimension"/>
+        <attr name="drawableLeftHeight" format="dimension"/>
+        <attr name="drawableTopHeight" format="dimension"/>
+        <attr name="drawableRightHeight" format="dimension"/>
+        <attr name="drawableBottomHeight" format="dimension"/>
+        <attr name="drawableBottomWidth" format="dimension"/>
+        <attr name="isAliganCenter" format="boolean"/>
+    </declare-styleable>
 
 </resources>

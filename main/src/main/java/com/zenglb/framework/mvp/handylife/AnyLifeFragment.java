@@ -31,6 +31,7 @@ public class AnyLifeFragment extends BaseStatusFragment implements AnyLifeContra
     private AnyLifeAdapter handyLifeAdapter;
     private SwipeRefreshLayout mSwipeRefreshLayout;
     private List<AnyLifeResultBean> handyLifeResultBeans = new ArrayList<>();
+
     @Inject
     AnyLifePresenter mPresenter;  //dagger
 
@@ -154,10 +155,17 @@ public class AnyLifeFragment extends BaseStatusFragment implements AnyLifeContra
         mPresenter.takeView(this);
     }
 
+//    @Override
+//    public void onPause() {
+//        mPresenter.dropView();
+//        super.onPause();
+//    }
+
+
     @Override
-    public void onPause() {
+    public void onDestroy() {
+        super.onDestroy();
         mPresenter.dropView();
-        super.onPause();
     }
 
     @Override

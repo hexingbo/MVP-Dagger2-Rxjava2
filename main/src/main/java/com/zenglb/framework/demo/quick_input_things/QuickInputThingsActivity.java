@@ -87,6 +87,7 @@ public class QuickInputThingsActivity extends BaseActivity {
                 })
                 .subscribe(charSequence -> {
                     Log.e("hahah", "准备去搜索，关键字： " + charSequence);
+                    mTvSearch.setText(charSequence);
                 });
 
 

@@ -1,5 +1,6 @@
 package com.zenglb.framework.navigation;
 
+import android.app.AlertDialog;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
@@ -36,10 +37,13 @@ public class MainActivityBottomNavi extends BaseMVPActivity {
 
     @Inject
     SPDao spDao;
+
     @Inject
     DemoFragment demoFragment;  // Lazy<DemoFragment>
+
     @Inject
     AreUSleepFragmentList areUSleepFragmentList;
+
     @Inject
     Rxjava2DemoFragment rxjava2DemoFragment;
 
@@ -129,6 +133,7 @@ public class MainActivityBottomNavi extends BaseMVPActivity {
         viewPager.setOnTouchListener((v, event) -> false); //禁止ViewPager滑动
         setupViewPager(viewPager);
         viewPager.setOffscreenPageLimit(2);
+
     }
 
     private void setupViewPager(ViewPager viewPager) {

@@ -12,6 +12,7 @@ import java.lang.ref.WeakReference;
 
 /**
  *
+ *
  * Created by zenglb on 2017/3/24.
  */
 public class HttpUiTips {

@@ -1,8 +1,6 @@
 package com.zenglb.framework.mvp.handylife;
 
-
 import java.util.List;
-
 import javax.inject.Inject;
 
 /**
@@ -19,7 +17,6 @@ public class AnyLifePresenter implements AnyLifeContract.HandyLifePresenter {
     public AnyLifePresenter(AnyLifeRepository mHandyLifeRepository) {
         this.mHandyLifeRepository = mHandyLifeRepository;
     }
-
 
     /**
      * 获取HandyLife data
@@ -50,6 +47,8 @@ public class AnyLifePresenter implements AnyLifeContract.HandyLifePresenter {
 
 
     /**
+     * 这下面的两行能不能 Base化，你有什么建议呢？
+     *
      * @param view the view associated with this presenter
      */
     @Override

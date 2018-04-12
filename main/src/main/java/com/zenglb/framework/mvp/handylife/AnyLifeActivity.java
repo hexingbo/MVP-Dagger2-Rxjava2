@@ -16,7 +16,6 @@ import com.zenglb.framework.base.mvp.BaseMVPActivity;
 /**
  * HandyLifeActivity 主要Activity。这里的UI 就不做测试了
  *
- * 代码仅供阅读，不可用于任何形式的发布，传播，拷贝或其他的商业用途
  * Created by zlb on 2018/3/23.
  */
 public class AnyLifeActivity extends BaseMVPActivity implements TabLayout.OnTabSelectedListener {

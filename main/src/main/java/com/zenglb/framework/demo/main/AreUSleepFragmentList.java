@@ -7,6 +7,7 @@ import android.os.Handler;
 import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v4.util.Pair;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -198,6 +199,11 @@ public class AreUSleepFragmentList extends BaseFragment {
      * 请求答题列表
      */
     private void getHttpData(String mParam1, int page) {
+
+        if(TextUtils.isEmpty(mParam1)){
+            mParam1="expired";
+        }
+
         apiService.getAreuSleepByObserver(mParam1, page)
                 .compose(SwitchSchedulers.applySchedulers())
                 .compose(bindToLifecycle()) //两个compose 能否合并起来，或者重写一个操作符

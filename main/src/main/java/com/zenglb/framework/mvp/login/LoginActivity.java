@@ -6,6 +6,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v7.widget.CardView;
 import android.text.TextUtils;
 import android.view.KeyEvent;
 import android.view.View;
@@ -14,8 +15,8 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.zenglb.framework.R;
-import com.zenglb.framework.demo.access.RegisterActivity;
 import com.zenglb.framework.base.mvp.BaseMVPActivity;
+import com.zenglb.framework.demo.access.RegisterActivity;
 import com.zenglb.framework.http.HttpRetrofit;
 import com.zenglb.framework.http.param.LoginParams;
 import com.zenglb.framework.http.result.LoginResult;
@@ -35,12 +36,23 @@ import es.dmoral.toasty.Toasty;
 /**
  * 简单的登录页面，简单的MVP 和Dagger demo
  *
- * 【ButterKnife znif的使用】 https://www.jianshu.com/p/94eb3cc1852a
+ * 讲真，Demo 中的LoginActivity 根本不需要MVP ，会麻烦很多
  *
- * <
  * Created by anylife.zlb@gmail.com on 2018/1/11.
  */
 public class LoginActivity extends BaseMVPActivity implements LoginContract.LoginView {
+
+    @BindView(R.id.et_username)
+    EditText etUsername;
+    @BindView(R.id.et_password)
+    EditText etPassword;
+    @BindView(R.id.login_btn)
+    Button loginBtn;
+    @BindView(R.id.cardview)
+    CardView cardview;
+    @BindView(R.id.fab_btn)
+    FloatingActionButton fabBtn;
+
     private boolean isFromLaunch = false; //从哪里跳转来登录页面的
 
     @Inject
@@ -51,18 +63,6 @@ public class LoginActivity extends BaseMVPActivity implements LoginContract.Logi
 
     @Inject
     LoginPresenter loginPresenter;
-
-    @BindView(R.id.et_username)
-    EditText etUsername;
-
-    @BindView(R.id.et_password)
-    EditText etPassword;
-
-    @BindView(R.id.login_btn)
-    Button oauthBtn;
-
-    @BindView(R.id.fab_btn)
-    FloatingActionButton fabBtn;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -87,7 +87,6 @@ public class LoginActivity extends BaseMVPActivity implements LoginContract.Logi
 
     /**
      * 集成的IM 等第三方系统需要单独的退出来,因为账号体系不能联动的
-     *
      */
     private void logoutCustomComponent() {
 //        RongyunIM.logout();
@@ -104,7 +103,6 @@ public class LoginActivity extends BaseMVPActivity implements LoginContract.Logi
         super.onResume();
         //Bind view to the presenter which will signal for the presenter to load the task.
         loginPresenter.takeView(this);
-//        HttpUiTips.showDialog(mContext, null);
     }
 
     @Override
@@ -119,13 +117,12 @@ public class LoginActivity extends BaseMVPActivity implements LoginContract.Logi
 
         etPassword.setText("hl123456");
         etUsername.setText("13619169002");
-
     }
 
 
-    @OnLongClick (R.id.login_btn)
+    @OnLongClick(R.id.login_btn)
     public boolean mvpLogin2() {
-        HttpUiTips.showDialog(this,"测试中");
+        HttpUiTips.showDialog(this, "测试中");
         return true;
     }
 

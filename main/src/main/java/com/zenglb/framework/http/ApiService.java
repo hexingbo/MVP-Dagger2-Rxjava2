@@ -22,6 +22,8 @@ import retrofit2.http.Query;
 import retrofit2.http.Url;
 
 /**
+ *
+ *
  * ApiService 对象最终会被在retrofit.create(ApiService.class)后被动态代理
  * 比如 HttpCall.getApiService().getWeather(url,"深圳")
  * <p>

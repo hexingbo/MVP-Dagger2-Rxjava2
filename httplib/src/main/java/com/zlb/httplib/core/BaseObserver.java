@@ -99,6 +99,8 @@ public abstract class BaseObserver<T> implements Observer<HttpResponse<T>> {
      */
     @Override
     public final void onError(Throwable t) {
+        Log.e("okhttp","Throwable t:"+t.toString());  //打印出异常信息
+
         HttpUiTips.dismissDialog(mContext);
         if (t instanceof HttpException) {
             HttpException httpException = (HttpException) t;
@@ -127,7 +129,7 @@ public abstract class BaseObserver<T> implements Observer<HttpResponse<T>> {
             // ... ...
         } else if (t instanceof RuntimeException) { //很多的错误都是extends RuntimeException
             errorCode = RESPONSE_FATAL_EOR;
-            errorMsg = "运行时错误";
+            errorMsg = "运行时错误"+t.toString();
         }
 
         onFailure(errorCode, errorMsg);

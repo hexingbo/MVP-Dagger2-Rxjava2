@@ -30,6 +30,11 @@ public class TaskPresenter implements TaskContract.TaskPresenter {
 
     /**
      * 获取缓存的最新的20条数据
+     *
+     * Presenter 本来不应该有获取数据的，就是不应该关系数据源
+     * Presenter 只应该有都是依赖java，不依赖Android 的。写单元测试的时候只要JUNIT 就可以了
+     *
+     * 错误示范
      */
     @Override
     public void getCacheTasks() {
@@ -48,6 +53,11 @@ public class TaskPresenter implements TaskContract.TaskPresenter {
     /**
      * View 层去请求刷新列表的数据
      * 先搞一些假的数据过去
+     *
+     * Presenter 本来不应该有获取数据的，就是不应该关系数据源
+     * Presenter 只应该有都是依赖java，不依赖Android 的。写单元测试的时候只要JUNIT 就可以了
+     *
+     * 错误示范
      */
     @Override
     public void getRemoteTasks(String type, int page) {
@@ -78,7 +88,7 @@ public class TaskPresenter implements TaskContract.TaskPresenter {
 
 
     /**
-     * 这下面的两行能不能 Base化解
+     * 这下面的两行能不能 Base化，你有什么建议呢？
      *
      * @param view the view associated with this presenter
      */
@@ -88,12 +98,10 @@ public class TaskPresenter implements TaskContract.TaskPresenter {
     }
 
 
-
     @Override
     public void dropView() {
         taskView=null;
     }
-
 
 
 }

@@ -22,8 +22,8 @@ public class LoginPresenter implements LoginContract.LoginPresenter {
     /**
      * 构造方法被  @Inject  注解标注了
      *
-     *     @Inject
-     *     LoginPresenter loginPresenter;
+     * @Inject
+     * LoginPresenter loginPresenter;
      * 在  Activity 中很方便的依赖注入
      *
      * @param apiService
@@ -33,6 +33,11 @@ public class LoginPresenter implements LoginContract.LoginPresenter {
         this.apiService = apiService;
     }
 
+    /**
+     * Presenter  这里最好不要进行Http请求，这样写有什么不好，你实际有用就会发现
+     *
+     * @param loginParams
+     */
     @Override
     public void login(LoginParams loginParams) {
         apiService.goLoginByRxjavaObserver(loginParams)
@@ -41,7 +46,7 @@ public class LoginPresenter implements LoginContract.LoginPresenter {
                     @Override
                     public void onSuccess(LoginResult loginResult) {
                         if(null!=mLoginView){
-                            mLoginView.loginSuccess(loginResult); //页面关闭了怎么办？
+                            mLoginView.loginSuccess(loginResult);
                         }
                     }
 
