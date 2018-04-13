@@ -44,11 +44,12 @@
     <br/>
 </ul>
 
+
 <ul class="list">
     <li>
         <div id='showImg'>
             <img width="250" height="150"
-                 src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1490755503&di=67670ba77cdcd5d975ddc4ffaebb1fda&imgtype=jpg&er=1&src=http%3A%2F%2Fwww.sznews.com%2Fent%2Fimages%2Fattachement%2Fjpg%2Fsite3%2F20141011%2F4437e629783815a2bce253.jpg">
+                 src="http://img4.imgtn.bdimg.com/it/u=3152599414,369038589&fm=214&gp=0.jpg">
         </div>
     </li>
     <br/>
@@ -85,7 +86,7 @@
         <div>
             <button onclick="JSBridge.call('NativeBridgeClsName','testThread',{},function(res){alert(JSON.stringify(res))})">
                 获取硬件参数，子线程回调
-            </button>
+           </button>
         </div>
     </li>
     <br/>
@@ -123,7 +124,7 @@
 
 <script type="text/javascript">
   document.getElementById('picBTN').onclick = function (e) {
-    JSBridge.call('NativeBridgeClsName', 'getImage', {'msg': '拍你的照片，不要说话'}, function (res) {
+    JSBridge.call('NativeBridgeClsName', 'getImage', {'msg': '这是带给移动端的msg参数'}, function (res) {
       try {
         if (res.code == 0) {
           var imgSrc = res.result.imgData
@@ -143,6 +144,7 @@
       }
     })
   }
+
 
 
 </script>

@@ -36,13 +36,14 @@
             return Math.floor(Math.random() * (1 << 30));
         },
 
+        //2.形成类似于Http 协议的的JSBRIDGE 协议
         getUri:function(obj, method, params, port){
             params = this.getParam(params);
             var uri = JSBRIDGE_PROTOCOL + '://' + obj + ':' + port + '/' + method + '?' + params;
             return uri;
         },
 
-        //3.
+        //3.获取Param
         getParam:function(obj){
             if (obj && typeof obj === 'object') {
                 return JSON.stringify(obj);

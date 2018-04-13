@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.View;
 import android.widget.FrameLayout;
 import com.kingja.loadsir.callback.Callback;
@@ -110,6 +109,18 @@ public abstract class BaseActivity extends AppCompatActivity implements View.OnC
     public final void startActivity(Class<?> cla) {
         Intent intent = new Intent();
         intent.setClass(this, cla);
+        startActivity(intent);
+    }
+
+
+    /**
+     * Activity -> webview Activity的跳转-带参数
+     *
+     * @param link
+     */
+    public final  void goWebView(String link) {
+        Intent intent = new Intent(this, WebActivity.class);
+        intent.putExtra(BaseWebViewActivity.URL, link);
         startActivity(intent);
     }
 

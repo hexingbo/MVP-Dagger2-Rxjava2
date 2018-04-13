@@ -51,6 +51,8 @@
     <string name="title_activity_tabs">TabsActivity</string>
     <string name="section_format">Hello World from section: %1$d</string>
 
+    <string name="camera_permission_title_tips">摄像头权限</string>
+    <string name="camera_permission_content_tips">需要摄像头权限，请你授权</string>
 
     <string-array name="tabs_title_array">
         <item>CITY GUIDE</item>

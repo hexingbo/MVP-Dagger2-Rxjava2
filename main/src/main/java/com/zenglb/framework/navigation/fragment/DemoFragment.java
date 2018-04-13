@@ -87,6 +87,12 @@ public class DemoFragment extends Fragment {
             ((BaseActivity) getActivity()).startActivity(QuickInputThingsActivity.class);
         });
 
+        //
+        rootView.findViewById(R.id.JSBridge).setOnClickListener(v -> {
+            ((BaseActivity) getActivity()).goWebView("file:///android_asset/index.html");
+        });
+
+
         /**
          * 动态替换URL,参数照样的随意的使用啊。
          *

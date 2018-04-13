@@ -97,6 +97,7 @@ dependencies {
     implementation 'com.yqritc:recyclerview-flexibledivider:1.4.0'
     implementation 'com.kingja.loadsir:loadsir:1.3.5'        //增加Error，empty,Loading,timeout,等通用的场景处理
     debugImplementation 'com.facebook.stetho:stetho:1.4.2'
+    implementation 'pub.devrel:easypermissions:1.1.3' //没有其他的原因，其他的目前多少有BUG 啊
 
 
     //robolectric

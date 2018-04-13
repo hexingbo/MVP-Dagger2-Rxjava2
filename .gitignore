@@ -10,3 +10,10 @@
 /.settingViewLib
 .externalNativeBuild
 dbMaster/
+
+*.hprof
+*.bak
+build/*
+*/build/*
+.idea/*
+gradle.properties
