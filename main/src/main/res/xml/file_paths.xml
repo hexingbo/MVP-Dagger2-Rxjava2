@@ -7,7 +7,7 @@
     <!--比如上面的<files-path>标签表示共享/data/data/package（包名）/files/images文件夹中的文件或图片-->
 
     <paths>
-        <external-path name="share_path" path="yourapp" />
+        <external-path name="share_path" path="yourApp" />
         <files-path name="files" path="."/>
     </paths>
 </paths>

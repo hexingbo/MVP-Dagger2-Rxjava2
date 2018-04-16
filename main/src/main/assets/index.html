@@ -20,16 +20,7 @@
 </div>
 
 
-<ul class="list">
-    <li>
-        <div>
-            <button onclick="JSBridge.call('NativeBridgeClsName','scanQRCode',{},function(res){alert(JSON.stringify(res))})">
-                扫描二维码
-            </button>
-        </div>
-    </li>
-    <br/>
-</ul>
+
 
 
 <ul class="list">
@@ -59,45 +50,22 @@
 <ul class="list">
     <li>
         <div>
-            <button onclick="JSBridge.call('NativeBridgeClsName','testThread11111',{},function(res){alert(JSON.stringify(res))})">
-                模拟WebView JS漏洞修改文件
-            </button>
-        </div>
-    </li>
-    <br/>
-</ul>
-
-
-<ul class="list">
-    <li>
-        <div>
 
             <!-- onClick 监听后会调用JS（JSBridge）中的call方法。 -->
             <button onclick="JSBridge.call('NativeBridgeClsName','showToast',{'msg':'Hello-JSBridge'},function(res){alert('Native返回的数据：'+JSON.stringify(res))}  )">
-                showToast#
+                JS 调用Android Service 静默获取WiFi 信息
             </button>
         </div>
     </li>
     <br/>
 </ul>
 
-<ul class="list">
-    <li>
-        <div>
-            <button onclick="JSBridge.call('NativeBridgeClsName','testThread',{},function(res){alert(JSON.stringify(res))})">
-                获取硬件参数，子线程回调
-           </button>
-        </div>
-    </li>
-    <br/>
-</ul>
-
 
 <ul class="list">
     <li>
         <div>
-            <button onclick="JSBridge.call('NativeBridgeClsName','getWifiMsg',{},function(res){alert(JSON.stringify(res))})">
-                JS 调用Android Service 静默获取WiFi 信息
+            <button onclick="JSBridge.call('NativeBridgeClsName','scanQRCode',{},function(res){alert(JSON.stringify(res))})">
+                扫描二维码
             </button>
         </div>
     </li>

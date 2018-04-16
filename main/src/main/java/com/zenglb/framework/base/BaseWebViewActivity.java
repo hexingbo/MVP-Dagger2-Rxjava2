@@ -180,7 +180,7 @@ public abstract class BaseWebViewActivity extends BaseActivity {
              * @param view            WebView
              * @param url             file:///android_asset/index.html
              * @param message         JSBridge://NativeBridgeClsName:798787206/getImage?{"msg":"这是带给移动端的msg参数"}
-             * @param defaultValue    defvale
+             * @param defaultValue    defvale(拓展，目前没有使用)
              * @param result
              * @return
              */
@@ -188,6 +188,7 @@ public abstract class BaseWebViewActivity extends BaseActivity {
             public boolean onJsPrompt(WebView view, String url, String message, String defaultValue, JsPromptResult result) {
                 String callBackData = JSBridge.callJavaNative(view, message);
 
+                //了
                 result.confirm(callBackData);
                 return true;
             }

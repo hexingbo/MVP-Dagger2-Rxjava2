@@ -16,12 +16,15 @@ import android.provider.MediaStore;
 import android.provider.Settings;
 import android.support.annotation.NonNull;
 import android.support.v4.content.FileProvider;
+import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.app.AlertDialog;
 import android.util.Base64;
 import android.view.View;
 
 import com.zenglb.framework.jsbridge.BridgeImpl;
 import com.zenglb.framework.jsbridge.Callback;
+import com.zenglb.framework.jsbridge.GenericBuilder;
+import com.zenglb.framework.jsbridge.JSBridgeResult;
 import com.zenglb.framework.jsbridge.JSCallBackStatusCode;
 import com.zenglb.framework.utils.BitMapUtil;
 
@@ -29,9 +32,12 @@ import org.json.JSONObject;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import pub.devrel.easypermissions.EasyPermissions;
+
 import com.zenglb.framework.R;
 import com.zenglb.framework.utils.FileCachePathConfig;
 import com.zenglb.framework.utils.FileStorage;
@@ -44,7 +50,7 @@ import com.zenglb.framework.utils.FileStorage;
  */
 public class WebActivity extends BaseWebViewActivity implements View.OnClickListener, EasyPermissions.PermissionCallbacks {
     private final static int CAMERA_PERMISSION_CODE = 1000;    //请求CAMERA权限的Code
-    private final static int REQUEST_CAPTURE_IMG    = 1001;    //相册选取
+    private final static int REQUEST_CAPTURE_IMG = 1001;    //相册选取
 
     private CallNewActForResultReceiver callNewActForResultReceiver = null;
 
@@ -84,10 +90,9 @@ public class WebActivity extends BaseWebViewActivity implements View.OnClickList
         setURL(url);
 
         //动态注册，在当前activity的生命周期內运行
-        IntentFilter filter = new IntentFilter(BridgeImpl.fliterTAG);
+        IntentFilter filter = new IntentFilter(BridgeImpl.filterTAG);
         callNewActForResultReceiver = new CallNewActForResultReceiver();
-        registerReceiver(callNewActForResultReceiver, filter);
-
+        LocalBroadcastManager.getInstance(this).registerReceiver(callNewActForResultReceiver, filter);
     }
 
     @Override
@@ -96,22 +101,17 @@ public class WebActivity extends BaseWebViewActivity implements View.OnClickList
             switch (requestCode) {
                 case REQUEST_CAPTURE_IMG://
                     backImgToJS(BitMapUtil.getSimpleByBelowLine(this, imageUri, 800, 800));
-
-//                    backImgToJS(BitMapUtil.getSimpleByBelowLine(this, data.getData(), 800, 800));
                     break;
                 case ZXING_REQUEST_CODE:
-                    String code = data.getStringExtra("qrcode");
-                    Callback callback = BridgeImpl.getCallback(ZXING_REQUEST_CODE);
-                    if (null != callback) {
-                        try {
-                            JSONObject object = new JSONObject();
-                            object.put("qrcode", code);
-                            callback.apply(BridgeImpl.returnJSONObject(JSCallBackStatusCode.JS_CALL_BACK_SUCCESS, "扫码成功", object));
-                            //这里回调js 没有任何的意义呀！
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                        }
-                    }
+                    Map<String, String> qrCodeData = new HashMap<>();
+                    qrCodeData.put("qrcode", data.getStringExtra("qrcode"));
+
+                    JSBridgeResult jsBridgeResult = JSBridgeResult.Builder.start()
+                            .code(0)
+                            .result(qrCodeData).build();
+
+                    BridgeImpl.getCallback(ZXING_REQUEST_CODE).applyDataToJS(jsBridgeResult);
+
                     break;
             }
         }
@@ -132,23 +132,22 @@ public class WebActivity extends BaseWebViewActivity implements View.OnClickList
             bitmap.compress(Bitmap.CompressFormat.JPEG, 50, baos);
         }
 
-        Callback callback = BridgeImpl.getCallback(GET_IMG_REQUEST_CODE);
-        if (null != callback) {
-            try {
-                JSONObject object = new JSONObject();
-                object.put("imgData", "data:image/jpg;base64," + Base64.encodeToString(baos.toByteArray(), Base64.DEFAULT));
-                callback.apply(BridgeImpl.returnJSONObject(JSCallBackStatusCode.JS_CALL_BACK_SUCCESS, "拍照成功 ！", object));  //这里回调js 没有任何的意义呀！
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
+
+        Map<String, String> data = new HashMap<>();
+        data.put("imgData", "data:image/jpg;base64," + Base64.encodeToString(baos.toByteArray(), Base64.DEFAULT));
+
+        JSBridgeResult jsBridgeResult = JSBridgeResult.Builder.start()
+                .code(0)
+                .result(data).build();
+
+        BridgeImpl.getCallback(GET_IMG_REQUEST_CODE).applyDataToJS(jsBridgeResult);
     }
 
     /**
-     * 这不是最好的拍照方案
-     *
+     * 拍照，调用系统的相机进程拍照，由于拍照的进程的要消耗大量的资源；跳用的进程会被干掉
      */
     private Uri imageUri;
+
     private void openCamera() {
         File file = new FileStorage(FileCachePathConfig.CACHE_IMAGE_CHILD).createTempFile("temp.jpg");
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
@@ -171,9 +170,9 @@ public class WebActivity extends BaseWebViewActivity implements View.OnClickList
     protected void onDestroy() {
         super.onDestroy();
         if (null != callNewActForResultReceiver) {
-            unregisterReceiver(callNewActForResultReceiver);
+            //本地的广播接收，只能在代码中注册
+            LocalBroadcastManager.getInstance(this).unregisterReceiver(callNewActForResultReceiver);
         }
-
     }
 
     @Override
@@ -186,12 +185,11 @@ public class WebActivity extends BaseWebViewActivity implements View.OnClickList
         super.onConfigurationChanged(newConfig);
     }
 
-
     /**
      * 检查权限
      */
     private void checkCameraPermission() {
-        String[] perms = {Manifest.permission.CAMERA,Manifest.permission.WRITE_EXTERNAL_STORAGE};
+        String[] perms = {Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE};
         if (EasyPermissions.hasPermissions(this, perms)) {
             openCamera();
         } else {
@@ -202,7 +200,6 @@ public class WebActivity extends BaseWebViewActivity implements View.OnClickList
 
     /**
      * Google EasyPermission, Android 连一个检查权限的完善库都没有，国内生态太乱了
-     *
      */
     @Override
     public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {

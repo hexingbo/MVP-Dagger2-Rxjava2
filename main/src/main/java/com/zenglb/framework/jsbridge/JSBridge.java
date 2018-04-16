@@ -20,7 +20,6 @@ public class JSBridge {
     public static final String exposeClassName = "NativeBridgeClsName";
 
     //所有JS能调用的native 的方法都需要注册，防止反编译后重新注入native方法
-    //这个MAP 的值永远是size ==1 ，SO 。。。
     private static Map<String, HashMap<String, Method>> NativeJSBridgeMethods = new HashMap<>();
 
     /**
@@ -101,11 +100,11 @@ public class JSBridge {
                         e.printStackTrace();
                     }
                 } else {
-                    //本地没有这个方法，比如版本太老了，没有提前埋好点； 给予友好的提示信息
+                    //本地没有这个方法，比如App版本太老了，没有提前埋好点； 给予友好的提示信息
                     Method eorMethod = methodHashMap.get("returnCommonEor");
                     //需要处理本地方法不存在的情况
                     try {
-                        eorMethod.invoke(null, webView, JSCallBackStatusCode.NATIVE_FUNCTION_NULL, new Callback(webView, port));
+                        eorMethod.invoke(null, JSCallBackStatusCode.NATIVE_FUNCTION_NULL, new Callback(webView, port));
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
