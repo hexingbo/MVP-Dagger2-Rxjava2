@@ -1,13 +1,16 @@
 package com.zenglb.framework.mvp.login;
 
 import android.app.ActivityOptions;
+import android.content.Context;
 import android.content.Intent;
+import android.location.LocationManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.widget.CardView;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
@@ -103,6 +106,11 @@ public class LoginActivity extends BaseMVPActivity implements LoginContract.Logi
         super.onResume();
         //Bind view to the presenter which will signal for the presenter to load the task.
         loginPresenter.takeView(this);
+
+        LocationManager locationManager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
+        Log.e("David", "GPS是否打开 " + locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER));
+        Log.e("David", "网络定位是否打开 " + locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER));
+
     }
 
     @Override

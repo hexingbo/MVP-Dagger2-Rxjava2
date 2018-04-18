@@ -22,13 +22,9 @@ import android.util.Base64;
 import android.view.View;
 
 import com.zenglb.framework.jsbridge.BridgeImpl;
-import com.zenglb.framework.jsbridge.Callback;
-import com.zenglb.framework.jsbridge.GenericBuilder;
 import com.zenglb.framework.jsbridge.JSBridgeResult;
-import com.zenglb.framework.jsbridge.JSCallBackStatusCode;
-import com.zenglb.framework.utils.BitMapUtil;
 
-import org.json.JSONObject;
+import com.zenglb.framework.utils.BitMapUtil;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -84,7 +80,7 @@ public class WebActivity extends BaseWebViewActivity implements View.OnClickList
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);  //为什么会有双Toolbar
+        super.onCreate(savedInstanceState);
 
         url = getIntent().getStringExtra(BaseWebViewActivity.URL);
         setURL(url);

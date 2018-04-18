@@ -68,6 +68,9 @@
 # Rxjava2
   谁用谁知道，勇敢的开始使用吧
 
+# JSBridge
+  简单的JSBridge,前端的对应代码放在Assert目录
+
 # 项目中包含的基本的通用模块
 - Dagger.android 大大的优化Dagger 在android 中的使用，
 - BaseActivity 中Toolbar 的处理

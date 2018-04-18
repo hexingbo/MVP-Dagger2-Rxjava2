@@ -39,7 +39,7 @@ public class BridgeImpl implements IBridge {
      * @param webView
      * @param intentCode 根据code 区分不同的服务
      */
-    private static void callActivityForJSResult(WebView webView, int intentCode) {
+    private void callActivityForJSResult(WebView webView, int intentCode) {
         Intent intent = new Intent();
         intent.setAction(filterTAG);
         intent.putExtra("code", intentCode);
@@ -53,7 +53,7 @@ public class BridgeImpl implements IBridge {
      * @param code     -1 不存在的Native方法   -2
      * @param callback
      */
-    public static void returnCommonEor(final Integer code, final Callback callback) {
+    public void returnCommonEor(final Integer code, final Callback callback) {
         if (null != callback) {
             Map<String, String> data = new HashMap<>();
             data.put("Connected wifi", "Vanke Service(前端显示的数据),");
@@ -70,7 +70,7 @@ public class BridgeImpl implements IBridge {
      * @param param
      * @param callback
      */
-    public static void getImage(WebView webView, JSONObject param, final Callback callback) {
+    public void getImage(WebView webView, JSONObject param, final Callback callback) {
         callbackCache.put(BaseWebViewActivity.GET_IMG_REQUEST_CODE, callback);
         callActivityForJSResult(webView, BaseWebViewActivity.GET_IMG_REQUEST_CODE);
     }
@@ -83,13 +83,13 @@ public class BridgeImpl implements IBridge {
      * @param param
      * @param callback
      */
-    public static void scanQRCode(WebView webView, JSONObject param, final Callback callback) {
+    public void scanQRCode(WebView webView, JSONObject param, final Callback callback) {
         callbackCache.put(BaseWebViewActivity.ZXING_REQUEST_CODE, callback);
         callActivityForJSResult(webView, BaseWebViewActivity.ZXING_REQUEST_CODE);
     }
 
 
-    public static void showToast(WebView webView, JSONObject param, final Callback callback) {
+    public void showToast(WebView webView, JSONObject param, final Callback callback) {
         String message = param.optString("msg");
         Toast.makeText(webView.getContext(), message, Toast.LENGTH_SHORT).show();
         if (null != callback) {

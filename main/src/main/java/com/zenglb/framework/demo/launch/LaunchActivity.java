@@ -33,6 +33,7 @@ public class LaunchActivity extends BaseMVPActivity {
      * 接受消息，处理消息 ，此Handler会与当前主线程一块运行，，只为测试只为测试只为测试只为测试
      */
     class MyHandler extends Handler {
+
         public MyHandler() {
 
         }
@@ -115,6 +116,7 @@ public class LaunchActivity extends BaseMVPActivity {
     protected void onResume() {
         super.onResume();
         hideBottomUIMenu();
+
     }
 
     /**

@@ -7,14 +7,9 @@ package com.zenglb.framework.jsbridge;
  * @param <T>
  */
 public class JSBridgeResult<T> {
-    private int code;
-    private String error;
-    private T result;    //泛型T来表示object，可能是数组，也可能是对象
-
-    public JSBridgeResult(){
-
-    }
-
+    private int code;     //0：成功    其他：各种失败（详细看文档）
+    private String error; //不成功时候的提示信息
+    private T result;     //泛型T来表示object（可能是数组，也可能是对象）
 
     public int getCode() {
         return code;
@@ -49,9 +44,8 @@ public class JSBridgeResult<T> {
 
     /**
      * 范型T 怎么的返回来
-     *
      */
-    public static final class  Builder<T2> {
+    public static final class Builder<T2> {
         private int code;
         private String error;
         private T2 result;
@@ -59,7 +53,13 @@ public class JSBridgeResult<T> {
         public Builder() {
         }
 
-        static public <T2> Builder<T2> start() { return new Builder<>(); }
+        /**
+         * @param <T2>
+         * @return
+         */
+        static public <T2> Builder<T2> start() {
+            return new Builder<>();
+        }
 
         public Builder<T2> code(int val) {
             code = val;
@@ -81,6 +81,5 @@ public class JSBridgeResult<T> {
         }
 
     }
-
 
 }

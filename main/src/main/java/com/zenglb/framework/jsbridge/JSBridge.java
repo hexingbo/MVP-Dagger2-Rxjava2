@@ -2,6 +2,7 @@ package com.zenglb.framework.jsbridge;
 
 import android.net.Uri;
 import android.text.TextUtils;
+import android.util.Log;
 import android.webkit.WebView;
 
 import org.json.JSONObject;
@@ -13,7 +14,6 @@ import java.util.Map;
 
 /**
  * JSBridge 的主控
- *
  */
 public class JSBridge {
     //前端和移动端都需要固定的指定这个方法
@@ -50,7 +50,7 @@ public class JSBridge {
         Method[] methods = injectedCls.getDeclaredMethods();
         for (Method method : methods) {
             String name;
-            if (method.getModifiers() != (Modifier.PUBLIC | Modifier.STATIC) || (name = method.getName()) == null) {
+            if (method.getModifiers() != Modifier.PUBLIC || (name = method.getName()) == null) {
                 continue;
             }
             Class[] parameters = method.getParameterTypes();
@@ -88,23 +88,26 @@ public class JSBridge {
             }
         }
 
-
         if (NativeJSBridgeMethods.containsKey(className)) {
             HashMap<String, Method> methodHashMap = NativeJSBridgeMethods.get(className);
             if (methodHashMap != null && methodHashMap.size() != 0) {
                 Method method = methodHashMap.get(methodName);
+
+                BridgeImpl bridge = new BridgeImpl();
                 if (method != null) {
                     try { //http://azrael6619.iteye.com/blog/429797   Java的反射机制
-                        method.invoke(null, webView, new JSONObject(param), new Callback(webView, port));
+                        method.invoke(bridge, webView, new JSONObject(param), new Callback(webView, port));
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
                 } else {
+                    Log.e("NativeMethodError", method.getName() + "不存在这样的方法");
+
                     //本地没有这个方法，比如App版本太老了，没有提前埋好点； 给予友好的提示信息
                     Method eorMethod = methodHashMap.get("returnCommonEor");
                     //需要处理本地方法不存在的情况
                     try {
-                        eorMethod.invoke(null, JSCallBackStatusCode.NATIVE_FUNCTION_NULL, new Callback(webView, port));
+                        eorMethod.invoke(bridge, Callback.NATIVE_FUNCTION_NULL, new Callback(webView, port));
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
