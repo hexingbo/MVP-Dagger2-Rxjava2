@@ -14,7 +14,6 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.zenglb.framework.R;
-import com.zenglb.framework.demo.main.AreUSleepFragmentList;
 import com.zenglb.framework.base.mvp.BaseMVPActivity;
 import com.zenglb.framework.mvp.handylife.AnyLifeFragment;
 import com.zenglb.framework.navigation.fragment.DemoFragment;
@@ -44,9 +43,6 @@ public class MainActivityBottomNavi extends BaseMVPActivity {
 
     @Inject
     DemoFragment demoFragment;  // Lazy<DemoFragment>
-
-    @Inject
-    AreUSleepFragmentList areUSleepFragmentList;
 
     @Inject
     Rxjava2DemoFragment rxjava2DemoFragment;
@@ -155,7 +151,7 @@ public class MainActivityBottomNavi extends BaseMVPActivity {
         adapter.addFragment(demoFragment);
         adapter.addFragment(AnyLifeFragment.newInstance("eat"));
         adapter.addFragment(rxjava2DemoFragment);
-        adapter.addFragment(areUSleepFragmentList);
+        adapter.addFragment(AnyLifeFragment.newInstance("shop"));
         viewPager.setAdapter(adapter);
     }
 

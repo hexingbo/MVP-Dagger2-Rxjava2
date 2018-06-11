@@ -1,6 +1,5 @@
 package com.zenglb.framework.navigation;
 
-import com.zenglb.framework.demo.main.AreUSleepFragmentList;
 import com.zenglb.framework.dagger.scope.FragmentScope;
 import com.zenglb.framework.navigation.fragment.Rxjava2DemoFragment;
 
@@ -17,9 +16,6 @@ public abstract class MainActivityNaviModule {
     //@provides or @Binds method as @FragmentScoped.  Use case is when there are multiple fragments
     //in an activity but you do not want them to share all the same objects.
 
-    @FragmentScope
-    @ContributesAndroidInjector
-    abstract AreUSleepFragmentList provideAreUSleepFragment();
 
     @FragmentScope
     @ContributesAndroidInjector

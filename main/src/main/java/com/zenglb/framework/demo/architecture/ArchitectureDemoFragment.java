@@ -19,8 +19,7 @@ import com.liaoinstan.springview.widget.SpringView;
 import com.squareup.leakcanary.RefWatcher;
 import com.zenglb.framework.base.BaseFragment;
 import com.zenglb.framework.R;
-import com.zenglb.framework.MyApplication;
-import com.zenglb.framework.demo.main.AreUSleepListAdapter;
+import com.zenglb.framework.demo.demo.AreUSleepListAdapter;
 import com.zenglb.framework.http.result.JokesResult;
 
 import java.util.ArrayList;

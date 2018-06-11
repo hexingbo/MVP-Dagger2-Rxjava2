@@ -78,6 +78,7 @@ public class AnyLifeFragment extends BaseStatusFragment implements AnyLifeContra
         }
     }
 
+    @Inject
     public AnyLifeFragment() {
 
     }

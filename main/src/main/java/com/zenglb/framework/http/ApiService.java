@@ -38,7 +38,7 @@ import retrofit2.http.Url;
  */
 public interface ApiService {
 
-    @GET("https://zhihu.0x01.site/articles/test1")
+    @GET("http://zhihu.0x01.site/articles/test1")
     Observable<HttpResponse<List<AnyLifeResultBean>>> getHandyLifeData(@Query("type") String type, @Query("page") int page);
 
     /**

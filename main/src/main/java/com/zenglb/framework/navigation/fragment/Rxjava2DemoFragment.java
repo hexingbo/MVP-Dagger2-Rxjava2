@@ -11,10 +11,10 @@ import android.widget.TextView;
 
 import com.zenglb.framework.base.BaseFragment;
 import com.zenglb.framework.dagger.scope.ActivityScope;
+import com.zenglb.framework.demo.demo.AreUSleepListAdapter;
 import com.zenglb.framework.http.ApiService;
 import com.zlb.httplib.core.rxUtils.SwitchSchedulers;
 import com.zenglb.framework.R;
-import com.zenglb.framework.demo.main.AreUSleepListAdapter;
 import com.zlb.httplib.core.HttpResponse;
 import com.zenglb.framework.http.param.LoginParams;
 import com.zenglb.framework.http.result.JokesResult;
