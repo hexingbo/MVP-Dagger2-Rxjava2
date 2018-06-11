@@ -39,6 +39,9 @@ import io.reactivex.schedulers.Schedulers;
  * RX 内存泄漏测试
  * https://www.jianshu.com/p/0076cb510372
  *
+ *
+ * 统一更正一下说法，只要会造成内存无法及时释放就是内存泄露
+ *
  */
 public class MemoryLeakTest extends BaseMVPActivity {
 

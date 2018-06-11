@@ -3,22 +3,22 @@
 
     <item
         android:id="@+id/navigation_home"
-        android:icon="@drawable/ic_home_black_24dp"
+        android:icon="@drawable/icon_message"
         android:title="主页" />
 
     <item
         android:id="@+id/navigation_dashboard"
-        android:icon="@drawable/ic_dashboard_black_24dp"
+        android:icon="@drawable/icon_home"
         android:title="好玩" />
 
     <item
         android:id="@+id/navigation_notifications"
-        android:icon="@drawable/ic_notifications_black_24dp"
+        android:icon="@drawable/icon_me"
         android:title="Rxjava" />
 
     <item
         android:id="@+id/navigation_set"
-        android:icon="@drawable/ic_set_black_24dp"
+        android:icon="@drawable/icon_home"
         android:title="设置" />
 
 </menu>

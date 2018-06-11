@@ -14,6 +14,7 @@ import java.util.Map;
 
 /**
  * JSBridge 的主控
+ *
  */
 public class JSBridge {
     //前端和移动端都需要固定的指定这个方法
@@ -45,7 +46,7 @@ public class JSBridge {
      * @return
      * @throws Exception
      */
-    private static HashMap<String, Method> getAllMethod(Class injectedCls) throws Exception {
+    private static HashMap<String, Method> getAllMethod(Class injectedCls)  {
         HashMap<String, Method> mMethodsMap = new HashMap<>();
         Method[] methods = injectedCls.getDeclaredMethods();
         for (Method method : methods) {
@@ -62,6 +63,8 @@ public class JSBridge {
         }
         return mMethodsMap;
     }
+
+
 
     /**
      * 需要处理没法调用的Native方法等问题
@@ -117,4 +120,6 @@ public class JSBridge {
         }
         return null;
     }
+
+
 }

@@ -46,8 +46,6 @@
     <string name="shared_name">ShareName</string>
     <string name="shared_time">ShareTime</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="title_activity_tabs">TabsActivity</string>
     <string name="section_format">Hello World from section: %1$d</string>
 

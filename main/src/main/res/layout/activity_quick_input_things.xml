@@ -23,4 +23,16 @@
         android:layout_width="match_parent"
         android:layout_height="48dp" />
 
+
+
+
+    <Button
+        android:id="@+id/click"
+        android:layout_margin="@dimen/activity_horizontal_margin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="点击我一次，模拟推送一次"
+        />
+
+
 </LinearLayout>

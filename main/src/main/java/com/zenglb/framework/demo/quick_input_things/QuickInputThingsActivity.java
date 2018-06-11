@@ -1,7 +1,14 @@
 package com.zenglb.framework.demo.quick_input_things;
 
+import android.content.Context;
+import android.media.AudioManager;
+import android.media.Ringtone;
+import android.media.RingtoneManager;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.Vibrator;
 import android.util.Log;
+import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -37,20 +44,36 @@ import io.reactivex.subjects.PublishSubject;
  * http://www.jianshu.com/p/055002aaf1ca
  * <p>
  * <p>
+ * https://blog.csdn.net/hzl9966/article/details/51280493  使用Rxjava 代替EventBus
  * <p>
- * <p>
- * Created by zlb on 2017/11/8.
+ * Created by anylife.zlb@gmail.com  on 2017/11/8.
  */
 public class QuickInputThingsActivity extends BaseActivity {
     private EditText mEtSearch;
     private TextView mTvSearch;
-    private PublishSubject<String> mPublishSubject;
-    private CompositeDisposable mCompositeDisposable;
+
+    PublishSubject<Boolean> subject = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setToolBarTitle("防止快速输入");
+        setToolBarTitle("功能防抖");
+
+        subject = PublishSubject.create();
+        subject.debounce(500, TimeUnit.MILLISECONDS)
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Consumer<Boolean>() {
+                    @Override
+                    public void accept(Boolean aBoolean) {
+                        Log.e("PublishSubject", "  PublishSubject: " + aBoolean);
+                        playSoundAndVibrator(aBoolean);
+                    }
+                });
+
+//        subject.onNext(false);
+//        subject.onNext(false);
+//        subject.onNext(true);
+
     }
 
 
@@ -59,8 +82,47 @@ public class QuickInputThingsActivity extends BaseActivity {
         return R.layout.activity_quick_input_things;
     }
 
+
+    /**
+     * 推送来了以后播放自定义的声音和震动
+     * <p>
+     * 因为Google Service 进不来中国，推送进程在后台很容易被杀了，打开App 的时候就是一堆的推送接踵而至，声音也是一片
+     * 我们需要的是连续的一堆的推送来了的时候就只播放一次声音。。。
+     *
+     * @param isMsg 消息传入true！任务的话传入false
+     */
+    public void playSoundAndVibrator(boolean isMsg) {
+        Uri soundUri;
+        if (isMsg) {
+            soundUri = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.msg);
+        } else {
+            soundUri = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.task);
+        }
+        if (soundUri != null) {
+            final Ringtone ringtone = RingtoneManager.getRingtone(this, soundUri);
+            if (ringtone != null) {
+                ringtone.setStreamType(AudioManager.STREAM_RING);  //... ...
+                ringtone.play();
+            } else {
+                Log.e("PushHandler", "playSounds: failed to load ringtone from uri: " + soundUri);
+            }
+        } else {
+            Log.e("PushHandler", "playSounds: could not parse Uri: " + soundUri.toString());
+        }
+
+        Vibrator vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
+        vibrator.vibrate(1000);
+    }
+
+
     @Override
     protected void initViews() {
+
+        findViewById(R.id.click).setOnClickListener(v -> {
+            subject.onNext(true);
+        });
+
+
         mEtSearch = (EditText) findViewById(R.id.edit_query);
         mTvSearch = (TextView) findViewById(R.id.edit_keywords);
 
@@ -90,70 +152,11 @@ public class QuickInputThingsActivity extends BaseActivity {
                     mTvSearch.setText(charSequence);
                 });
 
-
-//        //3.Rxjava 防止快速输入的处理
-//        mEtSearch.addTextChangedListener(new TextWatcher() {
-//            @Override
-//            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-//            }
-//
-//            @Override
-//            public void onTextChanged(CharSequence s, int start, int before, int count) {
-//            }
-//
-//            @Override
-//            public void afterTextChanged(Editable s) {
-//                mPublishSubject.onNext(s.toString());
-//            }
-//        });
-
-
-        mPublishSubject = PublishSubject.create();
-
-        mPublishSubject
-                .debounce(200, TimeUnit.MILLISECONDS)  //去除抖动啊
-                .switchMap(new Function<String, ObservableSource<String>>() {
-                    @Override
-                    public ObservableSource<String> apply(String query) throws Exception {
-                        return getSearchObservable(query);
-                    }
-                })
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Consumer<String>() {
-                    @Override
-                    public void accept(String s) throws Exception {
-                        mTvSearch.setText(s);
-                    }
-                });
-
-
-        mCompositeDisposable = new CompositeDisposable();
-        mCompositeDisposable.add(mCompositeDisposable);
     }
 
-
-    private Observable<String> getSearchObservable(final String query) {
-        return Observable.create(new ObservableOnSubscribe<String>() {
-            @Override
-            public void subscribe(ObservableEmitter<String> observableEmitter) throws Exception {
-                Log.d("SearchActivity", "开始请求，关键词为：" + query);
-                try {
-                    Thread.sleep(100 + (long) (Math.random() * 500));
-                } catch (InterruptedException e) {
-                    if (!observableEmitter.isDisposed()) {
-                        observableEmitter.onError(e);
-                    }
-                }
-                Log.d("SearchActivity", "结束请求，关键词为：" + query);
-                observableEmitter.onNext("完成搜索，关键词为：" + query);
-                observableEmitter.onComplete();
-            }
-        }).subscribeOn(Schedulers.io());
-    }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        mCompositeDisposable.clear();
     }
 }

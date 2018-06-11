@@ -13,6 +13,12 @@
         android:orientation="vertical"
         android:padding="@dimen/activity_horizontal_margin">
 
+
+        <ImageView
+            app:srcCompat="@drawable/icon_message"
+            android:layout_width="19dp"
+            android:layout_height="16dp" />
+
         <com.zenglb.framework.custom.ui.TextViewDrawable
             android:id="@+id/mvp"
             android:layout_width="wrap_content"

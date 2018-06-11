@@ -11,7 +11,7 @@ import com.zlb.httplib.core.dialog.ProgressDialogUtil;
 import java.lang.ref.WeakReference;
 
 /**
- *
+ * maybe not useful
  *
  * Created by zenglb on 2017/3/24.
  */

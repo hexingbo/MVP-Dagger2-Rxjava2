@@ -32,7 +32,7 @@ import java.util.List;
  * @author zenglb 2016.10.24
  */
 public class ArchitectureDemoFragment extends BaseFragment {
-    public static String TAG = ArchitectureDemoFragment.class.getSimpleName();
+    public static final String TAG = ArchitectureDemoFragment.class.getSimpleName();
     private static final String ARG_PARAM1 = "param1";
     private TextView mEmptyTipsTxt;
     private int page;

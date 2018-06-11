@@ -78,6 +78,7 @@ public class WebActivity extends BaseWebViewActivity implements View.OnClickList
         }
     }
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -90,6 +91,7 @@ public class WebActivity extends BaseWebViewActivity implements View.OnClickList
         callNewActForResultReceiver = new CallNewActForResultReceiver();
         LocalBroadcastManager.getInstance(this).registerReceiver(callNewActForResultReceiver, filter);
     }
+
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {

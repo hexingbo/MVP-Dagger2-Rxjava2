@@ -2,10 +2,15 @@ package com.zenglb.framework.navigation;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.design.internal.BottomNavigationMenuView;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.view.ViewPager;
+import android.util.DisplayMetrics;
+import android.util.TypedValue;
 import android.view.KeyEvent;
 import android.view.MenuItem;
+import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.zenglb.framework.R;
@@ -106,6 +111,16 @@ public class MainActivityBottomNavi extends BaseMVPActivity {
         final BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
         BottomNavigationViewHelper.disableShiftMode(navigation);
 //        navigation.setAccessibilityLiveRegion(BottomNavigationView.ACCESSIBILITY_LIVE_REGION_ASSERTIVE);
+
+        BottomNavigationMenuView menuView = (BottomNavigationMenuView) navigation.getChildAt(0);
+        for (int i = 0; i < menuView.getChildCount(); i++) {
+            final View iconView = menuView.getChildAt(i).findViewById(android.support.design.R.id.icon);
+            final ViewGroup.LayoutParams layoutParams = iconView.getLayoutParams();
+            final DisplayMetrics displayMetrics = getResources().getDisplayMetrics();
+            layoutParams.height = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 18, displayMetrics);
+            layoutParams.width = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 18, displayMetrics);
+            iconView.setLayoutParams(layoutParams);
+        }
 
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
 

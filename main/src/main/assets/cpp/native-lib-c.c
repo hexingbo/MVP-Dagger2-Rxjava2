@@ -6,7 +6,7 @@ Java_com_zenglb_framework_activity_ndk_NDKActivity_getHtmlContent(JNIEnv *env, j
                                                                   jstring str_) {
     const char *str = (*env)->GetStringUTFChars(env, str_, 0);
 
-    // TODO
+
 
     (*env)->ReleaseStringUTFChars(env, str_, str);
 

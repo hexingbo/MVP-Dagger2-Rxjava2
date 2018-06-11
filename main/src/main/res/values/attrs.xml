@@ -9,4 +9,16 @@
         <attr name="metaButtonBarButtonStyle" format="reference" />
     </declare-styleable>
 
+
+
+    <declare-styleable name="PagerIndicator">
+        <attr name="ci_width" format="dimension"/>
+        <attr name="ci_height" format="dimension"/>
+        <attr name="ci_margin" format="dimension"/>
+        <attr name="ci_color" format="reference"/>
+        <attr name="ci_color_selected" format="reference"/>
+    </declare-styleable>
+
+
+
 </resources>

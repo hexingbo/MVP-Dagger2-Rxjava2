@@ -14,7 +14,9 @@ import com.zenglb.framework.UIStatus.EmptyCallback;
 import com.zenglb.framework.UIStatus.ErrorCallback;
 import com.zenglb.framework.UIStatus.LoadingCallback;
 import com.zenglb.framework.UIStatus.TimeoutCallback;
+
 import javax.inject.Inject;
+
 import dagger.android.AndroidInjector;
 import dagger.android.DispatchingAndroidInjector;
 import dagger.android.HasActivityInjector;
@@ -22,10 +24,10 @@ import dagger.android.HasServiceInjector;
 
 /**
  * 参考{@link dagger.android.DaggerApplication}Beta 项目，项目组没有3个以上的Android 开发不建议使用Dagger XXX
- *
+ * <p>
  * Created by anylife.zlb@gmail.com on 2017/3/15.
  */
-public class MyApplication extends BaseApplication implements HasActivityInjector,HasServiceInjector {
+public class MyApplication extends BaseApplication implements HasActivityInjector, HasServiceInjector {
     public static final String TAG = MyApplication.class.getSimpleName();
     public static final String MAIN_PROCESS_NAME = "com.zenglb.framework";
     public static final String WEB_PROCESS_NAME = "com.zenglb.framework:webprocess";
@@ -36,7 +38,7 @@ public class MyApplication extends BaseApplication implements HasActivityInjecto
     DispatchingAndroidInjector<Activity> dispatchingAndroidInjector;
 
     @Inject
-    DispatchingAndroidInjector<Service> dispatchingServiceInjector;
+    DispatchingAndroidInjector<Service> dispatchingServiceInjector;  //Service 的实现
 
     @Override
     public void onCreate() {
@@ -75,23 +77,26 @@ public class MyApplication extends BaseApplication implements HasActivityInjecto
                 //Module  带有构造方法并且参数被使用的情况下所产生的DaggerXXComponent 是没有Create方法的
 //                DaggerMainComponent.create().inject(this);
                 DaggerMainComponent.builder().mainModule(new MainModule(this)).build().inject(this);
+
+                //UI status Builder
                 LoadSir.beginBuilder()
-                        .addCallback(new ErrorCallback())//添加各种状态页
+                        .addCallback(new ErrorCallback())      //添加各种状态页
                         .addCallback(new EmptyCallback())
                         .addCallback(new LoadingCallback())
                         .addCallback(new TimeoutCallback())
                         .addCallback(new CustomCallback())
                         .setDefaultCallback(LoadingCallback.class)//设置默认状态页
                         .commit();
+
                 break;
 
             case WEB_PROCESS_NAME:  //WebView 在单独的进程中
+
 
                 break;
 
         }
     }
-
 
 
 }
