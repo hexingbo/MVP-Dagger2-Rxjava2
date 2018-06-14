@@ -13,6 +13,7 @@ import io.reactivex.Single;
  * <p>
  * Created by zenglb on 2017/7/5.
  */
+@Deprecated
 public interface ITaskDataSource {
 
     /**

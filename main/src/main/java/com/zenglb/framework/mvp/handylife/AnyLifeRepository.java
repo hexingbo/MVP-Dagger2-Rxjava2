@@ -1,7 +1,12 @@
 package com.zenglb.framework.mvp.handylife;
 
+import android.util.Log;
+
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.zenglb.framework.http.ApiService;
 import com.zlb.httplib.core.BaseObserver;
+import com.zlb.httplib.core.rxUtils.SwitchSchedulers;
 
 import java.util.List;
 
@@ -26,8 +31,8 @@ public class AnyLifeRepository implements IAnyLifeDataSource {
 
     }
 
-    public AnyLifeRepository(ApiService apiService){
-        this.apiService=apiService;
+    public AnyLifeRepository(ApiService apiService) {
+        this.apiService = apiService;
     }
 
 
@@ -41,9 +46,9 @@ public class AnyLifeRepository implements IAnyLifeDataSource {
     @Override
     public void getHandyLifeData(String type, int page, LoadHandyLifeDataCallback loadHandyLifeDataCallback) {
         apiService.getHandyLifeData(type, page)
-//                .compose(SwitchSchedulers.applySchedulers())
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
+                .compose(SwitchSchedulers.applySchedulers())
+
+                //BaseObserver 参数问题优化，如果不传参数context 的话，依赖context 的功能就要改
                 .subscribe(new BaseObserver<List<AnyLifeResultBean>>(null) {
                     @Override
                     public void onSuccess(List<AnyLifeResultBean> lifeResultBeans) {
@@ -55,9 +60,23 @@ public class AnyLifeRepository implements IAnyLifeDataSource {
                     @Override
                     public void onFailure(int code, String message) {
                         super.onFailure(code, message);
-                        if (null != loadHandyLifeDataCallback) {
-                            loadHandyLifeDataCallback.onHandyLifeDataFailed(code, message);
+
+
+//                        if (null != loadHandyLifeDataCallback) {
+//                            loadHandyLifeDataCallback.onHandyLifeDataFailed(code, message);
+//                        }
+
+                        //这个API 失效了，先假设能成功吧
+                        try {
+                            List<AnyLifeResultBean> mHandyLifeResultList = new Gson().fromJson(StaticJSON.jsonStr,
+                                    new TypeToken<List<AnyLifeResultBean>>() {
+                                    }.getType());
+                            loadHandyLifeDataCallback.onHandyLifeDataSuccess(mHandyLifeResultList);
+                        } catch (Exception e) {
+                            Log.e("JSON Exception", e.toString());
                         }
+
+
                     }
                 });
     }

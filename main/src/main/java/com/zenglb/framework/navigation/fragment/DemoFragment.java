@@ -169,13 +169,6 @@ public class DemoFragment extends Fragment {
     }
 
 
-    private void startActivity(Class target, Pair<View, String>[] pairs, String title) {
-        Intent i = new Intent(getActivity(), target);
-        i.putExtra("title", title);
-        ActivityOptionsCompat transitionActivityOptions = ActivityOptionsCompat.makeSceneTransitionAnimation(getActivity(), pairs);
-        getActivity().startActivity(i, transitionActivityOptions.toBundle());
-    }
-
 
     @Override
     public void onAttach(Context context) {

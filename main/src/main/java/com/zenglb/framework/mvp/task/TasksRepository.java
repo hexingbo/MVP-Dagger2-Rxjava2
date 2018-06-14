@@ -15,6 +15,7 @@ import io.reactivex.Single;
  *
  * Created by zlb on 2017/9/13.
  */
+@Deprecated
 public class TasksRepository  implements ITaskDataSource {
 
     @Inject

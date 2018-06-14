@@ -19,6 +19,7 @@ import com.liaoinstan.springview.widget.SpringView;
 import com.squareup.leakcanary.RefWatcher;
 import com.zenglb.framework.base.BaseFragment;
 import com.zenglb.framework.R;
+import com.zenglb.framework.base.BaseStatusFragment;
 import com.zenglb.framework.demo.demo.AreUSleepListAdapter;
 import com.zenglb.framework.http.result.JokesResult;
 
@@ -30,7 +31,7 @@ import java.util.List;
  *
  * @author zenglb 2016.10.24
  */
-public class ArchitectureDemoFragment extends BaseFragment {
+public class ArchitectureDemoFragment extends BaseStatusFragment {
     public static final String TAG = ArchitectureDemoFragment.class.getSimpleName();
     private static final String ARG_PARAM1 = "param1";
     private TextView mEmptyTipsTxt;
@@ -50,7 +51,10 @@ public class ArchitectureDemoFragment extends BaseFragment {
         outState.putParcelableArrayList("dataArray", data);
     }
 
-
+    @Override
+    protected int onCreateFragmentView() {
+        return R.layout.fragment_are_usleep;
+    }
 
 
     @Override
@@ -99,13 +103,13 @@ public class ArchitectureDemoFragment extends BaseFragment {
     }
 
 
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        Log.e(TAG, "onCreateView");
-        View rootView = inflater.inflate(R.layout.fragment_are_usleep, container, false);
-        viewsInit(rootView);
-        return rootView;
-    }
+//    @Override
+//    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+//        Log.e(TAG, "onCreateView");
+//        View rootView = inflater.inflate(R.layout.fragment_are_usleep, container, false);
+//        viewsInit(rootView);
+//        return rootView;
+//    }
 
 
     /**
@@ -113,7 +117,9 @@ public class ArchitectureDemoFragment extends BaseFragment {
      *
      * @param
      */
-    private void viewsInit(View rootView) {
+    @Override
+    public void initViews(View rootView) {
+
         areUSleepListAdapter = new AreUSleepListAdapter(getActivity(), data);
         areUSleepListAdapter.setOnItemClickListener(new AreUSleepListAdapter.OnItemClickListener() {
             @Override
@@ -149,7 +155,6 @@ public class ArchitectureDemoFragment extends BaseFragment {
         springView.setHeader(new DefaultHeader(getActivity()));
         springView.setFooter(new DefaultFooter(getActivity()));
 
-        super.initViews(rootView);  //
     }
 
 

@@ -2,7 +2,6 @@ package com.zenglb.framework.dagger;
 
 import com.zenglb.framework.demo.MemoryLeakTest;
 import com.zenglb.framework.demo.demo.Rxjava_ZIP_Activity;
-import com.zenglb.framework.demo.guide.GuideActivity;
 import com.zenglb.framework.demo.launch.LaunchActivity;
 import com.zenglb.framework.dagger.component.AllBaseActivityComponent;
 import com.zenglb.framework.dagger.module.DefaultActivityModule;
@@ -44,11 +43,6 @@ public abstract class AllDefaultActivityModule {
      */
 
     //2222222 新建了一个Activity 的并且需要inject 的只需要添加两行代码 DefaultActivityModule 适用于只要全局Module 中的内容
-
-    @ActivityScope
-    @ContributesAndroidInjector(modules = DefaultActivityModule.class)
-    abstract GuideActivity contributeGuideActivitytInjector();
-
 
     @ActivityScope
     @ContributesAndroidInjector(modules = DefaultActivityModule.class)

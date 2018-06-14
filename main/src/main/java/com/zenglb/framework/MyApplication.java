@@ -31,7 +31,6 @@ public class MyApplication extends BaseApplication implements HasActivityInjecto
     public static final String TAG = MyApplication.class.getSimpleName();
     public static final String MAIN_PROCESS_NAME = "com.zenglb.framework";
     public static final String WEB_PROCESS_NAME = "com.zenglb.framework:webprocess";
-    private boolean isDebug = false;  //App 是否是调试模式
 
     //依赖注入的核心原则：一个类不应该知道如何实现依赖注入。
     @Inject

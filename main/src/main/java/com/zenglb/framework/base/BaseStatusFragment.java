@@ -71,10 +71,11 @@ public abstract class BaseStatusFragment extends RxFragment implements HasSuppor
     }
 
 
-    protected abstract void initViews(View rootView);
+    public abstract void initViews(View rootView);
 
     /**
-     * Http 请求的重新加载
+     * Http 请求的重新加载,这个干啥
+     *
      */
     protected void onHttpReload(View v) {
 

@@ -178,7 +178,7 @@ public abstract class BaseObserver<T> implements Observer<HttpResponse<T>> {
                 //退回到登录页面
                 if (mContext != null) {  //Context 可以使Activity BroadCast Service !
                     Intent intent = new Intent();
-                    //不要hard Code, 使用灵活的Intent 来做吧
+                    //不要hard Code, 使用灵活的Intent 来做吧，ARouter 解耦
                     intent.setAction("app.intent.action.LOGIN");
                     mContext.startActivity(intent);
                 }

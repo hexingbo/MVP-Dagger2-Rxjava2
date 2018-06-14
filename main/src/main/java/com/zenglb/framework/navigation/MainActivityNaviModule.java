@@ -1,7 +1,6 @@
 package com.zenglb.framework.navigation;
 
 import com.zenglb.framework.dagger.scope.FragmentScope;
-import com.zenglb.framework.navigation.fragment.Rxjava2DemoFragment;
 
 import dagger.Module;
 import dagger.android.ContributesAndroidInjector;
@@ -17,9 +16,9 @@ public abstract class MainActivityNaviModule {
     //in an activity but you do not want them to share all the same objects.
 
 
-    @FragmentScope
-    @ContributesAndroidInjector
-    abstract Rxjava2DemoFragment provideRxjava2DemoFragment();
+//    @FragmentScope
+//    @ContributesAndroidInjector
+//    abstract Rxjava2DemoFragment provideRxjava2DemoFragment();
 
 //    @FragmentScope
 //    @ContributesAndroidInjector

@@ -27,9 +27,10 @@ import java.util.List;
 import javax.inject.Inject;
 
 /**
- *
+ *  反例，准备cut
  *
  */
+@Deprecated
 public class TaskMVPActivity extends BaseMVPActivity implements TaskContract.TaskView {
     /**
      * 接收view 层的网络数据请求，并分发给对应的Model层处理，同时监听Model层的处理结果，

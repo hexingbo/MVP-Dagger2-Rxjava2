@@ -17,7 +17,6 @@ import com.zenglb.framework.R;
 import com.zenglb.framework.base.mvp.BaseMVPActivity;
 import com.zenglb.framework.mvp.handylife.AnyLifeFragment;
 import com.zenglb.framework.navigation.fragment.DemoFragment;
-import com.zenglb.framework.navigation.fragment.Rxjava2DemoFragment;
 import com.zenglb.framework.persistence.SPDao;
 
 import javax.inject.Inject;
@@ -44,8 +43,9 @@ public class MainActivityBottomNavi extends BaseMVPActivity {
     @Inject
     DemoFragment demoFragment;  // Lazy<DemoFragment>
 
+
     @Inject
-    Rxjava2DemoFragment rxjava2DemoFragment;
+    DemoFragment demoFragment2;  // Lazy<DemoFragment>
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -150,8 +150,8 @@ public class MainActivityBottomNavi extends BaseMVPActivity {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
         adapter.addFragment(demoFragment);
         adapter.addFragment(AnyLifeFragment.newInstance("eat"));
-        adapter.addFragment(rxjava2DemoFragment);
         adapter.addFragment(AnyLifeFragment.newInstance("shop"));
+        adapter.addFragment(AnyLifeFragment.newInstance("cityguide"));
         viewPager.setAdapter(adapter);
     }
 

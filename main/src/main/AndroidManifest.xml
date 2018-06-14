@@ -40,19 +40,6 @@
             </intent-filter>
         </activity>
 
-
-
-        <activity
-            android:name=".demo.guide.GuideActivity"
-            android:theme="@style/FullscreenTheme">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
-
-
-
         <activity
             android:name=".mvp.login.LoginActivity"
             android:launchMode="singleTop"

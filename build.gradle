@@ -32,7 +32,7 @@ allprojects {
         jcenter()
         google()
 
-        mavenCentral() //
+        mavenCentral()
 
         maven {
             name "aliyunmaven"

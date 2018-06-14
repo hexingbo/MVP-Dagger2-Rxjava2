@@ -8,6 +8,7 @@ import dagger.Module;
  * anylife.zlb@gmail.com
  */
 @Module
+@Deprecated
 public abstract class MVPActivityModule {
 
 }

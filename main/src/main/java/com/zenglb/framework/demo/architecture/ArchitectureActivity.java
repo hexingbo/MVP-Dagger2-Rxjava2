@@ -14,7 +14,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 /**
- * 尝试使用 Android Architecture Components 来做一些事情
+ * It is Just a Demo
  *
  */
 public class ArchitectureActivity extends AppCompatActivity {
@@ -33,9 +33,7 @@ public class ArchitectureActivity extends AppCompatActivity {
                     .add(R.id.fragment_container, ArchitectureDemoFragment.newInstance("expired"), ArchitectureDemoFragment.TAG).commit();
         }
 
-
         test();
-
     }
 
 

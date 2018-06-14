@@ -12,6 +12,7 @@ import java.util.List;
  * Created by anylife.zlb@gmail.com
  * on 2017/8/20.
  */
+@Deprecated
 public class TaskContract {
 
     /**

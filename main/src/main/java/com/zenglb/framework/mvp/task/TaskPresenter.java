@@ -14,6 +14,7 @@ import io.reactivex.functions.Consumer;
  *
  * Created by zenglb on 2017/7/5.
  */
+@Deprecated
 public class TaskPresenter implements TaskContract.TaskPresenter {
     @Inject
     DaoSession daoSession;

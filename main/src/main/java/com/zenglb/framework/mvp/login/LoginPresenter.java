@@ -34,7 +34,11 @@ public class LoginPresenter implements LoginContract.LoginPresenter {
     }
 
     /**
-     * Presenter  这里最好不要进行Http请求，这样写有什么不好，你实际有用就会发现
+     * Presenter  这里最好不要进行Http请求，
+     * 测试的时候保持Presenter 的单纯行，方便测试，单元测试
+     *
+     *
+     * ！！！！！！！！！ 反例 ！！！！！！！！！！
      *
      * @param loginParams
      */

@@ -4,13 +4,15 @@ import java.util.List;
 import javax.inject.Inject;
 
 /**
+ * API  失效了，改天再找一个
+ *
  * The Presenter of the HandyLife
  * <p>
  * Created by zlb on 2018/3/23.
  */
 public class AnyLifePresenter implements AnyLifeContract.HandyLifePresenter {
 
-    AnyLifeRepository mHandyLifeRepository;       //
+    AnyLifeRepository mHandyLifeRepository;       //Model
     AnyLifeContract.HandyLifeView mHandyLifeView; //The V of the MVP
 
     @Inject

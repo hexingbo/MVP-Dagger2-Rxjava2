@@ -24,7 +24,7 @@ import javax.inject.Inject;
 @ActivityScope
 public class AnyLifeFragment extends BaseStatusFragment implements AnyLifeContract.HandyLifeView {
     private static final int perPageSize = 20;
-    private static final String ARG_DATA_TYPE = "data_type";  //data type {cityguide,shop,eat}
+    private static final String ARG_DATA_TYPE = "data_type";      //data type {cityguide,shop,eat}
 
     private int page = 1;   //假设我们的Page 都是从1开始
     private RecyclerView mRecyclerView = null;
@@ -121,7 +121,7 @@ public class AnyLifeFragment extends BaseStatusFragment implements AnyLifeContra
      */
     @Override
     protected void onHttpReload(View v) {
-        super.onHttpReload(v);
+//        super.onHttpReload(v);
         refresh();
     }
 
@@ -131,7 +131,7 @@ public class AnyLifeFragment extends BaseStatusFragment implements AnyLifeContra
      * @param rootView
      */
     @Override
-    protected void initViews(View rootView) {
+    public void initViews(View rootView) {
         handyLifeAdapter = new AnyLifeAdapter(getContext(), handyLifeResultBeans);
         mRecyclerView = (RecyclerView) rootView.findViewById(R.id.recyclerView);
         mRecyclerView.setAdapter(handyLifeAdapter);

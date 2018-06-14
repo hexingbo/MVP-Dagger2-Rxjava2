@@ -17,7 +17,6 @@ import android.widget.ImageView;
 
 import com.zenglb.framework.R;
 import com.zenglb.framework.base.mvp.BaseMVPActivity;
-import com.zenglb.framework.demo.guide.GuideActivity;
 import com.zenglb.framework.mvp.login.LoginActivity;
 import com.zenglb.framework.persistence.SPDao;
 import com.zlb.httplib.core.SPKey;
@@ -55,11 +54,7 @@ public class LaunchActivity extends BaseMVPActivity {
                     if (TextUtils.isEmpty(accessToken)) {
                         Intent i1 = new Intent();
                         i1.putExtra("isFromLaunch", true);
-//                        if (!spDao.getData(SPKey.KEY_HAVE_SHOW_GUIDE, false, Boolean.class)) {
-//                            i1.setClass(LaunchActivity.this, GuideActivity.class);
-//                        } else {
-//                            i1.setClass(LaunchActivity.this, LoginActivity.class);
-//                        }
+
                         i1.setClass(LaunchActivity.this, LoginActivity.class);
 
                         startActivity(i1);
@@ -94,7 +89,7 @@ public class LaunchActivity extends BaseMVPActivity {
         setToolBarVisible(View.GONE);  //这里是不需要Base 中的Toolbar
 
         //bg_splash 是很长的图   bg_splash2 是短的图！  测试适配，测试适配
-        scaleImage(LaunchActivity.this, findViewById(R.id.launch_img), R.drawable.bg_splash);
+        scaleImage(LaunchActivity.this, findViewById(R.id.launch_img), R.drawable.bg);
 
 //        Toast.makeText(this,NDKinterface.getAESDecrypt(NDKinterface.getAESEncrypt("如果不是乱码就是成功了")),
 //                Toast.LENGTH_LONG).show();     //测试加密解密是否有问题
@@ -118,7 +113,7 @@ public class LaunchActivity extends BaseMVPActivity {
         Bitmap originBitmap = BitmapFactory.decodeResource(activity.getResources(), drawableResId, options);
 
         int originWidth1 = options.outWidth;
-        int originHeight1 = options.outHeight;       //和下面的不一样？
+        int originHeight1 = options.outHeight;       //和下面的不一样？https://blog.csdn.net/qq_31285265/article/details/48780667
 
         int originWidth = originBitmap.getWidth();   //不一样 ？？？？options.outWidth
         int originHeight = originBitmap.getHeight();
