@@ -5,16 +5,13 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Point;
-import android.graphics.drawable.BitmapDrawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.text.TextUtils;
 import android.view.View;
-import android.view.ViewTreeObserver;
 import android.widget.ImageView;
-
 import com.zenglb.framework.R;
 import com.zenglb.framework.base.mvp.BaseMVPActivity;
 import com.zenglb.framework.mvp.login.LoginActivity;
@@ -86,7 +83,7 @@ public class LaunchActivity extends BaseMVPActivity {
         super.onCreate(savedInstanceState);
         UiHandler.sendEmptyMessageDelayed(FINISH_LAUNCHER, 2500);  //测试内存泄漏,只为测试.
 
-        setToolBarVisible(View.GONE);  //这里是不需要Base 中的Toolbar
+        setToolBarVisible(View.GONE);  //这里是不需要Base 中的Toolbar,不要的情况毕竟是少数
 
         //bg_splash 是很长的图   bg_splash2 是短的图！  测试适配，测试适配
         scaleImage(LaunchActivity.this, findViewById(R.id.launch_img), R.drawable.bg);
