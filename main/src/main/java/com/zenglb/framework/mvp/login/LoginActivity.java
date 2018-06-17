@@ -17,6 +17,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.alibaba.android.arouter.facade.annotation.Route;
 import com.zenglb.framework.R;
 import com.zenglb.framework.base.mvp.BaseMVPActivity;
 import com.zenglb.framework.demo.access.RegisterActivity;
@@ -43,6 +44,7 @@ import es.dmoral.toasty.Toasty;
  *
  * Created by anylife.zlb@gmail.com on 2018/1/11.
  */
+@Route(path = "/login/activity")
 public class LoginActivity extends BaseMVPActivity implements LoginContract.LoginView {
 
     @BindView(R.id.et_username)

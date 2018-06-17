@@ -83,7 +83,6 @@
         <activity android:name=".demo.architecture.ArchitectureActivity" />
         <activity android:name=".demo.demo.Rxjava_ZIP_Activity" />
 
-        <activity android:name=".demo.custom_view.CustomViewActivity" />
         <activity android:name=".demo.MemoryLeakTest" />
         <activity android:name=".mvp.handylife.AnyLifeActivity" />
 

@@ -7,6 +7,7 @@ import android.support.annotation.CallSuper;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.alibaba.android.arouter.launcher.ARouter;
 import com.google.gson.Gson;
 import com.zlb.httplib.core.rxUtils.TextConvertUtils;
 
@@ -122,12 +123,14 @@ public abstract class BaseObserver<T> implements Observer<HttpResponse<T>> {
         } else if (t instanceof IOException) {   //飞行模式等
             errorCode = RESPONSE_FATAL_EOR;
             errorMsg = "没有网络，请检查网络连接";
-        } else if (t instanceof NetworkOnMainThreadException) {//主线程不能网络请求，这个很容易发现
+        } else if (t instanceof NetworkOnMainThreadException) {
+            //主线程不能网络请求，这个很容易发现
             errorCode = RESPONSE_FATAL_EOR;
             errorMsg = "主线程不能网络请求";
 
             // ... ...
-        } else if (t instanceof RuntimeException) { //很多的错误都是extends RuntimeException
+        } else if (t instanceof RuntimeException) {
+            //很多的错误都是extends RuntimeException
             errorCode = RESPONSE_FATAL_EOR;
             errorMsg = "运行时错误"+t.toString();
         }
@@ -177,10 +180,14 @@ public abstract class BaseObserver<T> implements Observer<HttpResponse<T>> {
             case 401:
                 //退回到登录页面
                 if (mContext != null) {  //Context 可以使Activity BroadCast Service !
-                    Intent intent = new Intent();
-                    //不要hard Code, 使用灵活的Intent 来做吧，ARouter 解耦
-                    intent.setAction("app.intent.action.LOGIN");
-                    mContext.startActivity(intent);
+//                    Intent intent = new Intent();
+//                    //不要hard Code, 使用灵活的Intent 来做吧，ARouter 解耦
+//                    intent.setAction("app.intent.action.LOGIN");
+//                    mContext.startActivity(intent);
+
+                    // 1. 应用内简单的跳转(通过URL跳转在'进阶用法'中)
+                    ARouter.getInstance().build("/login/activity").navigation();
+
                 }
                 break;
         }

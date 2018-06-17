@@ -61,7 +61,6 @@ public class AnyLifeRepository implements IAnyLifeDataSource {
                     public void onFailure(int code, String message) {
                         super.onFailure(code, message);
 
-
 //                        if (null != loadHandyLifeDataCallback) {
 //                            loadHandyLifeDataCallback.onHandyLifeDataFailed(code, message);
 //                        }
