@@ -8,8 +8,10 @@
         <option name="modules">
           <set>
             <option value="$PROJECT_DIR$" />
-            <option value="$PROJECT_DIR$/httplib" />
-            <option value="$PROJECT_DIR$/main" />
+            <option value="$PROJECT_DIR$/app" />
+            <option value="$PROJECT_DIR$/baselib" />
+            <option value="$PROJECT_DIR$/module_a" />
+            <option value="$PROJECT_DIR$/module_jsbridge" />
           </set>
         </option>
         <option name="resolveModulePerSourceSet" value="false" />

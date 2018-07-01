@@ -4,7 +4,10 @@
   一直在纠结在何种开发模式之中，重构希望能把关注点集中到代码结构、整体架构、可测试性、可维护性这四个方面
   Rxjava2 + retrofit2 + MVP + Drager2 + xxx,应该是当前Android开发主流的框架 ，我们都会参考Google的官方框架https://github.com/googlesamples/android-architecture 或者 Google 的最新的项目架构组件https://github.com/googlesamples/android-architecture-components
   
-# [New]增加Error，empty,Loading,timeout等通用的场景处理，一处Root注入，处处可用
+ # [New]Android 组件化架构
+   Android 组件化架构带来的好处和副作用网络很多，在实际的项目中实施过程如果有使用Dagger&Dager.android ,可能会遇到一些麻烦，本Demo演示了如何处理
+  
+# 增加Error，empty,Loading,timeout等通用的场景处理，一处Root注入，处处可用
    项目中的toolbar几乎每个页面都要使用，每个Layout 都写？NONONO
    进行网络请求时候的Error，empty,Loading,timeout等通用场景也是必须要处理的，Demo中一处Root注入，处处可用(Power by Loadsir）
 
