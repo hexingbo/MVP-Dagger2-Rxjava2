@@ -1,0 +1,80 @@
+package debug;
+
+import com.kingja.loadsir.core.LoadSir;
+import com.squareup.leakcanary.LeakCanary;
+import com.zenglb.framework.dagger.DaggerAModuleComponent;
+import com.zlb.UIStatus.CustomCallback;
+import com.zlb.UIStatus.EmptyCallback;
+import com.zlb.UIStatus.ErrorCallback;
+import com.zlb.UIStatus.LoadingCallback;
+import com.zlb.UIStatus.TimeoutCallback;
+import com.zlb.base.BaseApplication;
+import com.zlb.dagger.module.BaseGlobalModule;
+
+
+/**
+ *
+ *
+ *
+ *
+ * Created by anylife.zlb@gmail.com on 2017/3/15.
+ */
+public class AModuleApplication extends BaseApplication {
+    public static final String TAG = AModuleApplication.class.getSimpleName();
+    public static final String MAIN_PROCESS_NAME = "com.zenglb.framework";
+    public static final String WEB_PROCESS_NAME = "com.zenglb.framework:webprocess";
+
+
+    @Override
+    public void onCreate() {
+        super.onCreate();
+        initApplication();
+    }
+
+
+    @Override
+    protected void injectApp() {
+        DaggerAModuleComponent.builder()
+                .baseGlobalModule(new BaseGlobalModule(this))
+                .build()
+                .inject(this);
+    }
+
+
+    /**
+     * 需要重新规划
+     *
+     */
+    private void initApplication() {
+        if (LeakCanary.isInAnalyzerProcess(this)) {
+            // This process is dedicated to LeakCanary for heap analysis.
+            // You should not init your app in this process.
+            return;
+        }
+        LeakCanary.install(this);
+        //部分 初始化服务最好能新开一个IntentService 去处理,bugly 在两个进程都有初始化
+        String processName = getProcessName();
+        switch (processName) {
+
+            case MAIN_PROCESS_NAME:
+                //UI status Builder
+                LoadSir.beginBuilder()
+                        .addCallback(new ErrorCallback())      //添加各种状态页
+                        .addCallback(new EmptyCallback())
+                        .addCallback(new LoadingCallback())
+                        .addCallback(new TimeoutCallback())
+                        .addCallback(new CustomCallback())
+                        .setDefaultCallback(LoadingCallback.class)//设置默认状态页
+                        .commit();
+
+                break;
+
+            case WEB_PROCESS_NAME:  //WebView 在单独的进程中
+
+                break;
+
+        }
+    }
+
+
+}

@@ -1,4 +1,4 @@
-include ':main', ':httplib'
+include ':module_a', ':baselib', ':module_jsbridge', ':app'
 
 //, ':baseLib'
 
