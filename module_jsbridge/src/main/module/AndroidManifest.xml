@@ -6,11 +6,12 @@
     <application
         android:name="debug.JSBridgeApplication"
         android:allowBackup="true"
-        android:icon="@drawable/my_dialog_bg"
+        android:icon="@mipmap/ic_launcher"
         android:label="JSBRIDGE"
         tools:replace="android:label"
         android:supportsRtl="true"
         android:theme="@style/MyAppTheme">
+
         <activity android:name="debug.LauncherActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -18,7 +19,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
 
         <activity android:name=".WebActivity" />
 

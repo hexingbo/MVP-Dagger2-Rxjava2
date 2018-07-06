@@ -15,6 +15,8 @@ import dagger.android.support.DaggerAppCompatActivity;
 
 
 /**
+ * 整个项目的全局的Application，其他的Debug 目录下的 XX Application 都会expect
+ *
  * 参考{@link dagger.android.DaggerApplication}Beta 项目，项目组没有3个以上的Android 开发不建议使用Dagger XXX
  * <p>
  * Created by anylife.zlb@gmail.com on 2017/3/15.
@@ -67,7 +69,7 @@ public class AppApplication extends BaseApplication  {
 //                DaggerModuleAComponent.builder().moduleaModule(new ModuleaModule(this)).build().inject(this);
 
 
-                //UI status Builder
+                //UI status Builder,需要
                 LoadSir.beginBuilder()
                         .addCallback(new ErrorCallback())      //添加各种状态页
                         .addCallback(new EmptyCallback())
