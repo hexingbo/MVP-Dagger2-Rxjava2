@@ -24,6 +24,7 @@ import android.util.Base64;
 import android.view.View;
 
 
+import com.alibaba.android.arouter.facade.annotation.Route;
 import com.zlb.utils.BitMapUtil;
 import com.zlb.utils.FileCachePathConfig;
 import com.zlb.utils.FileStorage;
@@ -41,6 +42,7 @@ import pub.devrel.easypermissions.EasyPermissions;
  * <p>
  * 验证 JSBridge
  */
+@Route(path = "/web/WebActivity")
 public class WebActivity extends BaseWebViewActivity implements View.OnClickListener, EasyPermissions.PermissionCallbacks {
     private final static int CAMERA_PERMISSION_CODE = 1000;    //请求CAMERA权限的Code
     private final static int REQUEST_CAPTURE_IMG = 1001;    //相册选取

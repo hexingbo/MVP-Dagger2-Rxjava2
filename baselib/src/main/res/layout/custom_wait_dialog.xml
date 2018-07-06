@@ -9,12 +9,6 @@
     android:paddingTop="12dp"
     android:paddingBottom="10dp">
 
-    <!--<ProgressBar-->
-        <!--android:id="@+id/progressBar"-->
-        <!--style="?android:attr/progressBarStyle"-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content" />-->
-
     <ProgressBar
         android:id="@+id/iv_wait"
         style="@style/HttpProgressBar"

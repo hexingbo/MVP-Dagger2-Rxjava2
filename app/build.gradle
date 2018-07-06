@@ -65,11 +65,6 @@ android {
         }
     }
 
-//    greendao {
-//        schemaVersion 7                  //修改这里的版本号，greenDAO会自动修改生成到DAOMaster中的版本号
-//        targetGenDir 'src/main/java'     //表示greenDAO生成的DAOMaster和DaoSession的位置
-//        daoPackage 'com.zenglb.framework.persistence.dbmaster' //我觉得最好放在Entity 下面的目录！！！
-//    }
 
     compileOptions {
         sourceCompatibility rootProject.ext.sourceCompatibility
@@ -77,7 +72,6 @@ android {
     }
 
 }
-
 
 
 dependencies {

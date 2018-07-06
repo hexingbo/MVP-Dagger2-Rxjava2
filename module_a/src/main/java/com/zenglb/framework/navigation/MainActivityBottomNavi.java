@@ -43,9 +43,6 @@ public class MainActivityBottomNavi extends BaseMVPActivity {
     @Inject
     DemoFragment demoFragment;  // Lazy<DemoFragment>
 
-    @Inject
-    DemoFragment demoFragment2;  // Lazy<DemoFragment>
-
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
 

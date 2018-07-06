@@ -27,7 +27,7 @@ import dagger.Provides;
 
 /**
  * 在这里提供全局的并且是唯一的东西，SharedPreferences,DB,HTTP,etc
- *
+ * <p>
  * Created by anylife.zlb@gmail.com on 2018/1/11.
  */
 @Module
@@ -63,7 +63,7 @@ public class BaseGlobalModule {
     @Provides
     @Singleton
     //在这加了Singleton 的注解就是单例的了，打出内存地址查看一下
-    public  SPDao provideSPDao() {
+    public SPDao provideSPDao() {
         return new SPDao(mContext);
     }
 
@@ -79,7 +79,7 @@ public class BaseGlobalModule {
 
 
     /**
-     * 网络访问
+     * 网络访问，拆分到每个模块吧
      *
      * @return
      */
@@ -89,6 +89,18 @@ public class BaseGlobalModule {
         //Retrofit 的create 真是精华所在啊！
         return HttpRetrofit.getRetrofit(spDao, mContext).create(ApiService.class);
     }
+
+//    /**
+//     * 网络访问，拆分到每个模块吧
+//     *
+//     * @return
+//     */
+//    @Provides
+//    @Singleton
+//    public ApiService provideApiService2(SPDao spDao, Context mContext) {
+//        //Retrofit 的create 真是精华所在啊！
+//        return HttpRetrofit.getRetrofit(spDao, mContext).create(ApiService.class);
+//    }
 
 
     /**

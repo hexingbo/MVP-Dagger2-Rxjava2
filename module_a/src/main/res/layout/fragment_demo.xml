@@ -14,12 +14,7 @@
         android:padding="@dimen/activity_horizontal_margin">
 
 
-        <ImageView
-            app:srcCompat="@drawable/icon_message"
-            android:layout_width="19dp"
-            android:layout_height="16dp" />
-
-        <com.zenglb.framework.custom.ui.TextViewDrawable
+        <com.zenglb.framework.customView.TextViewDrawable
             android:id="@+id/mvp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -33,7 +28,7 @@
             app:isAliganCenter="false" />
 
 
-        <com.zenglb.framework.custom.ui.TextViewDrawable
+        <com.zenglb.framework.customView.TextViewDrawable
             android:id="@+id/JSBridge"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -47,7 +42,7 @@
             app:isAliganCenter="false" />
 
 
-        <com.zenglb.framework.custom.ui.TextViewDrawable
+        <com.zenglb.framework.customView.TextViewDrawable
             android:id="@+id/quickinput"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -60,20 +55,9 @@
             android:padding="10dp"
             app:isAliganCenter="false" />
 
-        <com.zenglb.framework.custom.ui.TextViewDrawable
-            android:id="@+id/animation"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:transitionName="@string/shared_name"
-            android:text="Material Animations 动画演示"
-            android:textColor="@color/colorPrimary"
-            android:textSize="18sp"
-            android:drawableStart="@drawable/dot_blue"
-            android:drawablePadding="10dp"
-            android:padding="10dp"
-            app:isAliganCenter="false" />
 
-        <com.zenglb.framework.custom.ui.TextViewDrawable
+
+        <com.zenglb.framework.customView.TextViewDrawable
             android:id="@+id/baidu"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -87,7 +71,7 @@
             android:padding="10dp"
             app:isAliganCenter="false" />
 
-        <com.zenglb.framework.custom.ui.TextViewDrawable
+        <com.zenglb.framework.customView.TextViewDrawable
             android:id="@+id/dragger"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -102,7 +86,7 @@
             app:isAliganCenter="false" />
 
 
-        <com.zenglb.framework.custom.ui.TextViewDrawable
+        <com.zenglb.framework.customView.TextViewDrawable
             android:id="@+id/kotlin"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -116,7 +100,7 @@
             android:padding="10dp"
             app:isAliganCenter="false" />
 
-        <com.zenglb.framework.custom.ui.TextViewDrawable
+        <com.zenglb.framework.customView.TextViewDrawable
             android:id="@+id/jni"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -129,7 +113,7 @@
             android:padding="10dp"
             app:isAliganCenter="false" />
 
-        <com.zenglb.framework.custom.ui.TextViewDrawable
+        <com.zenglb.framework.customView.TextViewDrawable
             android:id="@+id/java8"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -142,7 +126,7 @@
             android:padding="10dp"
             app:isAliganCenter="false" />
 
-        <com.zenglb.framework.custom.ui.TextViewDrawable
+        <com.zenglb.framework.customView.TextViewDrawable
             android:id="@+id/memory_leak"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

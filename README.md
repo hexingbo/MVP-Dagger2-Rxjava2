@@ -1,13 +1,16 @@
 # FBI WARMIMNG:api 仅供交流，不要外传
 
+![壮志凌云](https://upload-images.jianshu.io/upload_images/2376786-20c75f8b3e9475f9.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+
 # 关于本Demo
   一直在纠结在何种开发模式之中，重构希望能把关注点集中到代码结构、整体架构、可测试性、可维护性这四个方面
   Rxjava2 + retrofit2 + MVP + Drager2 + xxx,应该是当前Android开发主流的框架 ，我们都会参考Google的官方框架https://github.com/googlesamples/android-architecture 或者 Google 的最新的项目架构组件https://github.com/googlesamples/android-architecture-components
   
  # [New]Android 组件化架构
-   Android 组件化架构带来的好处和副作用网络很多，在实际的项目中实施过程如果有使用Dagger&Dager.android ,可能会遇到一些麻烦，本Demo演示了如何处理
-  
-# 增加Error，empty,Loading,timeout等通用的场景处理，一处Root注入，处处可用
+   简单的分为BASE MODULEA MODULEJS 和 APP组合MODULE。 Android 组件化架构带来的好处和副作用网络上相关文章很多，在实际的项目中实施过程如果有使用Dagger&Dager.android ,可能会遇到一些麻烦，本Demo演示了如何处理。集成模式还是组建模式可以通过修改gradle.properties 的isModule 值，然后Sync Project 生效
+   但是删除了以前的ButterKnife，因为烦人的R 资源问题
+
+# Error,empty,Loading,timeout等通用的场景处理，一处Root注入，处处可用
    项目中的toolbar几乎每个页面都要使用，每个Layout 都写？NONONO
    进行网络请求时候的Error，empty,Loading,timeout等通用场景也是必须要处理的，Demo中一处Root注入，处处可用(Power by Loadsir）
 
@@ -52,10 +55,7 @@
   }
  
  ```
-  
-# 关于调试工具
- 推荐Facebook stetho ，可以网络请求（抓包），不root查看DB 文件和sharepreference，甚至在4.4 以后webview
- 可以远程调试；提高生产力的利器啊。
+
 
 # 关于热修复
   阿里的HotFix&微信的Tinker
@@ -71,8 +71,11 @@
 # Rxjava2
   谁用谁知道，勇敢的开始使用吧
 
-# JSBridge
+# JSBridge Module
   简单的JSBridge,前端的对应代码放在Assert目录
+
+# 关于单元测试
+  正在学怎么处理？
 
 # 项目中包含的基本的通用模块
 - Dagger.android 大大的优化Dagger 在android 中的使用，

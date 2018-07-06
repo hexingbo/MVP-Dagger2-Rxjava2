@@ -1,4 +1,4 @@
-package com.zenglb.framework.custom.ui;
+package com.zenglb.framework.customView;
 
 import android.content.Context;
 import android.content.res.TypedArray;

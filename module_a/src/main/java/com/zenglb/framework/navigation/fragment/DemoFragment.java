@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.alibaba.android.arouter.launcher.ARouter;
 import com.zlb.base.BaseActivity;
 import com.zenglb.framework.R;
 import com.zenglb.framework.demo.MemoryLeakTest;
@@ -28,7 +29,7 @@ import retrofit2.Response;
 
 /**
  * 喂,你睡着了吗（答题列表）
- *
+ * <p>
  * https://blog.csdn.net/a_long_/article/details/54829644
  *
  * @author zenglb 2016.10.24
@@ -43,21 +44,6 @@ public class DemoFragment extends Fragment {
     public DemoFragment() {
         // Required empty public constructor
     }
-
-//    /**
-//     * Use this factory method to create a new instance of
-//     * this fragment using the provided parameters.
-//     *
-//     * @param param1 Parameter 1.
-//     * @return A new instance of fragment AreUSleepFragment.
-//     */
-//    public static DemoFragment newInstance(String param1) {
-//        DemoFragment fragment = new DemoFragment();
-//        Bundle args = new Bundle();
-//        args.putString(ARG_PARAM1, param1);
-//        fragment.setArguments(args);
-//        return fragment;
-//    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -79,14 +65,19 @@ public class DemoFragment extends Fragment {
      * @param
      */
     private void viewsInit(View rootView) {
-        rootView.findViewById(R.id.quickinput).setOnClickListener(v -> {
 
+        rootView.findViewById(R.id.quickinput).setOnClickListener(v -> {
             ((BaseActivity) getActivity()).startActivity(QuickInputThingsActivity.class);
         });
 
         //
         rootView.findViewById(R.id.JSBridge).setOnClickListener(v -> {
-            ((BaseActivity) getActivity()).goWebView("file:///android_asset/index.html");
+
+            ARouter.getInstance().build("/web/WebActivity")
+                    .withString("url", "file:///android_asset/index.html")
+                    .navigation();
+
+//            ((BaseActivity) getActivity()).goWebView("file:///android_asset/index.html");
         });
 
 
@@ -124,11 +115,6 @@ public class DemoFragment extends Fragment {
             ((BaseActivity) getActivity()).startActivity(AnyLifeActivity.class);
         });
 
-        /**
-         * 使用lamada 替代，Ctrl+Alt+L 格式化代码 Ctrl+Alt+O 优化导入的类和包 Alt+Insert 生成代码
-         */
-        rootView.findViewById(R.id.animation).setOnClickListener
-                (view -> transitionToActivity(AnimalMainActivity.class, (TextView) rootView.findViewById(R.id.animation), "Material Animations 动画演示"));
 
         /**
          * jni jni
@@ -147,7 +133,6 @@ public class DemoFragment extends Fragment {
         });
 
 
-
         /**
          * dragger
          */
@@ -164,7 +149,6 @@ public class DemoFragment extends Fragment {
 //
 //        startActivity(target, pairs, title);
     }
-
 
 
     @Override

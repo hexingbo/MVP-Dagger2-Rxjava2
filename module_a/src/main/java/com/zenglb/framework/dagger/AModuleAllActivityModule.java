@@ -5,10 +5,8 @@ import com.zenglb.framework.demo.demo.Rxjava_ZIP_Activity;
 import com.zenglb.framework.demo.launch.LaunchActivity;
 import com.zenglb.framework.mvp.handylife.AnyLifeActivity;
 import com.zenglb.framework.mvp.handylife.AnyLifeFragment;
-import com.zenglb.framework.mvp.task.MVPActivityModule;
 import com.zenglb.framework.navigation.MainActivityNaviModule;
 import com.zenglb.framework.mvp.login.LoginActivity;
-import com.zenglb.framework.mvp.task.TaskMVPActivity;
 import com.zenglb.framework.navigation.MainActivityBottomNavi;
 import com.zlb.dagger.component.BaseActivityComponent;
 import com.zlb.dagger.module.DefaultActivityModule;
@@ -60,9 +58,9 @@ public abstract class AModuleAllActivityModule {
     @ContributesAndroidInjector(modules = MainActivityNaviModule.class)
     abstract MainActivityBottomNavi contribute2Injector();
 
-    @ActivityScope
-    @ContributesAndroidInjector(modules = MVPActivityModule.class)
-    abstract TaskMVPActivity contribute3Injector();
+//    @ActivityScope
+//    @ContributesAndroidInjector(modules = MVPActivityModule.class)
+//    abstract TaskMVPActivity contribute3Injector();
 
 
     @ActivityScope
