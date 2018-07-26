@@ -122,7 +122,6 @@ public class AnyLifeFragment extends BaseStatusFragment implements AnyLifeContra
      */
     @Override
     protected void onHttpReload(View v) {
-//        super.onHttpReload(v);
         refresh();
     }
 

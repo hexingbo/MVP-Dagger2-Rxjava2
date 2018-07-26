@@ -73,8 +73,6 @@ public class LoginActivity extends BaseMVPActivity implements LoginContract.Logi
             logoutCustomComponent();
         }
 
-        setToolBarVisible(View.GONE);  //这里是不需要Toolbar 的
-
     }
 
     /**
@@ -119,14 +117,16 @@ public class LoginActivity extends BaseMVPActivity implements LoginContract.Logi
     @Override
     protected void initViews() {
 
+        setToolBarVisible(View.GONE);  //这里是不需要Toolbar 的
+
         etUsername = findViewById(R.id.et_username);
         etPassword = findViewById(R.id.et_password);
 
         loginBtn = findViewById(R.id.login_btn);
         loginBtn.setOnClickListener(view -> mvpLogin());
+
         cardview = findViewById(R.id.cardview);
         fabBtn = findViewById(R.id.fab_btn);
-
 
         etUsername.setText(spDao.getData(SPKey.KEY_LAST_ACCOUNT, "", String.class));
 

@@ -13,9 +13,7 @@ import com.zlb.dagger.module.BaseGlobalModule;
 
 
 /**
- *
- *
- *
+ * Module 调试模式的时候使用，集成模式不会使用
  *
  * Created by anylife.zlb@gmail.com on 2017/3/15.
  */
