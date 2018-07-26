@@ -9,7 +9,7 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.zenglb.framework.R;
 import com.zlb.http.result.AnyLifeResult;
 import com.zlb.base.BaseStatusFragment;
-import com.zlb.UIStatus.ErrorCallback;
+import com.zlb.commontips.ErrorCallback;
 import com.zlb.dagger.scope.ActivityScope;
 
 import java.util.ArrayList;

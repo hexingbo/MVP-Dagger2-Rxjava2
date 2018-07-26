@@ -13,9 +13,9 @@ import com.kingja.loadsir.core.LoadSir;
 import com.kingja.loadsir.core.Transport;
 import com.zenglb.framework.R;
 import com.zlb.base.BaseActivity;
-import com.zlb.UIStatus.EmptyCallback;
-import com.zlb.UIStatus.LoadingCallback;
-import com.zlb.UIStatus.PostUtil;
+import com.zlb.commontips.EmptyCallback;
+import com.zlb.commontips.LoadingCallback;
+import com.zlb.commontips.PostUtil;
 
 /**
  * 状态测试页面

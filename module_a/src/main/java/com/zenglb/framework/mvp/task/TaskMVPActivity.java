@@ -17,7 +17,7 @@ import com.liaoinstan.springview.widget.SpringView;
 import com.zenglb.framework.R;
 import com.zlb.base.BaseMVPActivity;
 import com.zenglb.framework.demo.demo.AreUSleepListAdapter;
-import com.zlb.UIStatus.EmptyCallback;
+import com.zlb.commontips.EmptyCallback;
 import com.zlb.http.result.JokesResult;
 import com.zlb.persistence.dbmaster.DaoSession;
 

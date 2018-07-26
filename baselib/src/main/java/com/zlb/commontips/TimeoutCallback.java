@@ -1,4 +1,4 @@
-package com.zlb.UIStatus;
+package com.zlb.commontips;
 
 import android.content.Context;
 import android.view.View;

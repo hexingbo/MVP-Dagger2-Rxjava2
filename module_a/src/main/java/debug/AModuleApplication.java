@@ -3,11 +3,11 @@ package debug;
 import com.kingja.loadsir.core.LoadSir;
 import com.squareup.leakcanary.LeakCanary;
 import com.zenglb.framework.dagger.DaggerAModuleComponent;
-import com.zlb.UIStatus.CustomCallback;
-import com.zlb.UIStatus.EmptyCallback;
-import com.zlb.UIStatus.ErrorCallback;
-import com.zlb.UIStatus.LoadingCallback;
-import com.zlb.UIStatus.TimeoutCallback;
+import com.zlb.commontips.CustomCallback;
+import com.zlb.commontips.EmptyCallback;
+import com.zlb.commontips.ErrorCallback;
+import com.zlb.commontips.LoadingCallback;
+import com.zlb.commontips.TimeoutCallback;
 import com.zlb.base.BaseApplication;
 import com.zlb.dagger.module.BaseGlobalModule;
 

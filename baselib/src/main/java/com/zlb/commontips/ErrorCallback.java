@@ -1,4 +1,5 @@
-package com.zlb.UIStatus;
+package com.zlb.commontips;
+
 
 import com.kingja.loadsir.callback.Callback;
 import com.zlb.httplib.R;
@@ -6,16 +7,14 @@ import com.zlb.httplib.R;
 
 /**
  * Description:TODO
- * Create Time:2017/9/4 10:22
+ * Create Time:2017/9/4 10:20
  * Author:KingJA
  * Email:kingjavip@gmail.com
  */
 
-public class EmptyCallback extends Callback {
-
+public class ErrorCallback extends Callback {
     @Override
     protected int onCreateView() {
-        return R.layout.layout_empty;
+        return R.layout.layout_error;
     }
-
 }
