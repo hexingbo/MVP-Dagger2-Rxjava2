@@ -3,7 +3,16 @@ package com.zlb.utils;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.net.Uri;
+
+import com.google.zxing.BarcodeFormat;
+import com.google.zxing.common.BitMatrix;
+import com.google.zxing.qrcode.QRCodeWriter;
+
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
 
 /**
  *
@@ -90,5 +99,74 @@ public class BitMapUtil {
         }
         return inSampleSize;
     }
+
+
+
+    public static void saveBmpToSD(Bitmap bmp,String path) {
+        File file = new File(path);
+        try {
+            FileOutputStream fos = new FileOutputStream(file);
+            bmp.compress(Bitmap.CompressFormat.JPEG, 100, fos);
+            fos.flush();
+            fos.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+
+
+    /**
+     *
+     *
+     * @param str
+     * @param size
+     * @return
+     */
+    public static Bitmap Create2DCode(String str, int size) {
+        try {
+            BitMatrix matrix = new QRCodeWriter().encode(str, BarcodeFormat.QR_CODE, size, size);
+            matrix = deleteWhite(matrix);//删除白边
+            size = matrix.getWidth();
+            int[] pixels = new int[size * size];
+            for (int y = 0; y < size; y++) {
+                for (int x = 0; x < size; x++) {
+                    if (matrix.get(x, y)) {
+                        pixels[y * size + x] = Color.BLACK;
+                    } else {
+                        pixels[y * size + x] = Color.WHITE;
+                    }
+                }
+            }
+            Bitmap bitmap = Bitmap.createBitmap(size, size, Bitmap.Config.ARGB_8888);
+            bitmap.setPixels(pixels, 0, size, 0, 0, size, size);
+            return bitmap;
+        } catch (Exception e) {
+            return null;
+        }
+    }
+
+    /**
+     * 删除白色的边
+     *
+     * @param matrix
+     * @return
+     */
+    private static BitMatrix deleteWhite(BitMatrix matrix) {
+        int[] rec = matrix.getEnclosingRectangle();
+        int resWidth = rec[2] + 1;
+        int resHeight = rec[3] + 1;
+
+        BitMatrix resMatrix = new BitMatrix(resWidth, resHeight);
+        resMatrix.clear();
+        for (int i = 0; i < resWidth; i++) {
+            for (int j = 0; j < resHeight; j++) {
+                if (matrix.get(i + rec[0], j + rec[1]))
+                    resMatrix.set(i, j);
+            }
+        }
+        return resMatrix;
+    }
+
 
 }

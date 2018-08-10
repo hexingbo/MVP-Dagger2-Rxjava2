@@ -6,6 +6,7 @@
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://$PROJECT_DIR$/baselib/baselib.iml" filepath="$PROJECT_DIR$/baselib/baselib.iml" />
       <module fileurl="file://$PROJECT_DIR$/module_a/module_a.iml" filepath="$PROJECT_DIR$/module_a/module_a.iml" />
+      <module fileurl="file://$PROJECT_DIR$/module_good_life/module_good_life.iml" filepath="$PROJECT_DIR$/module_good_life/module_good_life.iml" />
       <module fileurl="file://$PROJECT_DIR$/module_jsbridge/module_jsbridge.iml" filepath="$PROJECT_DIR$/module_jsbridge/module_jsbridge.iml" />
     </modules>
   </component>

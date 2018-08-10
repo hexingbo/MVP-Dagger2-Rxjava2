@@ -2,7 +2,7 @@ package debug;
 
 import com.kingja.loadsir.core.LoadSir;
 import com.squareup.leakcanary.LeakCanary;
-import com.zenglb.framework.dagger.DaggerAModuleComponent;
+import com.zenglb.framework.modulea.dagger.DaggerAModuleComponent;
 import com.zlb.commontips.CustomCallback;
 import com.zlb.commontips.EmptyCallback;
 import com.zlb.commontips.ErrorCallback;
@@ -19,8 +19,8 @@ import com.zlb.dagger.module.BaseGlobalModule;
  */
 public class AModuleApplication extends BaseApplication {
     public static final String TAG = AModuleApplication.class.getSimpleName();
-    public static final String MAIN_PROCESS_NAME = "com.zenglb.framework";
-    public static final String WEB_PROCESS_NAME = "com.zenglb.framework:webprocess";
+    public static final String MAIN_PROCESS_NAME = "com.zenglb.framework.modulea";
+    public static final String WEB_PROCESS_NAME = "com.zenglb.framework.modulea:webprocess";
 
 
     @Override

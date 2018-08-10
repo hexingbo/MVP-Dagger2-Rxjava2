@@ -14,7 +14,7 @@
         android:padding="@dimen/activity_horizontal_margin">
 
 
-        <com.zenglb.framework.customView.TextViewDrawable
+        <com.zenglb.framework.modulea.customView.TextViewDrawable
             android:id="@+id/mvp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -28,7 +28,7 @@
             app:isAliganCenter="false" />
 
 
-        <com.zenglb.framework.customView.TextViewDrawable
+        <com.zenglb.framework.modulea.customView.TextViewDrawable
             android:id="@+id/JSBridge"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -42,7 +42,7 @@
             app:isAliganCenter="false" />
 
 
-        <com.zenglb.framework.customView.TextViewDrawable
+        <com.zenglb.framework.modulea.customView.TextViewDrawable
             android:id="@+id/quickinput"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -56,12 +56,12 @@
             app:isAliganCenter="false" />
 
 
-        <com.zenglb.framework.customView.TextViewDrawable
+        <com.zenglb.framework.modulea.customView.TextViewDrawable
             android:id="@+id/animation"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:transitionName="@string/shared_name"
-            android:text="调用系统相机拍照生成水印照片"
+            android:text="调用封装的系统相机拍带水印照片"
             android:textColor="@color/colorPrimary"
             android:textSize="18sp"
             android:drawableStart="@drawable/dot_blue"
@@ -70,7 +70,7 @@
             app:isAliganCenter="false" />
 
 
-        <com.zenglb.framework.customView.TextViewDrawable
+        <com.zenglb.framework.modulea.customView.TextViewDrawable
             android:id="@+id/baidu"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -84,7 +84,7 @@
             android:padding="10dp"
             app:isAliganCenter="false" />
 
-        <com.zenglb.framework.customView.TextViewDrawable
+        <com.zenglb.framework.modulea.customView.TextViewDrawable
             android:id="@+id/dragger"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -99,7 +99,7 @@
             app:isAliganCenter="false" />
 
 
-        <com.zenglb.framework.customView.TextViewDrawable
+        <com.zenglb.framework.modulea.customView.TextViewDrawable
             android:id="@+id/kotlin"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -113,7 +113,7 @@
             android:padding="10dp"
             app:isAliganCenter="false" />
 
-        <com.zenglb.framework.customView.TextViewDrawable
+        <com.zenglb.framework.modulea.customView.TextViewDrawable
             android:id="@+id/jni"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -126,7 +126,7 @@
             android:padding="10dp"
             app:isAliganCenter="false" />
 
-        <com.zenglb.framework.customView.TextViewDrawable
+        <com.zenglb.framework.modulea.customView.TextViewDrawable
             android:id="@+id/java8"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -139,7 +139,7 @@
             android:padding="10dp"
             app:isAliganCenter="false" />
 
-        <com.zenglb.framework.customView.TextViewDrawable
+        <com.zenglb.framework.modulea.customView.TextViewDrawable
             android:id="@+id/memory_leak"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -155,11 +155,12 @@
 
 
         <ImageView
-            android:layout_width="111dp"
-            android:layout_height="111dp"
+            android:id="@+id/logo_img"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginTop="33dp"
-            android:src="@drawable/wechat" />
+            android:layout_margin="44dp"
+            android:src="@drawable/id_img" />
 
     </LinearLayout>
 

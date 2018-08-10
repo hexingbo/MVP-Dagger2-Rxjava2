@@ -3,6 +3,7 @@ package com.zlb.base;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.IdRes;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
@@ -40,6 +41,12 @@ public abstract class BaseActivity extends AppCompatActivity implements View.OnC
 
         initViews();
         loadHttp();  //在这里进行Http 的请求
+    }
+
+
+    //BaseActivity
+    public <T extends View> T $(@IdRes int resId){
+        return (T)super.findViewById(resId);
     }
 
 

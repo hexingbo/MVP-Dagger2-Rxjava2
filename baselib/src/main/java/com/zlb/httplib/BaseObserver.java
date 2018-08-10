@@ -3,6 +3,7 @@ package com.zlb.httplib;
 import android.content.Context;
 import android.os.NetworkOnMainThreadException;
 import android.support.annotation.CallSuper;
+import android.text.TextUtils;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -126,8 +127,6 @@ public abstract class BaseObserver<T> implements Observer<HttpResponse<T>> {
             //主线程不能网络请求，这个很容易发现
             errorCode = RESPONSE_FATAL_EOR;
             errorMsg = "主线程不能网络请求";
-
-            // ... ...
         } else if (t instanceof RuntimeException) {
             //很多的错误都是extends RuntimeException
             errorCode = RESPONSE_FATAL_EOR;
@@ -211,6 +210,11 @@ public abstract class BaseObserver<T> implements Observer<HttpResponse<T>> {
         } catch (IOException ioe) {
             Log.e("errorBodyStr ioe:", ioe.toString());
         }
+
+        if(TextUtils.isEmpty(errorBodyStr)){
+            return;
+        }
+
         try {
             HttpResponse errorResponse = gson.fromJson(errorBodyStr, HttpResponse.class);
             if (null != errorResponse) {

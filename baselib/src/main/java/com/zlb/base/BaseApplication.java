@@ -3,8 +3,11 @@ package com.zlb.base;
 import android.app.Activity;
 import android.app.Application;
 import android.app.Service;
+import android.content.Context;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
+import android.support.multidex.MultiDex;
+import android.support.multidex.MultiDexApplication;
 import android.text.TextUtils;
 
 
@@ -22,8 +25,8 @@ import dagger.android.HasActivityInjector;
 import dagger.android.HasServiceInjector;
 
 /**
- *  参考{@link dagger.android.DaggerApplication}Beta 项目，项目组没有3个以上的Android 开发不建议使用Dagger XXX
- *
+ * 参考{@link dagger.android.DaggerApplication}Beta 项目，项目组没有3个以上的Android 开发不建议使用Dagger XXX
+ * <p>
  * BaseApplication，初始化必然初始化的一些配置
  */
 public abstract class BaseApplication extends Application implements HasActivityInjector, HasServiceInjector {
@@ -55,13 +58,19 @@ public abstract class BaseApplication extends Application implements HasActivity
         initDI();
     }
 
+    @Override
+    public void attachBaseContext(Context base) {
+        super.attachBaseContext(base);
+        MultiDex.install(base);
+    }
+
+
     private void initDI() {
         injectApp();
     }
 
     /**
      * 这是类库底层的injectApp代码示例，你应该在你的Module中重写该方法
-     *
      */
     abstract protected void injectApp();
 

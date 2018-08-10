@@ -8,6 +8,11 @@ if (isModule.toBoolean()) {
 android {
     compileSdkVersion rootProject.ext.compileSdkVersion
     defaultConfig {
+
+        if (isModule.toBoolean()) {
+            applicationId "com.zenglb.framework.jsbridge"  //制定 applicationId
+        }
+
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1
@@ -71,6 +76,5 @@ dependencies {
 
 
     annotationProcessor 'com.alibaba:arouter-compiler:1.1.4' //
-
 
 }

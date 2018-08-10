@@ -30,17 +30,14 @@ android {
 
     buildTypes {
         release {
-            minifyEnabled false    //proguard
 //            zipAlignEnabled true  // Zipalign优化
 //            shrinkResources true  // 移除无用的resource文件,必须和minifyEnabled 一起使用
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
 //            debuggable false
 //            signingConfig signingConfigs.MyConfig
-
             manifestPlaceholders = [IS_DEBUG          : "no", APP_ICON: "@mipmap/ic_launcher", APP_NAME: "FrameWork",
                                     RONG_CLOUD_APP_KEY: "6tnym1br6jw07"]
         }
-
 
         debug {
             debuggable true
@@ -59,12 +56,11 @@ android {
 
             if (isModule.toBoolean()) {
                 java {
-                    exclude 'com/anylife/app/**'
+                    exclude 'com/zenglb/framework/**'
                 }
             }
         }
     }
-
 
     compileOptions {
         sourceCompatibility rootProject.ext.sourceCompatibility
@@ -83,17 +79,12 @@ dependencies {
 
     implementation project(':baselib')
 
-//    implementation project(':module_a')
-//    implementation project(':module_jsbridge')
-
     annotationProcessor "com.google.dagger:dagger-compiler:$rootProject.ext.daggerVersion"  //需要吗？
     annotationProcessor "com.google.dagger:dagger-android-processor:$rootProject.ext.daggerVersion"
-
 
     if (!isModule.toBoolean()) {
         implementation project(':module_a')
         implementation project(':module_jsbridge')
     }
-
 
 }

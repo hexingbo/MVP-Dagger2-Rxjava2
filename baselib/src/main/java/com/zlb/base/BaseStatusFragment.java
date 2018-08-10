@@ -3,6 +3,7 @@ package com.zlb.base;
 import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
+import android.support.annotation.IdRes;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -56,6 +57,12 @@ public abstract class BaseStatusFragment extends RxFragment implements HasSuppor
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         loadHttp();
+    }
+
+
+    //BaseFragment
+    public <T extends View> T $(View layoutView, @IdRes int resId){
+        return (T)layoutView.findViewById(resId);
     }
 
 

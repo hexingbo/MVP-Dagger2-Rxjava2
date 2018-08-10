@@ -6,7 +6,7 @@ rootProject.ext {
     //1.关于SDK version
     compileSdkVersion = 27
 
-    minSdkVersion = 19
+    minSdkVersion = 21
     targetSdkVersion = 27
 
     //2.关于Debug和Realease 的不同配置

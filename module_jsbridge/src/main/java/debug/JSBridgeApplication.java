@@ -1,6 +1,5 @@
 package debug;
 
-import com.anylife.jsbridge.dagger.DaggerJSBridgeModuleComponent;
 import com.zlb.base.BaseApplication;
 import com.zlb.dagger.module.BaseGlobalModule;
 
@@ -23,7 +22,6 @@ public class JSBridgeApplication extends BaseApplication {
      */
     private void login() {
 
-
     }
 
 
@@ -31,7 +29,7 @@ public class JSBridgeApplication extends BaseApplication {
     @Override
     protected void injectApp() {
 
-        DaggerJSBridgeModuleComponent.builder()
+        com.zenglb.framework.jsbridge.dagger.DaggerJSBridgeModuleComponent.builder()
                 .baseGlobalModule(new BaseGlobalModule(this))
                 .build()
                 .inject(this);

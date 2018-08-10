@@ -4,8 +4,8 @@ import android.app.Application;
 import android.content.Context;
 
 import com.kingja.loadsir.core.LoadSir;
-import com.squareup.leakcanary.LeakCanary;
-import com.squareup.leakcanary.RefWatcher;
+//import com.squareup.leakcanary.LeakCanary;
+//import com.squareup.leakcanary.RefWatcher;
 import com.zlb.Sp.SPDao;
 import com.zlb.Sp.SPKey;
 import com.zlb.commontips.EmptyCallback;
@@ -67,14 +67,14 @@ public class BaseGlobalModule {
     }
 
 
-    /***
-     * @return
-     */
-    @Provides
-    @Singleton
-    public RefWatcher provideRefWatcher(Application mContext) {
-        return LeakCanary.install(mContext);  //只管主进程的,其他的进程自保吧
-    }
+//    /***
+//     * @return
+//     */
+//    @Provides
+//    @Singleton
+//    public RefWatcher provideRefWatcher(Application mContext) {
+//        return LeakCanary.install(mContext);  //只管主进程的,其他的进程自保吧
+//    }
 
 
     /**

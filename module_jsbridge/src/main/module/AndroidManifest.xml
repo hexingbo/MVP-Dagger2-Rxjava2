@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="com.anylife.jsbridge">
+    package="com.zenglb.framework.jsbridge">
 
     <application
         android:name="debug.JSBridgeApplication"
@@ -21,6 +21,20 @@
         </activity>
 
         <activity android:name=".WebActivity" />
+
+
+
+        <!--<provider-->
+            <!--android:name="com.zlb.utils.BaseFileProvider"-->
+            <!--android:authorities="${applicationId}.fileprovider"-->
+            <!--android:exported="false"-->
+            <!--android:grantUriPermissions="true">-->
+            <!--<meta-data-->
+                <!--android:name="android.support.FILE_PROVIDER_PATHS"-->
+                <!--android:resource="@xml/file_paths" />-->
+        <!--</provider>-->
+
+
 
     </application>
 </manifest>
