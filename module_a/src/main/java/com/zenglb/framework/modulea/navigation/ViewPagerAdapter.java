@@ -8,6 +8,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
+ *FragmentPageAdapter在每次切换页面的的时候，是将Fragment进行分离
+ *适合页面较少的Fragment使用以保存一些内存，对系统内存不会多大影响
+ *
  *
  */
 public class ViewPagerAdapter extends FragmentPagerAdapter {

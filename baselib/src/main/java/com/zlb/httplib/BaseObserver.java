@@ -84,7 +84,7 @@ public abstract class BaseObserver<T> implements Observer<HttpResponse<T>> {
             disposable.dispose();
         }
 
-        if (response.getCode() == RESPONSE_CODE_OK) {
+        if (response.getCode() == RESPONSE_CODE_OK||response.getCode() == 200) { //response.getCode() == 200 GOOD LIFE  的API真够奇怪的
             // 这里拦截一下使用测试
 
             onSuccess(response.getResult());

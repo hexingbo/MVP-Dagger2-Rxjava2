@@ -1,0 +1,15 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/action_author"
+        android:orderInCategory="90"
+        android:title="联系老板"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/action_more"
+        android:orderInCategory="100"
+        android:title="开放源码"
+        app:showAsAction="never" />
+</menu>

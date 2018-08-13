@@ -1,5 +1,7 @@
 package com.zenglb.framework.goodlife.dagger;
 
+import com.zenglb.framework.goodlife.handylife.GoodLifeActivity;
+import com.zenglb.framework.goodlife.handylife.GoodLifeFragment;
 import com.zlb.dagger.component.BaseActivityComponent;
 import com.zlb.dagger.module.DefaultActivityModule;
 import com.zlb.dagger.scope.ActivityScope;
@@ -34,11 +36,13 @@ public abstract class GoodLifeModuleAllActivityModule {
 
     //2222222 新建了一个Activity 的并且需要inject 的只需要添加两行代码 DefaultActivityModule 适用于只要全局Module 中的内容
 
-//    @ActivityScope
-//    @ContributesAndroidInjector(modules = DefaultActivityModule.class)
-//    abstract WebActivity contributeWebActivityInjector();
+    @ActivityScope
+    @ContributesAndroidInjector(modules = DefaultActivityModule.class)
+    abstract GoodLifeFragment contributeWebActivityInjector();
 
-
+    @ActivityScope
+    @ContributesAndroidInjector(modules = DefaultActivityModule.class)
+    abstract GoodLifeActivity contributeGoodLifeActivityInjector();
 
 //    Pro-tip: If your subcomponent and its builder have no other methods or supertypes than the ones mentioned in step #2, you can use @ContributesAndroidInjector to generate them for you. Instead of steps 2 and 3, add an abstract module method that returns your activity, annotate it with @ContributesAndroidInjector, and specify the modules you want to install into the subcomponent. If the subcomponent needs scopes, apply the scope annotations to the method as well.
 

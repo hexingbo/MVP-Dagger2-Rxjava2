@@ -8,6 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.FrameLayout;
+
 import com.kingja.loadsir.callback.Callback;
 import com.kingja.loadsir.core.LoadService;
 import com.kingja.loadsir.core.LoadSir;
@@ -15,10 +16,10 @@ import com.zlb.httplib.HttpUiTips;
 import com.zlb.httplib.R;
 
 /**
- * [FBI WARMING] 不要为了方便，只有某几个Activity 才会用的（定位，Wi-Fi 数据收集啊，写在Base里面，那还抽象什么）
+ * [FBI WARMING] 不要为了方便，只有某几个Activity 才会用的（定位，Wi-Fi 数据收集啊，写在Base里面，那还abstract什么）
  * 基类就只做基类的事情,不要把业务层面的代码写到这里来
- *
- *
+ * <p>
+ * <p>
  * 1.toolbar 的处理封装
  * 2.增加Error，empty,Loading,timeout,等通用的场景处理，一处Root注入，处处可用
  *
@@ -36,7 +37,7 @@ public abstract class BaseActivity extends AppCompatActivity implements View.OnC
         super.onCreate(savedInstanceState);
         mContext = BaseActivity.this;
 
-        View rootView=customContentView(View.inflate(this, R.layout.activity_base, null));
+        View rootView = customContentView(View.inflate(this, R.layout.activity_base, null));
         setContentView(rootView);
 
         initViews();
@@ -45,37 +46,33 @@ public abstract class BaseActivity extends AppCompatActivity implements View.OnC
 
 
     //BaseActivity
-    public <T extends View> T $(@IdRes int resId){
-        return (T)super.findViewById(resId);
+    public <T extends View> T $(@IdRes int resId) {
+        return (T) super.findViewById(resId);
     }
 
 
     /**
      * 定制Custom View，Content 区域先留空，后面再动态的添加，同时
      * 增加Error，empty,Loading,timeout,等通用的场景处理，一处Root注入，处处可用
-     *
+     * <p>
+     * ButterKnife 不用了，findView 其实也花不了多少时间
      */
     private View customContentView(View rootView) {
-        mToolbar = (Toolbar) findViewById(R.id.toolbar);
+        mToolbar = findViewById(R.id.toolbar);
         if (mToolbar != null) {
             setSupportActionBar(mToolbar);
         }
 
         View content = View.inflate(this, getLayoutId(), null);
         if (content != null) {
-            FrameLayout flContent = (FrameLayout) rootView.findViewById(R.id.fl_content);
+            FrameLayout flContent = rootView.findViewById(R.id.fl_content);
             FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT,
                     FrameLayout.LayoutParams.MATCH_PARENT);
             flContent.addView(content, params);
 //            ButterKnife.bind(this, rootView);   //ButterKnife 绑定,只要在这一处地方写好就可以了
 
             //增加Error，empty,Loading,timeout,等通用的场景处理
-            mBaseLoadService = LoadSir.getDefault().register(content, new Callback.OnReloadListener() {
-                @Override
-                public void onReload(View v) {
-                    onHttpReload(v);
-                }
-            });
+            mBaseLoadService = LoadSir.getDefault().register(content, (Callback.OnReloadListener) v -> onHttpReload(v));
         }
         return rootView;
     }
@@ -83,6 +80,7 @@ public abstract class BaseActivity extends AppCompatActivity implements View.OnC
 
     /**
      * 点击按钮的监听
+     *
      * @param view
      */
     public void onClick(View view) {
@@ -91,16 +89,15 @@ public abstract class BaseActivity extends AppCompatActivity implements View.OnC
 
     /**
      * 如果没有重写，说明那个页面不需要Http 请求，直接是成功
-     *
      */
-    protected  void loadHttp(){
+    protected void loadHttp() {
         mBaseLoadService.showSuccess();
     }
 
     /**
      * Http 请求的重新加载
      */
-    protected  void onHttpReload(View v){
+    protected void onHttpReload(View v) {
     }
 
     protected abstract int getLayoutId(); //获取相应的布局啊
@@ -110,7 +107,7 @@ public abstract class BaseActivity extends AppCompatActivity implements View.OnC
     /*
      * Activity的跳转，太简单了
      *
-	 */
+     */
     public final void startActivity(Class<?> cla) {
         Intent intent = new Intent();
         intent.setClass(this, cla);
@@ -123,7 +120,7 @@ public abstract class BaseActivity extends AppCompatActivity implements View.OnC
      *
      * @param link
      */
-    public final  void goWebView(String link) {
+    public final void goWebView(String link) {
 //        Intent intent = new Intent(this, WebActivity.class);
 //        intent.putExtra(BaseWebViewActivity.URL, link);
 //        startActivity(intent);
@@ -168,13 +165,11 @@ public abstract class BaseActivity extends AppCompatActivity implements View.OnC
      */
     private void showBack() {
         getToolbar().setNavigationIcon(R.drawable.ic_back_copy);
-        getToolbar().setNavigationOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                onBackPressed(); //返回事件
-            }
+        getToolbar().setNavigationOnClickListener(v -> {
+            onBackPressed(); //返回事件
         });
     }
+
 
     /**
      * 是否显示后退按钮,默认显示,可在子类重写该方法.
@@ -185,6 +180,7 @@ public abstract class BaseActivity extends AppCompatActivity implements View.OnC
         return true;
     }
 
+
     @Override
     protected void onStart() {
         super.onStart();
@@ -193,15 +189,15 @@ public abstract class BaseActivity extends AppCompatActivity implements View.OnC
         }
     }
 
+
     /**
      * 防止内存泄漏需要：
-     *
+     * <p>
      * 1.移除消息队列中MessageQueue 中的所有的消息
      * 2.监听器注册的取消
      * 3.停止异步任务
      * 4.静态的变量置 null
      * 5.
-     *
      */
     @Override
     protected void onDestroy() {
@@ -209,9 +205,11 @@ public abstract class BaseActivity extends AppCompatActivity implements View.OnC
         HttpUiTips.dismissDialog(mContext);  // 非常的重要呢！！
     }
 
+
     @Override
     public void onBackPressed() {
         super.onBackPressed();
     }
+
 
 }

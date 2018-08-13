@@ -8,19 +8,23 @@
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="瓦斯"
-        tools:replace="android:label"
         android:supportsRtl="true"
-        android:theme="@style/MyAppTheme">
+        android:theme="@style/MyAppTheme"
+        tools:replace="android:label">
 
-        <activity android:name="debug.LauncherActivity">
+        <activity
+            android:name="debug.GoodLifeLauncherActivity"
+            android:theme="@style/FullscreenTheme">
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
 
-        <!--<activity android:name=".WebActivity" />-->
+        <activity android:name=".handylife.GoodLifeActivity"
+            android:label="瓦斯内测版"/>
+        <activity android:name=".GoodLifeWebActivity" />
 
         <!---->
 

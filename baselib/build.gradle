@@ -96,8 +96,8 @@ dependencies {
     //Http Request log
     debugImplementation 'com.readystatesoftware.chuck:library:1.1.0'
 
-//    debugApi 'com.squareup.leakcanary:leakcanary-android:1.5.4'
-//    releaseApi 'com.squareup.leakcanary:leakcanary-android-no-op:1.5.4'
+    debugApi 'com.squareup.leakcanary:leakcanary-android:1.5.4'
+    releaseApi 'com.squareup.leakcanary:leakcanary-android-no-op:1.5.4'
 
     api 'com.github.florent37:singledateandtimepicker:1.2.2'    //高仿IOS 时间选择
     api 'de.hdodenhof:circleimageview:2.2.0'                    //CircleImageView

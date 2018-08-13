@@ -22,11 +22,14 @@ import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.app.AlertDialog;
 import android.util.Base64;
 import android.view.View;
+import android.webkit.JsPromptResult;
+import android.webkit.WebChromeClient;
+import android.webkit.WebView;
 
 
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.alibaba.android.arouter.launcher.ARouter;
-import com.bumptech.glide.Glide;
+import com.zlb.base.BaseWebViewActivity;
 import com.zlb.takephoto.WaterCameraActivity;
 import com.zlb.utils.BitMapUtil;
 import com.zlb.utils.FileCachePathConfig;
@@ -109,11 +112,50 @@ public class WebActivity extends BaseWebViewActivity implements View.OnClickList
         url = getIntent().getStringExtra(BaseWebViewActivity.URL);
         setURL(url);
 
+        JSBridge.register(JSBridge.exposeClassName, BridgeImpl.class);
+
+        setWebChromeClient();
+
         //动态注册，在当前activity的生命周期內运行
         IntentFilter filter = new IntentFilter(BridgeImpl.filterTAG);
         callNewActForResultReceiver = new CallNewActForResultReceiver();
         LocalBroadcastManager.getInstance(this).registerReceiver(callNewActForResultReceiver, filter);
     }
+
+
+    /**
+     * 在JavaScript中，当调用window对象的prompt方法时，会触发Java中的WebChromeClient对象的onJsPrompt方法
+     * jsbridge://className:port/methodName?jsonObj
+     *
+     * @return 结束后把Webview 所在的进程killed ,所有的手机都OK吗？没有测试哦
+     */
+    private void setWebChromeClient() {
+        mWebView.setWebChromeClient(new WebChromeClient() {
+
+            /**
+             * 在JavaScript中，当调用window对象的prompt方法时，会触发Java中的WebChromeClient对象的onJsPrompt方法
+             * jsbridge://className:port/methodName?jsonObj
+             *
+             * @param view            WebView
+             * @param url             file:///android_asset/index.html
+             * @param message         JSBridge://NativeBridgeClsName:798787206/getImage?{"msg":"这是带给移动端的msg参数"}
+             * @param defaultValue    defvale(拓展，目前没有使用)
+             * @param result
+             * @return
+             */
+
+            @Override
+            public boolean onJsPrompt(WebView view, String url, String message, String defaultValue, JsPromptResult result) {
+                String callBackData = JSBridge.callJavaNative(view, message);
+
+                //了
+                result.confirm(callBackData);
+                return true;
+            }
+
+        });
+    }
+
 
 
     @Override

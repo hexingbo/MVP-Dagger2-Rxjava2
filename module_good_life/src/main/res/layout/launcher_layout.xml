@@ -1,22 +1,22 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:ads="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
 
-    <TextView
-        android:padding="@dimen/dp_40"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Google 广告展示测试,赚钱分你一半" />
+    <ImageView
+        android:background="@drawable/bg"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
 
 
-    <com.google.android.gms.ads.AdView xmlns:ads="http://schemas.android.com/apk/res-auto"
+    <com.google.android.gms.ads.AdView
         android:id="@+id/adView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
+        android:layout_gravity="center|bottom"
         ads:adSize="BANNER"
+        android:layout_marginBottom="22dp"
         ads:adUnitId="ca-app-pub-8621230724267558/7141163007" />
 
-</RelativeLayout>
+</FrameLayout>

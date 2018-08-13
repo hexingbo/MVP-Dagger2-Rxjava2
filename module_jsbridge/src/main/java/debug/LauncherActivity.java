@@ -4,7 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 
-import com.zenglb.framework.jsbridge.BaseWebViewActivity;
+import com.zlb.base.BaseWebViewActivity;
 import com.zenglb.framework.jsbridge.WebActivity;
 
 /**

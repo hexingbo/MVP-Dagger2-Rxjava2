@@ -12,6 +12,12 @@ import android.text.TextUtils;
 
 
 import com.alibaba.android.arouter.launcher.ARouter;
+import com.kingja.loadsir.core.LoadSir;
+import com.zlb.commontips.CustomCallback;
+import com.zlb.commontips.EmptyCallback;
+import com.zlb.commontips.ErrorCallback;
+import com.zlb.commontips.LoadingCallback;
+import com.zlb.commontips.TimeoutCallback;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -56,6 +62,19 @@ public abstract class BaseApplication extends Application implements HasActivity
         super.onCreate();
         initARouter();
         initDI();
+
+
+
+        LoadSir.beginBuilder()
+                .addCallback(new ErrorCallback())      //添加各种状态页
+                .addCallback(new EmptyCallback())
+                .addCallback(new LoadingCallback())
+                .addCallback(new TimeoutCallback())
+                .addCallback(new CustomCallback())
+                .setDefaultCallback(LoadingCallback.class)//设置默认状态页
+                .commit();
+
+
     }
 
     @Override

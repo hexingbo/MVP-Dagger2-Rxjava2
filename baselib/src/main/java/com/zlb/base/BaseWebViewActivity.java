@@ -1,5 +1,5 @@
 
-package com.zenglb.framework.jsbridge;
+package com.zlb.base;
 
 import android.content.DialogInterface;
 import android.net.http.SslError;
@@ -18,6 +18,7 @@ import android.webkit.WebViewClient;
 import android.widget.ProgressBar;
 
 import com.zlb.base.BaseActivity;
+import com.zlb.httplib.R;
 
 
 /**
@@ -38,15 +39,14 @@ public abstract class BaseWebViewActivity extends BaseActivity {
     public static final String URL = "url";//网页url
     public static final String TITLE = "title";//标题内容
 
-    private WebView mWebView;
+    public WebView mWebView;
     private ProgressBar topLoadingBar;
-    private SwipeRefreshLayout swipeRefreshLayout;
+//    private SwipeRefreshLayout swipeRefreshLayout;
     protected String url;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        JSBridge.register(JSBridge.exposeClassName, BridgeImpl.class);
     }
 
     @Override
@@ -66,13 +66,13 @@ public abstract class BaseWebViewActivity extends BaseActivity {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             mWebView.setWebContentsDebuggingEnabled(true);
         }
-        swipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swipeRefreshLayout);
-        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                mWebView.reload();
-            }
-        });
+//        swipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swipeRefreshLayout);
+//        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+//            @Override
+//            public void onRefresh() {
+//                mWebView.reload();
+//            }
+//        });
 
         WebSettings settings = mWebView.getSettings();
 
@@ -164,49 +164,42 @@ public abstract class BaseWebViewActivity extends BaseActivity {
             @Override
             public void onPageFinished(WebView view, String url) {
                 super.onPageFinished(view, url);
-                swipeRefreshLayout.setRefreshing(false);
+//                swipeRefreshLayout.setRefreshing(false);
 
             }
         });
 
     }
 
-    //    /**
-//     * 在JavaScript中，当调用window对象的prompt方法时，会触发Java中的WebChromeClient对象的onJsPrompt方法
-//     * jsbridge://className:port/methodName?jsonObj
-//     *
-//     * @param view         WebView
-//     * @param url          file:///android_asset/index.html
-//     * @param message      JSBridge://NativeBridgeClsName:798787206/getImage?{"msg":"这是带给移动端的msg参数"}
-//     * @param defaultValue defvale(拓展，目前没有使用)
-//     * @param result
-//     * @param keyCode
-//     * @param event
-//     * @return 结束后把Webview 所在的进程killed ,所有的手机都OK吗？没有测试哦
-//     */
+    /**
+     * 在JavaScript中，当调用window对象的prompt方法时，会触发Java中的WebChromeClient对象的onJsPrompt方法
+     * jsbridge://className:port/methodName?jsonObj
+     *
+     * @return 结束后把Webview 所在的进程killed ,所有的手机都OK吗？没有测试哦
+     */
     private void setWebChromeClient() {
         mWebView.setWebChromeClient(new WebChromeClient() {
 
-            /**
-             * 在JavaScript中，当调用window对象的prompt方法时，会触发Java中的WebChromeClient对象的onJsPrompt方法
-             * jsbridge://className:port/methodName?jsonObj
-             *
-             * @param view            WebView
-             * @param url             file:///android_asset/index.html
-             * @param message         JSBridge://NativeBridgeClsName:798787206/getImage?{"msg":"这是带给移动端的msg参数"}
-             * @param defaultValue    defvale(拓展，目前没有使用)
-             * @param result
-             * @return
-             */
+//            /**
+//             * 在JavaScript中，当调用window对象的prompt方法时，会触发Java中的WebChromeClient对象的onJsPrompt方法
+//             * jsbridge://className:port/methodName?jsonObj
+//             *
+//             * @param view            WebView
+//             * @param url             file:///android_asset/index.html
+//             * @param message         JSBridge://NativeBridgeClsName:798787206/getImage?{"msg":"这是带给移动端的msg参数"}
+//             * @param defaultValue    defvale(拓展，目前没有使用)
+//             * @param result
+//             * @return
+//             */
 
-            @Override
-            public boolean onJsPrompt(WebView view, String url, String message, String defaultValue, JsPromptResult result) {
-                String callBackData = JSBridge.callJavaNative(view, message);
-
-                //了
-                result.confirm(callBackData);
-                return true;
-            }
+//            @Override
+//            public boolean onJsPrompt(WebView view, String url, String message, String defaultValue, JsPromptResult result) {
+//                String callBackData = JSBridge.callJavaNative(view, message);
+//
+//                //了
+//                result.confirm(callBackData);
+//                return true;
+//            }
 
             @Override
             public void onReceivedTitle(WebView view, String title) {
@@ -218,7 +211,7 @@ public abstract class BaseWebViewActivity extends BaseActivity {
             public void onProgressChanged(WebView view, int newProgress) {
                 if (newProgress == 100) {
                     topLoadingBar.setVisibility(View.INVISIBLE);
-                    swipeRefreshLayout.setRefreshing(false);
+//                    swipeRefreshLayout.setRefreshing(false);
                 } else {
                     if (View.INVISIBLE == topLoadingBar.getVisibility()) {
                         topLoadingBar.setVisibility(View.VISIBLE);
@@ -234,7 +227,7 @@ public abstract class BaseWebViewActivity extends BaseActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        getToolbar().setSubtitle(mWebView.getUrl());
+//        getToolbar().setSubtitle(mWebView.getUrl());
     }
 
 
@@ -263,8 +256,6 @@ public abstract class BaseWebViewActivity extends BaseActivity {
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-//        android.os.Process.killProcess(android.os.Process.myPid());
-//        System.exit(0);        //这样会不会好一点！
     }
 
 

@@ -6,7 +6,7 @@ import android.webkit.WebView;
 import android.widget.Toast;
 
 
-import com.zenglb.framework.jsbridge.IBridge;
+import com.zlb.base.BaseWebViewActivity;
 
 import org.json.JSONObject;
 

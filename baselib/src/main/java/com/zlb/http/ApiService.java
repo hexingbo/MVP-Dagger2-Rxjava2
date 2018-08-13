@@ -2,6 +2,7 @@ package com.zlb.http;
 
 import com.zlb.http.result.AnyLifeResult;
 import com.zlb.http.param.LoginParams;
+import com.zlb.http.result.ArticlesResult;
 import com.zlb.http.result.CustomWeatherResult;
 import com.zlb.http.result.JokesResult;
 import com.zlb.http.result.LoginResult;
@@ -37,6 +38,9 @@ import retrofit2.http.Url;
  * Created by zenglb on 2017/3/17.
  */
 public interface ApiService {
+
+    @GET("https://q.qnmlgb.tech/w/api/articles")
+    Observable<HttpResponse<ArticlesResult>> getArticles(@Query("_sub_tab") String tabType);
 
     @GET("http://zhihu.0x01.site/articles/test1")
     Observable<HttpResponse<List<AnyLifeResult>>> getHandyLifeData(@Query("type") String type, @Query("page") int page);

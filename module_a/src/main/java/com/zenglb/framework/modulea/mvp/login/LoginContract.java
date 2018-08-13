@@ -1,7 +1,7 @@
 package com.zenglb.framework.modulea.mvp.login;
 
-import com.zenglb.framework.modulea.mvp.BasePresenter;
-import com.zenglb.framework.modulea.mvp.BaseView;
+import com.zlb.base.BasePresenter;
+import com.zlb.base.BaseView;
 import com.zlb.http.param.LoginParams;
 import com.zlb.http.result.LoginResult;
 

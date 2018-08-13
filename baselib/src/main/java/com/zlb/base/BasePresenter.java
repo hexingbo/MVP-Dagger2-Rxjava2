@@ -1,4 +1,4 @@
-package com.zenglb.framework.modulea.mvp;
+package com.zlb.base;
 
 
 public interface BasePresenter<T> {
