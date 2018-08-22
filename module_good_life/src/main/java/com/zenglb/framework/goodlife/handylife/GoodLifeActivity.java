@@ -21,9 +21,9 @@ import com.zlb.base.BaseWebViewActivity;
 
 /**
  * GoodLifeActivity 主要Activity。这里的UI 就不做测试了
- * <p>
- * 如果很熟悉，那应该就是了吧 ！
- * <p>
+ *
+ * SwipeRefreshLayout和ViewPager 滑动冲突处理
+ *
  * Created by zlb on 2018/3/23.
  */
 public class GoodLifeActivity extends BaseMVPActivity implements TabLayout.OnTabSelectedListener {
@@ -59,10 +59,10 @@ public class GoodLifeActivity extends BaseMVPActivity implements TabLayout.OnTab
         tabsTitle = getResources().getStringArray(R.array.tabs_title_array);
         tabsDataTypeTitle = getResources().getStringArray(R.array.tabs_data_type_array);
 
-//        Toolbar toolbar = findViewById(R.id.toolbar);
-//        toolbar.setTitle("瓦斯内测版");
-//        setSupportActionBar(toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
 
+        getSupportActionBar().setTitle("瓦斯内测版-1");
 
         // Create the adapter that will return a fragment for each of the three
         // primary sections of the activity.

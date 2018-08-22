@@ -1,7 +1,5 @@
 <resources>
 
-
-
     <!-- Base application theme. -->
     <style name="MyAppTheme" parent="AppTheme.Base"></style>
 
@@ -19,7 +17,7 @@
         <item name="android:windowIsTranslucent">true</item>
 
         <item name="actionMenuTextColor">@color/white</item> <!--  敲定颜色-->
-        <item name="android:textSize">14sp</item> <!--  搞掂字体大小-->
+        <item name="android:textSize">13sp</item>            <!--  搞掂字体大小-->
         <item name="android:textColor">@color/colorPrimary</item> <!--  搞掂字体大小-->
         <item name="android:windowContentTransitions">true</item>
 
@@ -33,7 +31,6 @@
         <!-- Used for the buttons -->
         <item name="colorAccent">#000000</item>
     </style>
-
 
 
     <style name="Translucent" parent="Theme.AppCompat.Light.NoActionBar">

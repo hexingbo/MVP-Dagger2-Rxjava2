@@ -151,13 +151,15 @@ public abstract class BaseActivity extends AppCompatActivity implements View.OnC
 
 
     /**
-     * 设置ToolBar 是否是可见的，默认是可见的
+     * 设置ToolBar 是否是可见的，默认是可见的;ToolBar  的Menu怎么设置
      *
      * @param visible
      */
     public void setToolBarVisible(int visible) {
         getToolbar().setVisibility(visible);
         setSupportActionBar(getToolbar());
+
+        mToolbar=null;
     }
 
     /**

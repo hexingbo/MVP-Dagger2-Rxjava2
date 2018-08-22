@@ -31,7 +31,7 @@ import retrofit2.HttpException;
  */
 public abstract class BaseObserver<T> implements Observer<HttpResponse<T>> {
     private final String TAG = BaseObserver.class.getSimpleName();
-    public final static String Thread_Main="main";
+    public final static String Thread_Main = "main";
 
     private final int RESPONSE_CODE_OK = 0;       //自定义的业务逻辑，成功返回积极数据
     private final int RESPONSE_FATAL_EOR = -1;    //返回数据失败,严重的错误
@@ -73,18 +73,18 @@ public abstract class BaseObserver<T> implements Observer<HttpResponse<T>> {
 
     @Override
     public final void onSubscribe(Disposable d) {
-        disposable=d;
+        disposable = d;
     }
 
     @Override
     public final void onNext(HttpResponse<T> response) {
         HttpUiTips.dismissDialog(mContext);
 
-        if(!disposable.isDisposed()){
+        if (!disposable.isDisposed()) {
             disposable.dispose();
         }
 
-        if (response.getCode() == RESPONSE_CODE_OK||response.getCode() == 200) { //response.getCode() == 200 GOOD LIFE  的API真够奇怪的
+        if (response.getCode() == RESPONSE_CODE_OK || response.getCode() == 200) { //response.getCode() == 200 GOOD LIFE  的API真够奇怪的
             // 这里拦截一下使用测试
 
             onSuccess(response.getResult());
@@ -100,7 +100,7 @@ public abstract class BaseObserver<T> implements Observer<HttpResponse<T>> {
      */
     @Override
     public final void onError(Throwable t) {
-        Log.e("okhttp","Throwable t:"+t.toString());  //打印出异常信息
+        Log.e("okhttp", "Throwable t:" + t.toString());  //打印出异常信息
 
         HttpUiTips.dismissDialog(mContext);
         if (t instanceof HttpException) {
@@ -114,7 +114,7 @@ public abstract class BaseObserver<T> implements Observer<HttpResponse<T>> {
         } else if (t instanceof ConnectException) {
             errorCode = RESPONSE_FATAL_EOR;
             errorMsg = "网络连接异常，请检查网络";
-        }else if (t instanceof UnknownHostException) {
+        } else if (t instanceof UnknownHostException) {
             errorCode = RESPONSE_FATAL_EOR;
             errorMsg = "无法解析主机，请检查网络连接";
         } else if (t instanceof UnknownServiceException) {
@@ -130,7 +130,7 @@ public abstract class BaseObserver<T> implements Observer<HttpResponse<T>> {
         } else if (t instanceof RuntimeException) {
             //很多的错误都是extends RuntimeException
             errorCode = RESPONSE_FATAL_EOR;
-            errorMsg = "运行时错误"+t.toString();
+            errorMsg = "运行时错误" + t.toString();
         }
 
         onFailure(errorCode, errorMsg);
@@ -144,7 +144,6 @@ public abstract class BaseObserver<T> implements Observer<HttpResponse<T>> {
     public final void onComplete() {
 //        HttpUiTips.dismissDialog(mContext);
     }
-
 
 
     /**
@@ -162,7 +161,6 @@ public abstract class BaseObserver<T> implements Observer<HttpResponse<T>> {
             disposeEorCode(message, code);
         }
     }
-
 
 
     /**
@@ -190,7 +188,7 @@ public abstract class BaseObserver<T> implements Observer<HttpResponse<T>> {
                 break;
         }
 
-        if (mContext != null&& Thread.currentThread().getName().toString().equals(Thread_Main)) {
+        if (mContext != null && Thread.currentThread().getName().toString().equals(Thread_Main)) {
             Toasty.error(mContext.getApplicationContext(), message + "   code=" + code, Toast.LENGTH_SHORT).show();
         }
 
@@ -201,7 +199,7 @@ public abstract class BaseObserver<T> implements Observer<HttpResponse<T>> {
      * 获取详细的错误的信息 errorCode,errorMsg
      * <p>
      * 以登录的时候的Grant_type 故意写错为例子,这个时候的http 应该是直接的返回401=httpException.code()
-     * 但是是怎么导致401的？我们的服务器会在respose.errorBody 中的content 中说明
+     * 但是是怎么导致401的？我们的服务器会在response.errorBody 中的content 中说明
      */
     private final void getErrorMsg(HttpException httpException) {
         String errorBodyStr = "";
@@ -211,7 +209,7 @@ public abstract class BaseObserver<T> implements Observer<HttpResponse<T>> {
             Log.e("errorBodyStr ioe:", ioe.toString());
         }
 
-        if(TextUtils.isEmpty(errorBodyStr)){
+        if (TextUtils.isEmpty(errorBodyStr)) {
             return;
         }
 
@@ -224,6 +222,7 @@ public abstract class BaseObserver<T> implements Observer<HttpResponse<T>> {
         } catch (Exception jsonException) {
             jsonException.printStackTrace();
         }
+
     }
 
 }

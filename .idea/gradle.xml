@@ -13,6 +13,7 @@
             <option value="$PROJECT_DIR$/module_a" />
             <option value="$PROJECT_DIR$/module_good_life" />
             <option value="$PROJECT_DIR$/module_jsbridge" />
+            <option value="$PROJECT_DIR$/speechDemo" />
           </set>
         </option>
         <option name="resolveModulePerSourceSet" value="false" />
