@@ -23,8 +23,10 @@ import dagger.android.support.AndroidSupportInjectionModule;
         // 一般把AndroidInjectionModule放在ApplicationComponent中，其他的Component依赖Application即可
         AndroidSupportInjectionModule.class,  //使用的Fragment 是V4 包中的？不然就只需要AndroidInjectionModule
 
-        //
+        //这个是专门为了在Activity & Fragment 中使用依赖注入使用的
         JSBridgeModuleAllActivityModule.class,  //减少模版代码,需要依赖注入的只需要添加两行代码就好了
+
+        //可以再加一个JSBridgeModule 的单独的全局Module
 
 })
 

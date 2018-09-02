@@ -18,7 +18,7 @@ import com.iflytek.voicedemo.R;
 import java.util.List;
 
 /**
- * 声音的POPVIEW
+ * 声音的POPUPVIEW
  */
 public class AudioWavePopupView extends PopupWindow {
 
@@ -84,6 +84,15 @@ public class AudioWavePopupView extends PopupWindow {
 
     public void startWaveView() {
         audioWave.startView();
+    }
+
+
+    /**
+     * 停止WaveView
+     */
+    public void stopWaveView() {
+        audioWave.stopView(true);
+        this.dismiss();
     }
 
 }

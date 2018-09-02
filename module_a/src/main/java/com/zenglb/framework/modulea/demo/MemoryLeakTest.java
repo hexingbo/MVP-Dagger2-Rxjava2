@@ -7,6 +7,7 @@ import android.os.Message;
 import android.util.Log;
 
 import com.zenglb.framework.modulea.R;
+import com.zenglb.framework.modulea.http.AModuleApiService;
 import com.zlb.base.BaseMVPActivity;
 
 import com.zlb.Sp.SPDao;
@@ -36,7 +37,7 @@ public class MemoryLeakTest extends BaseMVPActivity {
     SPDao spDao;
 
     @Inject
-    ApiService apiService;  //
+    AModuleApiService apiService;  //
 
     static ProgressDialog progressDialog;  //000000000， 这种是会永远的无法释放的内存泄漏，
 

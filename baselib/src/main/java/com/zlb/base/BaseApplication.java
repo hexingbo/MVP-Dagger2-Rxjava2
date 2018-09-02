@@ -9,6 +9,7 @@ import android.content.pm.PackageManager;
 import android.support.multidex.MultiDex;
 import android.support.multidex.MultiDexApplication;
 import android.text.TextUtils;
+import android.widget.Toast;
 
 
 import com.alibaba.android.arouter.launcher.ARouter;
@@ -22,6 +23,7 @@ import com.zlb.commontips.TimeoutCallback;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
+import java.lang.reflect.Method;
 
 import javax.inject.Inject;
 
@@ -64,7 +66,6 @@ public abstract class BaseApplication extends Application implements HasActivity
         initDI();
 
 
-
         LoadSir.beginBuilder()
                 .addCallback(new ErrorCallback())      //添加各种状态页
                 .addCallback(new EmptyCallback())
@@ -74,6 +75,9 @@ public abstract class BaseApplication extends Application implements HasActivity
                 .setDefaultCallback(LoadingCallback.class)//设置默认状态页
                 .commit();
 
+
+
+        showDebugDBAddressLogToast(this);
 
     }
 
@@ -124,6 +128,22 @@ public abstract class BaseApplication extends Application implements HasActivity
             return false;
         }
     }
+
+
+
+    public  void showDebugDBAddressLogToast(Context context) {
+        if (isDebug) {
+            try {
+                Class<?> debugDB = Class.forName("com.amitshekhar.DebugDB");
+                Method getAddressLog = debugDB.getMethod("getAddressLog");
+                Object value = getAddressLog.invoke(null);
+                Toast.makeText(context, (String) value, Toast.LENGTH_LONG).show();
+            } catch (Exception ignore) {
+
+            }
+        }
+    }
+
 
     /**
      * 是否是Debug

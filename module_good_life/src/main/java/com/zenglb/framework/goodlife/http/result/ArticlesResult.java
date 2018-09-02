@@ -1,4 +1,4 @@
-package com.zlb.http.result;
+package com.zenglb.framework.goodlife.http.result;
 
 
 import com.chad.library.adapter.base.entity.MultiItemEntity;

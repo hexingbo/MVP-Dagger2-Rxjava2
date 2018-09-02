@@ -25,12 +25,12 @@ import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
-
 /**
- * 声音波形的view
- * Created by shuyu on 2016/11/15.
+ * 科大讯飞语音识别时候的声波动画和提示
+ *
+ * 不是很完善，时间不充足，后面再优化吧
+ * anylife.zlb@gmail.com
  */
-
 public class AudioWaveView extends View {
 
     final protected Object mLock = new Object();
@@ -47,25 +47,16 @@ public class AudioWaveView extends View {
 
     private Canvas mBackCanVans = new Canvas();
 
-    private final ArrayList<Short> mRecDataList = new ArrayList<>();
-
     private drawThread mInnerThread;
-
 
     private int mWidthSpecSize;
     private int mHeightSpecSize;
-    private int mScale = 1;
     private int mBaseLine;
 
     private int mOffset = -11;//波形之间线与线的间隔
 
-    private boolean mAlphaByVolume; //是否更具声音大小显示清晰度
 
     private boolean mIsDraw = true;
-
-    private boolean mDrawBase = true;
-
-    private boolean mDrawReverse = false;//绘制反方向
 
 
     private boolean mPause = false;//是否站暂停
@@ -74,19 +65,6 @@ public class AudioWaveView extends View {
 
     private int mWaveColor = Color.WHITE;
 
-    private int mColorPoint = 1;
-
-    private int mPreFFtCurrentFrequency;
-
-    private int mColorChangeFlag;
-
-    private int mColor1 = Color.argb(0xfa, 0x6f, 0xff, 0x81);
-
-    private int mColor2 = Color.argb(0xfa, 0xff, 0xff, 0xff);
-
-    private int mColor3 = Color.argb(0xfa, 0x42, 0xff, 0xff);
-
-    private int mDrawStartOffset = 0;
 
     private final List<Integer> mVolumeList = new ArrayList<>();
 
@@ -226,9 +204,9 @@ public class AudioWaveView extends View {
                     if (mBackCanVans != null) {
                         mBackCanVans.drawColor(Color.TRANSPARENT, PorterDuff.Mode.CLEAR);
 
-                        int startPosition = (mDrawReverse) ? mWidthSpecSize - mDrawStartOffset : mDrawStartOffset;
+//                        int startPosition = (mDrawReverse) ? mWidthSpecSize - mDrawStartOffset : mDrawStartOffset;
 
-                        mBackCanVans.drawLine(startPosition, mBaseLine, mWidthSpecSize, mBaseLine, mPaint);
+                        mBackCanVans.drawLine(0, mBaseLine, mWidthSpecSize, mBaseLine, mPaint);
 
                         offset = 2;  //绘制的偏移量
                         //======== 从下面开始使用真实的音量来画东西=======
@@ -262,8 +240,6 @@ public class AudioWaveView extends View {
 
                             mBackCanVans.drawLine(j, mBaseLine, j, max, mPaint);
                             mBackCanVans.drawLine(j, min, j, mBaseLine, mPaint);
-
-//                            Log.e("AAA", "min" + min + "     j: " + j + "    i:" + i);
                         }
 
                         //======== 从下面开始使用真实的音量来画东西=======
@@ -318,24 +294,6 @@ public class AudioWaveView extends View {
     }
 
 
-    /**
-     * 更具当前块数据来判断缩放音频显示的比例
-     *
-     * @param list 音频数据
-     */
-    private void resolveToWaveData(ArrayList<Short> list) {
-        short allMax = 0;
-        for (int i = 0; i < list.size(); i++) {
-            Short sh = list.get(i);
-            if (sh != null && sh > allMax) {
-                allMax = sh;
-            }
-        }
-        int curScale = allMax / mBaseLine;
-        if (curScale > mScale) {
-            mScale = ((curScale == 0) ? 1 : curScale);
-        }
-    }
 
     /**
      * 开始绘制
@@ -361,7 +319,7 @@ public class AudioWaveView extends View {
             while (mInnerThread.isAlive()) ;
         }
         if (cleanView) {
-            mRecDataList.clear();
+            mVolumeList.clear();
             mBackCanVans.drawColor(Color.TRANSPARENT, PorterDuff.Mode.CLEAR);
             mCanvas.drawColor(Color.TRANSPARENT, PorterDuff.Mode.CLEAR);
         }
@@ -381,46 +339,16 @@ public class AudioWaveView extends View {
     }
 
     public void setPause(boolean pause) {
-        synchronized (mRecDataList) {
+        synchronized (mVolumeList) {
             this.mPause = pause;
         }
     }
 
-    /**
-     * 三种颜色,不设置用默认的
-     */
-    public void setChangeColor(int color1, int color2, int color3) {
-        this.mColor1 = color1;
-        this.mColor2 = color2;
-        this.mColor3 = color3;
-    }
-
-
-    public boolean isAlphaByVolume() {
-        return mAlphaByVolume;
-    }
 
     /**
-     * 是否更具声音大小显示清晰度
-     */
-    public void setAlphaByVolume(boolean alphaByVolume) {
-        this.mAlphaByVolume = alphaByVolume;
-    }
-
-
-
-    /**
-     * 将这个list传到Record线程里，对其不断的填充
-     * <p>
-     * Map存有两个key，一个对应AudioWaveView的MAX这个key,一个对应AudioWaveView的MIN这个key
+     * 将这个list传到CallBack 填充
      *
-     * @return 返回的是一个map的list
      */
-    public ArrayList<Short> getRecList() {
-        return mRecDataList;
-    }
-
-
     public List<Integer> getmVolumeList() {
         return mVolumeList;
     }
@@ -483,30 +411,8 @@ public class AudioWaveView extends View {
         return (int) (dipValue * fontScale + 0.5f);
     }
 
-    /**
-     * 是否画出基线
-     *
-     * @param drawBase
-     */
-    public void setDrawBase(boolean drawBase) {
-        mDrawBase = drawBase;
-    }
 
 
-    /**
-     * 绘制相反方向
-     */
-    public void setDrawReverse(boolean drawReverse) {
-        this.mDrawReverse = drawReverse;
-    }
-
-
-    /**
-     * 绘制开始偏移量
-     */
-    public void setDrawStartOffset(int drawStartOffset) {
-        this.mDrawStartOffset = drawStartOffset;
-    }
 
 
 }

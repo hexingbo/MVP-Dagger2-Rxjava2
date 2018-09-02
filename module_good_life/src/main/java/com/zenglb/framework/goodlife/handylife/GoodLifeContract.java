@@ -1,12 +1,9 @@
 package com.zenglb.framework.goodlife.handylife;
 
 
+import com.zenglb.framework.goodlife.http.result.ArticlesResult;
 import com.zlb.base.BasePresenter;
 import com.zlb.base.BaseView;
-import com.zlb.http.result.AnyLifeResult;
-import com.zlb.http.result.ArticlesResult;
-
-import java.util.List;
 
 /**
  * 合约，一个功能的基本只要看这个类就知道功能纲要了

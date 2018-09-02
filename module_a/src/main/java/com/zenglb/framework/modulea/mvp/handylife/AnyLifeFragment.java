@@ -3,14 +3,19 @@ package com.zenglb.framework.modulea.mvp.handylife;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.zenglb.framework.modulea.R;
+import com.zenglb.framework.modulea.http.AModuleApiService;
+import com.zlb.http.result.StaffMsg;
 import com.zlb.http.result.AnyLifeResult;
 import com.zlb.base.BaseStatusFragment;
 import com.zlb.commontips.ErrorCallback;
 import com.zlb.dagger.scope.ActivityScope;
+import com.zlb.httplib.BaseObserver;
+import com.zlb.httplib.rxUtils.SwitchSchedulers;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -35,6 +40,9 @@ public class AnyLifeFragment extends BaseStatusFragment implements AnyLifeContra
 
     @Inject
     AnyLifePresenter mPresenter;  //dagger
+
+    @Inject
+    AModuleApiService aModuleApiService;
 
     /**
      * 显示数据
@@ -98,8 +106,42 @@ public class AnyLifeFragment extends BaseStatusFragment implements AnyLifeContra
 
     @Override
     protected int onCreateFragmentView() {
+        getStaffMsgTest();
+
         return R.layout.fragment_any_life;
     }
+
+
+
+
+
+
+
+    /**
+     * 组件化ApiService test
+     *
+     */
+    private void getStaffMsgTest() {
+
+        aModuleApiService.getStaffMsgInaModule()
+                .compose(SwitchSchedulers.applySchedulers())
+                .subscribe(new BaseObserver<StaffMsg>(getActivity(),false) {
+                    @Override
+                    public void onSuccess(StaffMsg staffMsg) {
+                        Log.e("StaffMsg",staffMsg.toString());
+                    }
+
+                    @Override
+                    public void onFailure(int code, String message) {
+                        super.onFailure(code, message);
+                    }
+                });
+
+    }
+
+
+
+
 
     /**
      * refresh data

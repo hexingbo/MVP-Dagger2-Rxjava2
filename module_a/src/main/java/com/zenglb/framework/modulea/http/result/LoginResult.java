@@ -1,4 +1,4 @@
-package com.zlb.http.result;
+package com.zenglb.framework.modulea.http.result;
 
 /**
  * 这一类的entity 的定义就直接的放在一个包里面就行了。

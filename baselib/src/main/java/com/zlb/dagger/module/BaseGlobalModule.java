@@ -26,6 +26,8 @@ import dagger.Provides;
 
 /**
  * 在这里提供全局的并且是唯一的东西，SharedPreferences,DB,HTTP,etc
+ *
+ * https://blog.csdn.net/mq2553299/article/details/77485800
  * <p>
  * Created by anylife.zlb@gmail.com on 2018/1/11.
  */
@@ -60,21 +62,11 @@ public class BaseGlobalModule {
      * @return
      */
     @Provides
-    @Singleton
-    //在这加了Singleton 的注解就是单例的了，打出内存地址查看一下
+    @Singleton  //在这加了Singleton 的注解就是单例的了，打出内存地址查看一下
     public SPDao provideSPDao() {
         return new SPDao(mContext);
     }
 
-
-//    /***
-//     * @return
-//     */
-//    @Provides
-//    @Singleton
-//    public RefWatcher provideRefWatcher(Application mContext) {
-//        return LeakCanary.install(mContext);  //只管主进程的,其他的进程自保吧
-//    }
 
 
     /**
@@ -89,21 +81,9 @@ public class BaseGlobalModule {
         return HttpRetrofit.getRetrofit(spDao, mContext).create(ApiService.class);
     }
 
-//    /**
-//     * 网络访问，拆分到每个模块吧
-//     *
-//     * @return
-//     */
-//    @Provides
-//    @Singleton
-//    public ApiService provideApiService2(SPDao spDao, Context mContext) {
-//        //Retrofit 的create 真是精华所在啊！
-//        return HttpRetrofit.getRetrofit(spDao, mContext).create(ApiService.class);
-//    }
-
-
     /**
      * 增加Error，empty,Loading,timeout,等通用的场景处理，一处Root注入，处处可用
+     *
      *
      * @return
      */
@@ -120,15 +100,18 @@ public class BaseGlobalModule {
 
     /**
      * 数据库访问的DaoSession,因为是分账号分库，那么切换账号后怎么更换DaoSession链接的数据库DB呢？
+     *
      */
     @Provides
 //    @Singleton //这个怎么能够动态的替换呢DB 链接的a
     public DaoSession provideDaoSession(SPDao spDao) {
-        String account = spDao.getData(SPKey.KEY_LAST_ACCOUNT, "default_error_db", String.class);
+        String account = spDao.getData(SPKey.KEY_LAST_ACCOUNT, "default_db", String.class);
         String DBName = ENCRYPTED ? account + "encrypted" : account;
         MySQLiteOpenHelper helper = new MySQLiteOpenHelper(mContext, DBName, null);
         Database db = ENCRYPTED ? helper.getEncryptedWritableDb("super-secret") : helper.getWritableDb();
         return new DaoMaster(db).newSession();
     }
+
+
 
 }

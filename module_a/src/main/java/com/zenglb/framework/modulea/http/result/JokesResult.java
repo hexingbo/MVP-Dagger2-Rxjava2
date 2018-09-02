@@ -1,4 +1,4 @@
-package com.zlb.http.result;
+package com.zenglb.framework.modulea.http.result;
 
 import android.os.Parcel;
 import android.os.Parcelable;

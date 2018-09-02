@@ -1,20 +1,11 @@
-package com.zlb.http;
+package com.zenglb.framework.goodlife.http;
 
-import com.zlb.http.result.StaffMsg;
+import com.zenglb.framework.goodlife.http.result.ArticlesResult;
 import com.zlb.httplib.HttpResponse;
 
-import java.util.List;
-
-import io.reactivex.Flowable;
 import io.reactivex.Observable;
-import retrofit2.Call;
-import retrofit2.http.Body;
 import retrofit2.http.GET;
-import retrofit2.http.Headers;
-import retrofit2.http.POST;
-import retrofit2.http.Path;
 import retrofit2.http.Query;
-import retrofit2.http.Url;
 
 /**
  *
@@ -35,12 +26,10 @@ import retrofit2.http.Url;
  *
  * Created by zenglb on 2017/3/17.
  */
-@Deprecated
-public interface ApiService {
+public interface GlifeApiService {
 
-//    @GET("https://q.qnmlgb.tech/w/api/articles")
-//    Observable<HttpResponse<ArticlesResult>> getArticles(@Query("_sub_tab") String tabType);
-
+    @GET("https://q.qnmlgb.tech/w/api/articles")
+    Observable<HttpResponse<ArticlesResult>> getArticles(@Query("_sub_tab") String tabType);
 
 
 }

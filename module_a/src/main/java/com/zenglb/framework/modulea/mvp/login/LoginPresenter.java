@@ -2,6 +2,7 @@ package com.zenglb.framework.modulea.mvp.login;
 
 import android.app.Activity;
 
+import com.zenglb.framework.modulea.http.AModuleApiService;
 import com.zlb.http.ApiService;
 import com.zlb.http.param.LoginParams;
 import com.zlb.http.result.LoginResult;
@@ -16,7 +17,7 @@ import javax.inject.Inject;
  */
 public class LoginPresenter implements LoginContract.LoginPresenter {
 
-    ApiService apiService;
+    AModuleApiService apiService;
     LoginContract.LoginView mLoginView;  // 需要抽象出来
 
     /**
@@ -29,7 +30,7 @@ public class LoginPresenter implements LoginContract.LoginPresenter {
      * @param apiService
      */
     @Inject
-    public LoginPresenter(ApiService apiService) {
+    public LoginPresenter(AModuleApiService apiService) {
         this.apiService = apiService;
     }
 

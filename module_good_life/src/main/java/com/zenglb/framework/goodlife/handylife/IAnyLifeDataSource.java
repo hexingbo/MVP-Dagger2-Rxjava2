@@ -1,9 +1,7 @@
 package com.zenglb.framework.goodlife.handylife;
 
-import com.zlb.http.result.AnyLifeResult;
-import com.zlb.http.result.ArticlesResult;
+import com.zenglb.framework.goodlife.http.result.ArticlesResult;
 
-import java.util.List;
 
 /**
  * Main entry point for accessing data.

@@ -153,6 +153,20 @@
             app:isAliganCenter="false" />
 
 
+        <com.zenglb.framework.modulea.customView.TextViewDrawable
+            android:id="@+id/logout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingTop="22dp"
+            android:text="== 退出登录，测试切换DB =="
+            android:textColor="@android:color/holo_red_dark"
+            android:textSize="18sp"
+            android:drawableStart="@drawable/dot_blue"
+            android:drawablePadding="10dp"
+            android:padding="10dp"
+            app:isAliganCenter="false" />
+
+
 
         <ImageView
             android:id="@+id/logo_img"

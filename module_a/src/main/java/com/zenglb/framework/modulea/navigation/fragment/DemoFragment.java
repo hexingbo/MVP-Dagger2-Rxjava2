@@ -2,7 +2,9 @@ package com.zenglb.framework.modulea.navigation.fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.SystemClock;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,15 +14,24 @@ import android.widget.Toast;
 
 import com.alibaba.android.arouter.launcher.ARouter;
 import com.bumptech.glide.Glide;
+import com.zenglb.framework.modulea.http.AModuleApiService;
+import com.zlb.http.result.StaffMsg;
 import com.zlb.base.BaseActivity;
 import com.zenglb.framework.modulea.R;
 import com.zenglb.framework.modulea.demo.MemoryLeakTest;
 import com.zenglb.framework.modulea.demo.quick_input_things.QuickInputThingsActivity;
 import com.zenglb.framework.modulea.mvp.handylife.AnyLifeActivity;
 import com.zlb.dagger.scope.ActivityScope;
-import com.zlb.http.ApiService;
 import com.zlb.http.result.CustomWeatherResult;
+import com.zlb.http.result.TestResult;
+import com.zlb.httplib.BaseObserver;
+import com.zlb.httplib.rxUtils.SwitchSchedulers;
+import com.zlb.persistence.dbmaster.DaoSession;
 import com.zlb.takephoto.WaterCameraActivity;
+
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
 
 import javax.inject.Inject;
 
@@ -40,8 +51,12 @@ import static android.app.Activity.RESULT_OK;
 @ActivityScope
 public class DemoFragment extends Fragment {
     public final static int REQUEST_TAKE_WATER_IMAGE = 1000;
+
     @Inject
-    ApiService apiService;
+    AModuleApiService apiService;
+
+    @Inject
+    DaoSession daoSession;
 
     ImageView imageView;
 
@@ -59,6 +74,8 @@ public class DemoFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_demo, container, false);
         viewsInit(rootView);
+
+
         return rootView;
     }
 
@@ -83,6 +100,10 @@ public class DemoFragment extends Fragment {
      * @param
      */
     private void viewsInit(View rootView) {
+
+        String daoSessionAddress = daoSession.getDatabase().getRawDatabase().toString();
+
+
         imageView = rootView.findViewById(R.id.logo_img);
 
         rootView.findViewById(R.id.logo_img).setOnClickListener(v -> {
@@ -101,6 +122,16 @@ public class DemoFragment extends Fragment {
                     .withString("url", "file:///android_asset/index.html")
                     .navigation();
         });
+
+
+        /**
+         * 退出登录，测试切换数据库
+         */
+        rootView.findViewById(R.id.logout).setOnClickListener(v -> {
+            ARouter.getInstance().build("/login/activity").navigation();
+            getActivity().finish();
+        });
+
 
         /**
          * 动态替换URL,参数照样的随意的使用啊。

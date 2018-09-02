@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.util.Log;
 
 import com.zenglb.framework.modulea.R;
+import com.zenglb.framework.modulea.http.AModuleApiService;
 import com.zlb.http.ApiService;
 
 import javax.inject.Inject;
@@ -19,7 +20,7 @@ import retrofit2.Response;
  */
 public class ArchitectureActivity extends AppCompatActivity {
     @Inject
-    ApiService apiService;
+    AModuleApiService apiService;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

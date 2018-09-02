@@ -19,7 +19,7 @@ import com.zlb.Sp.SPKey;
 import javax.inject.Inject;
 
 /**
- *
+ * 单独的Module 也需要Launcher
  *
  */
 public class GoodLifeLauncherActivity extends AppCompatActivity {

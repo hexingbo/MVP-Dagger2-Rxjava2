@@ -7,7 +7,7 @@
   Rxjava2 + retrofit2 + MVP + Drager2 + xxx,应该是当前Android开发主流的框架 ，我们都会参考Google的官方框架https://github.com/googlesamples/android-architecture 或者 Google 的最新的项目架构组件https://github.com/googlesamples/android-architecture-components
   
  # [New]Android 组件化架构
-   简单的分为BASE MODULEA MODULEJS 和 APP组合MODULE。 Android 组件化架构带来的好处和副作用网络上相关文章很多，在实际的项目中实施过程如果有使用Dagger&Dager.android ,可能会遇到一些麻烦，本Demo演示了如何处理。集成模式还是组建模式可以通过修改gradle.properties 的isModule 值，然后Sync Project 生效
+   简单的分为BaseLib(抽象出来的其他Module共用)，ModuleA,ModeleJsbridge和科大讯飞语音识别的module。 Android 组件化架构带来的好处和副作用网络上相关文章很多，在实际的项目中实施过程如果有使用Dagger&Dager.android ,可能会遇到一些麻烦，本Demo演示了如何处理。集成模式还是组建模式可以通过修改gradle.properties 的isModule 值，然后Sync Project 生效
    但是删除了以前的ButterKnife，因为烦人的R 资源问题
 
 # Error,empty,Loading,timeout等通用的场景处理，一处Root注入，处处可用
@@ -20,7 +20,7 @@
   BaseObserver 中getErrorMsg(HttpException httpException) 方法中的处理和我们的Api  结构有关，请知悉。可以在Activity，fragment，service，broadcast 等发起http请求。
 
 
-# UI架构模型
+# UI架构模型-MVP (结合rxjava&dagger2)
   Android应用的UI架构模型经历了MVC,MVP 和 MVVM 的演变过程。MVC中View 层（Activity，Fragment/自定义的View）
   可能代码会随着业务的复杂变得很大，里面不但要处理界面，还要处理很多业务逻辑里面承载了太多的东西，试试MVP吧，
   已经是很流行的UI架构模型了。

@@ -1,4 +1,4 @@
-package com.zlb.http.result;
+package com.zenglb.framework.modulea.http.result;
 
 import java.util.List;
 

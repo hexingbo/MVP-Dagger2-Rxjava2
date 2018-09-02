@@ -1,18 +1,26 @@
 package com.zenglb.framework.modulea.dagger;
 
+import android.content.Context;
+
 import com.zenglb.framework.modulea.demo.MemoryLeakTest;
 import com.zenglb.framework.modulea.demo.demo.Rxjava_ZIP_Activity;
 import com.zenglb.framework.modulea.demo.launch.LaunchActivity;
+import com.zenglb.framework.modulea.http.AModuleApiService;
 import com.zenglb.framework.modulea.mvp.handylife.AnyLifeActivity;
 import com.zenglb.framework.modulea.mvp.handylife.AnyLifeFragment;
 import com.zenglb.framework.modulea.navigation.MainActivityNaviModule;
 import com.zenglb.framework.modulea.mvp.login.LoginActivity;
 import com.zenglb.framework.modulea.navigation.MainActivityBottomNavi;
+import com.zlb.Sp.SPDao;
 import com.zlb.dagger.component.BaseActivityComponent;
 import com.zlb.dagger.module.DefaultActivityModule;
 import com.zlb.dagger.scope.ActivityScope;
+import com.zlb.http.HttpRetrofit;
+
+import javax.inject.Singleton;
 
 import dagger.Module;
+import dagger.Provides;
 import dagger.android.ContributesAndroidInjector;
 
 /**
@@ -32,6 +40,7 @@ import dagger.android.ContributesAndroidInjector;
 })
 
 public abstract class AModuleAllActivityModule {
+
 
     /**
      * BaseActivity  <- BaseMVPActivity  这样的继承关系就好了

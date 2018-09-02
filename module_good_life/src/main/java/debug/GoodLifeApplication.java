@@ -1,5 +1,6 @@
 package debug;
 
+import com.zenglb.framework.goodlife.dagger.DaggerGoodLifeModuleComponent;
 import com.zlb.base.BaseApplication;
 import com.zlb.dagger.module.BaseGlobalModule;
 
@@ -28,10 +29,11 @@ public class GoodLifeApplication extends BaseApplication {
     @Override
     protected void injectApp() {
 
-        com.zenglb.framework.goodlife.dagger.DaggerGoodLifeModuleComponent.builder()
+        DaggerGoodLifeModuleComponent.builder()
                 .baseGlobalModule(new BaseGlobalModule(this))
                 .build()
                 .inject(this);
+
     }
 
 }

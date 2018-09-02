@@ -7,9 +7,7 @@ import com.bumptech.glide.Glide;
 import com.chad.library.adapter.base.BaseMultiItemQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.zenglb.framework.goodlife.R;
-import com.zlb.http.result.AnyLifeResult;
-import com.zlb.http.result.ArticlesResult;
-
+import com.zenglb.framework.goodlife.http.result.ArticlesResult;
 import java.util.List;
 
 /**
@@ -27,8 +25,8 @@ public class GoodLifeAdapter extends BaseMultiItemQuickAdapter<ArticlesResult.Ar
      */
     public GoodLifeAdapter(Context context, List<ArticlesResult.ArticlesBean> data) {
         super(data);
-        addItemType(AnyLifeResult.DEFAULT, R.layout.goodlife_list_item);
-        addItemType(AnyLifeResult.IMG_ONLY, R.layout.goodlife_list_item);
+        addItemType(0, R.layout.goodlife_list_item);
+        addItemType(1, R.layout.goodlife_list_item);
     }
 
     /**

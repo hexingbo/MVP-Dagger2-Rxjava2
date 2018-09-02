@@ -52,7 +52,7 @@ public class MainActivityBottomNavi extends BaseMVPActivity {
             int i = item.getItemId();
             if (i == R.id.navigation_home) {
                 viewPager.setCurrentItem(0);
-                setToolBarTitle("主页");
+                setToolBarTitle("组件化架构with dagger,rxjava ...");
                 return true;
             } else if (i == R.id.navigation_dashboard) {
                 viewPager.setCurrentItem(1);
@@ -76,7 +76,7 @@ public class MainActivityBottomNavi extends BaseMVPActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setToolBarTitle("Main");
+        setToolBarTitle("组件化架构with dagger,rxjava ...");
     }
 
     @Override

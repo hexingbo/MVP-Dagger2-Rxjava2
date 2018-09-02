@@ -1,12 +1,9 @@
 package com.zenglb.framework.goodlife.handylife;
 
-import com.zlb.http.ApiService;
-import com.zlb.http.result.AnyLifeResult;
-import com.zlb.http.result.ArticlesResult;
+import com.zenglb.framework.goodlife.http.GlifeApiService;
+import com.zenglb.framework.goodlife.http.result.ArticlesResult;
 import com.zlb.httplib.BaseObserver;
 import com.zlb.httplib.rxUtils.SwitchSchedulers;
-
-import java.util.List;
 
 import javax.inject.Inject;
 
@@ -19,14 +16,14 @@ public class GoodLifeRepository implements IAnyLifeDataSource {
 
     // Get the ApiService from dagger。 用dagger 来注入 ApiService
     @Inject
-    ApiService apiService;
+    GlifeApiService apiService;
 
     @Inject
     public GoodLifeRepository() {
 
     }
 
-    public GoodLifeRepository(ApiService apiService) {
+    public GoodLifeRepository(GlifeApiService apiService) {
         this.apiService = apiService;
     }
 
@@ -40,9 +37,11 @@ public class GoodLifeRepository implements IAnyLifeDataSource {
      */
     @Override
     public void getHandyLifeData(String type, int page, LoadHandyLifeDataCallback loadHandyLifeDataCallback) {
+
+        //
+
         apiService.getArticles(type)
                 .compose(SwitchSchedulers.applySchedulers())
-
                 //BaseObserver 参数问题优化，如果不传参数context 的话，依赖context 的功能就要改
                 .subscribe(new BaseObserver<ArticlesResult>(null) {
                     @Override
@@ -60,9 +59,9 @@ public class GoodLifeRepository implements IAnyLifeDataSource {
                             loadHandyLifeDataCallback.onHandyLifeDataFailed(code, message);
                         }
 
-
                     }
                 });
+
     }
 
 }

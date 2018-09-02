@@ -3,6 +3,7 @@ package com.zenglb.framework.modulea.demo.architecture;
 import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.MutableLiveData;
 
+import com.zenglb.framework.modulea.http.AModuleApiService;
 import com.zlb.http.ApiService;
 import com.zlb.http.result.JokesResult;
 import com.zlb.httplib.rxUtils.SwitchSchedulers;
@@ -22,7 +23,7 @@ import javax.inject.Singleton;
 public class UserRepository {
 
     @Inject
-    ApiService apiService;
+    AModuleApiService apiService;
 
     public LiveData<List<JokesResult>> getUser(String mParam1, int page) {
         // This is not an optimal implementation, we'll fix it below

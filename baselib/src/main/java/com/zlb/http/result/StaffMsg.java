@@ -1,11 +1,16 @@
 package com.zlb.http.result;
 
+import org.greenrobot.greendao.annotation.Entity;
+import org.greenrobot.greendao.annotation.Generated;
+import org.greenrobot.greendao.annotation.Id;
+import org.greenrobot.greendao.annotation.Transient;
+
 import java.util.List;
 
 /**
  * Created by zenglb on 2017/4/23.
  */
-
+@Entity
 public class StaffMsg {
     /**
      * id : 233
@@ -23,7 +28,8 @@ public class StaffMsg {
      * role_identity : IDT_PROJECT
      */
 
-    private int id;
+    @Id
+    private Long id;
     private String fullname;
     private String nickname;
     private String sex;
@@ -35,6 +41,7 @@ public class StaffMsg {
     private String avatar_url;
     private boolean job_can_edit;
     private String role_identity;
+    @Transient
     private List<String> contact_phones;
 
     public StaffMsg(String mobile, String created) {
@@ -42,11 +49,34 @@ public class StaffMsg {
         this.created = created;
     }
 
-    public int getId() {
+    @Generated(hash = 1719145766)
+    public StaffMsg(Long id, String fullname, String nickname, String sex,
+                    String mobile, String created, String updated, String identity_id,
+                    boolean is_keeper, String avatar_url, boolean job_can_edit,
+                    String role_identity) {
+        this.id = id;
+        this.fullname = fullname;
+        this.nickname = nickname;
+        this.sex = sex;
+        this.mobile = mobile;
+        this.created = created;
+        this.updated = updated;
+        this.identity_id = identity_id;
+        this.is_keeper = is_keeper;
+        this.avatar_url = avatar_url;
+        this.job_can_edit = job_can_edit;
+        this.role_identity = role_identity;
+    }
+
+    @Generated(hash = 1838510106)
+    public StaffMsg() {
+    }
+
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -163,6 +193,14 @@ public class StaffMsg {
                 ", role_identity='" + role_identity + '\'' +
                 ", contact_phones=" + contact_phones +
                 '}';
+    }
+
+    public boolean getIs_keeper() {
+        return this.is_keeper;
+    }
+
+    public boolean getJob_can_edit() {
+        return this.job_can_edit;
     }
 
 }

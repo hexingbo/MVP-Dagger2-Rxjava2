@@ -29,7 +29,15 @@ android {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
+
+        debug {
+            resValue("string", "PORT_NUMBER", "8089")  //数据库调试
+        }
+
     }
+
+
+
 
     compileOptions {
         sourceCompatibility rootProject.ext.sourceCompatibility
@@ -37,7 +45,7 @@ android {
     }
 
     greendao {
-        schemaVersion 7                  //修改这里的版本号，greenDAO会自动修改生成到DAOMaster中的版本号
+        schemaVersion 11                  //修改这里的版本号，greenDAO会自动修改生成到DAOMaster中的版本号
         targetGenDir 'src/main/java'     //表示greenDAO生成的DAOMaster和DaoSession的位置
         daoPackage 'com.zlb.persistence.dbmaster' //我觉得最好放在Entity 下面的目录！！！
     }
@@ -78,18 +86,17 @@ dependencies {
 
     api 'com.kingja.loadsir:loadsir:1.3.5'
 
-
     api 'pub.devrel:easypermissions:1.1.3'        //没有其他的原因，其他的目前多少有BUG 啊
 
     //dagger & dagger.android
     api "com.google.dagger:dagger-android:$rootProject.ext.daggerVersion"
     api "com.google.dagger:dagger-android-support:$rootProject.ext.daggerVersion"
 
-//    // if you use the support libraries
+    // if you use the support libraries
     annotationProcessor "com.google.dagger:dagger-compiler:$rootProject.ext.daggerVersion"
     annotationProcessor "com.google.dagger:dagger-android-processor:$rootProject.ext.daggerVersion"
 
-//    //For Lifecycle, LiveData, and ViewModel
+    //For Lifecycle, LiveData, and ViewModel
     api "android.arch.lifecycle:runtime:1.1.1"
     api "android.arch.lifecycle:extensions:1.1.1"
 
@@ -102,7 +109,7 @@ dependencies {
     api 'com.github.florent37:singledateandtimepicker:1.2.2'    //高仿IOS 时间选择
     api 'de.hdodenhof:circleimageview:2.2.0'                    //CircleImageView
     api 'com.android.support.constraint:constraint-layout:1.1.2'
-    api 'com.liaoinstan.springview:library:1.3.2'   //refresh and load more data,准备删除
+    api 'com.liaoinstan.springview:library:1.3.2'               //refresh and load more data,准备删除
     api 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.30' //大大的减少代码量
 
     api 'jp.wasabeef:recyclerview-animators:2.2.7'       //RecyclerView animal
@@ -112,8 +119,9 @@ dependencies {
     annotationProcessor 'com.github.bumptech.glide:compiler:4.6.1'
     api 'com.journeyapps:zxing-android-embedded:3.5.0'  //只是为了简单
 
-    implementation 'com.android.support:multidex:1.0.2'
+    api 'org.greenrobot:eventbus:3.1.1' //本来不像引用太多第三方，但是目前的通信实在烦人
 
+    implementation 'com.android.support:multidex:1.0.2'
     annotationProcessor 'com.alibaba:arouter-compiler:1.1.4' //
 
 }

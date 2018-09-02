@@ -1,12 +1,12 @@
 package com.iflytek;
 
+import android.Manifest;
 import android.os.Bundle;
 import android.os.Environment;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
-
 import com.iflytek.cloud.ErrorCode;
 import com.iflytek.cloud.InitListener;
 import com.iflytek.cloud.RecognizerListener;
@@ -16,41 +16,41 @@ import com.iflytek.cloud.SpeechError;
 import com.iflytek.cloud.SpeechRecognizer;
 import com.iflytek.speech.util.JsonParser;
 import com.iflytek.sunflower.FlowerCollector;
-
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
+
+import pub.devrel.easypermissions.EasyPermissions;
+
 
 /**
  * 语音识别,不使用默认的识别UI，设置细节封装在这里
  * <p>
  * <p>
- * <p>
- * <p>
  * https://doc.xfyun.cn/msc_android/index.html
+ * anylife.zlb@gmail.com
  */
-public abstract class BaseSpeechActivity extends AppCompatActivity {
-    private static String TAG = BaseSpeechActivity.class.getSimpleName();
+public abstract class BaseSpeechActivity extends AppCompatActivity implements EasyPermissions.PermissionCallbacks {
+    public SpeechRecognizer mIat;  // 语音听写对象
 
-    // 语音听写对象
-    public SpeechRecognizer mIat;
-
-    // 用HashMap存储听写结果
-    public HashMap<String, String> mIatResults = new LinkedHashMap<String, String>();
+    public HashMap<String, String> mIatResults = new LinkedHashMap<String, String>();    // 用HashMap存储听写结果
 
     public List<Integer> mVolumeList;  //音量List
 
     public AudioWavePopupView audioWavePopupView;  //声音指示器
 
+    /**
+     * 继承使用本类的时候必须实现接收识别的数据
+     *
+     * @param result
+     */
     public abstract void showSpeechResult(String result);
 
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         // 初始化识别无UI识别对象
         // 使用SpeechRecognizer对象，可根据回调消息自定义界面；
         mIat = SpeechRecognizer.createRecognizer(BaseSpeechActivity.this, mInitListener);
@@ -58,16 +58,89 @@ public abstract class BaseSpeechActivity extends AppCompatActivity {
 
 
     /**
+     * 学习某些App，把权限在这里先申请一下,必须的紧急的！
+     */
+    private static final int RC_AUDIO_STATUS = 1002;       //请求定位权限的Code
+
+    private void checkPermission() {
+        String[] perms = {Manifest.permission.RECORD_AUDIO};
+        if (EasyPermissions.hasPermissions(this, perms)) {
+            // 已经申请过权限，可以去干想干的事情
+            startAISpeechAfterPermission();
+
+        } else {
+            EasyPermissions.requestPermissions(this, "我们需要手机的录音权限来进行语音识别",
+                    RC_AUDIO_STATUS, perms);
+        }
+    }
+
+
+    /**
+     * Google EasyPermission, Android 连一个检查权限的完善库都没有，国内生态太乱了
+     */
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        //handle to EasyPermissions
+        EasyPermissions.onRequestPermissionsResult(requestCode, permissions, grantResults, this);
+    }
+
+
+    /**
+     * 权限授权了！
+     *
+     * @param requestCode
+     * @param perms
+     */
+    @Override
+    public void onPermissionsGranted(int requestCode, @NonNull List<String> perms) {
+        startAISpeechAfterPermission();
+    }
+
+    /**
+     * 当用户点击了不再提醒的时候的处理方式
+     *
+     * @param requestCode
+     * @param perms
+     */
+    @Override
+    public void onPermissionsDenied(int requestCode, @NonNull List<String> perms) {
+        Toast.makeText(this,"语音识别失败",Toast.LENGTH_SHORT).show();
+    }
+
+
+    /**
      * 开始语音识别
+     * <p>
+     * 如何判断一次听写结束：OnResult isLast=true 或者 onError
+     */
+    public void stopAISpeech() {
+
+    }
+
+
+    /**
+     * 开始语音识别
+     * <p>
+     * 如何判断一次听写结束：OnResult isLast=true 或者 onError
      */
     public void startAISpeech(View parent) {
+        myViewParent = parent;
+        checkPermission();
+    }
+
+
+    View myViewParent;
+
+    public void startAISpeechAfterPermission() {
+
         //移动数据分析，收集开始听写事件
         FlowerCollector.onEvent(BaseSpeechActivity.this, "iat_recognize");
 
         mIatResults.clear();
+
         // 设置参数
         setParam();
-
 
         // 不显示听写对话框
         ret = mIat.startListening(mRecognizerListener);
@@ -77,7 +150,7 @@ public abstract class BaseSpeechActivity extends AppCompatActivity {
             audioWavePopupView = new AudioWavePopupView(this);
             mVolumeList = audioWavePopupView.getmVolumeList();
 
-            audioWavePopupView.showPopupWindow(parent, BaseSpeechActivity.this);
+            audioWavePopupView.showPopupWindow(myViewParent, BaseSpeechActivity.this);
             audioWavePopupView.startWaveView();
         }
 
@@ -113,23 +186,22 @@ public abstract class BaseSpeechActivity extends AppCompatActivity {
 
             showTip(errorTips);
             audioWavePopupView.setTips(errorTips);
-            audioWavePopupView.dismiss();
+            audioWavePopupView.stopWaveView();
         }
 
         @Override
         public void onEndOfSpeech() {
             // 此回调表示：检测到了语音的尾端点，已经进入识别过程，不再接受语音输入
             audioWavePopupView.setTips("正在语音转文字");
-
-
         }
 
         @Override
         public void onResult(RecognizerResult results, boolean isLast) {
-            Log.d(TAG, results.getResultString());
             printResult(results);
+            audioWavePopupView.setTips("请继续说话");
             if (isLast) {
-                audioWavePopupView.dismiss();
+                audioWavePopupView.stopWaveView();
+                audioWavePopupView = null;
             }
         }
 
@@ -157,6 +229,7 @@ public abstract class BaseSpeechActivity extends AppCompatActivity {
             //		Log.d(TAG, "session id =" + sid);
             //	}
         }
+
     };
 
 
@@ -180,8 +253,6 @@ public abstract class BaseSpeechActivity extends AppCompatActivity {
         }
 
         showSpeechResult(resultBuffer.toString());
-
-        showTip(resultBuffer.toString());
     }
 
 
@@ -204,18 +275,13 @@ public abstract class BaseSpeechActivity extends AppCompatActivity {
         // 设置返回结果格式
         mIat.setParameter(SpeechConstant.RESULT_TYPE, "json");
 
+        // 设置语言
+        mIat.setParameter(SpeechConstant.LANGUAGE, "zh_cn");
+        // 设置语言区域
+        mIat.setParameter(SpeechConstant.ACCENT, "zh_cn");
 
-        String lag = "zh_cn"; //默认都是中文
-        if (lag.equals("en_us")) {
-            // 设置语言
-            mIat.setParameter(SpeechConstant.LANGUAGE, "en_us");
-            mIat.setParameter(SpeechConstant.ACCENT, null);
-        } else {
-            // 设置语言
-            mIat.setParameter(SpeechConstant.LANGUAGE, "zh_cn");
-            // 设置语言区域
-            mIat.setParameter(SpeechConstant.ACCENT, lag);
-        }
+
+        mIat.setParameter(SpeechConstant.VOLUME, "100");// 设置音量，范围 0~100
 
         // 设置语音前端点:静音超时时间，即用户多长时间不说话则当做超时处理
         mIat.setParameter(SpeechConstant.VAD_BOS, "4000");
@@ -241,7 +307,13 @@ public abstract class BaseSpeechActivity extends AppCompatActivity {
             mIat.cancel();
             mIat.destroy();
         }
+
+        //audioWavePopupView 也要停止释放资源，
+        if (null != audioWavePopupView) {
+            audioWavePopupView.stopWaveView();
+        }
     }
 
 
 }
+

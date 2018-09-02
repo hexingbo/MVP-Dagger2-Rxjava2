@@ -57,8 +57,6 @@ public class LoginActivity extends BaseMVPActivity implements LoginContract.Logi
     @Inject
     SPDao spDao;
 
-    @Inject
-    DaoSession daoSession;
 
     @Inject
     LoginPresenter loginPresenter;
@@ -66,7 +64,9 @@ public class LoginActivity extends BaseMVPActivity implements LoginContract.Logi
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         loginInit();
+
         //1,从Launcher 页面过来 2，用户主动退出 3，超时或其他页面退出（再次登录要回到那里去）
         isFromLaunch = getIntent().getBooleanExtra("isFromLaunch", false);
         if (!isFromLaunch) {
@@ -133,10 +133,6 @@ public class LoginActivity extends BaseMVPActivity implements LoginContract.Logi
     }
 
 
-    public boolean mvpLogin2() {
-        HttpUiTips.showDialog(this, "测试中");
-        return true;
-    }
 
     /**
      * Login ,普通的登录和使用Rxjava 的方式都可以
@@ -169,6 +165,9 @@ public class LoginActivity extends BaseMVPActivity implements LoginContract.Logi
      * @param loginResult
      */
     public void loginSuccess(LoginResult loginResult) {
+        //切换DB
+
+
         spDao.saveData(SPKey.KEY_ACCESS_TOKEN, "Bearer " + loginResult.getAccessToken());
         spDao.saveData(SPKey.KEY_REFRESH_TOKEN, loginResult.getRefreshToken());
         spDao.saveData(SPKey.KEY_LAST_ACCOUNT, etUsername.getText().toString().trim());
@@ -179,6 +178,9 @@ public class LoginActivity extends BaseMVPActivity implements LoginContract.Logi
             startActivity(i2);
             LoginActivity.this.finish();
         } else {//是来自Launcher启动的就跳转到主页面，否则从哪里来就到那里去
+
+            Intent i2 = new Intent(LoginActivity.this, MainActivityBottomNavi.class);
+            startActivity(i2);
             LoginActivity.this.finish();
         }
 

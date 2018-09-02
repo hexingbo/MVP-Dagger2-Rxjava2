@@ -26,6 +26,9 @@ import dagger.android.support.AndroidSupportInjectionModule;
         //
         GoodLifeModuleAllActivityModule.class,  //减少模版代码,需要依赖注入的只需要添加两行代码就好了
 
+
+        GLifeGlobalModule.class,  //GlifeApiService
+
 })
 
 //YourApplicationComponent

@@ -9,11 +9,11 @@ import android.view.View;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.zenglb.framework.goodlife.GoodLifeWebActivity;
 import com.zenglb.framework.goodlife.R;
+import com.zenglb.framework.goodlife.http.result.ArticlesResult;
 import com.zlb.base.BaseStatusFragment;
 import com.zlb.base.BaseWebViewActivity;
 import com.zlb.commontips.ErrorCallback;
 import com.zlb.dagger.scope.ActivityScope;
-import com.zlb.http.result.ArticlesResult;
 
 import java.util.ArrayList;
 import java.util.List;
