@@ -2,9 +2,7 @@ package com.zenglb.framework.modulea.navigation.fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.SystemClock;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,22 +13,18 @@ import android.widget.Toast;
 import com.alibaba.android.arouter.launcher.ARouter;
 import com.bumptech.glide.Glide;
 import com.zenglb.framework.modulea.http.AModuleApiService;
-import com.zlb.http.result.StaffMsg;
+import com.zenglb.framework.modulea.http.result.CustomWeatherResult;
 import com.zlb.base.BaseActivity;
 import com.zenglb.framework.modulea.R;
 import com.zenglb.framework.modulea.demo.MemoryLeakTest;
 import com.zenglb.framework.modulea.demo.quick_input_things.QuickInputThingsActivity;
 import com.zenglb.framework.modulea.mvp.handylife.AnyLifeActivity;
 import com.zlb.dagger.scope.ActivityScope;
-import com.zlb.http.result.CustomWeatherResult;
 import com.zlb.http.result.TestResult;
-import com.zlb.httplib.BaseObserver;
-import com.zlb.httplib.rxUtils.SwitchSchedulers;
 import com.zlb.persistence.dbmaster.DaoSession;
 import com.zlb.takephoto.WaterCameraActivity;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -42,7 +36,10 @@ import retrofit2.Response;
 import static android.app.Activity.RESULT_OK;
 
 /**
- * 喂,你睡着了吗（答题列表） 设备ID： https://www.jianshu.com/p/b6f4b0aca6b0
+ * 某些场景的Demo
+ * <p>
+ * <p>
+ * 设备ID： https://www.jianshu.com/p/b6f4b0aca6b0
  * <p>
  * https://blog.csdn.net/a_long_/article/details/54829644
  *
@@ -75,6 +72,14 @@ public class DemoFragment extends Fragment {
         View rootView = inflater.inflate(R.layout.fragment_demo, container, false);
         viewsInit(rootView);
 
+//        List<TestResult> testResultList = new ArrayList<>();
+//        testResultList.add(new TestResult("fullname1", "111", 1, false));
+//        testResultList.add(new TestResult("fullname2", "111", 1, false));
+//        testResultList.add(new TestResult("fullname3", null, 2, false));
+//        testResultList.add(new TestResult("fullname4", null, 2, false));
+//        testResultList.add(new TestResult("fullname5", null, 2, false));
+//
+//        daoSession.getTestResultDao().insertOrReplaceInTx(testResultList);
 
         return rootView;
     }
@@ -102,7 +107,6 @@ public class DemoFragment extends Fragment {
     private void viewsInit(View rootView) {
 
         String daoSessionAddress = daoSession.getDatabase().getRawDatabase().toString();
-
 
         imageView = rootView.findViewById(R.id.logo_img);
 

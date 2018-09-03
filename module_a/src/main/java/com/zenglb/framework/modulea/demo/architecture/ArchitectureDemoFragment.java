@@ -15,9 +15,9 @@ import com.liaoinstan.springview.container.DefaultFooter;
 import com.liaoinstan.springview.container.DefaultHeader;
 import com.liaoinstan.springview.widget.SpringView;
 import com.zenglb.framework.modulea.R;
+import com.zenglb.framework.modulea.http.result.JokesResult;
 import com.zlb.base.BaseStatusFragment;
 import com.zenglb.framework.modulea.demo.demo.AreUSleepListAdapter;
-import com.zlb.http.result.JokesResult;
 
 import java.util.ArrayList;
 import java.util.List;

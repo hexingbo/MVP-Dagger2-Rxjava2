@@ -1,8 +1,8 @@
 package com.zenglb.framework.modulea.mvp.handylife;
 
+import com.zenglb.framework.modulea.http.result.AnyLifeResult;
 import com.zlb.base.BasePresenter;
 import com.zlb.base.BaseView;
-import com.zlb.http.result.AnyLifeResult;
 
 import java.util.List;
 

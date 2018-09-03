@@ -3,9 +3,9 @@ package com.zenglb.framework.modulea.demo.animal;
 import android.os.Bundle;
 import android.widget.TextView;
 
+import com.zenglb.framework.modulea.http.result.JokesResult;
 import com.zlb.base.BaseActivity;
 import com.zenglb.framework.modulea.R;
-import com.zlb.http.result.JokesResult;
 
 
 /**

@@ -19,14 +19,10 @@ public class TestResult {
     private String fullname;//from customer_result t1
 
 
-    private String customerCode;//from customer_result t1
+    private String customerCode;//null  test
     private int userId;//from customer_result t1
 
-
-
     private boolean isMultiHouse=false;
-
-
 
     @Generated(hash = 861151746)
     public TestResult(String fullname, String customerCode, int userId, boolean isMultiHouse) {

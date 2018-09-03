@@ -1,10 +1,10 @@
 package com.zenglb.framework.modulea.http;
 
+import com.zenglb.framework.modulea.http.result.AnyLifeResult;
+import com.zenglb.framework.modulea.http.result.CustomWeatherResult;
+import com.zenglb.framework.modulea.http.result.JokesResult;
+import com.zenglb.framework.modulea.http.result.LoginResult;
 import com.zlb.http.param.LoginParams;
-import com.zlb.http.result.AnyLifeResult;
-import com.zlb.http.result.CustomWeatherResult;
-import com.zlb.http.result.JokesResult;
-import com.zlb.http.result.LoginResult;
 import com.zlb.http.result.StaffMsg;
 import com.zlb.httplib.HttpResponse;
 

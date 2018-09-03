@@ -87,6 +87,8 @@ dependencies {
     if (!isModule.toBoolean()) {
         implementation project(':module_a')
         implementation project(':module_jsbridge')
+//        implementation project(':module_jsbridge')
+
     }
 
 }

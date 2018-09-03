@@ -2,6 +2,7 @@ package com.zenglb.framework;
 
 
 import com.zenglb.framework.jsbridge.dagger.JSBridgeModuleAllActivityModule;
+import com.zenglb.framework.modulea.dagger.AGlobalModule;
 import com.zenglb.framework.modulea.dagger.AModuleAllActivityModule;
 import com.zlb.base.BaseApplication;
 import com.zlb.dagger.module.BaseGlobalModule;
@@ -30,6 +31,12 @@ import dagger.android.support.AndroidSupportInjectionModule;
 
         AModuleAllActivityModule.class, //减少模版代码,需要依赖注入的只需要添加两行代码就好了
         JSBridgeModuleAllActivityModule.class,
+
+
+        AGlobalModule.class,
+
+
+
 
 })
 

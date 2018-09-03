@@ -1,6 +1,7 @@
 package com.zenglb.framework.modulea.mvp.handylife;
 
-import com.zlb.http.result.AnyLifeResult;
+
+import com.zenglb.framework.modulea.http.result.AnyLifeResult;
 
 import java.util.List;
 

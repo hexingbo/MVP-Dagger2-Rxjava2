@@ -5,7 +5,7 @@ import android.util.Log;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.zenglb.framework.modulea.http.AModuleApiService;
-import com.zlb.http.result.AnyLifeResult;
+import com.zenglb.framework.modulea.http.result.AnyLifeResult;
 import com.zlb.http.ApiService;
 import com.zlb.httplib.BaseObserver;
 import com.zlb.httplib.rxUtils.SwitchSchedulers;

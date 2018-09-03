@@ -10,7 +10,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.zenglb.framework.modulea.R;
-import com.zlb.http.result.JokesResult;
+import com.zenglb.framework.modulea.http.result.JokesResult;
 
 import java.util.ArrayList;
 import java.util.List;

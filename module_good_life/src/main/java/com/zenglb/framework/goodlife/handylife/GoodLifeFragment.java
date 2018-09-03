@@ -7,6 +7,8 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.liaoinstan.springview.utils.DensityUtil;
+import com.yqritc.recyclerviewflexibledivider.HorizontalDividerItemDecoration;
 import com.zenglb.framework.goodlife.GoodLifeWebActivity;
 import com.zenglb.framework.goodlife.R;
 import com.zenglb.framework.goodlife.http.result.ArticlesResult;
@@ -115,7 +117,11 @@ public class GoodLifeFragment extends BaseStatusFragment implements GoodLifeCont
         handyLifeAdapter.setEnableLoadMore(false);//这里的作用是防止下拉刷新的时候还可以上拉加载
         mBaseLoadService.showSuccess();
 
-        mPresenter.getHandyLifeData(getArguments().getString(ARG_DATA_TYPE), page);
+        for(int i=0;i<90;i++){
+            mPresenter.getHandyLifeData(getArguments().getString(ARG_DATA_TYPE), page);
+
+        }
+
     }
 
 
@@ -138,6 +144,15 @@ public class GoodLifeFragment extends BaseStatusFragment implements GoodLifeCont
     public void initViews(View rootView) {
         handyLifeAdapter = new GoodLifeAdapter(getContext(), handyLifeResultBeans);
         mRecyclerView = (RecyclerView) rootView.findViewById(R.id.recyclerView);
+
+
+        mRecyclerView.addItemDecoration(new HorizontalDividerItemDecoration
+                .Builder(getActivity())
+                .colorResId(R.color.common_gray)
+                .size(1)
+                .margin(0, 0)
+                .build());
+
         mRecyclerView.setAdapter(handyLifeAdapter);
 
         handyLifeAdapter.setOnLoadMoreListener(() ->

@@ -4,10 +4,10 @@ import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.MutableLiveData;
 
 import com.zenglb.framework.modulea.http.AModuleApiService;
-import com.zlb.http.ApiService;
-import com.zlb.http.result.JokesResult;
-import com.zlb.httplib.rxUtils.SwitchSchedulers;
+import com.zenglb.framework.modulea.http.result.JokesResult;
 import com.zlb.httplib.BaseObserver;
+import com.zlb.httplib.rxUtils.SwitchSchedulers;
+
 
 import java.util.List;
 

@@ -45,15 +45,15 @@ public class QuickInputThingsActivity extends BaseActivity {
     private EditText mEtSearch;
     private TextView mTvSearch;
 
-    PublishSubject<Boolean> subject = null;
+    PublishSubject<Boolean> publishSubject = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setToolBarTitle("功能防抖");
 
-        subject = PublishSubject.create();
-        subject.debounce(500, TimeUnit.MILLISECONDS)
+        publishSubject = PublishSubject.create();
+        publishSubject.debounce(500, TimeUnit.MILLISECONDS)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Consumer<Boolean>() {
                     @Override
@@ -112,7 +112,7 @@ public class QuickInputThingsActivity extends BaseActivity {
     protected void initViews() {
 
         findViewById(R.id.click).setOnClickListener(v -> {
-            subject.onNext(true);
+            publishSubject.onNext(true);
         });
 
 
@@ -152,4 +152,6 @@ public class QuickInputThingsActivity extends BaseActivity {
     protected void onDestroy() {
         super.onDestroy();
     }
+
+
 }

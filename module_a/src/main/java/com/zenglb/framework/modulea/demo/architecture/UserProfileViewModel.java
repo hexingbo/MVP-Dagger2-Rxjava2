@@ -3,7 +3,7 @@ package com.zenglb.framework.modulea.demo.architecture;
 import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.ViewModel;
 
-import com.zlb.http.result.JokesResult;
+import com.zenglb.framework.modulea.http.result.JokesResult;
 
 import java.util.List;
 

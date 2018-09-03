@@ -8,11 +8,11 @@ import android.util.Log;
 
 import com.zenglb.framework.modulea.R;
 import com.zenglb.framework.modulea.http.AModuleApiService;
+import com.zenglb.framework.modulea.http.result.JokesResult;
 import com.zlb.base.BaseMVPActivity;
 
 import com.zlb.Sp.SPDao;
 import com.zlb.http.ApiService;
-import com.zlb.http.result.JokesResult;
 import com.zlb.httplib.BaseObserver;
 import com.zlb.Sp.SPKey;
 import com.zlb.httplib.dialog.ProgressDialog;

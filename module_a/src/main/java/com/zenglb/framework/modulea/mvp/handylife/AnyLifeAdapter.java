@@ -7,7 +7,7 @@ import com.bumptech.glide.Glide;
 import com.chad.library.adapter.base.BaseMultiItemQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.zenglb.framework.modulea.R;
-import com.zlb.http.result.AnyLifeResult;
+import com.zenglb.framework.modulea.http.result.AnyLifeResult;
 
 import java.util.List;
 

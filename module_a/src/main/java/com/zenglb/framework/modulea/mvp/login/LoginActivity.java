@@ -19,6 +19,7 @@ import android.widget.Toast;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.zenglb.framework.modulea.R;
+import com.zenglb.framework.modulea.http.result.LoginResult;
 import com.zlb.base.BaseMVPActivity;
 import com.zenglb.framework.modulea.demo.access.RegisterActivity;
 
@@ -26,13 +27,8 @@ import com.zenglb.framework.modulea.navigation.MainActivityBottomNavi;
 import com.zlb.Sp.SPDao;
 import com.zlb.http.HttpRetrofit;
 import com.zlb.http.param.LoginParams;
-import com.zlb.http.result.LoginResult;
-import com.zlb.httplib.HttpUiTips;
 import com.zlb.Sp.SPKey;
-import com.zlb.persistence.dbmaster.DaoSession;
-
 import javax.inject.Inject;
-
 
 import es.dmoral.toasty.Toasty;
 
@@ -166,8 +162,6 @@ public class LoginActivity extends BaseMVPActivity implements LoginContract.Logi
      */
     public void loginSuccess(LoginResult loginResult) {
         //切换DB
-
-
         spDao.saveData(SPKey.KEY_ACCESS_TOKEN, "Bearer " + loginResult.getAccessToken());
         spDao.saveData(SPKey.KEY_REFRESH_TOKEN, loginResult.getRefreshToken());
         spDao.saveData(SPKey.KEY_LAST_ACCOUNT, etUsername.getText().toString().trim());

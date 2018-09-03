@@ -3,9 +3,9 @@ package com.zenglb.framework.modulea.mvp.login;
 import android.app.Activity;
 
 import com.zenglb.framework.modulea.http.AModuleApiService;
+import com.zenglb.framework.modulea.http.result.LoginResult;
 import com.zlb.http.ApiService;
 import com.zlb.http.param.LoginParams;
-import com.zlb.http.result.LoginResult;
 import com.zlb.httplib.BaseObserver;
 import com.zlb.httplib.rxUtils.SwitchSchedulers;
 
